@@ -6,9 +6,8 @@
 [[ $- != *i* ]] && return
 
 set -o emacs
-
+alias runi=startx
 alias editi3='vim ~/sync/work/config/i3-config'
-
 
 # For syncthing:
 alias serve_syncthing='ssh -N -L 9090:***REMOVED***:8384 alanxoc3@alan'
@@ -459,14 +458,11 @@ alias cret='echo $?'
 
 # To mount my ***REMOVED*** server.
 
-alias quadalan='sshfs -o allow_other quadalan@alan:/home/quadalan/ ~/alan/ -C'
 alias alan='sshfs -o allow_other alanxoc3@alan:/home/alanxoc3/ ~/alan/ -C'
 alias mountalan=alan
 alias noalan='fusermount -u ~/alan'
 alias umountalan=noalan
 alias unmountalan=noalan
-
-alias alanlab='sshfs -o allow_other alanxoc3@***REMOVED***:/home/mor12075/ ~/alan/ -C'
 
 alias vid2mp3='youtube-dl --extract-audio --audio-format mp3'
 alias nops='PS1="$ "'
@@ -549,4 +545,4 @@ _fzf_compgen_path() {
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # My beautiful shell prompt! Idk why this must be in the bashrc too.
-export PS1='[\u-\[\033[0;31m\]\#\[\033[0m\] \W]\$ '
+export PS1='[\[\033[0;31m\]\#\[\033[0m\] \W]\$ '

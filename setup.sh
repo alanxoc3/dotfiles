@@ -19,6 +19,7 @@ cfc() {
 }
 
 cf bashrc       .bashrc
+cf xinitrc      .xinitrc
 cf bash_profile .bash_profile
 cf profile      .profile
 cf Xresources   .Xresources

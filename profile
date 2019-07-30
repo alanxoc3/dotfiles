@@ -54,9 +54,6 @@ export GOPATH=~/go
 # Fix locale temporarily.
 export LC_ALL=en_US.UTF-8
 
-# My beautiful shell prompt! Idk why this must be in the bashrc too.
-export PS1='[\u-\[\033[0;31m\]\#\[\033[0m\] \W]\$ ';
-
 # For sway
 export XKB_DEFAULT_LAYOUT=us;
 export XKB_DEFAULT_VARIANT=dvorak;

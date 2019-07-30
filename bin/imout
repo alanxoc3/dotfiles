@@ -12,4 +12,3 @@ elif [[ "$CURR_WM" == "gnome3" ]]; then
 else
 	echo "No recognized gui to kill.";
 fi
-

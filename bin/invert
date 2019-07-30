@@ -1,4 +1,3 @@
 #!/bin/bash
 # A script to invert the screen.
 xcalib -i -a > /dev/null
-
