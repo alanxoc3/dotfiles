@@ -1,0 +1,177 @@
+#!/usr/bin/env python3
+# A python script that converts typed ascii pinyin to actual unicode pinyin.
+
+import os, sys
+
+U_DOT = 252
+
+consonants='bcdfghjklmnpqrstwxyz'
+uv = 'v' + chr(U_DOT)
+medialvowels = uv + 'ui'
+vowels='aeiou' + uv
+pinyindigits='12345' # 5 would just disappear.
+
+# A helper function, converting a character to the pinyin version.
+def toPinyin(order,letter):
+    if order == '1':
+        if letter == 'a':
+            return chr(257)
+        elif letter == 'e':
+            return chr(275)
+        elif letter == 'i':
+            return chr(299)
+        elif letter == 'o':
+            return chr(333)
+        elif letter == 'u':
+            return chr(363)
+        elif letter in uv:
+            return chr(470)
+
+    elif order == '2':
+        if letter == 'a':
+            return chr(225)
+        elif letter == 'e':
+            return chr(233)
+        elif letter == 'i':
+            return chr(237)
+        elif letter == 'o':
+            return chr(243)
+        elif letter == 'u':
+            return chr(250)
+        elif letter in uv:
+            return chr(472)
+
+    elif order == '3':
+        if letter == 'a':
+            return chr(462)
+        elif letter == 'e':
+            return chr(283)
+        elif letter == 'i':
+            return chr(464)
+        elif letter == 'o':
+            return chr(466)
+        elif letter == 'u':
+            return chr(468)
+        elif letter in uv:
+            return chr(474)
+
+    elif order == '4':
+        if letter == 'a':
+            return chr(224)
+        elif letter == 'e':
+            return chr(232)
+        elif letter == 'i':
+            return chr(236)
+        elif letter == 'o':
+            return chr(242)
+        elif letter == 'u':
+            return chr(249)
+        elif letter in uv:
+            return chr(476)
+
+    elif order == '5' and letter in vowels:
+        return letter
+
+    return None
+
+# (i) If the first vowel letter is a medial, namely, "i", "u", or "ü", the tone
+# mark is on the vowel letter immediately following the medial.
+#
+# Examples:
+# jiāo (教; teach)
+# lüè (略; strategy)
+# jiǔ (九; nine) 
+# guì (貴; expensive)
+# 
+# (ii) If the first vowel letter is not a medial, the tone mark is always on
+# the first vowel letter.
+# 
+# Examples:
+# # hǎi (海; sea)
+# zhǎo (找; look for)
+# shǒu (手; hand)
+# gěi (給; give)
+
+# Input is a reversed string, first char is a number, the rest are vowels.
+# 4oai
+def bufToPinyin(buf):
+    order = buf[0]
+    remain = buf[1:]
+    pinyin = ''
+
+    iteration = 0
+    wasMedial = False
+
+    for x in remain[::-1]:
+        if iteration == 0 and x in vowels:
+            if x in medialvowels:
+                pinyin += x
+                wasMedial = True
+            else:
+                pinyin += toPinyin(order, x)
+        elif iteration == 1 and wasMedial and x in vowels:
+            pinyin += toPinyin(order, x)
+            wasMedial = False
+        else:
+            pinyin += x
+        iteration += 1
+
+    # For the case of only one vowel (a medial one).
+    if wasMedial:
+        pinyin = toPinyin(order, pinyin[0]) + pinyin[1:]
+
+    return pinyin[::-1]
+
+def asciiToPinyin(text):
+    output = ''
+    buf = ''
+    conCheck = False
+
+    for x in text[::-1]:
+        if buf:
+            if conCheck:
+                if x in consonants:
+                    buf += x
+                    continue
+                elif x in vowels:
+                    buf += x
+                    conCheck = False
+                    continue
+                else:
+                    output += buf
+                    buf = ''
+            else:
+                if x in vowels:
+                    buf += x
+                    continue
+                else:
+                    output += bufToPinyin(buf)
+                    buf = ''
+
+        if x in pinyindigits:
+            buf += x
+            conCheck = True
+        else:
+            output += x
+
+    # Possibly extra number at end.
+    if buf:
+        output += buf
+
+    return output[::-1]
+
+def main():
+    # Interactive mode: read from arguments.
+    # Non-Interactive mode: read from stdin.
+    parameters = ' '.join(sys.argv[1:])
+    if os.isatty(sys.stdin.fileno()) and len(parameters) > 0:
+        output_str = asciiToPinyin(parameters)
+        print(output_str) # Want a newline.
+    else:
+        output_str = asciiToPinyin( sys.stdin.read() )
+        sys.stdout.write(output_str) # No newline.
+
+
+
+if __name__ == '__main__':
+    main()

@@ -1,0 +1,7 @@
+#!/bin/bash
+# Starts up the programs (serially, instead of parallel) for i3.
+# This is needed, because some 
+xmodmap -e "clear lock"
+xmodmap -e "keysym Caps_Lock = Escape"
+setxkbmap us -variant dvorak
+keynav

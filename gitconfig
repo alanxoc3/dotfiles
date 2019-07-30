@@ -1,0 +1,6 @@
+[user]
+	email = ***REMOVED***
+	name = Alan Morgan
+
+[url "git@github.com:"]
+	insteadOf = ssh://git@github.com/

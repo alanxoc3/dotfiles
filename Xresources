@@ -1,0 +1,41 @@
+!!!!!!!!!!!!!!!!!!!!!!
+!!!! Xterm config !!!!
+!!!!!!!!!!!!!!!!!!!!!!
+
+! All Colors.
+! https://wiki.archlinux.org/index.php/Xterm#CJK_Fonts
+XTerm.termName: xterm-256color
+
+! Here are some colors.
+XTerm*foreground: rgb:ff/ff/ff
+XTerm*background: rgb:00/00/00
+
+
+! And selection thing.
+xterm*scrollTtyOutput: false
+
+! And we need meta to send escape.
+xterm*metaSendsEscape: true
+XTerm*eightBitInput:   false
+
+! The law
+xterm*vt100*geometry: 80x30
+XTerm*faceNameDoublesize: true
+
+XTerm.vt100.allowMouseOps: False
+XTerm.vt100.visualBell: True
+
+! From: https://wiki.archlinux.org/index.php/Xterm#Configuration
+XTerm.vt100.saveLines: 4096
+
+XTerm.vt100.backarrowKey: false
+XTerm.ttyModes: erase ^?
+
+XTerm*loginshell: true
+
+! Here are some colors.
+XTerm.vt100.faceName: Source Code Pro
+
+XTerm.vt100.faceName: DejaVu Sans Mono:style=Book:antialias=false
+XTerm.vt100.faceNameDoublesize: WenQuanYi WenQuanYi Bitmap Song
+XTerm.vt100.faceSize: 8

@@ -1,0 +1,15 @@
+#!/bin/bash
+# A simple script that will exit out of my gui.
+
+if [[ "$CURR_WM" == "xfce4" ]]; then
+	killall xfce4-session
+elif [[ "$CURR_WM" == "i3" ]]; then
+	killall i3
+elif [[ "$CURR_WM" == "awesome" ]]; then
+	killall awesome
+elif [[ "$CURR_WM" == "gnome3" ]]; then
+	killall gnome-session-binary
+else
+	echo "No recognized gui to kill.";
+fi
+

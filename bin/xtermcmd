@@ -1,0 +1,14 @@
+#!/bin/bash
+# For running commands on xterm startup.
+
+# The newline is needed, because bash does weird things with aliases. Bash
+# needs a line before the shopt command takes effect. That was a wild goose
+# chase!
+
+# http://www.delorie.com/gnu/docs/bash/bashref_72.html
+xtermcmd() {
+	xterm -e "bash --rcfile <(echo -e \"shopt -s expand_aliases; . ~/.bash_profile;\n$*\")"
+}
+
+xtermcmd "$*"
+

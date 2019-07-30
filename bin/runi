@@ -1,0 +1,18 @@
+#!/bin/bash
+echo > ~/.xinitrc
+echo 'export CURR_WM=i3' >> ~/.xinitrc
+echo "export DESKTOP_SESSION=i3" >> ~/.xinitrc;
+
+if [[ "$HOSTNAME" == "alanxocomputer" ]]; then
+	echo 'export GTK_IM_MODULE=fcitx' >> ~/.xinitrc
+	echo 'setxkbmap -option caps:escape' >> ~/.xinitrc
+	echo 'export QT_IM_MODULE=fcitx' >> ~/.xinitrc
+	echo 'export XMODIFIERS=@im=fcitx' >> ~/.xinitrc
+	echo "setxkbmap -layout \"us\" -variant \"dvorak\"" >> ~/.xinitrc
+	echo 'fcitx &' >> ~/.xinitrc
+	echo 'exec i3' >> ~/.xinitrc
+else
+	echo 'exec i3 -V' >> ~/.xinitrc
+fi
+
+startx;

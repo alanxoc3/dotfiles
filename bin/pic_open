@@ -1,0 +1,23 @@
+#!/bin/bash
+# A pico workspace script.
+
+# My workspace opening thing for Pico 8!
+pic_open() {
+	local work_str=""
+
+	# Thanks to dogbane:
+	# https://stackoverflow.com/questions/13509508/check-if-string-is-neither-empty-nor-space-in-shell-script#13509715
+	if [ -z "$1" -a "$1" != " " ]; then
+		echo "You need a directory to open!"
+		return
+	fi
+
+	if [ ! -z "$2" -a "$2" != " " ]; then
+		work_str="workspace \"$2\";"
+	fi
+
+	i3-msg "$work_str append_layout ~/.i3/pico-workspace.json"
+	i3-msg "$work_str exec xtermcmd cd \"$1\"; exec xtermcmd cd \"$1\"; exec xterm -name pico-status -e \"pico8 -windowed 1 -run \"$1/out.p8\"\";";
+};
+
+pic_open $1 $2

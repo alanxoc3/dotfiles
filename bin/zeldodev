@@ -1,0 +1,5 @@
+#!/bin/bash
+# For zeldo development
+cd ~/.lexaloffle/pico-8/carts/zeldo-game
+alacritty &
+pico8 -run ./zeldo.p8

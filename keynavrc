@@ -1,0 +1,68 @@
+# Alan Morgan .keynavrc file. For keynav
+
+# Gets rid of default bindings.
+clear
+
+# Backgrounds keynav.
+daemonize
+
+# Starting and Ending Keynav
+super+c start
+c sh,start # do nothing, then start
+Escape end
+e end
+shift+e end
+
+# Moving the Grid
+h cut-left
+j cut-down
+k cut-up
+l cut-right
+
+# Don't want this, so I can practice my accuracy skills.
+shift+h move-left
+shift+j move-down
+shift+k move-up
+shift+l move-right
+
+# Simple Shortcuts, May Delete.
+semicolon warp,end
+
+# Handy for holding ctrl while using keynav:
+super+h cut-left
+super+j cut-down
+super+k cut-up
+super+l cut-right
+
+# Macros
+q record
+g playback
+
+# History
+b history-back
+
+# Clicking, Dragging, and Scrolling (Mouse Stuff)
+w warp
+
+p warp,click 4
+n warp,click 5
+
+shift+p warp,click 4 shift
+shift+n warp,click 5 shift
+
+space warp,click 1
+m     warp,click 2
+r     warp,click 3
+
+super+space warp,drag 1
+super+m     warp,drag 2
+super+r     warp,drag 3
+
+shift+space warp,drag 1
+shift+m     warp,drag 2
+shift+r     warp,drag 3
+
+ctrl+space warp,drag 1 ctrl
+ctrl+m     warp,drag 2 ctrl
+ctrl+r     warp,drag 3 ctrl
+

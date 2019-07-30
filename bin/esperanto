@@ -1,0 +1,32 @@
+#!/usr/bin/env python3
+# A python script that converts typed ascii esperanto to esperanto!
+
+import os, sys
+
+diacritics = {
+        'C': 264, 'c': 265,
+        'G': 284, 'g': 285,
+        'H': 292, 'h': 293,
+        'J': 308, 'j': 309,
+        'S': 348, 's': 349,
+        'U': 364, 'u': 365,
+        }
+
+def convert_esperanto(text):
+    for k, v in diacritics.items():
+        text = text.replace(k+'x', chr(v))
+    return text
+
+def main():
+    # Interactive mode: read from arguments.
+    # Non-Interactive mode: read from stdin.
+    parameters = ' '.join(sys.argv[1:])
+    if os.isatty(sys.stdin.fileno()) and len(parameters) > 0:
+        output_str = convert_esperanto(parameters)
+        print(output_str) # Want a newline.
+    else:
+        output_str = convert_esperanto( sys.stdin.read() )
+        sys.stdout.write(output_str) # No newline.
+
+if __name__ == '__main__':
+    main()

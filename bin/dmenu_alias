@@ -1,0 +1,29 @@
+#!/usr/bin/bash
+# By: Alan Morgan
+# Don't you love my obfuscated perl code?
+
+# dmenu temp fix.
+# https://bugs.archlinux.org/task/61673
+unset GTK_IM_MODULE
+unset QT_IM_MODULE
+unset XMODIFIERS
+
+perl -e '
+sub uniq { my %seen; grep !$seen{$_}++, @_; }
+$dmenu=`dmenu_path`;
+@dmenu=split "\n", $dmenu;
+$aliases=`bash -i -c alias`;
+@aliases = $aliases =~ /^alias ([^\=]+)\=.*$/mg;
+%aliases = map { $_ => 1 } @aliases;
+@all_cmds = sort (uniq( @aliases, @dmenu ));
+$all_cmds = join "\n", @all_cmds;
+print $all_cmds' | /usr/bin/dmenu "$@" | perl -e '
+sub trim { return $_[0] =~ s/^\s+|\s+$//rg; }
+$aliases=`bash -i -c alias`;
+@aliases = $aliases =~ /^alias ([^\=]+)\=.*$/mg;
+%aliases = map { $_ => 1 } @aliases;
+$cmd = "";
+while (<>) { $cmd=$_; }
+$cmd = trim($cmd);
+if (exists $aliases{$cmd}) { $cmd="xtermcmd $cmd" }
+print"$cmd";' | ${SHELL:-"/bin/sh"}
