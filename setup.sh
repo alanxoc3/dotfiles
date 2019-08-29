@@ -19,6 +19,7 @@ cfc() {
 }
 
 cf bashrc       .bashrc
+cf bash_aliases .bash_aliases
 cf xinitrc      .xinitrc
 cf bash_profile .bash_profile
 cf profile      .profile
@@ -27,7 +28,6 @@ cf tmuxconf     .tmux.conf
 cf keynavrc     .keynavrc
 cf bin          bin
 
-cfc .lexaloffle       pico-8           pico-8
 cfc .config/nvim/     nvimrc           init.vim
 cfc .config/i3/       i3-config        config
 cfc .config/git/      gitconfig        config

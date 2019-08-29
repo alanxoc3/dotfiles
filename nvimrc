@@ -8,6 +8,10 @@ Plug 'qpkorr/vim-renamer'
 Plug 'jamessan/vim-gnupg'
 Plug 'mxw/vim-jsx'
 
+" ranger
+Plug 'francoiscabrol/ranger.vim'
+Plug 'rbgrouleff/bclose.vim'
+
 " Some Quade plugins
 Plug 'tpope/vim-surround'
 Plug 'majutsushi/tagbar'
@@ -55,14 +59,19 @@ nmap <leader>0 <Plug>BufTabLine.Go(10)
 " https://shapeshed.com/vim-netrw/
 let g:netrw_banner = 0
 
-nmap <F4> <Plug>(JavaComplete-Imports-AddSmart)
-imap <F4> <Plug>(JavaComplete-Imports-AddSmart)
-nmap <F5> <Plug>(JavaComplete-Imports-Add)
-imap <F5> <Plug>(JavaComplete-Imports-Add)
-nmap <F6> <Plug>(JavaComplete-Imports-AddMissing)
-imap <F6> <Plug>(JavaComplete-Imports-AddMissing)
-nmap <F7> <Plug>(JavaComplete-Imports-RemoveUnused)
-imap <F7> <Plug>(JavaComplete-Imports-RemoveUnused)
+" ranger plugin config
+let g:ranger_replace_netrw = 1
+let g:ranger_map_keys = 0
+map <leader>y :Ranger<CR>
+
+" nmap <F4> <Plug>(JavaComplete-Imports-AddSmart)
+" imap <F4> <Plug>(JavaComplete-Imports-AddSmart)
+" nmap <F5> <Plug>(JavaComplete-Imports-Add)
+" imap <F5> <Plug>(JavaComplete-Imports-Add)
+" nmap <F6> <Plug>(JavaComplete-Imports-AddMissing)
+" imap <F6> <Plug>(JavaComplete-Imports-AddMissing)
+" nmap <F7> <Plug>(JavaComplete-Imports-RemoveUnused)
+" imap <F7> <Plug>(JavaComplete-Imports-RemoveUnused)
 
 autocmd FileType java setlocal omnifunc=javacomplete#Complete
 
@@ -107,7 +116,8 @@ if has('nvim')
 	tnoremap <C-v><Esc> <Esc>
 endif
 
-" set spell
+set spell
+set spelllang=en
 set number
 
 " http://vim.wikia.com/wiki/Indenting_source_code
@@ -196,3 +206,5 @@ command! -bang -nargs=* Rg
 augroup FZF
 	autocmd! FileType fzf tnoremap <buffer> <esc> <esc>
 augroup END
+
+let $BASH_ENV = "~/.bash_aliases"

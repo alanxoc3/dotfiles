@@ -26,13 +26,11 @@ export ANDROID_HOME=/opt/android-sdk
 
 # Update the path for many many things.
 export PATH="$PICOBINPATH:$PATH"
-export PATH="$HOME/anaconda3/bin:$PATH"
 export PATH="$HOME/bin:$PATH"
 export PATH="$HOME/go/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.gem/ruby/2.6.0/bin:$PATH"
-export PATH="$HOME/.node_modules/bin:$PATH"
 
 # For npm.
 export npm_config_prefix=~/.node_modules
