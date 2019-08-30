@@ -4,8 +4,8 @@
 # If not running interactively, don't do anything
 # Interactively means 
 
-[[ -f ~/.bash_aliases ]] && . ~/.bash_aliases
 [[ $- != *i* ]] && return
+[[ -f ~/.bash_aliases ]] && . ~/.bash_aliases
 
 ################################################
 #                 FUNCTIONS                    #
