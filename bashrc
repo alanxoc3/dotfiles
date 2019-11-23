@@ -6,6 +6,7 @@
 
 [[ $- != *i* ]] && return
 [[ -f ~/.bash_aliases ]] && . ~/.bash_aliases
+export BASH_ENV='~/.bash_aliases'
 
 ################################################
 #                 FUNCTIONS                    #

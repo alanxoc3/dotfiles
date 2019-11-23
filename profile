@@ -27,6 +27,7 @@ export ANDROID_HOME=/opt/android-sdk
 # Update the path for many many things.
 export PATH="$PICOBINPATH:$PATH"
 export PATH="$HOME/bin:$PATH"
+export PATH="$HOME/bin/arduino:$PATH"
 export PATH="$HOME/go/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"

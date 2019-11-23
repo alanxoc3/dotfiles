@@ -3,6 +3,7 @@ call plug#begin()
 Plug 'justinj/vim-pico8-syntax'
 Plug 'posva/vim-vue'
 Plug 'qpkorr/vim-renamer'
+Plug 'cy2082/vim-cyim'
 
 " gpg :)
 Plug 'jamessan/vim-gnupg'
@@ -20,7 +21,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
 " for java
-Plug 'artur-shaik/vim-javacomplete2'
+Plug 'vim-syntastic/syntastic'
 
 " for js
 Plug 'Quramy/vim-js-pretty-template'
@@ -33,7 +34,7 @@ Plug 'airblade/vim-rooter'
 Plug 'mileszs/ack.vim'
 
 call plug#end()
-let mapleader = " " 
+let mapleader = " "
 
 " python with nvim
 " https://github.com/zchee/deoplete-jedi/wiki/Setting-up-Python-for-Neovim#a-brief-overview-of-neovim--python
@@ -63,15 +64,6 @@ let g:netrw_banner = 0
 let g:ranger_replace_netrw = 1
 let g:ranger_map_keys = 0
 map <leader>y :Ranger<CR>
-
-" nmap <F4> <Plug>(JavaComplete-Imports-AddSmart)
-" imap <F4> <Plug>(JavaComplete-Imports-AddSmart)
-" nmap <F5> <Plug>(JavaComplete-Imports-Add)
-" imap <F5> <Plug>(JavaComplete-Imports-Add)
-" nmap <F6> <Plug>(JavaComplete-Imports-AddMissing)
-" imap <F6> <Plug>(JavaComplete-Imports-AddMissing)
-" nmap <F7> <Plug>(JavaComplete-Imports-RemoveUnused)
-" imap <F7> <Plug>(JavaComplete-Imports-RemoveUnused)
 
 autocmd FileType java setlocal omnifunc=javacomplete#Complete
 
@@ -159,6 +151,14 @@ set backspace=indent,eol,start  " more powerful backspacing
 set history=50                  " keep 50 lines of command line history
 set ruler                       " show the cursor position all the time
 
+
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd BufWinLeave * call clearmatches()
+
 " Suffixes that get lower priority when doing tab completion for filenames.
 " These are files we are not likely to want to edit or read.
 set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc,.png,.jpg
@@ -207,4 +207,4 @@ augroup FZF
 	autocmd! FileType fzf tnoremap <buffer> <esc> <esc>
 augroup END
 
-let $BASH_ENV = "~/.bash_aliases"
+" let $BASH_ENV = "~/.bash_aliases"
