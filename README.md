@@ -1,3 +1,2 @@
-# Config
-Alan's git config files. There should not really be much private information
-here.
+# Dotfiles
+Alan's dotfiles. I've put my soul into this, please appreciate it :).
