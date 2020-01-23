@@ -11,6 +11,7 @@ PICOBINPATH="$ALANPICOPATH/bin"
 export PICOLIBPATH="$ALANPICOPATH/lib"
 
 # Environment variables go here!
+export HISTTIMEFORMAT="%d/%m/%y %T "
 export HISTCONTROL=ignoredups
 export HISTSIZE=1000
 

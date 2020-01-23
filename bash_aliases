@@ -1,3 +1,4 @@
+#!/bin/bash
 # https://stackoverflow.com/questions/4642822/commands-executed-from-vim-are-not-recognizing-bash-command-aliases
 shopt -s expand_aliases  
 
@@ -72,16 +73,24 @@ alias fai="fa -i"
 # pico lib utils.
 alias p8tool='~/repos/picotool/p8tool'
 
+# Ranger is used a lot by me.
+alias r='ranger'
+
+# Cooler watch format.
+alias watch='watch -c -d'
+
 # Poor Man's VPN
 # https://github.com/apenwarr/sshuttle#start-of-content
 alias vpn='sshuttle --dns -r sing 0/0 -x ***REMOVED***'
 
+alias gitfiles='git log --name-status --find-renames --oneline'
 alias gitlog='git log --graph --oneline'
 alias commit='git add --all; git commit;'
 alias status='git status'
 alias pull='git pull'
 alias fetch='git fetch'
 alias push='git push'
+alias pushn='git push --set-upstream origin'
 
 # If you ever want to get a pull request locally, here is an example :).
 # git fetch origin pull/8864/head:develop

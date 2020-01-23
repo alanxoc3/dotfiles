@@ -18,13 +18,10 @@ sbri() {
    echo $(expr $1 \* 192) > /sys/class/backlight/intel_backlight/brightness
 }
 
-retom() {
-	sudo systemctl restart tomcat
-}
-
-rewar() {
-	sudo cp ~/$1/target/*.war /opt/tomcat/webapps/
-	retom
+# Swaps two files.
+swap() {
+    local TMPFILE=tmp.$$
+    mv "$1" $TMPFILE && mv "$2" "$1" && mv $TMPFILE "$2"
 }
 
 # Usage: mnt sda1
@@ -80,6 +77,10 @@ bind -x '"\C-o": vim_fzf;'
 export GPG_TTY=`tty`
 
 # A Quadalan function!
+vim_fzf() {
+	file=$(fzf --height=40%)
+	[[ $file != "" ]] && vim $file
+}
 vim_fzf() {
 	file=$(fzf --height=40%)
 	[[ $file != "" ]] && vim $file
