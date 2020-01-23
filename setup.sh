@@ -1,10 +1,6 @@
 #!/bin/bash
 
-if [ "$#" -ne 1 ]; then
-   echo "Wrong number of arguments!"
-fi
-
-SCRIPT_PATH=$1
+SCRIPT_PATH=~/.dotfiles
 
 # Make sure you install:
 # rg, fd, nvim, vim-plug...
@@ -12,15 +8,15 @@ SCRIPT_PATH=$1
 # cf actual_file link_file
 cf() {
    if [ -e "$SCRIPT_PATH/$1" ]; then
-      rm -f ~/$2
-      ln -s $SCRIPT_PATH/$1 ~/$2
+      rm -f ~/$2 ;
+      ln -s $SCRIPT_PATH/$1 ~/$2 ;
    fi
 }
 
 # cfc folder actual_file link_file
 cfc() {
    mkdir -p ~/$1
-   cf $2 $1/$3
+   cf $2 "$1/$3"
 }
 
 cf bashrc             .bashrc
