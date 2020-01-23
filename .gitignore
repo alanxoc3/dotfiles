@@ -2,3 +2,4 @@ local_bashrc
 local_bash_profile
 local_gitconfig
 local_bin
+local_ssh
