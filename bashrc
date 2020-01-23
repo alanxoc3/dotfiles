@@ -2,8 +2,6 @@
 # Author: Alan Morgan - ~/.bashrc
 
 # If not running interactively, don't do anything
-# Interactively means 
-
 [[ $- != *i* ]] && return
 [[ -f ~/.bash_aliases ]] && . ~/.bash_aliases
 export BASH_ENV='~/.bash_aliases'
@@ -20,7 +18,6 @@ sbri() {
    echo $(expr $1 \* 192) > /sys/class/backlight/intel_backlight/brightness
 }
 
-
 retom() {
 	sudo systemctl restart tomcat
 }
@@ -34,9 +31,6 @@ rewar() {
 mnt() { sudo mount -o gid=users,fmask=113,dmask=002 /dev/$1 /mnt; }
 
 set -o emacs
-
-
-
 
 # pinyin define
 # https://unix.stackexchange.com/questions/197792/joining-bash-arguments-into-single-string-with-spaces
@@ -92,7 +86,7 @@ vim_fzf() {
 }
 
 # for a super fast fzf!
-export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!.git/" -g "!.vim_srcs/" -g "!node_modules/" -g "!target/" -g "!tags" 2> /dev/null'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND='fd --type d --hidden --follow --exclude ".git" .'
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash

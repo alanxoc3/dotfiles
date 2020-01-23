@@ -8,8 +8,10 @@ SCRIPT_PATH=~/sync/work/config
 
 # cf actual_file link_file
 cf() {
-   rm -f ~/$2
-   ln -s $SCRIPT_PATH/$1 ~/$2
+   if [ -e "$SCRIPT_PATH/$1" ]; then
+      rm -f ~/$2
+      ln -s $SCRIPT_PATH/$1 ~/$2
+   fi
 }
 
 # cfc folder actual_file link_file
@@ -18,15 +20,18 @@ cfc() {
    cf $2 $1/$3
 }
 
-cf bashrc       .bashrc
-cf bash_aliases .bash_aliases
-cf xinitrc      .xinitrc
-cf bash_profile .bash_profile
-cf profile      .profile
-cf Xresources   .Xresources
-cf tmuxconf     .tmux.conf
-cf keynavrc     .keynavrc
-cf bin          bin
+cf bashrc             .bashrc
+cf bash_aliases       .bash_aliases
+cf xinitrc            .xinitrc
+cf bash_profile       .bash_profile
+cf profile            .profile
+cf Xresources         .Xresources
+cf tmuxconf           .tmux.conf
+cf keynavrc           .keynavrc
+cf local_bashrc       .local_bashrc
+cf local_bash_profile .local_bash_profile
+cf local_gitconfig    .local_gitconfig
+cf bin                bin
 
 cfc .config/nvim/     nvimrc           init.vim
 cfc .config/i3/       i3-config        config

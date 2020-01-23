@@ -31,11 +31,6 @@ alias lid="echo locked > '/tmp/.lid-lock-file'"
 alias gpgpin="echo tmp > /tmp/gpg_tmp; gpg -r alanxoc3 -e /tmp/gpg_tmp; gpg -d /tmp/gpg_tmp.gpg"
 alias fb="/home/alanxoc3/repos/fuzzybird/fuzzybird.py --hashtag"
 alias dropfile="dropbox-cli sharelink"
-alias pic_tur="pic_open ~/.lexaloffle/pico-8/carts/sims/turing-machine"
-alias pic_mou="pic_open ~/.lexaloffle/pico-8/carts/work/pico-8-club/mouth-mouth"
-alias pic_ray="pic_open ~/.lexaloffle/pico-8/carts/sims/raycasting"
-alias pic_chn="pic_open ~/.lexaloffle/pico-8/carts/chrononaut"
-alias pic_zel="pic_open ~/.lexaloffle/pico-8/carts/games/zeldo"
 
 alias rndbkgd="feh --randomize --bg-fill ~/Pictures/photos/*"
 alias difbkgd="rndbkgd"
@@ -85,6 +80,7 @@ alias gitlog='git log --graph --oneline'
 alias commit='git add --all; git commit;'
 alias status='git status'
 alias pull='git pull'
+alias fetch='git fetch'
 alias push='git push'
 
 # If you ever want to get a pull request locally, here is an example :).
@@ -185,8 +181,6 @@ alias rs="fc -s"
 
 # This is adjusted to Los Angeles.
 alias redshift='redshift -l 34.05:-118.24'
-# Brightness - for setting the brightness 
-
 alias invert="xcalib -i -a > /dev/null"
 
 
@@ -398,10 +392,9 @@ alias skeet="~/sync/coding/completed/skeet/skeet"
 alias quran='vim ~/sync/remember/notes/quran.txt'
 alias proclamation='less ~/sync/remember/proclamation.txt'
 
-# Locks then loads the background process.
+# Locks all TTYs.
 alias lock="physlock"
 
-# Locks all the ttys
 alias gf=fg
 
 alias nin="sudo modprobe ns588 joydev analog;"
@@ -420,8 +413,6 @@ alias iwpoweroff='sudo iw wlan0 set power_save off'
 alias jp='jp2a --colors'
 alias cret='echo $?'
 
-# To mount my ***REMOVED*** server.
-
 alias alan='sshfs -o allow_other alanxoc3@alan:/home/alanxoc3/ ~/alan/ -C'
 alias mountalan=alan
 alias noalan='fusermount -u ~/alan'
@@ -433,3 +424,8 @@ alias nops='PS1="$ "'
 alias tops='PS1="[\u-\[\033[0;31m\]\#\[\033[0m\] \W]\$ "'
 
 alias pico="pico8"
+alias pic_tur="pic_open ~/.lexaloffle/pico-8/carts/sims/turing-machine"
+alias pic_mou="pic_open ~/.lexaloffle/pico-8/carts/work/pico-8-club/mouth-mouth"
+alias pic_ray="pic_open ~/.lexaloffle/pico-8/carts/sims/raycasting"
+alias pic_chn="pic_open ~/.lexaloffle/pico-8/carts/chrononaut"
+alias pic_zel="pic_open ~/.lexaloffle/pico-8/carts/games/zeldo"

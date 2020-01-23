@@ -1,9 +1,9 @@
-[user]
-	email = ***REMOVED***
-	name = Alan Morgan
+[include]
+   path = ~/.local_gitconfig
 
 [url "git@github.com:"]
 	insteadOf = ssh://git@github.com/
+
 [core]
 	autocrlf = false
 	eol = lf

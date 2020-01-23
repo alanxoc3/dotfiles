@@ -4,12 +4,15 @@ Plug 'justinj/vim-pico8-syntax'
 Plug 'posva/vim-vue'
 Plug 'qpkorr/vim-renamer'
 Plug 'cy2082/vim-cyim'
+" Cool
+Plug 'haya14busa/vim-asterisk'
+Plug 'NLKNguyen/vim-maven-syntax'
 
 " gpg :)
 Plug 'jamessan/vim-gnupg'
 Plug 'mxw/vim-jsx'
 
-" ranger
+" https://github.com/francoiscabrol/ranger.vim
 Plug 'francoiscabrol/ranger.vim'
 Plug 'rbgrouleff/bclose.vim'
 
@@ -22,8 +25,14 @@ Plug 'junegunn/fzf.vim'
 
 " for java
 Plug 'vim-syntastic/syntastic'
+Plug 'rustushki/JavaImp.vim'
 
-" for js
+" https://github.com/ntpeters/vim-better-whitespace
+Plug 'ntpeters/vim-better-whitespace'
+
+" for typescript
+Plug 'ianks/vim-tsx'
+Plug 'leafgarland/typescript-vim'
 Plug 'Quramy/vim-js-pretty-template'
 
 " Plug 'vim-airline/vim-airline'
@@ -201,7 +210,7 @@ endif
 " https://github.com/junegunn/fzf/issues/81
 command! -bang -nargs=* Rg
  \ call fzf#vim#grep(
- \   'rg --line-number --no-heading --color=always --follow --hidden --glob "!.git/*" --case-sensitive --fixed-strings '.shellescape(<q-args>), 0,
+ \   'rg --line-number --no-heading --color=always --follow --hidden -g "!.git/" -g "!.vim_srcs/" -g "!node_modules/" -g "!target/" -g "!tags" --case-sensitive --fixed-strings '.shellescape(<q-args>), 0,
  \   {'options': '--no-hscroll --delimiter : --nth 3..'},
  \   <bang>0)
 
@@ -210,3 +219,18 @@ augroup FZF
 augroup END
 
 " let $BASH_ENV = "~/.bash_aliases"
+
+" Asterisk plugin :D.
+nmap *   <Plug>(asterisk-*)
+nmap #   <Plug>(asterisk-#)
+nmap g*  <Plug>(asterisk-g*)
+nmap g#  <Plug>(asterisk-g#)
+nmap z*  <Plug>(asterisk-z*)
+nmap gz* <Plug>(asterisk-gz*)
+nmap z#  <Plug>(asterisk-z#)
+nmap gz# <Plug>(asterisk-gz#)
+
+" Some vim java thing.
+set errorformat=[ERROR]\ %f:[%l\\,%v]\ %m
+
+let g:asterisk#keeppos = 1
