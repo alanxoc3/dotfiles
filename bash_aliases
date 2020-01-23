@@ -361,8 +361,9 @@ alias edD='vim ~/shuying/alan/D_diary.txt'
 alias edE='vim ~/shuying/alan/E_diary.txt'
 alias edF='vim ~/shuying/alan/F_diary.txt'
 alias edG='vim ~/shuying/alan/G_diary.txt'
+alias edH='vim ~/shuying/alan/H_diary.txt'
 
-alias jrn='edG'
+alias jrn='edH'
 
 alias journ='jrn'
 alias editjour='jrn'

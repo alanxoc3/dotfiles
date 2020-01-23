@@ -5,3 +5,4 @@ setxkbmap us -variant dvorak
 xmodmap -e "clear lock"
 xmodmap -e "keysym Caps_Lock = Escape"
 keynav
+fcitx -d -r

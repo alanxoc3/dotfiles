@@ -11,7 +11,6 @@ PICOBINPATH="$ALANPICOPATH/bin"
 export PICOLIBPATH="$ALANPICOPATH/lib"
 
 # Environment variables go here!
-export GOPATH='~/go'
 export HISTCONTROL=ignoredups
 export HISTSIZE=1000
 
@@ -41,13 +40,14 @@ export PYTHONPATH="/home/alanxoc3/Projects/caffe/python"
 export ANACONDA_HOME="/home/alanxoc3/anaconda3"
 
 # For i3 to get my terminal right.
-export TERMINAL="xterm"
+export TERMINAL="termite"
 
 # For mandarin support.
 export GTK_IM_MODULE=fcitx # or xim
 export QT_IM_MODULE=fcitx # or xim
 export XMODIFIERS=@im=fcitx
-export XMODIFIERS=@im=fcitx
+
+# Golang :D.
 export GOPATH=~/go
 
 # Fix locale temporarily.

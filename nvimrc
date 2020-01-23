@@ -65,6 +65,8 @@ let g:ranger_replace_netrw = 1
 let g:ranger_map_keys = 0
 map <leader>y :Ranger<CR>
 
+map <leader>w :set wrap!<CR>
+
 autocmd FileType java setlocal omnifunc=javacomplete#Complete
 
 " https://joshldavis.com/2014/04/05/vim-tab-madness-buffers-vs-tabs/
