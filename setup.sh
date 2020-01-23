@@ -1,7 +1,10 @@
 #!/bin/bash
 
-# update this if you move the location.
-SCRIPT_PATH=~/sync/work/config
+if [ "$#" -ne 1 ]; then
+   echo "Wrong number of arguments!"
+fi
+
+SCRIPT_PATH=$1
 
 # Make sure you install:
 # rg, fd, nvim, vim-plug...
