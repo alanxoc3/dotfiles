@@ -25,7 +25,7 @@ Plug 'junegunn/fzf.vim'
 
 " for java
 Plug 'vim-syntastic/syntastic'
-Plug 'rustushki/JavaImp.vim'
+" Plug 'rustushki/JavaImp.vim'
 
 " https://github.com/ntpeters/vim-better-whitespace
 Plug 'ntpeters/vim-better-whitespace'
