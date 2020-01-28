@@ -39,6 +39,7 @@ cfc .config/i3status/ i3-status-config config
 cfc .ssh/             ssh-config       config
 cfc .ssh/             known_hosts      known_hosts
 cfc .ssh/             authorized_keys  authorized_keys
+cfc .ssh/             local_ssh        local_ssh
 
 # TODO: figure out better way to do this.
 cfc .mozilla/firefox/5hc7mfqd.default-release/chrome/ userChrome.css userChrome.css
