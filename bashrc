@@ -4,6 +4,7 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 [[ -f ~/.bash_aliases ]] && . ~/.bash_aliases
+[[ -f ~/.local_bashrc ]] && . ~/.local_bashrc
 export BASH_ENV='~/.bash_aliases'
 
 ################################################
