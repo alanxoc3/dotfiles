@@ -99,8 +99,5 @@ _fzf_compgen_path() {
 
 [[ $- == *i* ]] && source "/usr/share/fzf/completion.bash" 2> /dev/null
 
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
 # My beautiful shell prompt! Idk why this must be in the bashrc too.
 export PS1='[\[\033[0;31m\]\#\[\033[0m\] \W]\$ '

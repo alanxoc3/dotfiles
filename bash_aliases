@@ -81,7 +81,7 @@ alias watch='watch -c -d'
 
 # Poor Man's VPN
 # https://github.com/apenwarr/sshuttle#start-of-content
-alias vpn='sshuttle --dns -r sing 0/0 -x ***REMOVED***'
+alias vpn='sshuttle --dns -r alan 0/0 -x ***REMOVED***'
 
 alias gitfiles='git log --name-status --find-renames --oneline'
 alias gitlog='git log --graph --oneline'
