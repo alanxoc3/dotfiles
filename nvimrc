@@ -1,5 +1,7 @@
 " The vim-plug manager.
 call plug#begin()
+" 4 Kotlin
+Plug 'udalov/kotlin-vim'
 Plug 'justinj/vim-pico8-syntax'
 Plug 'posva/vim-vue'
 Plug 'qpkorr/vim-renamer'

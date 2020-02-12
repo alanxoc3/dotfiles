@@ -83,8 +83,7 @@ alias watch='watch -c -d'
 # https://github.com/apenwarr/sshuttle#start-of-content
 alias vpn='sshuttle --dns -r alan 0/0 -x ***REMOVED***'
 
-alias gitfiles='git log --name-status --find-renames --oneline'
-alias gitlog='git log --graph --oneline'
+alias g='git'
 alias commit='git add --all; git commit;'
 alias status='git status'
 alias pull='git pull'

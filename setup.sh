@@ -41,5 +41,7 @@ cfc .ssh/             known_hosts      known_hosts
 cfc .ssh/             authorized_keys  authorized_keys
 cfc .ssh/             local_ssh        local_ssh
 
+cfc .config/qutebrowser/bookmarks/ qute_bookmarks urls
+
 # TODO: figure out better way to do this.
 cfc .mozilla/firefox/5hc7mfqd.default-release/chrome/ userChrome.css userChrome.css
