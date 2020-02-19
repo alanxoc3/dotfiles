@@ -18,7 +18,6 @@ alias renginx="sudo nginx -s reload"
 # run "mvn package" to update maven package.
 alias mvnp="mvn package"
 alias mvnj="mvn javadoc:javadoc"
-alias irewar="rewar xforce/IndexLoader"
 
 # Alan's goals are important :D.
 alias plan="vim ~/sync/shuying/alan/plan.txt"

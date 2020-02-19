@@ -5,7 +5,7 @@ Plug 'udalov/kotlin-vim'
 Plug 'justinj/vim-pico8-syntax'
 Plug 'posva/vim-vue'
 Plug 'qpkorr/vim-renamer'
-Plug 'cy2082/vim-cyim'
+
 " Cool
 Plug 'haya14busa/vim-asterisk'
 Plug 'NLKNguyen/vim-maven-syntax'
@@ -24,10 +24,6 @@ Plug 'majutsushi/tagbar'
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-
-" for java
-Plug 'vim-syntastic/syntastic'
-" Plug 'rustushki/JavaImp.vim'
 
 " https://github.com/ntpeters/vim-better-whitespace
 Plug 'ntpeters/vim-better-whitespace'
