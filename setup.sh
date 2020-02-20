@@ -41,7 +41,15 @@ cfc .ssh/             known_hosts      known_hosts
 cfc .ssh/             authorized_keys  authorized_keys
 cfc .ssh/             local_ssh        local_ssh
 
+# qutebrowser
 cfc .config/qutebrowser/bookmarks/ qute_bookmarks urls
+cfc .config/qutebrowser/ qute_quickmarks quickmarks
+cfc .config/qutebrowser/ qute_autoconfig.yml autoconfig.yml
+cfc .config/qutebrowser/ qute_config.py config.py
+
+cfc .config/nvim/spell nvim_spell en.utf-8.add
+
+cfc .config/ mimeapps.list mimeapps.list
 
 # TODO: figure out better way to do this.
 cfc .mozilla/firefox/5hc7mfqd.default-release/chrome/ userChrome.css userChrome.css
