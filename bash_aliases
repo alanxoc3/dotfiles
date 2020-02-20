@@ -438,3 +438,5 @@ alias pic_mou="pic_open ~/.lexaloffle/pico-8/carts/work/pico-8-club/mouth-mouth"
 alias pic_ray="pic_open ~/.lexaloffle/pico-8/carts/sims/raycasting"
 alias pic_chn="pic_open ~/.lexaloffle/pico-8/carts/chrononaut"
 alias pic_zel="pic_open ~/.lexaloffle/pico-8/carts/games/zeldo"
+
+alias pavucontrol="ncpamixer"
