@@ -18,7 +18,6 @@ alias renginx="sudo nginx -s reload"
 # run "mvn package" to update maven package.
 alias mvnp="mvn package"
 alias mvnj="mvn javadoc:javadoc"
-alias irewar="rewar xforce/IndexLoader"
 
 # Alan's goals are important :D.
 alias plan="vim ~/sync/shuying/alan/plan.txt"
@@ -83,8 +82,7 @@ alias watch='watch -c -d'
 # https://github.com/apenwarr/sshuttle#start-of-content
 alias vpn='sshuttle --dns -r alan 0/0 -x ***REMOVED***'
 
-alias gitfiles='git log --name-status --find-renames --oneline'
-alias gitlog='git log --graph --oneline'
+alias g='git'
 alias commit='git add --all; git commit;'
 alias status='git status'
 alias pull='git pull'
