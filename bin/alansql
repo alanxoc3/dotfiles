@@ -1,0 +1,11 @@
+#!/bin/bash
+# This program depends on:
+# https://docs.microsoft.com/en-us/sql/ssms/scripting/sqlcmd-use-the-utility?view=sql-server-ver15
+
+if [ "$#" -ne 1 ]; then
+  echo "Usage: echo SELECT * FROM table | sqlcmd environment"
+  exit 1
+fi
+
+FILE=/tmp/.tmp-sqlcmd.sql
+/opt/mssql-tools/bin/sqlcmd -S "$1" -i "$FILE" -Y 8 -y 20 -u -E
