@@ -232,6 +232,7 @@ alias bright=bri
 # Supposed to allow tab completion with sudo
 alias sudo='sudo '
 
+alias l='ls'
 alias l.='ls -d .*'
 alias la='ls -A'
 alias lsa=la
