@@ -33,6 +33,7 @@ export PATH="$HOME/go/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.gem/ruby/2.6.0/bin:$PATH"
+export PATH="$HOME/.emacs.d/bin:$PATH"
 
 # For npm.
 export npm_config_prefix=~/.node_modules
@@ -56,9 +57,12 @@ export GOPATH=~/go
 export LC_ALL=en_US.UTF-8
 
 # For sway
-export XKB_DEFAULT_LAYOUT=us;
-export XKB_DEFAULT_VARIANT=dvorak;
+export XKB_DEFAULT_LAYOUT=us
+export XKB_DEFAULT_VARIANT=dvorak
 
 # xdg
-export XDG_CONFIG_HOME=$HOME/.config;
-export XDG_CACHE_HOME=$HOME/.cache;
+export XDG_CONFIG_HOME=$HOME/.config
+export XDG_CACHE_HOME=$HOME/.cache
+
+# I use qute now :).
+export BROWSER=qutebrowser
