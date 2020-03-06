@@ -66,3 +66,8 @@ export XDG_CACHE_HOME=$HOME/.cache
 
 # I use qute now :).
 export BROWSER=qutebrowser
+
+# Using the eclipse java language server
+# See: https://github.com/eclipse/eclipse.jdt.ls
+export CLIENT_HOST=localhost
+export CLIENT_PORT=8913

@@ -6,6 +6,9 @@ Plug 'justinj/vim-pico8-syntax'
 Plug 'posva/vim-vue'
 Plug 'qpkorr/vim-renamer'
 
+" Conquer of Completion LSP
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
 " Cool
 Plug 'haya14busa/vim-asterisk'
 Plug 'NLKNguyen/vim-maven-syntax'
