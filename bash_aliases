@@ -79,8 +79,10 @@ alias r='ranger'
 alias watch='watch -c -d'
 
 # Poor Man's VPN
-# https://github.com/apenwarr/sshuttle#start-of-content
-alias vpn='sshuttle --dns -r alan 0/0 -x ***REMOVED***'
+# See: https://github.com/sshuttle/sshuttle
+# Pyenv fix: https://github.com/sshuttle/sshuttle/issues/381#issuecomment-564532758
+alias vpn='sshuttle --dns -r alan 0/0 -x ***REMOVED*** --python /home/alanxoc3/.pyenv/versions/3.7.5/bin/python'
+
 
 alias g='git'
 alias commit='git add --all; git commit;'
@@ -232,6 +234,7 @@ alias bright=bri
 # Supposed to allow tab completion with sudo
 alias sudo='sudo '
 
+alias l='ls'
 alias l.='ls -d .*'
 alias la='ls -A'
 alias lsa=la
