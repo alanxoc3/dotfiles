@@ -7,11 +7,9 @@ def main():
     # Non-Interactive mode: read from stdin.
     parameters = ' '.join(sys.argv[1:])
     if os.isatty(sys.stdin.fileno()) and len(parameters) > 0:
-        output_str = parameters[::-1]
-        print(output_str) # Want a newline.
+        print(parameters[::-1]) # Want a newline.
     else:
-        output_str = sys.stdin.read()[::-1]
-        sys.stdout.write(output_str) # No newline.
+        sys.stdout.write(sys.stdin.read()[::-1]) # No newline.
 
 if __name__ == '__main__':
     main()
