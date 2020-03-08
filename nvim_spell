@@ -144,3 +144,10 @@ qutebrowser
 JK
 glitchy
 Zhenru
+ExecStop
+ExecStart
+usr
+emacsclient
+eval
+AUTH
+WantedBy

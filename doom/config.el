@@ -36,7 +36,7 @@
 
 ;; Projectile projects.
 (setq
- projectile-project-search-path '("~/cw/")
+ projectile-project-search-path '("~/repos/")
  )
 
 ;; Here are some additional functions/macros that could help you configure Doom:
