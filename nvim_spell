@@ -152,6 +152,9 @@ eval
 AUTH
 WantedBy
 Umm
+Coronavirus
+inputable
+haha
 CLI
 tiecli
 Clojure
