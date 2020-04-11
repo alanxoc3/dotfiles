@@ -30,6 +30,7 @@ cf keynavrc           .keynavrc
 cf local_bashrc       .local_bashrc
 cf local_bash_profile .local_bash_profile
 cf local_gitconfig    .local_gitconfig
+cf gitignore          .gitignore
 cf doom               .doom.d
 # bin and local_bin are in the '~/.dotfiles' folder
 

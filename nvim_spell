@@ -151,3 +151,7 @@ emacsclient
 eval
 AUTH
 WantedBy
+Umm
+CLI
+tiecli
+Clojure

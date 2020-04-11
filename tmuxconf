@@ -20,3 +20,6 @@ set -g @resurrect-strategy-nvim 'session' # for neovim
 
 # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
 run -b '~/.tmux/plugins/tpm/tpm'
+
+
+set -g default-terminal "xterm-256color"

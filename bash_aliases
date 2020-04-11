@@ -96,9 +96,7 @@ alias pushn='git push --set-upstream origin'
 # git fetch origin pull/8864/head:develop
 
 alias i3l='i3lock'
-alias 3il=i3l
-
-alias i3lock='i3lock -c 000000'
+alias 3il='i3lock'
 
 # sync
 alias redrop='pkill dropbox; echo dropbox | bash - &'

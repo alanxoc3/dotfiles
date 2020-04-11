@@ -101,6 +101,7 @@ _fzf_compgen_path() {
 
 # My beautiful shell prompt! Idk why this must be in the bashrc too.
 export PS1='[\[\033[0;31m\]\#\[\033[0m\] \W]\$ '
+export TERM='xterm-256color'
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/home/ARBFUND/alanmorgan/.sdkman"
