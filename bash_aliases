@@ -9,6 +9,7 @@ alias editi3='vim ~/sync/work/config/i3-config'
 # For syncthing:
 alias serve_syncthing='ssh -N -L 9090:***REMOVED***:8384 alanxoc3@alan'
 
+alias pe='pass edit'
 alias int='sudo wifi-menu'
 alias cdr='cd /'
 # Clear Water stuff
@@ -90,6 +91,7 @@ alias status='git status'
 alias pull='git pull'
 alias fetch='git fetch'
 alias push='git push'
+alias psuh='push'
 alias pushn='git push --set-upstream origin'
 
 # If you ever want to get a pull request locally, here is an example :).
