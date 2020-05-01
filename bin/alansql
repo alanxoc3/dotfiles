@@ -4,11 +4,11 @@
 
 BIN_NAME="alansql"
 
-if [ "$#" -ne 1 ]; then
-  echo "Usage: echo SELECT * FROM table | $BIN_NAME environment"
+if [ "$#" -ne 2 ]; then
+  echo "Usage: echo SELECT * FROM table | $BIN_NAME environment database"
   exit 1
 fi
 
 FILE=/tmp/.$BIN_NAME.sql
 cat - > $FILE
-/opt/mssql-tools/bin/sqlcmd -S "$1" -i "$FILE" -Y 50 -y 50 -u -E
+/opt/mssql-tools/bin/sqlcmd -S "$1" -i "$FILE" -Y 50 -y 50 -u -E -d "$2"
