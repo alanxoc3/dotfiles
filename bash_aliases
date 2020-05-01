@@ -229,7 +229,7 @@ alias up='updateprofile'
 
 alias bright=bri
 
-# Supposed to allow tab completion with sudo
+# Tab completion and run aliases with sudo.
 alias sudo='sudo '
 
 alias l='ls'
@@ -439,3 +439,5 @@ alias pic_chn="pic_open ~/.lexaloffle/pico-8/carts/chrononaut"
 alias pic_zel="pic_open ~/.lexaloffle/pico-8/carts/games/zeldo"
 
 alias pavucontrol="ncpamixer"
+
+alias psudo='sudo env "PATH=$PATH" '
