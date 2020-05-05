@@ -442,4 +442,6 @@ alias pic_zel="pic_open ~/.lexaloffle/pico-8/carts/games/zeldo"
 
 alias pavucontrol="ncpamixer"
 
+alias cnc="concards $CONCARDS_HOME"
+
 alias psudo='sudo env "PATH=$PATH" '
