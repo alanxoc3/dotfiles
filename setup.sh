@@ -27,6 +27,7 @@ cf profile            .profile
 cf Xresources         .Xresources
 cf tmuxconf           .tmux.conf
 cf keynavrc           .keynavrc
+cf concards-meta      .concards-meta
 cf local_bashrc       .local_bashrc
 cf local_bash_profile .local_bash_profile
 cf local_gitconfig    .local_gitconfig
