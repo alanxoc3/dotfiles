@@ -106,3 +106,6 @@ export TERM='xterm-256color'
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/home/ARBFUND/alanmorgan/.sdkman"
 [[ -s "/home/ARBFUND/alanmorgan/.sdkman/bin/sdkman-init.sh" ]] && source "/home/ARBFUND/alanmorgan/.sdkman/bin/sdkman-init.sh"
+
+# added by travis gem
+[ ! -s /home/alanxoc3/.travis/travis.sh ] || source /home/alanxoc3/.travis/travis.sh

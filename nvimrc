@@ -231,6 +231,12 @@ nmap gz* <Plug>(asterisk-gz*)
 nmap z#  <Plug>(asterisk-z#)
 nmap gz# <Plug>(asterisk-gz#)
 
+" For long lines
+nmap j gj
+nmap k gk
+nmap $ g$
+nmap 0 g0
+
 " Some vim java thing.
 set errorformat=[ERROR]\ %f:[%l\\,%v]\ %m
 

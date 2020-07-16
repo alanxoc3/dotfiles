@@ -21,8 +21,6 @@ alias mvnp="mvn package"
 alias mvnj="mvn javadoc:javadoc"
 
 # Alan's goals are important :D.
-alias plan="vim ~/sync/shuying/alan/plan.txt"
-alias goals="vim ~/sync/shuying/alan/{achieve,plan,day}.txt ~/sync/shuying/alan/logs/*"
 alias umnt='sudo umount /mnt'
 
 alias screen_off="xset dpms force off"
@@ -58,10 +56,6 @@ alias sdcard='cd /sdcard; ls;'
 # UN-ORGANIZED THINGS BELOW
 # -------------------------
 alias feh='feh --force-aliasing --scale-down'
-
-alias today='vim ~/sync/shuying/alan/day.txt'
-alias day=today
-alias daily=today
 
 # Gets a lower quality of a video.
 alias getvid="youtube-dl -f 18"
@@ -349,30 +343,36 @@ alias rd='cat ~/sync/goals/rd.txt | less'
 alias editrd='vim ~/sync/goals/rd.txt'
 
 # Edit a journal.
-alias ed1='vim ~/shuying/alan/1_diary.md'
-alias ed2='vim ~/shuying/alan/2_diary.md'
-alias ed3='vim ~/shuying/alan/3_diary.md'
-alias ed4='vim ~/shuying/alan/4_diary.md'
-alias ed5='vim ~/shuying/alan/5_diary.md'
-alias ed6='vim ~/shuying/alan/6_diary.md'
-alias ed7='vim ~/shuying/alan/7_diary.md'
-alias ed8='vim ~/shuying/alan/8_diary.md'
-alias ed9='vim ~/shuying/alan/9_diary.md'
-alias edA='vim ~/shuying/alan/A_diary.md'
-alias edB='vim ~/shuying/alan/B_diary.md'
-alias edC='vim ~/shuying/alan/C_diary.md'
-alias edD='vim ~/shuying/alan/D_diary.md'
-alias edE='vim ~/shuying/alan/E_diary.md'
-alias edF='vim ~/shuying/alan/F_diary.md'
-alias edG='vim ~/shuying/alan/G_diary.md'
-alias edH='vim ~/shuying/alan/H_diary.md'
-alias edI='vim ~/shuying/alan/I_diary.md'
+alias ed1='vim ~/diary/alan/1_diary.md'
+alias ed2='vim ~/diary/alan/2_diary.md'
+alias ed3='vim ~/diary/alan/3_diary.md'
+alias ed4='vim ~/diary/alan/4_diary.md'
+alias ed5='vim ~/diary/alan/5_diary.md'
+alias ed6='vim ~/diary/alan/6_diary.md'
+alias ed7='vim ~/diary/alan/7_diary.md'
+alias ed8='vim ~/diary/alan/8_diary.md'
+alias ed9='vim ~/diary/alan/9_diary.md'
+alias edA='vim ~/diary/alan/A_diary.md'
+alias edB='vim ~/diary/alan/B_diary.md'
+alias edC='vim ~/diary/alan/C_diary.md'
+alias edD='vim ~/diary/alan/D_diary.md'
+alias edE='vim ~/diary/alan/E_diary.md'
+alias edF='vim ~/diary/alan/F_diary.md'
+alias edG='vim ~/diary/alan/G_diary.md'
+alias edH='vim ~/diary/alan/H_diary.md'
+alias edI='vim ~/diary/alan/I_diary.md'
+alias edJ='vim ~/diary/alan/J_diary.md'
 
-alias jrn='edI'
-
+alias jrn='edJ'
+alias jnr='jrn'
+alias nrj='jrn'
+alias njr='jrn'
+alias rjn='jrn'
+alias rnj='jrn'
 alias journ='jrn'
 alias editjour='jrn'
 alias taglibro='jrn'
+alias tl='jrn'
 
 # Display the contents of a special blessing given to me.
 # Permissions require SUDO privileges.

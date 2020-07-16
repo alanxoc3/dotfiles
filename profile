@@ -32,8 +32,8 @@ export PATH="$HOME/bin/arduino:$PATH"
 export PATH="$HOME/go/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
-export PATH="$HOME/.gem/ruby/2.6.0/bin:$PATH"
 export PATH="$HOME/.emacs.d/bin:$PATH"
+export PATH="$PATH:$(ruby -e 'puts Gem.user_dir')/bin"
 
 export JAVA_HOME="/usr/lib/jvm/default-java/"
 
