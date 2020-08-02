@@ -86,7 +86,7 @@ alias pull='git pull'
 alias fetch='git fetch'
 alias push='git push'
 alias psuh='push'
-alias pushn='git push --set-upstream origin'
+alias pushn='git push --set-upstream origin $(git branch --show-current)'
 
 # If you ever want to get a pull request locally, here is an example :).
 # git fetch origin pull/8864/head:develop
@@ -104,14 +104,6 @@ alias mone="sudo mount /dev/sda1 /mnt"
 alias mtwo="sudo mount /dev/sdb1 /mnt2"
 alias umone="sudo umount /mnt"
 alias umtwo="sudo umount /mnt2"
-
-# Concards
-alias flashcode='concards -rmn 20 /home/alanxoc3/sync/cards/code/*'
-alias flashmand='concards -rmn 20 /home/alanxoc3/sync/cards/mandarin/*'
-alias flashbook='concards -rmn 20 /home/alanxoc3/sync/cards/book/*'
-alias flashr='concards -rn 20 /home/alanxoc3/sync/cards/*/*'
-alias flashm='concards -mn 20 /home/alanxoc3/sync/cards/*/*'
-alias flash='concards -mrn 20 /home/alanxoc3/sync/cards/*/*'
 
 alias copycurrent='echo cd $(pwd) | xclip'
 alias copypath=copycurrent
@@ -442,7 +434,4 @@ alias pic_chn="pic_open ~/.lexaloffle/pico-8/carts/chrononaut"
 alias pic_zel="pic_open ~/.lexaloffle/pico-8/carts/games/zeldo"
 
 alias pavucontrol="ncpamixer"
-
-alias cnc="concards $CONCARDS_HOME"
-
 alias psudo='sudo env "PATH=$PATH" '
