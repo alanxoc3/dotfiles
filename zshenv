@@ -1,12 +1,6 @@
 #!/usr/bin/zsh
 # zshenv - Alan Morgan
 
-# History & prompt
-export PROMPT='[%F{red}%T%f %c] '
-export HISTFILE=~/.zhistory
-export SAVEHIST=100000
-export HISTSIZE=100000
-
 # Set the path.
 export PATH="$PATH:$HOME/.fzf/bin"
 export PATH="$PATH:$HOME/.cargo/bin"
@@ -19,6 +13,8 @@ export PATH="$PATH:$HOME/.cargo/bin"
 export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:$HOME/.emacs.d/bin"
 export PATH="$PATH:$(ruby -e 'puts Gem.user_dir')/bin"
+export PATH="$PATH:/Applications/Firefox.app/Contents/MacOS"
+export PATH="$PATH:/usr/local/Caskroom/qutebrowser/1.12.0/qutebrowser.app/Contents/MacOS"
 
 # A bunch more environment variables
 export ANACONDA_HOME="/home/alanxoc3/anaconda3"
@@ -29,7 +25,7 @@ export GOPATH=~/go
 export GPG_TTY=`tty`
 export GTK_IM_MODULE=fcitx
 export IGNOREEOF=2
-export JAVA_HOME="/usr/lib/jvm/default-java/"
+export JAVA_HOME=$(/usr/libexec/java_home)
 export LC_ALL=en_US.UTF-8
 export npm_config_prefix=~/.node_modules
 export PYTHONPATH="/home/alanxoc3/Projects/caffe/python"

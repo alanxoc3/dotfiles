@@ -3,6 +3,13 @@
 
 # Emacs Mode & History Options
 bindkey -e
+export PROMPT='[%F{red}%T%f %c] '
+export CLICOLOR=1
+
+# History & prompt
+export HISTFILE=~/.zhistory
+export SAVEHIST=100000
+export HISTSIZE=100000
 
 # Set some history options
 setopt APPEND_HISTORY       # Addition of the history file
@@ -21,8 +28,13 @@ sbri() {
    echo $(expr $1 \* 192) > /sys/class/backlight/intel_backlight/brightness
 }
 
+liquibase() {
+   mvn -Drelease.environment=local -Dserver=$1 -Ddatabase=$2 -Dusername=liquibase -Dpassword=l1qu1b\$e -Dcontexts=db,$3 clean install
+}
+
+
 # Source files.
-source ~/.local_aliases 2> /dev/null
-source ~/.aliases 2> /dev/null
-source "/home/alanxoc3/.fzf/shell/completion.zsh" 2> /dev/null
-source "/home/alanxoc3/.fzf/shell/key-bindings.zsh" 2> /dev/null
+source "$HOME/.local_aliases" 2> /dev/null
+source "$HOME/.aliases" 2> /dev/null
+source "$HOME/.fzf/shell/completion.zsh" 2> /dev/null
+source "$HOME/.fzf/shell/key-bindings.zsh" 2> /dev/null
