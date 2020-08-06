@@ -34,15 +34,12 @@ export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.gem/ruby/2.6.0/bin:$PATH"
 export PATH="$HOME/.emacs.d/bin:$PATH"
+export PATH="$HOME/Library/Python/3.7/bin:$PATH"
 
 export JAVA_HOME="/usr/lib/jvm/default-java/"
 
 # For npm.
 export npm_config_prefix=~/.node_modules
-
-# For automatic colorization.
-export PYTHONPATH="/home/alanxoc3/Projects/caffe/python"
-export ANACONDA_HOME="/home/alanxoc3/anaconda3"
 
 # For i3 to get my terminal right.
 export TERMINAL="termite"
