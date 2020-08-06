@@ -19,8 +19,10 @@ cfc() {
    cf $2 "$1/$3"
 }
 
+cf zshrc              .zshrc
+cf zshenv             .zshenv
 cf bashrc             .bashrc
-cf bash_aliases       .bash_aliases
+cf aliases            .aliases
 cf xinitrc            .xinitrc
 cf bash_profile       .bash_profile
 cf profile            .profile
@@ -28,7 +30,7 @@ cf Xresources         .Xresources
 cf tmuxconf           .tmux.conf
 cf keynavrc           .keynavrc
 cf concards-meta      .concards-meta
-cf local_bashrc       .local_bashrc
+cf local_aliases      .local_aliases
 cf local_bash_profile .local_bash_profile
 cf local_gitconfig    .local_gitconfig
 cf gitignore          .gitignore
@@ -43,6 +45,7 @@ cfc .ssh/             ssh-config       config
 cfc .ssh/             known_hosts      known_hosts
 cfc .ssh/             authorized_keys  authorized_keys
 cfc .ssh/             local_ssh        local_ssh
+cfc .config/nvim      snips            UltiSnips
 
 # qutebrowser
 cfc .config/qutebrowser/bookmarks/ qute_bookmarks urls

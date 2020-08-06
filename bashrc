@@ -4,8 +4,10 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 [[ -f ~/.local_bashrc ]] && . ~/.local_bashrc
-[[ -f ~/.bash_aliases ]] && . ~/.bash_aliases
-export BASH_ENV='~/.bash_aliases'
+[[ -f ~/.aliases ]] && . ~/.aliases
+export BASH_ENV='~/.aliases'
+
+shopt -s expand_aliases
 
 ################################################
 #                 FUNCTIONS                    #
@@ -102,7 +104,11 @@ _fzf_compgen_path() {
 # My beautiful shell prompt! Idk why this must be in the bashrc too.
 export PS1='[\[\033[0;31m\]\#\[\033[0m\] \W]\$ '
 export TERM='xterm-256color'
+export QEMU_AUDIO_DRV=pa
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/home/ARBFUND/alanmorgan/.sdkman"
 [[ -s "/home/ARBFUND/alanmorgan/.sdkman/bin/sdkman-init.sh" ]] && source "/home/ARBFUND/alanmorgan/.sdkman/bin/sdkman-init.sh"
+
+# added by travis gem
+[ ! -s /home/alanxoc3/.travis/travis.sh ] || source /home/alanxoc3/.travis/travis.sh

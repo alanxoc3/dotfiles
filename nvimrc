@@ -5,9 +5,16 @@ Plug 'udalov/kotlin-vim'
 Plug 'justinj/vim-pico8-syntax'
 Plug 'posva/vim-vue'
 Plug 'qpkorr/vim-renamer'
+Plug 'tpope/vim-fugitive'
+
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 
 " Conquer of Completion LSP
 " Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+" Deoplete
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
 " Cool
 Plug 'haya14busa/vim-asterisk'
@@ -44,7 +51,18 @@ Plug 'airblade/vim-rooter'
 Plug 'mileszs/ack.vim'
 
 call plug#end()
+
+let g:deoplete#enable_at_startup = 1
 let mapleader = " "
+
+" Snippets...
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+
 
 " python with nvim
 " https://github.com/zchee/deoplete-jedi/wiki/Setting-up-Python-for-Neovim#a-brief-overview-of-neovim--python
@@ -76,6 +94,8 @@ let g:ranger_map_keys = 0
 map <leader>y :Ranger<CR>
 
 map <leader>w :set wrap!<CR>
+
+map <leader>s :e ~/.dotfiles/snips/all.snippets<CR>
 
 autocmd FileType java setlocal omnifunc=javacomplete#Complete
 
@@ -230,6 +250,12 @@ nmap z*  <Plug>(asterisk-z*)
 nmap gz* <Plug>(asterisk-gz*)
 nmap z#  <Plug>(asterisk-z#)
 nmap gz# <Plug>(asterisk-gz#)
+
+" For long lines
+nmap j gj
+nmap k gk
+nmap $ g$
+nmap 0 g0
 
 " Some vim java thing.
 set errorformat=[ERROR]\ %f:[%l\\,%v]\ %m

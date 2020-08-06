@@ -1,0 +1,17 @@
+# concards
+snippet c "Creates a concard 1."
+@> $1
+<@
+endsnippet
+
+# shell
+snippet snip "Creates a snippet."
+snippet $1 "$2"
+$3
+`echo endsnippet`
+endsnippet
+
+# shell
+snippet ba "Creates a bash alias"
+alias $1='$2'
+endsnippet
