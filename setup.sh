@@ -45,6 +45,7 @@ cfc .ssh/             ssh-config       config
 cfc .ssh/             known_hosts      known_hosts
 cfc .ssh/             authorized_keys  authorized_keys
 cfc .ssh/             local_ssh        local_ssh
+cfc .config/nvim      snips            UltiSnips
 
 # qutebrowser
 cfc .config/qutebrowser/bookmarks/ qute_bookmarks urls
