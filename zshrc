@@ -12,9 +12,13 @@ setopt HIST_IGNORE_DUPS     # Ignore rows if they are duplicates
 setopt HIST_REDUCE_BLANKS   # Delete empty lines from history file
 setopt HIST_IGNORE_SPACE    # Ignore a record starting with a space
 
-# Fzf Function
+# Functions
 _fzf_compgen_path() {
  fd --hidden --follow --exclude ".git" . "$1"
+}
+
+sbri() {
+   echo $(expr $1 \* 192) > /sys/class/backlight/intel_backlight/brightness
 }
 
 # Source files.

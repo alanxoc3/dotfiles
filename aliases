@@ -1,7 +1,7 @@
 #!/bin/bash
 # https://stackoverflow.com/questions/4642822/commands-executed-from-vim-are-not-recognizing-bash-command-aliases
 
-alias 3il='i3lock'
+alias 3il='i3l'
 alias 64controller=nin
 alias 64control=nin
 alias acip=acpi
@@ -126,7 +126,7 @@ alias gpgpin="echo tmp > /tmp/gpg_tmp; gpg -r alanxoc3 -e /tmp/gpg_tmp; gpg -d /
 alias gqw='setxkbmap -layout "us"'
 alias gwm='setxkbmap -layout "us" -variant "workman"'
 alias hy='hy --repl-output-fn=hy.contrib.hy-repr.hy-repr'
-alias i3l='i3lock'
+alias i3l='i3lock -c 000000'
 alias iacp=acpi
 alias iapc=acpi
 alias icap=acpi
@@ -270,7 +270,6 @@ alias umountalan=noalan
 alias umtwo="sudo umount /mnt2"
 alias unmountalan=noalan
 alias updatealias='source ~/.aliases'
-alias updatebash=". ~/.bashrc"
 alias updatebash='source ~/.bashrc'
 alias updateprofile='source ~/.profile'
 alias updatexterm='xrdb merge ~/.Xresources'
@@ -292,6 +291,7 @@ alias zasa="zathura ~/sync/books/sankta_biblio.pdf &"
 alias zath=zathura
 alias 词典="vim ~/sync/alioj/chinese/cedict_ts.u8"
 
+alias uz='source ~/.zshenv; source ~/.zshrc'
 alias editsnips="vim ~/.dotfiles/snips/*"
 alias es='editsnips'
 alias dot='cd ~/.dotfiles'
