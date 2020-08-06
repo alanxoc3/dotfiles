@@ -108,7 +108,9 @@ set hidden
 set nojoinspaces
 
 nmap <leader>f :FZF<CR>
+nmap <leader>F :FZF -q '<cword><CR>
 nmap <leader>r :Rg<CR>
+nmap <leader>R :Rgw<CR>
 
 " To open a new empty buffer
 " This replaces :tabnew which I used to bind to this mapping
@@ -228,12 +230,16 @@ if executable('fd')
     let g:ctrlp_use_caching = 0
 endif
 
-" https://github.com/junegunn/fzf/issues/81
-command! -bang -nargs=* Rg
- \ call fzf#vim#grep(
- \   'rg --line-number --no-heading --color=always --follow --hidden -g "!.git/" -g "!.vim_srcs/" -g "!node_modules/" -g "!target/" -g "!tags" --case-sensitive --fixed-strings '.shellescape(<q-args>), 0,
- \   {'options': '--no-hscroll --delimiter : --nth 3..'},
- \   <bang>0)
+" My ripgrep fzf things :).
+command! -bang -nargs=0 Rg
+  \ call fzf#vim#grep(
+  \   'rg --line-number --no-heading --color=always --follow --hidden -g "!.git/" -g "!node_modules/" -g "!target/" -g "!tags" --case-sensitive --fixed-strings '.shellescape(<q-args>), 0,
+  \   fzf#vim#with_preview({'options': '--no-hscroll --delimiter : --nth 3..'}), <bang>0)
+
+command! -bang -nargs=0 Rgw
+  \ call fzf#vim#grep(
+  \   'rg --line-number --no-heading --color=always --follow --hidden -g "!.git/" -g "!node_modules/" -g "!target/" -g "!tags" --case-sensitive --fixed-strings '.shellescape(<q-args>), 0,
+  \   fzf#vim#with_preview({'options': '--no-hscroll --delimiter : --nth 3.. --query '.shellescape("'".expand("<cword>"))}), <bang>0)
 
 augroup FZF
 	autocmd! FileType fzf tnoremap <buffer> <esc> <esc>
