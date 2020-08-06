@@ -19,6 +19,8 @@ cfc() {
    cf $2 "$1/$3"
 }
 
+cf zshrc              .zshrc
+cf zshenv             .zshenv
 cf bashrc             .bashrc
 cf aliases            .aliases
 cf xinitrc            .xinitrc
