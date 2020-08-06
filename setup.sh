@@ -20,7 +20,7 @@ cfc() {
 }
 
 cf bashrc             .bashrc
-cf bash_aliases       .bash_aliases
+cf aliases            .aliases
 cf xinitrc            .xinitrc
 cf bash_profile       .bash_profile
 cf profile            .profile
@@ -28,7 +28,7 @@ cf Xresources         .Xresources
 cf tmuxconf           .tmux.conf
 cf keynavrc           .keynavrc
 cf concards-meta      .concards-meta
-cf local_bashrc       .local_bashrc
+cf local_aliases      .local_aliases
 cf local_bash_profile .local_bash_profile
 cf local_gitconfig    .local_gitconfig
 cf gitignore          .gitignore
