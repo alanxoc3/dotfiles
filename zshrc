@@ -1,5 +1,5 @@
-#!/bin/zsh
-# .zshrc - Alan Morgan
+#!/usr/bin/zsh
+# zshrc - Alan Morgan
 
 # Emacs Mode & History Options
 bindkey -e

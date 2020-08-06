@@ -1,5 +1,5 @@
-#!/bin/zsh
-# .zshenv - Alan Morgan
+#!/usr/bin/zsh
+# zshenv - Alan Morgan
 
 # History & prompt
 export PROMPT='[%F{red}%T%f %c] '
