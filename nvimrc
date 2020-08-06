@@ -95,6 +95,8 @@ map <leader>y :Ranger<CR>
 
 map <leader>w :set wrap!<CR>
 
+map <leader>s :e ~/.dotfiles/snips/all.snippets<CR>
+
 autocmd FileType java setlocal omnifunc=javacomplete#Complete
 
 " https://joshldavis.com/2014/04/05/vim-tab-madness-buffers-vs-tabs/
