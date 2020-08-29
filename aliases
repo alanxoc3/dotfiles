@@ -291,6 +291,9 @@ alias zasa="zathura ~/sync/books/sankta_biblio.pdf &"
 alias zath=zathura
 alias 词典="vim ~/sync/alioj/chinese/cedict_ts.u8"
 
+alias tolap="xrandr --output HDMI-1 --off --output eDP-1 --auto --mode 1366x768 --panning 1366x768"
+alias tomirror="xrandr --output HDMI-1 --mode 1366x768 --output eDP-1 --mode 1366x768"
+
 alias uz='source ~/.zshenv; source ~/.zshrc'
 alias editsnips="vim ~/.dotfiles/snips/*"
 alias es='editsnips'
@@ -309,3 +312,5 @@ alias gl='git log'
 alias gb='git branch'
 alias gba='git branch --all'
 alias gk='git checkout'
+
+alias ls='ls --color'
