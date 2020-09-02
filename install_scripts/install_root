@@ -3,7 +3,7 @@
 
 echo "Installing packages..."
 pacman -Syyu --noconfirm
-pacman --noconfirm -S git sudo zsh neovim python-neovim glibc ripgrep tmux base-devel
+pacman --noconfirm -S git sudo zsh neovim python-neovim glibc ripgrep tmux base-devel htop
 
 echo "Creating user & setting password..."
 useradd -m -G wheel -s /bin/zsh alanxoc3
