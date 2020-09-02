@@ -313,6 +313,7 @@ alias gb='git branch'
 alias gba='git branch --all'
 alias gk='git checkout'
 
+alias ls="ls --color -GFp"
 alias cd-='cd -'
 alias mvnci='mvn clean install'
 alias mvncid='mvci -DskipDependencyCheck=true'
