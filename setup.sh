@@ -37,6 +37,7 @@ cf gitignore          .gitignore
 cf doom               .doom.d
 # bin and local_bin are in the '~/.dotfiles' folder
 
+cfc .config/i3blocks  i3blocks-config  config
 cfc .config/nvim/     nvimrc           init.vim
 cfc .config/i3/       i3-config        config
 cfc .config/git/      gitconfig        config
