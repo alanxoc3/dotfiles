@@ -244,7 +244,7 @@ alias screen_off="xset dpms force off"
 alias scrips=scrip
 alias scrip='vim -R ~/sync/ref/scrips.txt'
 alias sdcard='cd /sdcard; ls;'
-alias serve_syncthing='ssh -N -L 9090:***REMOVED***:8384 alanxoc3@alan'
+alias serve_syncthing='ssh -N -L 9090:***REMOVED***:8384 alanxoc3@syncthing'
 alias simplegame='~/.simplegame/simplegame'
 alias skeet="~/sync/coding/completed/skeet/skeet"
 alias slblk=lsblk
@@ -319,3 +319,5 @@ alias mvnci='mvn clean install'
 alias mvncid='mvci -DskipDependencyCheck=true'
 
 alias mvnt='mvn com.clearwateranalytics:dependency:resolve-transitives'
+
+alias chiptune='mpsyt play chiptune'
