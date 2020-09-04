@@ -11,12 +11,15 @@ passwd alanxoc3
 
 echo "Setting the hostname..."
 read MYHOSTNAME
-echo $MYHOSTNAME > /etc/hostname
-hostname $MYHOSTNAME
+printf "Enter hostname: "
+hostnamectl set-hostname $MYHOSTNAME
+
+echo "Enabling ufw..."
+ufw allow ssh
+ufw enable
 
 echo "Switching to zsh..."
 chsh -s /bin/zsh
 
 echo "Allowing wheel users to use sudo..."
 echo '%wheel ALL=(ALL) ALL' > /etc/sudoers.d/wheel
-sudo reboot

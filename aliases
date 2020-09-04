@@ -9,7 +9,6 @@ alias acp=acpi
 alias aicp=acpi
 alias aipc=acpi
 alias ake=make
-alias alan='sshfs -o allow_other alanxoc3@alan:/home/alanxoc3/ ~/alan/ -C'
 alias amke=make
 alias apci=acpi
 alias apic=acpi
@@ -171,8 +170,6 @@ alias mll='mount***REMOVED***'; alias mountll='mount***REMOVED***'
 alias mone="sudo mount /dev/sda1 /mnt"
 alias morbri="sbri 90"
 alias mordim="sbri 10"
-alias mountalan=alan
-alias mount***REMOVED***='sshfs -p 215 -o allow_other alanxoc3@***REMOVED***:./ ~/alan/ -C'
 alias mountmicrosd=mountcard
 alias mountsdcard=mountcard
 alias mouse='synclient TouchpadOff=0'
@@ -185,7 +182,6 @@ alias nincont=nin
 alias nincontroller=nin
 alias nin="sudo modprobe ns588 joydev analog;"
 alias njr='jrn'
-alias noalan='fusermount -u ~/alan'
 alias noemac=rmemacs
 alias noemacs=rmemacs
 alias nomouse='synclient TouchpadOff=1'
@@ -266,9 +262,7 @@ alias ua='updatealias'
 alias ub='updatebash'
 alias umnt='sudo umount /mnt'
 alias umone="sudo umount /mnt"
-alias umountalan=noalan
 alias umtwo="sudo umount /mnt2"
-alias unmountalan=noalan
 alias updatealias='source ~/.aliases'
 alias updatebash='source ~/.bashrc'
 alias updateprofile='source ~/.profile'
