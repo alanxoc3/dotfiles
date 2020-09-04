@@ -3,7 +3,7 @@
 
 sudo pacman -S syncthing
 echo syncthing-server | sudo tee /etc/hostname
-hostname syncthing-server
+sudo hostname syncthing-server
 sudo systemctl enable syncthing@alanxoc3.service
 sudo systemctl start syncthing@alanxoc3.service
 sudo reboot
