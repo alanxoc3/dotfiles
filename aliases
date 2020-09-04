@@ -315,3 +315,5 @@ alias mvncid='mvci -DskipDependencyCheck=true'
 alias mvnt='mvn com.clearwateranalytics:dependency:resolve-transitives'
 
 alias chiptune='mpsyt play chiptune'
+
+alias getssh='sed -rn 's/^\s*Host\s+(.*)$/\1/ip' ~/.ssh/config ~/.ssh/local_ssh 2> /dev/null | xargs -n1'
