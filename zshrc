@@ -3,7 +3,7 @@
 
 # Emacs Mode & History Options
 bindkey -e
-export PROMPT='[%F{red}%T%f %c] '
+export PROMPT='%F{white}[%#%f %F{red}%M%f %F{white}%c]%f '
 export CLICOLOR=1
 
 # History & prompt
