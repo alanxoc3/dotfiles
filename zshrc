@@ -18,6 +18,7 @@ setopt HIST_FIND_NO_DUPS    # Do not display the string found earlier
 setopt HIST_IGNORE_DUPS     # Ignore rows if they are duplicates
 setopt HIST_REDUCE_BLANKS   # Delete empty lines from history file
 setopt HIST_IGNORE_SPACE    # Ignore a record starting with a space
+setopt interactivecomments  # Allow comments
 
 # Functions
 _fzf_compgen_path() {
@@ -31,7 +32,6 @@ sbri() {
 liquibase() {
    mvn -Drelease.environment=local -Dserver=$1 -Ddatabase=$2 -Dusername=liquibase -Dpassword=l1qu1b\$e -Dcontexts=db,$3 clean install
 }
-
 
 # Source files.
 source "$HOME/.local_aliases" 2> /dev/null

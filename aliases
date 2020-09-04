@@ -231,6 +231,7 @@ alias rjn='jrn'
 alias rmemac=rmemacs
 alias rmemacs='find * -name "*~" -delete'
 alias rmr="rm -r"
+alias rmrf="rm -rf"
 alias rndbkgd="feh --randomize --bg-fill ~/Pictures/photos/*"
 alias rnj='jrn'
 alias rnui=runi
@@ -291,26 +292,48 @@ alias zasa="zathura ~/sync/books/sankta_biblio.pdf &"
 alias zath=zathura
 alias 词典="vim ~/sync/alioj/chinese/cedict_ts.u8"
 
+alias fzf='fzf --height 40% --reverse'
 alias uz='source ~/.zshenv; source ~/.zshrc'
 alias editsnips="vim ~/.dotfiles/snips/*"
 alias es='editsnips'
 alias dot='cd ~/.dotfiles'
 alias v='vim'
+
 alias gs='git status'
 alias g='git'
-alias gc='git add --all; git commit;'
 alias gu='git pull'
 alias gf='git fetch'
+alias ga='git add'
+alias ga.='git add --all'
+alias gc='git add --all; git commit;'
 alias gm='git merge'
 alias gp='git push'
-alias gpn='git push --set-upstream origin $(git branch --show-current)'
+alias gpn='git push -u origin $(git branch --show-current)'
 alias gd='git diff HEAD'
 alias gl='git log'
 alias gb='git branch'
 alias gba='git branch --all'
+alias gbc='git branch --show-current'
 alias gk='git checkout'
+alias gkt='git checkout --track'
+alias gbl='git blame'
+
 alias cd-='cd -'
 alias mvnci='mvn clean install'
-alias mvncid='mvci -DskipDependencyCheck=true'
+alias mvncid='mvnci -DskipDependencyCheck=true'
+alias mvncidt='mvnci -DskipDependencyCheck=true -DskipTests=true'
 
 alias mvnt='mvn com.clearwateranalytics:dependency:resolve-transitives'
+
+kb_git_branches() {
+   LBUFFER="${LBUFFER}$(git branch -a | sed 's/^ *//g' | grep -v '*' | fzf)"
+   local ret=$?
+   zle reset-prompt
+   return $ret
+}
+zle     -N    kb_git_branches
+bindkey '\eg' kb_git_branches
+
+vbpf() {
+   VBoxManage controlvm "default" natpf1 "tcp-port$1,tcp,,$1,,$1"
+}
