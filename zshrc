@@ -20,6 +20,12 @@ setopt HIST_REDUCE_BLANKS   # Delete empty lines from history file
 setopt HIST_IGNORE_SPACE    # Ignore a record starting with a space
 setopt interactivecomments  # Allow comments
 
+# Source files.
+source "$HOME/.local_aliases" 2> /dev/null
+source "$HOME/.aliases" 2> /dev/null
+source "$HOME/.fzf/shell/completion.zsh" 2> /dev/null
+source "$HOME/.fzf/shell/key-bindings.zsh" 2> /dev/null
+
 # Functions
 _fzf_compgen_path() {
  fd --hidden --follow --exclude ".git" . "$1"
@@ -33,8 +39,23 @@ liquibase() {
    mvn -Drelease.environment=local -Dserver=$1 -Ddatabase=$2 -Dusername=liquibase -Dpassword=l1qu1b\$e -Dcontexts=db,$3 clean install
 }
 
-# Source files.
-source "$HOME/.local_aliases" 2> /dev/null
-source "$HOME/.aliases" 2> /dev/null
-source "$HOME/.fzf/shell/completion.zsh" 2> /dev/null
-source "$HOME/.fzf/shell/key-bindings.zsh" 2> /dev/null
+# Keyboard Shortcuts
+kb_ssh_hosts() {
+   LBUFFER="${LBUFFER}$(kbf_ssh_hosts | fzf)"
+   local ret=$?
+   zle reset-prompt
+   return $ret
+}
+zle     -N    kb_ssh_hosts
+bindkey '\es' kb_ssh_hosts
+
+kb_git_branches() {
+   LBUFFER="${LBUFFER}$(kbf_git_branch | fzf)"
+   local ret=$?
+   zle reset-prompt
+   return $ret
+}
+zle     -N    kb_git_branches
+bindkey '\eg' kb_git_branches
+
+

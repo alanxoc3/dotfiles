@@ -326,22 +326,4 @@ alias mvnt='mvn com.clearwateranalytics:dependency:resolve-transitives'
 alias kbf_git_branch="git branch -a | sed 's/^ *//g' | grep -v '*'"
 alias kbf_ssh_hosts="sed -rn 's/^\s*Host\s+(.*)$/\1/ip' ~/.ssh/config ~/.ssh/local_ssh 2> /dev/null | xargs -n1"
 
-kb_ssh_hosts() {
-   LBUFFER="${LBUFFER}$(kbf_ssh_hosts)"
-   local ret=$?
-   zle reset-prompt
-   return $ret
-}
-zle     -N    kb_ssh_hosts
-bindkey '\es' kb_ssh_hosts
-
-kb_git_branches() {
-   LBUFFER="${LBUFFER}$(kbf_git_branch)"
-   local ret=$?
-   zle reset-prompt
-   return $ret
-}
-zle     -N    kb_git_branches
-bindkey '\eg' kb_git_branches
-
 alias chiptune='mpsyt play chiptune'
