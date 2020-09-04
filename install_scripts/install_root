@@ -1,0 +1,28 @@
+#!/bin/bash
+# Alan's arch install script for root.
+
+echo "Installing packages..."
+pacman -Syyu --noconfirm
+pacman --noconfirm -S git sudo zsh neovim python-neovim glibc ripgrep tmux base-devel htop ufw
+
+echo "Enabling ufw..."
+systemctl enable ufw.service
+systemctl start ufw.service
+ufw default deny
+ufw allow ssh
+ufw enable
+
+echo "Creating user & setting password..."
+useradd -m -G wheel -s /bin/zsh alanxoc3
+passwd alanxoc3
+
+echo "Setting the hostname..."
+printf "Enter hostname: "
+read MYHOSTNAME
+hostnamectl set-hostname $MYHOSTNAME
+
+echo "Switching to zsh..."
+chsh -s /bin/zsh
+
+echo "Allowing wheel users to use sudo..."
+echo '%wheel ALL=(ALL) ALL' > /etc/sudoers.d/wheel

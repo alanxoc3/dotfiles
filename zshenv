@@ -2,6 +2,9 @@
 # zshenv - Alan Morgan
 
 # Set the path.
+#
+#
+
 export PATH="$PATH:$HOME/.fzf/bin"
 export PATH="$PATH:$HOME/.cargo/bin"
 export PATH="$PATH:$PICOBINPATH"
@@ -12,7 +15,6 @@ export PATH="$PATH:$HOME/go/bin"
 export PATH="$PATH:$HOME/.cargo/bin"
 export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:$HOME/.emacs.d/bin"
-export PATH="$PATH:$(ruby -e 'puts Gem.user_dir')/bin"
 export PATH="$PATH:/Applications/Firefox.app/Contents/MacOS"
 export PATH="$PATH:/usr/local/Caskroom/qutebrowser/1.12.0/qutebrowser.app/Contents/MacOS"
 

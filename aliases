@@ -9,7 +9,6 @@ alias acp=acpi
 alias aicp=acpi
 alias aipc=acpi
 alias ake=make
-alias alan='sshfs -o allow_other alanxoc3@alan:/home/alanxoc3/ ~/alan/ -C'
 alias amke=make
 alias apci=acpi
 alias apic=acpi
@@ -171,8 +170,6 @@ alias mll='mount***REMOVED***'; alias mountll='mount***REMOVED***'
 alias mone="sudo mount /dev/sda1 /mnt"
 alias morbri="sbri 90"
 alias mordim="sbri 10"
-alias mountalan=alan
-alias mount***REMOVED***='sshfs -p 215 -o allow_other alanxoc3@***REMOVED***:./ ~/alan/ -C'
 alias mountmicrosd=mountcard
 alias mountsdcard=mountcard
 alias mouse='synclient TouchpadOff=0'
@@ -185,7 +182,6 @@ alias nincont=nin
 alias nincontroller=nin
 alias nin="sudo modprobe ns588 joydev analog;"
 alias njr='jrn'
-alias noalan='fusermount -u ~/alan'
 alias noemac=rmemacs
 alias noemacs=rmemacs
 alias nomouse='synclient TouchpadOff=1'
@@ -245,7 +241,7 @@ alias screen_off="xset dpms force off"
 alias scrips=scrip
 alias scrip='vim -R ~/sync/ref/scrips.txt'
 alias sdcard='cd /sdcard; ls;'
-alias serve_syncthing='ssh -N -L 9090:***REMOVED***:8384 alanxoc3@alan'
+alias serve_syncthing='ssh -N -L 9090:***REMOVED***:8384 alanxoc3@syncthing'
 alias simplegame='~/.simplegame/simplegame'
 alias skeet="~/sync/coding/completed/skeet/skeet"
 alias slblk=lsblk
@@ -267,9 +263,7 @@ alias ua='updatealias'
 alias ub='updatebash'
 alias umnt='sudo umount /mnt'
 alias umone="sudo umount /mnt"
-alias umountalan=noalan
 alias umtwo="sudo umount /mnt2"
-alias unmountalan=noalan
 alias updatealias='source ~/.aliases'
 alias updatebash='source ~/.bashrc'
 alias updateprofile='source ~/.profile'
@@ -293,6 +287,9 @@ alias zath=zathura
 alias 词典="vim ~/sync/alioj/chinese/cedict_ts.u8"
 
 alias fzf='fzf --height 40% --reverse'
+alias tolap="xrandr --output HDMI-1 --off --output eDP-1 --auto --mode 1366x768 --panning 1366x768"
+alias tomirror="xrandr --output HDMI-1 --mode 1366x768 --output eDP-1 --mode 1366x768"
+
 alias uz='source ~/.zshenv; source ~/.zshrc'
 alias editsnips="vim ~/.dotfiles/snips/*"
 alias es='editsnips'
@@ -318,6 +315,7 @@ alias gk='git checkout'
 alias gkt='git checkout --track'
 alias gbl='git blame'
 
+alias ls="ls --color -GFp"
 alias cd-='cd -'
 alias mvnci='mvn clean install'
 alias mvncid='mvnci -DskipDependencyCheck=true'
@@ -325,8 +323,20 @@ alias mvncidt='mvnci -DskipDependencyCheck=true -DskipTests=true'
 
 alias mvnt='mvn com.clearwateranalytics:dependency:resolve-transitives'
 
+alias kbf_git_branch="git branch -a | sed 's/^ *//g' | grep -v '*'"
+alias kbf_ssh_hosts="sed -rn 's/^\s*Host\s+(.*)$/\1/ip' ~/.ssh/config ~/.ssh/local_ssh 2> /dev/null | xargs -n1"
+
+kb_ssh_hosts() {
+   LBUFFER="${LBUFFER}$(kbf_ssh_hosts)"
+   local ret=$?
+   zle reset-prompt
+   return $ret
+}
+zle     -N    kb_ssh_hosts
+bindkey '\es' kb_ssh_hosts
+
 kb_git_branches() {
-   LBUFFER="${LBUFFER}$(git branch -a | sed 's/^ *//g' | grep -v '*' | fzf)"
+   LBUFFER="${LBUFFER}$(kbf_git_branch)"
    local ret=$?
    zle reset-prompt
    return $ret
@@ -334,6 +344,4 @@ kb_git_branches() {
 zle     -N    kb_git_branches
 bindkey '\eg' kb_git_branches
 
-vbpf() {
-   VBoxManage controlvm "default" natpf1 "tcp-port$1,tcp,,$1,,$1"
-}
+alias chiptune='mpsyt play chiptune'

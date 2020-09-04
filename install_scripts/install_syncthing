@@ -1,0 +1,6 @@
+#!/bin/bash
+# How to install a syncthing server.
+
+sudo pacman -S syncthing
+sudo systemctl enable syncthing@alanxoc3.service
+sudo systemctl start syncthing@alanxoc3.service

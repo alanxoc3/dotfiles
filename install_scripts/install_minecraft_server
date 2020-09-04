@@ -1,0 +1,14 @@
+#!/bin/bash
+# How to install a minecraft server.
+
+# Enable minecraft ports.
+sudo ufw allow 25565
+sudo ufw allow 25575
+
+cd ~/repos
+git clone https://aur.archlinux.org/minecraft-server.git
+cd minecraft-server
+makepkg -si --noconfirm
+
+minecraftd start
+echo "You will have to edit '/srv/minecraft/eula.txt' to start the server."
