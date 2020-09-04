@@ -9,8 +9,14 @@ echo "Creating user & setting password..."
 useradd -m -G wheel -s /bin/zsh alanxoc3
 passwd alanxoc3
 
+echo "Setting the hostname..."
+read MYHOSTNAME
+echo $MYHOSTNAME > /etc/hostname
+hostname $MYHOSTNAME
+
 echo "Switching to zsh..."
 chsh -s /bin/zsh
 
 echo "Allowing wheel users to use sudo..."
 echo '%wheel ALL=(ALL) ALL' > /etc/sudoers.d/wheel
+sudo reboot

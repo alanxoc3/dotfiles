@@ -2,8 +2,5 @@
 # How to install a syncthing server.
 
 sudo pacman -S syncthing
-echo syncthing-server | sudo tee /etc/hostname
-sudo hostname syncthing-server
 sudo systemctl enable syncthing@alanxoc3.service
 sudo systemctl start syncthing@alanxoc3.service
-sudo reboot
