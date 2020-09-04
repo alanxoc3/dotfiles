@@ -7,20 +7,26 @@ color=#FFFFFF
 color=#FFFFFF
 command=~/.dotfiles/bin/i3b_battery
 interval=30
-label=bat: 
+label=电量 
 
 [memory]
 color=#77AAFF
 command=~/.dotfiles/bin/i3b_memory
-label=mem: 
+label=内存 
 interval=30
 
 [wifi]
 color=#FFFFFF
 command=~/.dotfiles/bin/i3b_wifi
 interval=30
-label=wifi: 
+label=无线 
 INTERFACE=wlo1
+
+[volume]
+command=~/.dotfiles/bin/i3b_volume
+LABEL=音量 
+interval=-1
+signal=10
 
 [time]
 color=#FFFFFF

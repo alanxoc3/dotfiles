@@ -11,8 +11,9 @@ bindsym $mod+Shift+q kill
 bindsym $mod+d exec rofi_menu
 
 # Volume
-bindsym $mod+Shift+bracketleft  exec amixer -D pulse sset Master 5%-
-bindsym $mod+Shift+bracketright exec amixer -D pulse sset Master 5%+
+bindsym XF86AudioRaiseVolume exec amixer -q -D pulse sset Master 5%+ && pkill -RTMIN+10 i3blocks
+bindsym XF86AudioLowerVolume exec amixer -q -D pulse sset Master 5%- && pkill -RTMIN+10 i3blocks
+bindsym XF86AudioMute exec amixer -q -D pulse sset Master toggle && pkill -RTMIN+10 i3blocks
 
 bindsym $mod+Shift+s sticky toggle
 
