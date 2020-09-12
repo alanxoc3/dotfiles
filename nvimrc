@@ -2,6 +2,7 @@
 call plug#begin()
 " 4 Kotlin
 Plug 'udalov/kotlin-vim'
+Plug 'osamuaoki/vim-spell-under' " Allows spell and syntax to work well together.
 Plug 'justinj/vim-pico8-syntax'
 Plug 'posva/vim-vue'
 Plug 'qpkorr/vim-renamer'
@@ -9,6 +10,7 @@ Plug 'tpope/vim-fugitive'
 
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
+" Plug 'fatih/vim-go'
 
 " Conquer of Completion LSP
 " Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -98,6 +100,7 @@ map <leader>w :set wrap!<CR>
 map <leader>s :e ~/.dotfiles/snips/all.snippets<CR>
 
 autocmd FileType java setlocal omnifunc=javacomplete#Complete
+autocmd FileType markdown setlocal spell
 
 " https://joshldavis.com/2014/04/05/vim-tab-madness-buffers-vs-tabs/
 " This allows buffers to be hidden if you've modified a buffer.
@@ -142,7 +145,7 @@ if has('nvim')
 	tnoremap <C-v><Esc> <Esc>
 endif
 
-set spell
+let g:spell_under='default'
 set spelllang=en
 set number
 
@@ -162,9 +165,6 @@ cmap w!! w !sudo tee > /dev/null %
 
 " Indent the right amount for a file.
 filetype plugin indent on
-
-hi clear SpellBad
-hi SpellBad cterm=underline
 
 set bg=dark
 

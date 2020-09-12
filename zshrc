@@ -19,6 +19,7 @@ setopt HIST_IGNORE_DUPS     # Ignore rows if they are duplicates
 setopt HIST_REDUCE_BLANKS   # Delete empty lines from history file
 setopt HIST_IGNORE_SPACE    # Ignore a record starting with a space
 setopt interactivecomments  # Allow comments
+setopt +o nomatch
 
 # Source files.
 source "$HOME/.local_aliases" 2> /dev/null
