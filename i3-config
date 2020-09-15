@@ -1,7 +1,7 @@
 # Hey me, this is my i3 config :D.
 
 exec --no-startup-id xsetroot -solid black
-exec --no-startup-id redshift
+exec --no-startup-id redshift-gtk
 
 set $mod Mod4
 font pango:Source Code Pro 8
