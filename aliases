@@ -296,6 +296,7 @@ alias es='editsnips'
 alias dot='cd ~/.dotfiles'
 alias v='vim'
 
+alias cg='cd $(git rev-parse --show-toplevel)'
 alias gs='git status'
 alias g='git'
 alias gu='git pull'
