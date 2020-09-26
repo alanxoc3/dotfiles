@@ -40,6 +40,7 @@ alias gf='git fetch'
 alias ga='git add'
 alias ga.='git add --all'
 alias gc='git add --all; git commit;'
+alias gcl='git clone'
 alias gm='git merge'
 alias gp='git push'
 alias gpn='git push -u origin $(git branch --show-current)'
@@ -352,6 +353,7 @@ alias cmsu=cmus
 alias cret='echo $?'
 alias daet=date
 alias dd='dd status=progress'
+alias du='du -h'
 alias df='df -h'
 alias emacs='emacs -nw'
 alias fa="grep -r --exclude-dir='.*'"

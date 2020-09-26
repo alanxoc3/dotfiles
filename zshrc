@@ -18,7 +18,10 @@ setopt HIST_FIND_NO_DUPS    # Do not display the string found earlier
 setopt HIST_IGNORE_DUPS     # Ignore rows if they are duplicates
 setopt HIST_REDUCE_BLANKS   # Delete empty lines from history file
 setopt HIST_IGNORE_SPACE    # Ignore a record starting with a space
-setopt interactivecomments  # Allow comments
+setopt EXTENDED_HISTORY     # Add additional data to history like timestamp
+setopt INC_APPEND_HISTORY   # Add immediately
+setopt SHARE_HISTORY        # Share history between session/terminals
+setopt interactivecomments  # Allow comments in interactive mode.
 setopt +o nomatch
 
 # Source files.
@@ -58,5 +61,3 @@ kb_git_branches() {
 }
 zle     -N    kb_git_branches
 bindkey '\eg' kb_git_branches
-
-

@@ -7,6 +7,7 @@ Plug 'justinj/vim-pico8-syntax'
 Plug 'posva/vim-vue'
 Plug 'qpkorr/vim-renamer'
 Plug 'tpope/vim-fugitive'
+Plug 'wsdjeg/vim-fetch'
 
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
@@ -109,6 +110,9 @@ set hidden
 
 " Thanks stack overflow.
 set nojoinspaces
+
+nmap dK kdd
+nmap dJ jddk
 
 nmap <leader>f :FZF<CR>
 nmap <leader>F :FZF -q '<cword><CR>
