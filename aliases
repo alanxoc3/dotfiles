@@ -9,9 +9,6 @@ alias mvnp="mvn package"
 
 # ssh
 alias kbf_ssh_hosts="sed -rn 's/^\s*Host\s+(.*)$/\1/ip' ~/.ssh/config ~/.ssh/local_ssh 2> /dev/null | xargs -n1"
-alias vpn='sshuttle --dns -r alan 0/0 -x ***REMOVED*** --python /home/alanxoc3/.pyenv/versions/3.7.5/bin/python'
-alias serve_syncthing='ssh -N -L 9090:***REMOVED***:8384 alanxoc3@syncthing'
-alias ***REMOVED***='ssh -p 215 alanxoc3@***REMOVED***'
 
 # source
 alias testbash='source $(cat > /tmp/.testbash; echo /tmp/.testbash)';
@@ -372,7 +369,6 @@ alias jp='jp2a --colors'
 alias lid="echo locked > '/tmp/.lid-lock-file'"
 alias lock="physlock"
 alias mkflashdrive='sudo mkfs.vfat -n AMORG'
-alias mll='mount***REMOVED***'; alias mountll='mount***REMOVED***'
 alias pavucontrol="ncpamixer"
 alias pinger='ping www.google.com'
 alias renginx="sudo nginx -s reload"

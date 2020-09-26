@@ -7,9 +7,11 @@ git clone https://github.com/alanxoc3/dotfiles.git ~/.dotfiles
 
 echo "Setting up local git user..."
 pushd ~/.dotfiles
-echo '[user]
-   email = ***REMOVED***
-   name = Alan Morgan' > local_gitconfig
+printf 'Name: ' ; read $NAME
+printf 'Email: '; read $EMAIL
+echo "[user]
+   name = $NAME
+   email = $EMAIL" > local_gitconfig
 
 ./setup.sh
 popd
