@@ -33,6 +33,7 @@ alias umone="sudo umount /mnt"
 alias umtwo="sudo umount /mnt2"
 
 # git
+alias cg='cd $(git rev-parse --show-toplevel)'
 alias gs='git status'
 alias g='git'
 alias gu='git pull'
