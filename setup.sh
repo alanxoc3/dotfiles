@@ -39,6 +39,7 @@ cf doom               .doom.d
 
 cfc .config/i3blocks  i3blocks-config  config
 cfc .config/nvim/     nvimrc           init.vim
+cfc .config/nvim/     nvim-lua         lua
 cfc .config/i3/       i3-config        config
 cfc .config/git/      gitconfig        config
 cfc .config/i3status/ i3-status-config config

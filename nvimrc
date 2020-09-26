@@ -55,6 +55,8 @@ Plug 'mileszs/ack.vim'
 
 call plug#end()
 
+lua require("init")
+
 let g:deoplete#enable_at_startup = 1
 let mapleader = " "
 
