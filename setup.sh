@@ -44,6 +44,7 @@ cfc .config/i3/       i3-config        config
 cfc .config/git/      gitconfig        config
 cfc .config/i3status/ i3-status-config config
 cfc .config/nvim      snips            UltiSnips
+cfc .config           concards         concards
 
 # qutebrowser
 cfc .config/qutebrowser/bookmarks/ qute_bookmarks urls
