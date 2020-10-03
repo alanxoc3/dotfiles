@@ -347,6 +347,7 @@ alias sudo='sudo '
 
 # random
 alias bc='bc -q'
+alias cnc="concards ~/sync/cards ~/diary/alan"
 alias cmsu=cmus
 alias cret='echo $?'
 alias daet=date
