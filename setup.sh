@@ -38,13 +38,14 @@ cf doom               .doom.d
 # bin and local_bin are in the '~/.dotfiles' folder
 
 cfc .config/i3blocks  i3blocks-config  config
-cfc .config/nvim/     nvimrc           init.vim
-cfc .config/nvim/     nvim-lua         lua
-cfc .config/i3/       i3-config        config
-cfc .config/git/      gitconfig        config
-cfc .config/i3status/ i3-status-config config
+cfc .config/nvim      nvimrc           init.vim
+cfc .config/nvim      nvim-lua         lua
+cfc .config/i3        i3-config        config
+cfc .config/git       gitconfig        config
+cfc .config/i3status  i3-status-config config
 cfc .config/nvim      snips            UltiSnips
 cfc .config           concards         concards
+cfc .ssh              ssh-config       config
 
 # qutebrowser
 cfc .config/qutebrowser/bookmarks/ qute_bookmarks urls

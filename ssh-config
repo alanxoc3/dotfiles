@@ -1,0 +1,10 @@
+# ~/.ssh/config
+Include ~/.ssh/lconfig
+
+Host aur aur.archlinux.org
+   IdentityFile ~/.ssh/id_aur
+   User aur
+
+Host github github.com
+   IdentityFile ~/.ssh/id_git
+   User git
