@@ -1,0 +1,5 @@
+#!/bin/bash
+# Install go and go related tools.
+
+sudo pacman -S go
+go get golang.org/x/tools/cmd/goimports
