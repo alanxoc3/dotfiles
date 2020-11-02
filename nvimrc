@@ -8,6 +8,8 @@ Plug 'posva/vim-vue'
 Plug 'qpkorr/vim-renamer'
 Plug 'tpope/vim-fugitive'
 Plug 'wsdjeg/vim-fetch'
+Plug 'justinmk/vim-sneak'
+Plug 'easymotion/vim-easymotion'
 
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
@@ -98,8 +100,6 @@ let g:ranger_replace_netrw = 1
 let g:ranger_map_keys = 0
 map <leader>y :Ranger<CR>
 
-map <leader>w :set wrap!<CR>
-
 map <leader>s :e ~/.dotfiles/snips/all.snippets<CR>
 
 autocmd FileType java setlocal omnifunc=javacomplete#Complete
@@ -153,7 +153,8 @@ endif
 
 let g:spell_under='default'
 set spelllang=en
-set number
+set nonumber
+set nowrap
 
 " http://vim.wikia.com/wiki/Indenting_source_code
 set tabstop=3
@@ -262,12 +263,6 @@ nmap z*  <Plug>(asterisk-z*)
 nmap gz* <Plug>(asterisk-gz*)
 nmap z#  <Plug>(asterisk-z#)
 nmap gz# <Plug>(asterisk-gz#)
-
-" For long lines
-nmap j gj
-nmap k gk
-nmap $ g$
-nmap 0 g0
 
 " Some vim java thing.
 set errorformat=[ERROR]\ %f:[%l\\,%v]\ %m
