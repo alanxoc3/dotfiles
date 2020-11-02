@@ -18,4 +18,3 @@
    l  = log --pretty='%C(Yellow)%h %C(reset)%ad %C(Cyan)%an: %C(reset)%s%C(Red)%d%C(reset)' --date=short --graph
    la = log --pretty='%C(Yellow)%h %C(reset)%ad %C(Cyan)%an: %C(reset)%s%C(Red)%d%C(reset)' --date=short --graph --all
    lf = log --name-status --find-renames --oneline
-   pull = pull --rebase

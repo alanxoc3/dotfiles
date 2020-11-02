@@ -61,3 +61,5 @@ kb_git_branches() {
 }
 zle     -N    kb_git_branches
 bindkey '\eg' kb_git_branches
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
