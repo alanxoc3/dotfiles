@@ -65,6 +65,7 @@ alias vid2mp3='youtube-dl --extract-audio --audio-format mp3'
 alias gocover='go test -coverprofile=/tmp/cover.out; go tool cover -html=/tmp/cover.out'
 
 # vim
+alias cv="cd ~/.config/nvim"
 alias vim="nvim"
 alias v='vim'
 alias editsnips="vim ~/.dotfiles/snips/*"
@@ -105,7 +106,7 @@ alias editalias='vim ~/.aliases'
 alias editbash='vim ~/.bashrc'
 alias editrd='vim ~/sync/goals/rd.txt'
 alias editschedule='vim ~/sync/remember/schedule.org'
-alias editvim='vim ~/.config/nvim/init.vim'
+alias editvim='vim ~/.config/nvim/lua/init.lua'
 alias editxterm='vim ~/.Xresources'
 alias editzsh='vim ~/.zshrc'
 alias edI='vim ~/diary/alan/I_diary.md'

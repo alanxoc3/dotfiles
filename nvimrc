@@ -59,26 +59,8 @@ call plug#end()
 
 lua require("init")
 
-let g:deoplete#enable_at_startup = 1
-let mapleader = " "
-
-" Snippets...
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-
-" If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
-
-
 " python with nvim
 " https://github.com/zchee/deoplete-jedi/wiki/Setting-up-Python-for-Neovim#a-brief-overview-of-neovim--python
-
-let g:python_host_prog  = '/usr/bin/python2'
-let g:python3_host_prog = '/usr/bin/python3'
-
-let g:buftabline_indicators = 1
-let g:buftabline_numbers = 2
 
 " for switching between tabs/buffers.
 nmap <leader>1 <Plug>BufTabLine.Go(1)
@@ -92,26 +74,12 @@ nmap <leader>8 <Plug>BufTabLine.Go(8)
 nmap <leader>9 <Plug>BufTabLine.Go(9)
 nmap <leader>0 <Plug>BufTabLine.Go(10)
 
-" https://shapeshed.com/vim-netrw/
-let g:netrw_banner = 0
-
-" ranger plugin config
-let g:ranger_replace_netrw = 1
-let g:ranger_map_keys = 0
 map <leader>y :Ranger<CR>
 
 map <leader>s :e ~/.dotfiles/snips/all.snippets<CR>
 
 autocmd FileType java setlocal omnifunc=javacomplete#Complete
 autocmd FileType markdown setlocal spell
-
-" https://joshldavis.com/2014/04/05/vim-tab-madness-buffers-vs-tabs/
-" This allows buffers to be hidden if you've modified a buffer.
-" This is almost a must if you wish to use buffers in this way.
-set hidden
-
-" Thanks stack overflow.
-set nojoinspaces
 
 nmap dK kdd
 nmap dJ jddk
@@ -138,9 +106,6 @@ nmap <leader>bq :bp <BAR> bd #<CR>
 " Show all open buffers and their status
 nmap <leader>bl :ls<CR>
 
-" no status line
-set ls=0
-
 " Quade things.
 nnoremap / /\v
 nnoremap <leader>t :set rnu!<CR>
@@ -151,19 +116,6 @@ if has('nvim')
 	tnoremap <C-v><Esc> <Esc>
 endif
 
-let g:spell_under='default'
-set spelllang=en
-set nonumber
-set nowrap
-
-" http://vim.wikia.com/wiki/Indenting_source_code
-set tabstop=3
-set shiftwidth=3
-set expandtab
-
-" Number of tabs allowed.
-set tabpagemax=100
-
 syntax on
 
 " Easy sudo hack taken from
@@ -172,8 +124,6 @@ cmap w!! w !sudo tee > /dev/null %
 
 " Indent the right amount for a file.
 filetype plugin indent on
-
-set bg=dark
 
 " Get rid of the pesky F1 help menu taken from:
 " http://vim.wikia.com/wiki/Disable_F1_built-in_help_key
@@ -185,34 +135,12 @@ imap <F1> <Esc>
 nnoremap <leader>o @='o<C-V><Esc>k'<CR>
 nnoremap <leader>O @='O<C-V><Esc>j'<CR>
 
-" Arch vimrc file
-set backspace=indent,eol,start  " more powerful backspacing
-
-" Now we set some defaults for the editor
-set history=50                  " keep 50 lines of command line history
-set ruler                       " show the cursor position all the time
-
-
 highlight ExtraWhitespace ctermbg=red guibg=red
 match ExtraWhitespace /\s\+$/
 autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
 autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 autocmd BufWinLeave * call clearmatches()
-
-" Suffixes that get lower priority when doing tab completion for filenames.
-" These are files we are not likely to want to edit or read.
-set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc,.png,.jpg
-
-" No annoying message from cwd when screen is too short. See:
-let g:rooter_silent_chdir = 1
-
-" go plugin
-let g:go_fmt_autosave = 0
-
-set encoding=utf-8
-set termencoding=utf-8
-set fileencoding=utf-8
 
 " Quade told me about this auto group thing. So it doen't run again when you
 " source.
@@ -225,10 +153,6 @@ augroup alan_auto_group
 	autocmd FileType php setlocal makeprg=zca\ %<.php
 	autocmd FileType php setlocal errorformat=%f(line\ %l):\ %m
 augroup END
-
-" For vim plugins in neovim.
-" https://wiki.archlinux.org/index.php/Neovim
-set rtp^=/usr/share/vim/vimfiles/
 
 " Use fd for ctrlp.
 " https://www.reddit.com/r/vim/comments/83h31q/speed_up_ctrlp_with_fd/
@@ -252,8 +176,6 @@ augroup FZF
 	autocmd! FileType fzf tnoremap <buffer> <esc> <esc>
 augroup END
 
-" let $BASH_ENV = "~/.bash_aliases"
-
 " Asterisk plugin :D.
 nmap *   <Plug>(asterisk-*)
 nmap #   <Plug>(asterisk-#)
@@ -263,8 +185,3 @@ nmap z*  <Plug>(asterisk-z*)
 nmap gz* <Plug>(asterisk-gz*)
 nmap z#  <Plug>(asterisk-z#)
 nmap gz# <Plug>(asterisk-gz#)
-
-" Some vim java thing.
-set errorformat=[ERROR]\ %f:[%l\\,%v]\ %m
-
-let g:asterisk#keeppos = 1
