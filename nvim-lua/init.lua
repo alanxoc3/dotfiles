@@ -3,6 +3,8 @@ vim.api.nvim_exec([[filetype plugin indent on]], false)
 
 vim.api.nvim_exec([[
 	call plug#begin()
+	Plug 'svermeulen/vimpeccable'
+
 	" 4 Kotlin
 	Plug 'udalov/kotlin-vim'
 	Plug 'osamuaoki/vim-spell-under' " Allows spell and syntax to work well together.
@@ -104,9 +106,9 @@ vim.o.joinspaces = false
 -- no status line
 vim.o.ls = 0
 
+vim.wo.wrap = false
 vim.o.spelllang = "en"
 vim.o.number = false
-vim.o.wrap = false
 
 -- http://vim.wikia.com/wiki/Indenting_source_code
 vim.o.tabstop = 3
@@ -195,12 +197,12 @@ vim.api.nvim_exec([[
 	nmap <leader>bl :ls<CR>
 
 	" Quade things.
-	nnoremap / /\\v
+	nnoremap / /\v
 	nnoremap <leader>t :set rnu!<CR>
 
 	" Quade thing, for stupid terminal emulator.
 	if has('nvim')
-		tnoremap <Esc> <C-\\><C-n>
+		tnoremap <Esc> <C-\><C-n>
 		tnoremap <C-v><Esc> <Esc>
 	endif
 
@@ -221,10 +223,10 @@ vim.api.nvim_exec([[
 	nnoremap <leader>O @='O<C-V><Esc>j'<CR>
 
 	highlight ExtraWhitespace ctermbg=red guibg=red
-	match ExtraWhitespace /\\s\\+$/
-	autocmd BufWinEnter * match ExtraWhitespace /\\s\\+$/
-	autocmd InsertEnter * match ExtraWhitespace /\\s\\+\\%#\\@<!$/
-	autocmd InsertLeave * match ExtraWhitespace /\\s\\+$/
+	match ExtraWhitespace /\s\+$/
+	autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+	autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+	autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 	autocmd BufWinLeave * call clearmatches()
 
 	" Quade told me about this auto group thing. So it doen't run again when you
@@ -235,8 +237,8 @@ vim.api.nvim_exec([[
 		autocmd FileType vue set shiftwidth=2
 
 		" For PHP integration. Took from Arch Wiki
-		autocmd FileType php setlocal makeprg=zca\\ %<.php
-		autocmd FileType php setlocal errorformat=%f(line\\ %l):\\ %m
+		autocmd FileType php setlocal makeprg=zca\ %<.php
+		autocmd FileType php setlocal errorformat=%f(line\ %l):\ %m
 	augroup END
 
 	" Use fd for ctrlp.
