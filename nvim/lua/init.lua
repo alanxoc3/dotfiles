@@ -94,8 +94,6 @@ vim.o.tabpagemax = 100
 vim.o.ignorecase = true
 vim.o.smartcase = true
 
-vim.o.bg = "dark"
-
 -- Arch vimrc file
 vim.o.backspace="indent,eol,start"  -- more powerful backspacing
 
@@ -125,9 +123,10 @@ end
 
 -- Commands
 vim.api.nvim_exec([[
-   " My ripgrep fzf things :).
    command! -bang -nargs=0 Rg  call fzf#vim#grep('rg --line-number --no-heading --color=always --follow --hidden -g "!.git/" -g "!node_modules/" -g "!target/" -g "!tags" --case-sensitive --fixed-strings '.shellescape(<q-args>), 0, fzf#vim#with_preview({'options': '--no-hscroll --delimiter : --nth 3..'}), <bang>0)
    command! -bang -nargs=0 Rgw call fzf#vim#grep('rg --line-number --no-heading --color=always --follow --hidden -g "!.git/" -g "!node_modules/" -g "!target/" -g "!tags" --case-sensitive --fixed-strings '.shellescape(<q-args>), 0, fzf#vim#with_preview({'options': '--no-hscroll --delimiter : --nth 3.. --query '.shellescape("'".expand("<cword>"))}), <bang>0)
+
+   cmap w!! w !sudo tee > /dev/null %
 ]], false)
 
 -- Leader Mappings
@@ -142,40 +141,35 @@ vim.api.nvim_exec([[
    nmap <leader>8 <Plug>BufTabLine.Go(8)
    nmap <leader>9 <Plug>BufTabLine.Go(9)
    nmap <leader>0 <Plug>BufTabLine.Go(10)
-
    nmap <leader>y :Ranger<CR>
-
    nmap <leader>es :e ~/.dotfiles/nvim/UltiSnips/all.snippets<CR>
    nmap <leader>ev :e ~/.dotfiles/nvim/lua/init.lua<CR>
    nmap <leader>ec :e ~/.dotfiles/nvim/lua/color.lua<CR>
    nmap <leader>ej :e ~/diary/alan/J_diary.md<CR>
-
    nmap <leader>fd :FZF ~/.dotfiles<CR>
-
    nmap <leader>rl :w<CR>:luafile %<CR>
    nmap <leader>rr :luafile ~/.dotfiles/nvim/lua/init.lua<CR>
    nmap <leader>pi :PlugInstall<CR>
-
    nmap <leader>ff :FZF<CR>
    nmap <leader>fF :FZF -q '<cword><CR>
    nmap <leader>fr :Rg<CR>
    nmap <leader>fR :Rgw<CR>
-
    nmap <leader>rr :Rg<CR>
-
    nmap <leader>T :enew<cr>
    nmap <leader>l :bnext<CR>
    nmap <leader>h :bprevious<CR>
    nmap <leader>bq :bp <BAR> bd #<CR>
    nmap <leader>bl :ls<CR>
    nmap <leader>t :set rnu!<CR>
+
    nnoremap <leader>o @='o<C-V><Esc>k'<CR>
    nnoremap <leader>O @='O<C-V><Esc>j'<CR>
 ]], false)
 
 -- Other Mappings
 vim.api.nvim_exec([[
-   " Asterisk plugin :D.
+   map  <F1> <Esc>
+
    nmap *   <Plug>(asterisk-*)
    nmap #   <Plug>(asterisk-#)
    nmap g*  <Plug>(asterisk-g*)
@@ -184,29 +178,18 @@ vim.api.nvim_exec([[
    nmap gz* <Plug>(asterisk-gz*)
    nmap z#  <Plug>(asterisk-z#)
    nmap gz# <Plug>(asterisk-gz#)
-
    nmap dK kdd
    nmap dJ jddk
 
+   imap <F1> <Esc>
    imap jj <Esc>
 
-   " Quade things.
    nnoremap / /\v
 
-   " Quade thing, for stupid terminal emulator.
    if has('nvim')
       tnoremap <Esc> <C-\><C-n>
       tnoremap <C-v><Esc> <Esc>
    endif
-
-   " Easy sudo hack taken from
-   " https://stackoverflow.com/questions/2600783/how-does-the-vim-write-with-sudo-trick-work
-   cmap w!! w !sudo tee > /dev/null %
-
-   " Get rid of the pesky F1 help menu taken from:
-   " http://vim.wikia.com/wiki/Disable_F1_built-in_help_key
-   map  <F1> <Esc>
-   imap <F1> <Esc>
 ]], false)
 
 -- Autocmd
@@ -218,20 +201,15 @@ vim.api.nvim_exec([[
    autocmd InsertLeave * match ExtraWhitespace /\s\+$/
    autocmd BufWinLeave * call clearmatches()
 
-   " Quade told me about this auto group thing. So it doen't run again when you
-   " source.
    augroup alan_auto_group
-   " For vue, and maybe other syntax things.
-   autocmd FileType vue syntax sync fromstart
-   autocmd FileType vue set shiftwidth=2
-
-   " For PHP integration. Took from Arch Wiki
-   autocmd FileType php setlocal makeprg=zca\ %<.php
-   autocmd FileType php setlocal errorformat=%f(line\ %l):\ %m
+      autocmd FileType vue syntax sync fromstart
+      autocmd FileType vue set shiftwidth=2
+      autocmd FileType php setlocal makeprg=zca\ %<.php
+      autocmd FileType php setlocal errorformat=%f(line\ %l):\ %m
    augroup END
 
    augroup FZF
-   autocmd! FileType fzf tnoremap <buffer> <esc> <esc>
+      autocmd! FileType fzf tnoremap <buffer> <esc> <esc>
    augroup END
 ]], false)
 
