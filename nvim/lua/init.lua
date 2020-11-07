@@ -154,7 +154,6 @@ vim.api.nvim_exec([[
    nmap <leader>fF :FZF -q '<cword><CR>
    nmap <leader>fr :Rg<CR>
    nmap <leader>fR :Rgw<CR>
-   nmap <leader>rr :Rg<CR>
    nmap <leader>T :enew<cr>
    nmap <leader>l :bnext<CR>
    nmap <leader>h :bprevious<CR>
