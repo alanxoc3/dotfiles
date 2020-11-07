@@ -60,8 +60,7 @@ function alan.highlight(group, color)
     local style = color.style and 'gui=' .. color.style or 'gui=NONE'
     local fg = color.fg and 'guifg=' .. color.fg or 'guifg=NONE'
     local bg = color.bg and 'guibg=' .. color.bg or 'guibg=NONE'
-    vim.api.nvim_command('highlight ' .. group .. ' ' .. style .. ' ' .. fg ..
-                             ' ' .. bg)
+    vim.api.nvim_command('highlight ' .. group .. ' ' .. style .. ' ' .. fg .. ' ' .. bg)
 end
 
 
@@ -234,7 +233,7 @@ function alan.load_syntax()
 
     luaTreeFolderName = {fg=alan.blue};
     LuaTreeRootFolder = {fg=alan.red};
-    LuaTreeSpecialFile = {fg=alan.fg,bg=alan.none,stryle='NONE'};
+    LuaTreeSpecialFile = {fg=alan.fg,bg=alan.none,style='NONE'};
 
     TelescopeBorder = {fg=alan.teal};
     TelescopePromptBorder = {fg=alan.blue}
@@ -242,27 +241,27 @@ function alan.load_syntax()
   return syntax
 end
 
-function alan.get_alan_color()
-  return alan
-end
+-- function alan.get_alan_color()
+  -- return alan
+-- end
 
 function alan.colorscheme()
-  vim.api.nvim_command('hi clear')
-  if vim.fn.exists('syntax_on') then
-    vim.api.nvim_command('syntax reset')
-  end
-  -- vim.g.colors_name = 'alan'
-  vim.o.background = 'dark'
   vim.o.termguicolors = true
+  vim.api.nvim_command('hi clear')
+  -- vim.api.nvim_command('syntax reset')
+  vim.g.colors_name = 'alan'
+  vim.o.background = 'dark'
 
   alan.terminal_color()
-  local syntax = alan.load_syntax()
 
+  local syntax = alan.load_syntax()
   for group,colors in pairs(syntax) do
-    alan.highlight(group,colors)
+     -- vim.api.nvim_exec([[let x = input("]] .. group .. [[ ")]], false)
+     -- print(group)
+     alan.highlight(group,colors)
   end
 end
 
 alan.colorscheme()
 
-return alan
+-- return alan
