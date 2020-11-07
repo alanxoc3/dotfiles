@@ -156,6 +156,8 @@ function _G.dump(...)
 end
 
 vim.api.nvim_exec([[
+   colorscheme alan
+
    " for switching between tabs/buffers.
    nmap <leader>1 <Plug>BufTabLine.Go(1)
    nmap <leader>2 <Plug>BufTabLine.Go(2)
@@ -170,7 +172,9 @@ vim.api.nvim_exec([[
 
    map <leader>y :Ranger<CR>
 
-   map <leader>s :e ~/.dotfiles/snips/all.snippets<CR>
+   map <leader>ec :e ~/.dotfiles/snips/all.snippets<CR>
+   map <leader>ev :e ~/.dotfiles/snips/all.snippets<CR>
+   map <leader>es :e ~/.dotfiles/snips/all.snippets<CR>
 
    autocmd FileType java setlocal omnifunc=javacomplete#Complete
    autocmd FileType markdown setlocal spell
