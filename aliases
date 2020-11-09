@@ -155,6 +155,7 @@ alias cd..='cd ..'
 alias cd.='cd .'
 alias cdpico="cd ~/.lexaloffle/pico-8/carts"
 alias cdr='cd /'
+alias dc-='cd -'
 alias cd-='cd -'
 
 # dropbox
@@ -321,9 +322,12 @@ alias sudo='sudo '
 alias listchinesefonts='fc-list :lang=zh'
 alias markdowntopdf='pandoc --pdf-engine=xelatex -V CJKmainfont="Source Han Sans CN" -o' # outputfile then input file.
 
+# concards
+alias cards="cd ~/sync/cards"
+alias cnc="concards ~/sync/cards ~/diary/alan"
+
 # random
 alias bc='bc -q'
-alias cnc="concards ~/sync/cards ~/diary/alan"
 alias cmsu=cmus
 alias cret='echo $?'
 alias daet=date

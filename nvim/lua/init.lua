@@ -10,6 +10,7 @@ vim.api.nvim_exec([[
    Plug 'SirVer/ultisnips'
    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
    Plug 'justinmk/vim-sneak'
+   Plug 'nvim-treesitter/nvim-treesitter'
 
    " Plug 'svermeulen/vimpeccable'
    " Plug 'posva/vim-vue'
@@ -30,6 +31,13 @@ vim.api.nvim_exec([[
 
    call plug#end()
 ]], false)
+
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+  highlight = {
+    enable = true              -- false will disable the whole extension
+  },
+}
 
 vim.g.python_host_prog  = '/usr/bin/python2'
 vim.g.python3_host_prog = '/usr/bin/python3'
