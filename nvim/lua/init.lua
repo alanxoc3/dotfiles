@@ -60,7 +60,6 @@ vim.g.UltiSnipsEditSplit = "vertical"
 vim.o.hidden = true
 vim.o.joinspaces = false
 vim.o.ls = 0
-vim.o.spelllang = "en"
 vim.o.number = false
 vim.o.tabstop = 3
 vim.o.shiftwidth = 3
@@ -76,6 +75,9 @@ vim.o.rtp = vim.o.rtp .. ",/usr/share/vim/vimfiles/"
 vim.o.encoding = "utf-8"
 vim.o.fileencoding = "utf-8"
 vim.o.errorformat="[ERROR] %f:[%l\\,%v] %m"
+
+vim.o.spell = true
+vim.o.spelllang = "en_us,cjk"
 
 vim.wo.wrap = false
 
@@ -120,6 +122,8 @@ vim.api.nvim_exec([[
    nmap <leader>ff :FZF<CR>
    nmap <leader>fF :FZF -q '<cword><CR>
    nmap <leader>fr :Rg<CR>
+   nmap <leader>fc :Commands<CR>
+   nmap <leader>fh :Helptags<CR>
    nmap <leader>fR :Rgw<CR>
 
    " status
