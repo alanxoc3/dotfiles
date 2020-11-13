@@ -42,10 +42,4 @@ cfc .config/i3status  i3-status-config config
 cfc .config           concards         concards
 cfc .ssh              ssh-config       config
 
-# qutebrowser
-cfc .config/qutebrowser/bookmarks/ qute_bookmarks urls
-cfc .config/qutebrowser/ qute_quickmarks quickmarks
-cfc .config/qutebrowser/ qute_autoconfig.yml autoconfig.yml
-cfc .config/qutebrowser/ qute_config.py config.py
-
 cfc .config/ mimeapps.list mimeapps.list
