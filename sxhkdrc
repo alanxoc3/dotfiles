@@ -1,0 +1,44 @@
+# On mouse button 1 press Alt_R+F1
+super + {_,shift + }{h,j,k,l}
+   bspc node -{f,s} {west,south,north,east}
+
+super + Escape
+   bspc wm -r; \
+   killall sxhkd; \
+   sxhkd
+
+super + {t,g,f}
+   bspc node -t {tiled,floating,fullscreen}
+
+super + shift + e
+   bspc quit
+
+super + shift + q
+   bspc node -k
+
+super + {grave,Tab}
+   bspc {node,desktop} -f last
+
+super + bracket{left,right}
+   bspc desktop -f {prev,next}.local
+
+super + {1,2,3,4,5,6,7,8,9,0}
+   bspc desktop -f {1,2,3,4,5,6,7,8,9,0}
+
+XF86AudioRaiseVolume
+   amixer -q -D pulse sset Master 5%+ && pkill -RTMIN+10 i3blocks
+
+XF86AudioLowerVolume
+   amixer -q -D pulse sset Master 5%- && pkill -RTMIN+10 i3blocks
+
+XF86AudioMute
+   amixer -q -D pulse sset Master toggle && pkill -RTMIN+10 i3blocks
+
+super + s
+   passmenu
+
+super + Return
+   termite
+
+super + d
+   rofi_menu

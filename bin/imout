@@ -1,7 +1,9 @@
 #!/bin/bash
 # A simple script that will exit out of my gui.
 
-if [[ "$CURR_WM" == "xfce4" ]]; then
+if [[ "$CURR_WM" == "bspwm" ]]; then
+	killall bspwm
+elif [[ "$CURR_WM" == "xfce4" ]]; then
 	killall xfce4-session
 elif [[ "$CURR_WM" == "i3" ]]; then
 	killall i3

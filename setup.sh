@@ -1,19 +1,15 @@
 #!/bin/bash
 
-SCRIPT_PATH=~/.dotfiles
+# Thanks to: https://stackoverflow.com/questions/59895/how-to-get-the-source-directory-of-a-bash-script-from-within-the-script-itself
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 # cf actual_file link_file
 cf() {
-   if [ -e "$SCRIPT_PATH/$1" ]; then
-      rm -f ~/$2 ;
-      ln -s $SCRIPT_PATH/$1 ~/$2 ;
+   if [ -e "$DIR/$1" ]; then
+      rm -f ~/$2
+      mkdir -p $(dirname ~/$2)
+      ln -s $DIR/$1 ~/$2
    fi
-}
-
-# cfc folder actual_file link_file
-cfc() {
-   mkdir -p ~/$1
-   cf $2 "$1/$3"
 }
 
 cf zshrc              .zshrc
@@ -33,13 +29,12 @@ cf local_gitconfig    .local_gitconfig
 cf gitignore          .gitignore
 cf doom               .doom.d
 cf nvim               .config/nvim
-# bin and local_bin are in the '~/.dotfiles' folder
-
-cfc .config/i3blocks  i3blocks-config  config
-cfc .config/i3        i3-config        config
-cfc .config/git       gitconfig        config
-cfc .config/i3status  i3-status-config config
-cfc .config           concards         concards
-cfc .ssh              ssh-config       config
-
-cfc .config/ mimeapps.list mimeapps.list
+cf bspwmrc            .config/bspwm/bspwmrc
+cf sxhkdrc            .config/sxhkd/sxhkdrc
+cf i3blocks-config    .config/i3blocks/config
+cf i3-config          .config/i3/config
+cf gitconfig          .config/git/config
+cf i3-status-config   .config/i3status/config
+cf concards           .config/concards
+cf ssh-config         .ssh/config
+cf mimeapps.list      .config/mimeapps.list
