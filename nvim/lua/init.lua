@@ -11,6 +11,7 @@ vim.api.nvim_exec([[
    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
    Plug 'justinmk/vim-sneak'
    Plug 'nvim-treesitter/nvim-treesitter'
+   Plug 'jamessan/vim-gnupg'
 
    " Plug 'svermeulen/vimpeccable'
    " Plug 'posva/vim-vue'
@@ -19,7 +20,6 @@ vim.api.nvim_exec([[
    " Plug 'wsdjeg/vim-fetch'
    " Plug 'tpope/vim-surround'
    " Plug 'easymotion/vim-easymotion'
-   " Plug 'jamessan/vim-gnupg'
    " Plug 'francoiscabrol/ranger.vim'
    " Plug 'rbgrouleff/bclose.vim'
    " Plug 'majutsushi/tagbar'

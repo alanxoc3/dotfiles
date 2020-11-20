@@ -15,6 +15,7 @@ Here are programs I use often as part of my daily workflow.
 - [rg](https://github.com/BurntSushi/ripgrep). Search file content super fast. Faster and cooler than grep.
 - [concards](https://github.com/alanxoc3/concards). I've been reviewing/creating flashcards everyday with this.
 - [ranger](https://github.com/ranger/ranger). Navigate files with vim bindings. (I'm looking for a more minimalistic replacement though.)
+- [pass](https://www.passwordstore.org/). A terminal based & gpg encrypted password manager.
 
 ### Gui Apps
 - [i3](https://i3wm.org/). Tiling based window manager. (I use this now, but I plan on switching to [bspwm](https://github.com/baskerville/bspwm) in a few weeks.)
