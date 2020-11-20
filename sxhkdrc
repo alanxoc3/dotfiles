@@ -22,8 +22,8 @@ super + {grave,Tab}
 super + bracket{left,right}
    bspc desktop -f {prev,next}.local
 
-super + {1,2,3,4,5,6,7,8,9,0}
-   bspc desktop -f {1,2,3,4,5,6,7,8,9,0}
+super + {1,2,3}
+   bspc desktop -f {1,2,3}
 
 XF86AudioRaiseVolume
    amixer -q -D pulse sset Master 5%+ && pkill -RTMIN+10 i3blocks
@@ -38,7 +38,7 @@ super + s
    passmenu
 
 super + Return
-   termite
+   termite -e 'zsh -ic "tmux"'
 
 super + d
    rofi_menu
