@@ -1,3 +1,4 @@
 local_*
 nvim/plugged
 *.spl
+.netrwhist
