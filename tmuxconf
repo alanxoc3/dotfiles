@@ -27,3 +27,9 @@ run -b '~/.tmux/plugins/tpm/tpm'
 
 
 set -g default-terminal "xterm-256color"
+
+set -g status-style fg=white,bg=black,dim
+set -g status-interval 1
+set -g status-keys vi
+set -g status-left ""
+set -g status-right "#[bold]#(i3b_time)"

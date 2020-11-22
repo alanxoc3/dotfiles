@@ -7,8 +7,8 @@ super + Escape
    killall sxhkd; \
    sxhkd
 
-super + {t,g,f}
-   bspc node -t {tiled,floating,fullscreen}
+super + {p,t,g,f}
+   bspc node -t {pseudo_tiled,tiled,floating,fullscreen}
 
 super + shift + e
    bspc quit
@@ -22,8 +22,8 @@ super + {grave,Tab}
 super + bracket{left,right}
    bspc desktop -f {prev,next}.local
 
-super + {1,2,3}
-   bspc desktop -f {1,2,3}
+super + {_,shift} + {1,2,3}
+   bspc {desktop -f, node -d} {1,2,3}
 
 XF86AudioRaiseVolume
    amixer -q -D pulse sset Master 5%+ && pkill -RTMIN+10 i3blocks

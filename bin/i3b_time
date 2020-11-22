@@ -5,7 +5,7 @@ use warnings;
 use POSIX qw/strftime/;
 
 my $click   = $ENV{BLOCK_BUTTON} || 0;
-my $format  = $ENV{BLOCK_INSTANCE} || $ENV{STRFTIME_FORMAT} || "%H:%M";
+my $format  = $ENV{BLOCK_INSTANCE} || $ENV{STRFTIME_FORMAT} || "%Y-%m-%d %H:%M:%S";
 my $tz_file = shift || $ENV{TZ_FILE} || "$ENV{HOME}/.tz";
 $tz_file = glob($tz_file);
 my $default_tz = get_default_tz();
