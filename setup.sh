@@ -38,3 +38,4 @@ cf i3-status-config   .config/i3status/config
 cf concards           .config/concards
 cf ssh-config         .ssh/config
 cf mimeapps.list      .config/mimeapps.list
+cf alacritty.yml      .config/alacritty/alacritty.yml
