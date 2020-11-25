@@ -12,9 +12,11 @@ if ! git rev-parse --git-dir &> /dev/null; then
 fi
 
 REPO_ARR=$(git remote get-url origin \
-| sed 's/^ssh:\/\/git@//' \
+| sed 's/^ssh:\/\///' \
+| sed 's/^git@//' \
 | sed 's/^https:\/\///' \
 | sed 's/:[0-9]*\//\//' \
+| sed 's/:/\//' \
 | sed 's/\.git$//' \
 | sed 's/\// /g')
 
