@@ -1,0 +1,35 @@
+#!/bin/bash
+# By: @alanxoc3
+
+if [ "$#" -ne 1 ]; then
+   echo "Usage: repolink FILENAME"
+   exit 1;
+fi
+
+if ! git rev-parse --git-dir &> /dev/null; then
+   echo "Error: Must be in a git repository."
+   exit 2;
+fi
+
+REPO_ARR=$(git remote get-url origin \
+| sed 's/^ssh:\/\/git@//' \
+| sed 's/^https:\/\///' \
+| sed 's/:[0-9]*\//\//' \
+| sed 's/\.git$//' \
+| sed 's/\// /g')
+
+HOST=$(echo $REPO_ARR  | awk '{print $1;}')
+GROUP=$(echo $REPO_ARR | awk '{print $2;}')
+REPO=$(echo $REPO_ARR  | awk '{print $3;}')
+
+HAS_STASH=$(echo $HOST | sed -n '/^stash\./p' | wc -l)
+
+LOCAL_REPO_PATH=$(realpath $(git rev-parse --show-toplevel))
+LOCAL_FILE_PATH=$(realpath $1)
+FILE_PATH_RELATIVE_TO_GIT=${LOCAL_FILE_PATH#$LOCAL_REPO_PATH}
+
+if echo "$HOST" | grep 'stash' &> /dev/null; then
+   echo "https://$HOST/projects/$GROUP/repos/$REPO/browse$FILE_PATH_RELATIVE_TO_GIT"
+elif echo "$HOST" | grep 'github' &> /dev/null; then
+   echo "https://$HOST/$GROUP/$REPO/blob/main$FILE_PATH_RELATIVE_TO_GIT"
+fi
