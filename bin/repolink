@@ -24,8 +24,6 @@ HOST=$(echo $REPO_ARR  | awk '{print $1;}')
 GROUP=$(echo $REPO_ARR | awk '{print $2;}')
 REPO=$(echo $REPO_ARR  | awk '{print $3;}')
 
-HAS_STASH=$(echo $HOST | sed -n '/^stash\./p' | wc -l)
-
 LOCAL_REPO_PATH=$(realpath $(git rev-parse --show-toplevel))
 LOCAL_FILE_PATH=$(realpath $1)
 FILE_PATH_RELATIVE_TO_GIT=${LOCAL_FILE_PATH#$LOCAL_REPO_PATH}
