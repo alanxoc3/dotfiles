@@ -13,6 +13,9 @@ super + {p,t,g,f}
 super + shift + e
    bspc quit
 
+super + q
+   bspc node -c
+
 super + shift + q
    bspc node -k
 
