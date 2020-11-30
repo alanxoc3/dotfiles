@@ -49,11 +49,11 @@ if (!defined $current_tz) {
 }
 $ENV{TZ} = $current_tz;
 my $tz_display = "";
-if (!exists $display_map{$ENV{TZ}}) {
-    $ENV{TZ} = $tz_list[0];
-    set_tz($tz_list[0]);
-}
-$tz_display = $display_map{$ENV{TZ}};
+# if (!exists $display_map{$ENV{TZ}}) {
+# $ENV{TZ} = $tz_list[0];
+# set_tz($tz_list[0]);
+#
+# $tz_display = $display_map{$ENV{TZ}};
 
 binmode(STDOUT, ":utf8");
 my $time = strftime($format, localtime());
