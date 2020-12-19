@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+TEMP_FILE=$(mktemp --suffix=.html /tmp/qute-XXXXXXXX)
+cat /dev/stdin > $TEMP_FILE
+qutebrowser "$@" $TEMP_FILE
+rm -f $TEMP_FILE

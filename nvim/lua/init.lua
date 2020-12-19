@@ -13,10 +13,10 @@ vim.api.nvim_exec([[
    Plug 'nvim-treesitter/nvim-treesitter'
    Plug 'jamessan/vim-gnupg'
    Plug 'airblade/vim-rooter'
+   Plug 'qpkorr/vim-renamer'
 
    " Plug 'svermeulen/vimpeccable'
    " Plug 'posva/vim-vue'
-   " Plug 'qpkorr/vim-renamer'
    " Plug 'tpope/vim-fugitive'
    " Plug 'wsdjeg/vim-fetch'
    " Plug 'tpope/vim-surround'
@@ -117,7 +117,7 @@ vim.api.nvim_exec([[
    nmap <leader>es :e ~/.dotfiles/nvim/UltiSnips/all.snippets<CR>
    nmap <leader>ev :e ~/.dotfiles/nvim/lua/init.lua<CR>
    nmap <leader>ec :e ~/.dotfiles/nvim/lua/color.lua<CR>
-   nmap <leader>ej :e ~/diary/alan/J_diary.md<CR>
+   nmap <leader>ej :e ~/diary/alan/2020_diary.md<CR>
 
    nmap <leader>fd :FZF ~/.dotfiles<CR>
    nmap <leader>ff :FZF<CR>

@@ -294,12 +294,15 @@ alias sudo='sudo '
 # publish
 alias listchinesefonts='fc-list :lang=zh'
 alias markdowntopdf='pandoc --pdf-engine=xelatex -V CJKmainfont="Source Han Sans CN" -o' # outputfile then input file.
+viewmarkdown() { md2html $1 | qutepipe }
+alias vm='viewmarkdown'
 
 # concards
 alias cards="cd ~/sync/cards"
 alias cnc="concards ~/sync/cards ~/diary/alan"
 
 # random
+alias vo='i3b_volume'
 alias pipi='pip install --user'
 alias bc='bc -q'
 alias dd='dd status=progress'
