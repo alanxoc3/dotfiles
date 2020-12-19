@@ -31,8 +31,10 @@ alias umtwo="sudo umount /mnt2"
 
 # git
 alias repos='cd ~/repos'
+alias rep=repos
 alias cg='cd $(git rev-parse --show-toplevel)'
 alias gs='git status'
+alias gst='git stash'
 alias g='git'
 alias gu='git pull'
 alias gf='git fetch'
@@ -51,6 +53,7 @@ alias gba='git branch --all'
 alias gpa='git push --all origin'
 alias gbc='git branch --show-current'
 alias gk='git checkout'
+alias gkb='git checkout -b'
 alias gkt='git checkout --track'
 alias gbl='git blame'
 alias gitsvnignore='git svn show-ignore >> .git/info/exclude'
@@ -111,7 +114,6 @@ alias paic=acpi
 alias pcai=acpi
 alias pcia=acpi
 alias pica=acpi
-alias acp=acpi
 alias aicp=acpi
 alias aipc=acpi
 alias apci=acpi
@@ -127,6 +129,8 @@ alias capi=acpi
 alias iapc=acpi
 alias icap=acpi
 alias icpa=acpi
+alias acp=acpi
+alias ac=acpi
 
 # i3
 alias 3il='i3l'
@@ -151,6 +155,7 @@ alias dot='cd ~/.dotfiles'
 alias sdcard='cd /sdcard; ls;'
 alias down='cd ~/Downloads; ls'
 alias drop='cd ~/Dropbox; ls'
+alias cd....='cd ../..'
 alias cd..='cd ..'
 alias cd.='cd .'
 alias cdpico="cd ~/.lexaloffle/pico-8/carts"
@@ -188,36 +193,22 @@ alias mkea=make
 alias amke=make
 
 # exit
-alias xeit=exit
-alias quit=exit
-alias eitx=exit
-alias eixt=exit
-alias etix=exit
-alias etxi=exit
-alias ext=exit
-alias exti=exit
-alias xite=exit
-alias xit=exit
-alias xti=exit
-
-# cat
-alias future='cat ~/sync/goals/futureGoals.txt | less'
-alias proclamation='less ~/sync/remember/proclamation.txt'
-alias schedule='clear;cat ~/sync/remember/schedule.org'
-alias rd='cat ~/sync/goals/rd.txt | less'
-alias patbless='sudo cat ~/patBless.txt | less; clear;'
-alias blessing=patbless
-alias patriarchal=patbless
-alias futuregoal=future
-alias futuregoals=future
-alias goalfuture=future
-alias goalsfuture=future
+alias xeit='exit'
+alias quit='exit'
+alias eitx='exit'
+alias eixt='exit'
+alias etix='exit'
+alias etxi='exit'
+alias exti='exit'
+alias xite='exit'
+alias xit='exit'
+alias ext='exit'
+alias xti='exit'
 
 # sbri
 alias supbri="sbri 100"
 alias mid="sbri 50"
 alias dim="sbri 20"
-alias bright=bri
 alias bri="sbri 80"
 alias morbri="sbri 90"
 alias mordim="sbri 10"
@@ -230,37 +221,29 @@ alias gdv='setxkbmap -layout "us" -variant "dvorak"'
 alias gqw='setxkbmap -layout "us"'
 alias gwm='setxkbmap -layout "us" -variant "workman"'
 
-# modprobe
-alias 64controller=nin
-alias nincontroller=nin
-alias nincont=nin
-alias nin="sudo modprobe ns588 joydev analog;"
-alias nin64control=nin
-alias 64control=nin
-alias controller=nin
-
 # ls
-alias la='ls -A'
-alias ll='ls -l'
 alias l='ls'
+alias lls='ls'
+alias lss='ls'
+alias sl='ls'
+alias la='ls -A'
+alias lsa='ls -A'
+alias ll='ls -l'
 alias l.='ls -d .*'
-alias lls=ls
-alias lsa=la
 alias lsla='ls -la'
+alias lla='ls -la'
 alias lsl='ls -l'
-alias ls..="ls .."
-alias ls="ls --color -vGFp"
-alias lss=ls
-alias sl=ls
 alias sls='ls -l'
 alias ssl='ls -l'
+alias ls..="ls .."
+alias ls="ls --color -vGFp"
 
 # poweroff
-alias poweraff=poweroff
-alias oweroff="poweroff"
-alias pwoeroff=poweroff
-alias pworeoff=poweroff
-alias powreoff=poweroff
+alias poweraff='poweroff'
+alias pwoeroff='poweroff'
+alias pworeoff='poweroff'
+alias powreoff='poweroff'
+alias oweroff='poweroff'
 
 # w3m
 alias w3m='w3m -no-mouse'
@@ -276,7 +259,6 @@ alias rndbkgd="feh --randomize --bg-fill ~/Pictures/photos/*"
 alias difbkgd="rndbkgd"
 
 # zathura
-alias zasa="zathura ~/sync/books/sankta_biblio.pdf &"
 alias zath=zathura
 
 # systemctl
@@ -289,17 +271,8 @@ alias noprinter='systemctl stop org.cups.cupsd'
 # pico8
 alias p8tool='~/repos/picotool/p8tool'
 alias pico="pico8"
-alias pic_ray="pic_open ~/.lexaloffle/pico-8/carts/sims/raycasting"
-alias pic_chn="pic_open ~/.lexaloffle/pico-8/carts/chrononaut"
-alias pic_mou="pic_open ~/.lexaloffle/pico-8/carts/work/pico-8-club/mouth-mouth"
-alias pic_tur="pic_open ~/.lexaloffle/pico-8/carts/sims/turing-machine"
-alias pic_zel="pic_open ~/.lexaloffle/pico-8/carts/games/zeldo"
 
 # rm
-alias rmemacs='find * -name "*~" -delete'
-alias rmemac=rmemacs
-alias noemac=rmemacs
-alias noemacs=rmemacs
 alias rmrf="rm -rf"
 alias rmr="rm -r"
 
@@ -327,40 +300,23 @@ alias cards="cd ~/sync/cards"
 alias cnc="concards ~/sync/cards ~/diary/alan"
 
 # random
+alias pipi='pip install --user'
 alias bc='bc -q'
-alias cmsu=cmus
-alias cret='echo $?'
-alias daet=date
 alias dd='dd status=progress'
 alias du='du -h'
 alias df='df -h'
 alias emacs='emacs -nw'
-alias fa="grep -r --exclude-dir='.*'"
-alias fai="fa -i"
-alias fb="/home/alanxoc3/repos/fuzzybird/fuzzybird.py --hashtag"
-alias files=nautilus
+alias fb="~/repos/fuzzybird/fuzzybird.py --hashtag"
 alias fzf='fzf --height 40% --reverse'
-alias gnome-terminal="dbus-launch gnome-terminal"
-alias gpgpin="echo tmp > /tmp/gpg_tmp; gpg -r alanxoc3 -e /tmp/gpg_tmp; gpg -d /tmp/gpg_tmp.gpg"
-alias hy='hy --repl-output-fn=hy.contrib.hy-repr.hy-repr'
 alias int='sudo wifi-menu'
-alias invert="xcalib -i -a > /dev/null"
-alias iwpoweroff='sudo iw wlan0 set power_save off'
-alias jp='jp2a --colors'
 alias lid="echo locked > '/tmp/.lid-lock-file'"
 alias lock="physlock"
-alias mkflashdrive='sudo mkfs.vfat -n AMORG'
 alias pavucontrol="ncpamixer"
 alias pinger='ping www.google.com'
 alias renginx="sudo nginx -s reload"
 alias r='ranger'
-alias R="R --quiet"
-alias rs="fc -s"
-alias screen_off="xset dpms force off"
-alias simplegame='~/.simplegame/simplegame'
-alias skeet="~/sync/coding/completed/skeet/skeet"
-alias slblk=lsblk
 alias ta='tmux attach'
 alias updatexterm='xrdb merge ~/.Xresources'
-alias vp=cp
 alias watch='watch -c -d'
+alias daet=date
+alias slblk=lsblk

@@ -12,6 +12,7 @@ vim.api.nvim_exec([[
    Plug 'justinmk/vim-sneak'
    Plug 'nvim-treesitter/nvim-treesitter'
    Plug 'jamessan/vim-gnupg'
+   Plug 'airblade/vim-rooter'
 
    " Plug 'svermeulen/vimpeccable'
    " Plug 'posva/vim-vue'
@@ -27,7 +28,6 @@ vim.api.nvim_exec([[
    " Plug 'Quramy/vim-js-pretty-template'
    " Plug 'ap/vim-buftabline'
    " Plug 'craigemery/vim-autotag'
-   " Plug 'airblade/vim-rooter'
 
    call plug#end()
 ]], false)
@@ -39,6 +39,7 @@ pcall(function()
 	}
 end)
 
+vim.g.rooter_manual_only = 1
 vim.g.python_host_prog  = '/usr/bin/python2'
 vim.g.python3_host_prog = '/usr/bin/python3'
 vim.g.buftabline_indicators = 1
