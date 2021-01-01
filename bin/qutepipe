@@ -2,4 +2,7 @@
 TEMP_FILE=$(mktemp --suffix=.html /tmp/qute-XXXXXXXX)
 cat /dev/stdin > $TEMP_FILE
 qutebrowser "$@" $TEMP_FILE
+echo "Wait for qutebrowser to load file."
+sleep 2
 rm -f $TEMP_FILE
+echo "Done!"

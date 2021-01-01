@@ -96,7 +96,7 @@ alias ez='editzsh'
 
 # diary
 alias diary='cd ~/diary/alan'
-alias jrn='vim ~/diary/alan/2020_diary.md'
+alias jrn='vim ~/diary/alan/{2021_diary,achievements,todos}.md'
 alias rnj='jrn'
 alias nrj='jrn'
 alias njr='jrn'
@@ -251,7 +251,7 @@ alias googleit='w3m www.google.com'
 
 # xrandr
 alias tolap="xrandr --output HDMI-1 --off --output eDP-1 --auto --mode 1366x768 --panning 1366x768"
-alias tomirror="xrandr --output HDMI-1 --mode 1366x768 --output eDP-1 --mode 1366x768"
+alias tomirror="xrandr --output HDMI-1 --mode 1366x768 --output eDP-1 --same-as HDMI-1"
 
 # feh
 alias feh='feh --force-aliasing --scale-down'

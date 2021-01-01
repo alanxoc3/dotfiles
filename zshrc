@@ -3,6 +3,12 @@
 
 # Emacs Mode & History Options
 bindkey -e
+
+# Able to edit the line with vim
+autoload -z edit-command-line
+zle -N edit-command-line
+bindkey '^[v' edit-command-line
+
 export PROMPT='%F{white}[%#%f %F{red}%M%f %F{white}%c]%f '
 export CLICOLOR=1
 

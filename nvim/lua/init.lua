@@ -92,13 +92,22 @@ function _G.dump(...)
     print(unpack(objects))
 end
 
+function HelpRevamped(param)
+   vim.cmd('help '..param)
+   vim.cmd('setlocal buflisted')
+   vim.cmd('only')
+end
+
 -- Commands
 vim.api.nvim_exec([[
    command! -bang -nargs=0 Rg  call fzf#vim#grep('rg --line-number --no-heading --color=always --follow --hidden -g "!.git/" -g "!node_modules/" -g "!target/" -g "!tags" --case-sensitive --fixed-strings '.shellescape(<q-args>), 0, fzf#vim#with_preview({'options': '--no-hscroll --delimiter : --nth 3..'}), <bang>0)
    command! -bang -nargs=0 Rgw call fzf#vim#grep('rg --line-number --no-heading --color=always --follow --hidden -g "!.git/" -g "!node_modules/" -g "!target/" -g "!tags" --case-sensitive --fixed-strings '.shellescape(<q-args>), 0, fzf#vim#with_preview({'options': '--no-hscroll --delimiter : --nth 3.. --query '.shellescape("'".expand("<cword>"))}), <bang>0)
+   command! -nargs=1 Help lua HelpRevamped(<q-args>)
 
-   cmap w!! w !sudo tee > /dev/null %
+   cnoremap w!! w !sudo tee > /dev/null %
+   cnoremap help Help
 ]], false)
+-- command! -nargs=1 help :call SomeFunc(<q-args>)
 
 -- Leader Mappings
 vim.api.nvim_exec([[
