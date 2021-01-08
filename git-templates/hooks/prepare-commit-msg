@@ -1,0 +1,14 @@
+#!/bin/bash
+# A script that prepends your commit message with your case number.
+
+COMMIT_MSG_FILE=$1
+COMMIT_SOURCE=$2
+SHA1=$3
+
+regex="^([a-zA-Z]+-[0-9]+)"
+text=$(git branch --show-current)
+if [[ $text =~ $regex ]]
+then
+   name=$(echo "${BASH_REMATCH[1]}" | tr [a-z] [A-Z])
+   sed -i.old "1s;^;[$name] \n;" $COMMIT_MSG_FILE
+fi
