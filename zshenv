@@ -34,7 +34,6 @@ export PYTHONPATH="/home/alanxoc3/Projects/caffe/python"
 export QEMU_AUDIO_DRV='pa'
 export QT_IM_MODULE=fcitx
 export TERMINAL="termite"
-export TERM='xterm-256color'
 export VISUAL=nvim
 export XDG_CACHE_HOME=$HOME/.cache
 export XDG_CONFIG_HOME=$HOME/.config

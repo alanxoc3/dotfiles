@@ -12,10 +12,11 @@ vim.api.nvim_exec([[
    Plug 'justinmk/vim-sneak'
    Plug 'nvim-treesitter/nvim-treesitter'
    Plug 'jamessan/vim-gnupg'
+   Plug 'airblade/vim-rooter'
+   Plug 'qpkorr/vim-renamer'
 
    " Plug 'svermeulen/vimpeccable'
    " Plug 'posva/vim-vue'
-   " Plug 'qpkorr/vim-renamer'
    " Plug 'tpope/vim-fugitive'
    " Plug 'wsdjeg/vim-fetch'
    " Plug 'tpope/vim-surround'
@@ -27,7 +28,6 @@ vim.api.nvim_exec([[
    " Plug 'Quramy/vim-js-pretty-template'
    " Plug 'ap/vim-buftabline'
    " Plug 'craigemery/vim-autotag'
-   " Plug 'airblade/vim-rooter'
 
    call plug#end()
 ]], false)
@@ -39,6 +39,7 @@ pcall(function()
 	}
 end)
 
+vim.g.rooter_manual_only = 1
 vim.g.python_host_prog  = '/usr/bin/python2'
 vim.g.python3_host_prog = '/usr/bin/python3'
 vim.g.buftabline_indicators = 1
@@ -91,13 +92,22 @@ function _G.dump(...)
     print(unpack(objects))
 end
 
+function HelpRevamped(param)
+   vim.cmd('help '..param)
+   vim.cmd('setlocal buflisted')
+   vim.cmd('only')
+end
+
 -- Commands
 vim.api.nvim_exec([[
    command! -bang -nargs=0 Rg  call fzf#vim#grep('rg --line-number --no-heading --color=always --follow --hidden -g "!.git/" -g "!node_modules/" -g "!target/" -g "!tags" --case-sensitive --fixed-strings '.shellescape(<q-args>), 0, fzf#vim#with_preview({'options': '--no-hscroll --delimiter : --nth 3..'}), <bang>0)
    command! -bang -nargs=0 Rgw call fzf#vim#grep('rg --line-number --no-heading --color=always --follow --hidden -g "!.git/" -g "!node_modules/" -g "!target/" -g "!tags" --case-sensitive --fixed-strings '.shellescape(<q-args>), 0, fzf#vim#with_preview({'options': '--no-hscroll --delimiter : --nth 3.. --query '.shellescape("'".expand("<cword>"))}), <bang>0)
+   command! -nargs=1 Help lua HelpRevamped(<q-args>)
 
-   cmap w!! w !sudo tee > /dev/null %
+   cnoremap w!! w !sudo tee > /dev/null %
+   cnoremap help Help
 ]], false)
+-- command! -nargs=1 help :call SomeFunc(<q-args>)
 
 -- Leader Mappings
 vim.api.nvim_exec([[
@@ -116,7 +126,7 @@ vim.api.nvim_exec([[
    nmap <leader>es :e ~/.dotfiles/nvim/UltiSnips/all.snippets<CR>
    nmap <leader>ev :e ~/.dotfiles/nvim/lua/init.lua<CR>
    nmap <leader>ec :e ~/.dotfiles/nvim/lua/color.lua<CR>
-   nmap <leader>ej :e ~/diary/alan/J_diary.md<CR>
+   nmap <leader>ej :e ~/diary/alan/2020_diary.md<CR>
 
    nmap <leader>fd :FZF ~/.dotfiles<CR>
    nmap <leader>ff :FZF<CR>

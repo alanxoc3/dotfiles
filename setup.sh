@@ -28,6 +28,7 @@ cf local_bash_profile .local_bash_profile
 cf local_gitconfig    .local_gitconfig
 cf gitignore          .gitignore
 cf doom               .doom.d
+cf git-templates      .git-templates
 cf nvim               .config/nvim
 cf bspwmrc            .config/bspwm/bspwmrc
 cf sxhkdrc            .config/sxhkd/sxhkdrc
