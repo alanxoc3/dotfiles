@@ -1,5 +1,0 @@
-#!/bin/bash
-# For zeldo development
-cd ~/.lexaloffle/pico-8/carts/zeldo-game
-termite &
-pico8 -run ./zeldo.p8

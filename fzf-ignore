@@ -1,0 +1,4 @@
+.*
+!.dotfiles
+!.go
+.go/pkg

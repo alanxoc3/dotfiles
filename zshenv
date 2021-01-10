@@ -23,7 +23,7 @@ export ANACONDA_HOME="/home/alanxoc3/anaconda3"
 export ANDROID_HOME=/opt/android-sdk
 export BROWSER=qutebrowser
 export EDITOR=$VISUAL
-export GOPATH=~/go
+export GOPATH=~/.go
 export GPG_TTY=`tty`
 export GTK_IM_MODULE=fcitx
 export IGNOREEOF=2
@@ -43,6 +43,6 @@ export XKB_DEFAULT_VARIANT=dvorak
 export XMODIFIERS=@im=fcitx
 
 # FZF environment variables
-export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!.git/" -g "!.vim_srcs/" -g "!node_modules/" -g "!target/" -g "!tags" 2> /dev/null'
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_ALT_C_COMMAND='fd --type d --hidden --follow --exclude ".git" .'
+export FZF_DEFAULT_COMMAND="fd --hidden --ignore-file ~/.dotfiles/fzf-ignore ."
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND -t d -t f"
+export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND -t d"

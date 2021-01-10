@@ -38,7 +38,7 @@ source "$HOME/.fzf/shell/key-bindings.zsh" 2> /dev/null
 
 # Functions
 _fzf_compgen_path() {
- fd --hidden --follow --exclude ".git" . "$1"
+   fd -t f -t d . "$1"
 }
 
 sbri() {
