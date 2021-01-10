@@ -3,7 +3,7 @@
 alias mvnci='mvn clean install'
 alias mvncid='mvnci -DskipDependencyCheck=true'
 alias mvncidt='mvnci -DskipDependencyCheck=true -DskipTests=true'
-alias mvnt='mvn com.clearwateranalytics:dependency:resolve-transitives'
+alias mvntr='mvn com.clearwateranalytics:dependency:resolve-transitives'
 alias mvnj="mvn javadoc:javadoc"
 alias mvnp="mvn package"
 
