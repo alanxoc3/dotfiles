@@ -35,6 +35,7 @@ export XKB_DEFAULT_VARIANT=dvorak
 export XMODIFIERS=@im=fcitx
 
 # FZF environment variables
-export FZF_DEFAULT_COMMAND="fd --hidden --ignore-file ~/.dotfiles/fzf-ignore ."
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND -t d -t f"
+export FZF_DEFAULT_COMMAND="fd --hidden --color=always --ignore-file ~/.dotfiles/fzf-ignore ."
+export FZF_DEFAULT_OPTS="--ansi"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND -t f"
 export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND -t d"
