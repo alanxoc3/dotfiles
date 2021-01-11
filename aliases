@@ -7,9 +7,6 @@ alias mvntr='mvn com.clearwateranalytics:dependency:resolve-transitives'
 alias mvnj="mvn javadoc:javadoc"
 alias mvnp="mvn package"
 
-# ssh
-alias kbf_ssh_hosts="sed -rn 's/^\s*Host\s+(.*)$/\1/ip' ~/.ssh/config ~/.ssh/local_ssh 2> /dev/null | xargs -n1"
-
 # source
 alias testbash='source $(cat > /tmp/.testbash; echo /tmp/.testbash)';
 alias updatealias='source ~/.aliases'
@@ -57,7 +54,6 @@ alias gkb='git checkout -b'
 alias gkt='git checkout --track'
 alias gbl='git blame'
 alias gitsvnignore='git svn show-ignore >> .git/info/exclude'
-alias kbf_git_branch="git branch -a | sed 's/^ *//g' | grep -v '*'"
 
 # mpsyt & youtube-dl
 alias mpsyt='rm ~/.config/mps-youtube/cache* 2> /dev/null; mpsyt'
@@ -300,6 +296,15 @@ alias vm='viewmarkdown'
 # concards
 alias cards="cd ~/sync/cards"
 alias cnc="concards ~/sync/cards ~/diary/alan"
+
+# list things for fzf
+alias kbf_git_branch="git branch -a | sed 's/^ *//g' | grep -v '*'"
+alias kbf_ssh_hosts="sed -rn 's/^\s*Host\s+(.*)$/\1/ip' ~/.ssh/config ~/.ssh/local_ssh 2> /dev/null | xargs -n1"
+
+# Thank you: https://gist.github.com/igemnace/9b6fb8c2885c3e35299b3a122e1009e5
+fzf_apropos() {
+  apropos '' | fzf | cut -f 1 -d " "
+}
 
 # random
 alias vo='i3b_volume'

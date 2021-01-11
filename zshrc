@@ -68,4 +68,13 @@ kb_git_branches() {
 zle     -N    kb_git_branches
 bindkey '\eg' kb_git_branches
 
+kb_apropos() {
+   LBUFFER="${LBUFFER}man $(fzf_apropos)"
+   local ret=$?
+   zle accept-line
+   return $ret
+}
+zle     -N    kb_apropos
+bindkey '\em' kb_apropos
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
