@@ -81,14 +81,13 @@ alias editprofile='vim ~/.profile'
 alias editalias='vim ~/.aliases'
 alias editbash='vim ~/.bashrc'
 alias editxterm='vim ~/.Xresources'
-alias editzsh='vim ~/.zshrc'
 alias editi3='vim ~/sync/work/config/i3-config'
 alias ea='editalias'
 alias eb='editbash'
 alias editbosh=editbash
 alias editbsh=editbash
 alias ep='editprofile'
-alias ez='editzsh'
+alias ez='vim ~/.zshrc ~/.zshenv'
 
 # diary
 alias diary='cd ~/diary/alan'
@@ -298,13 +297,12 @@ alias cards="cd ~/sync/cards"
 alias cnc="concards ~/sync/cards ~/diary/alan"
 
 # list things for fzf
+alias fzf='fzf --height 40% --reverse'
 alias kbf_git_branch="git branch -a | sed 's/^ *//g' | grep -v '*'"
 alias kbf_ssh_hosts="sed -rn 's/^\s*Host\s+(.*)$/\1/ip' ~/.ssh/config ~/.ssh/local_ssh 2> /dev/null | xargs -n1"
 
 # Thank you: https://gist.github.com/igemnace/9b6fb8c2885c3e35299b3a122e1009e5
-fzf_apropos() {
-  apropos '' | fzf | cut -f 1 -d " "
-}
+alias fzf_apropos='apropos "" | cut -f 1 -d " " | uniq | fzf'
 
 # random
 alias vo='i3b_volume'
@@ -315,7 +313,6 @@ alias du='du -h'
 alias df='df -h'
 alias emacs='emacs -nw'
 alias fb="~/repos/fuzzybird/fuzzybird.py --hashtag"
-alias fzf='fzf --height 40% --reverse'
 alias int='sudo wifi-menu'
 alias lid="echo locked > '/tmp/.lid-lock-file'"
 alias lock="physlock"
