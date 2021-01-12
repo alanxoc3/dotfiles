@@ -7,10 +7,13 @@ SHA1=$3
 
 nl='
 '
-regex="^([a-zA-Z]+-[0-9]+)"
+case_regex="^([a-zA-Z]+-[0-9]+)"
+gh_regex="^([0-9]+)"
 text=$(git branch --show-current)
-if [[ $text =~ $regex ]]
-then
+if [[ $text =~ $case_regex ]]; then
    name=$(echo "${BASH_REMATCH[1]}" | tr [a-z] [A-Z])
+   sed -i.old '1s;^;['"$name"'] '"\\$nl"';' $COMMIT_MSG_FILE
+elif [[ $text =~ $gh_regex ]]; then
+   name="GH-${BASH_REMATCH[1]}"
    sed -i.old '1s;^;['"$name"'] '"\\$nl"';' $COMMIT_MSG_FILE
 fi
