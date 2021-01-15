@@ -15,6 +15,7 @@ Here are programs I use often as part of my daily workflow.
 - [pass](https://www.passwordstore.org/). A terminal based & gpg encrypted password manager.
 - [ranger](https://github.com/ranger/ranger). Navigate files with Vim bindings. (I'm looking for a more minimalistic replacement though.)
 - [rg](https://github.com/BurntSushi/ripgrep). Search file content super fast. Faster and cooler than grep.
+- [fd](https://github.com/sharkdp/fd). Search file names super fast. Faster and cooler than find.
 - [tmux](https://github.com/tmux/tmux). Terminal multiplexer.
 - [zsh](https://www.zsh.org/). I was actually still using bash until August-ish 2020.
 
