@@ -305,6 +305,7 @@ alias kbf_ssh_hosts="sed -rn 's/^\s*Host\s+(.*)$/\1/ip' ~/.ssh/config ~/.ssh/loc
 alias fzf_apropos='apropos "." 2> /dev/null | cut -f 1 -d "(" | uniq | fzf'
 
 # random
+alias lam='lookatme --live -e terminal'
 alias vo='i3b_volume'
 alias pipi='pip install --user'
 alias bc='bc -q'
