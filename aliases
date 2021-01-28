@@ -89,8 +89,12 @@ alias editbsh=editbash
 alias ep='editprofile'
 alias ez='vim ~/.zshrc ~/.zshenv'
 
+# kak
+alias k="kak"
+
 # diary
 alias diary='cd ~/diary/alan'
+alias di='diary'
 alias jrn='vim ~/diary/alan/{2021_diary,achievements,todos}.md'
 alias rnj='jrn'
 alias nrj='jrn'
@@ -150,13 +154,12 @@ alias dot='cd ~/.dotfiles'
 alias sdcard='cd /sdcard; ls;'
 alias down='cd ~/Downloads; ls'
 alias drop='cd ~/Dropbox; ls'
-alias cd....='cd ../..'
-alias cd..='cd ..'
-alias cd.='cd .'
 alias cdpico="cd ~/.lexaloffle/pico-8/carts"
-alias cdr='cd /'
-alias dc-='cd -'
-alias cd-='cd -'
+alias c='cd'
+alias c-='cd -'
+alias c~='cd;cd' # Example: `c~ .dotfiles` will open '~/.dotfiles'.
+alias c.='cd ..'
+alias c/='cd /'
 
 # dropbox
 alias rapiddrop="while [ true ]; do clear; dropstat; sleep 1; done"
@@ -293,8 +296,9 @@ viewmarkdown() { md2html $1 | qutepipe }
 alias vm='viewmarkdown'
 
 # concards
-alias cards="cd ~/sync/cards"
-alias cnc="concards ~/sync/cards ~/diary/alan"
+alias cards="cd ~/diary/alan/cards"
+alias ca="cards"
+alias cnc="concards ~/diary/alan"
 
 # list things for fzf
 alias fzf='fzf --height 40% --reverse'
