@@ -11,7 +11,7 @@ Here are programs I use often as part of my daily workflow.
 - [git](https://git-scm.com/). The magical version control software.
 - [keynav](https://github.com/jordansissel/keynav). Navigate your keyboard with Vim key bindings.
 - [lookatme](https://github.com/d0c-s4vage/lookatme). A markdown + terminal based presentation tool.
-- [neovim](https://neovim.io/). The new Vim.
+- [neovim](https://neovim.io/). The new Vim. (I plan on switching to kak soon.)
 - [pass](https://www.passwordstore.org/). A terminal based & gpg encrypted password manager.
 - [ranger](https://github.com/ranger/ranger). Navigate files with Vim bindings. (I'm looking for a more minimalistic replacement though.)
 - [rg](https://github.com/BurntSushi/ripgrep). Search file content super fast. Faster and cooler than grep.
