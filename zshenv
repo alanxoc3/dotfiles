@@ -14,7 +14,6 @@ export PATH="$PATH:$HOME/.local/bin"
 export ANACONDA_HOME="/home/alanxoc3/anaconda3"
 export ANDROID_HOME=/opt/android-sdk
 export BROWSER=qutebrowser
-export EDITOR=$VISUAL
 export GOPATH=~/.go
 export GPG_TTY=`tty`
 export GTK_IM_MODULE=fcitx
@@ -26,13 +25,16 @@ export PYTHONPATH="/home/alanxoc3/Projects/caffe/python"
 export QEMU_AUDIO_DRV='pa'
 export QT_IM_MODULE=fcitx
 export TERMINAL="termite"
-export VISUAL=nvim
+export VISUAL=kak
+export EDITOR=$VISUAL
 export XDG_CACHE_HOME=$HOME/.cache
 export XDG_CONFIG_HOME=$HOME/.config
 export XENVIRONMENT="${HOME}/.Xresources"
 export XKB_DEFAULT_LAYOUT=us
 export XKB_DEFAULT_VARIANT=dvorak
 export XMODIFIERS=@im=fcitx
+export PAGER=kak_pager
+export GIT_PAGER='kak -e "set buffer filetype diff"'
 
 # FZF environment variables
 export FZF_DEFAULT_COMMAND="fd --hidden --color=always --ignore-file ~/.dotfiles/fzf-ignore ."

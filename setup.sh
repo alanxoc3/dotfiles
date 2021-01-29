@@ -30,6 +30,7 @@ cf gitignore          .gitignore
 cf doom               .doom.d
 cf git-templates      .git-templates
 cf nvim               .config/nvim
+cf kak                .config/kak
 cf bspwmrc            .config/bspwm/bspwmrc
 cf sxhkdrc            .config/sxhkd/sxhkdrc
 cf i3blocks-config    .config/i3blocks/config
