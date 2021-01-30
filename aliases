@@ -43,7 +43,7 @@ alias gm='git merge'
 alias gp='git push'
 alias gpn='git push -u origin $(git branch --show-current)'
 alias gd='git diff --color=never HEAD'
-alias gl='git log'
+alias gl='git log --color=never'
 alias gt='git tag'
 alias gb='git branch'
 alias gba='git branch --all'
@@ -72,6 +72,7 @@ alias k="kak"
 alias editsnips="kak ~/.dotfiles/snips/*"
 alias es='editsnips'
 alias ev='kak ~/.config/nvim/lua/init.lua'
+alias ek='kak ~/.config/kak/kakrc'
 alias ea='kak ~/.aliases'
 alias ez='kak ~/.zshrc ~/.zshenv'
 
@@ -85,6 +86,7 @@ alias njr='jrn'
 alias tl='jrn'
 alias rjn='jrn'
 alias jnr='jrn'
+alias ap='achieve_parser ~/diary/alan/achievements.md'
 
 # acpi
 alias acip=acpi

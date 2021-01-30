@@ -2,3 +2,5 @@ hook global InsertChar k %{ try %{
       exec -draft hH <a-k>jk<ret> d
         exec <esc>
 }}
+
+set-option -add global ui_options ncurses_enable_mouse=off
