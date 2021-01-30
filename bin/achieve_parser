@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# - 00:20 2017-04-22 BOOK - Social Contract
 import os, sys, re, argparse
 from calendar import monthrange
 from datetime import datetime, date
