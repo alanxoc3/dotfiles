@@ -44,6 +44,9 @@ alias gp='git push'
 alias gpn='git push -u origin $(git branch --show-current)'
 alias gd='git diff --color=never HEAD'
 alias gl='git log --color=never'
+alias glo="gl --pretty='%h %ad %an: %s%d' --date=short --graph"
+alias gla="glo --all"
+alias glf="gl --name-status --find-renames --oneline"
 alias gt='git tag'
 alias gb='git branch'
 alias gba='git branch --all'
