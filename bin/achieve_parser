@@ -1,40 +1,39 @@
 #!/usr/bin/env python3
 import os, sys, re, argparse
-from calendar import monthrange
+import calendar
+import math
 from datetime import datetime, date
 parser = argparse.ArgumentParser()
 
 now = datetime.now()
-numOfDaysInCurrentMonth = monthrange(now.year, now.month)[1]
-firstDayOfMonth = date(now.year, now.month, 1)
-lastDayOfMonth = date(now.year, now.month, numOfDaysInCurrentMonth)
 
-parser.add_argument("--begin-date", default=firstDayOfMonth.strftime('%Y-%m-%d'))
-parser.add_argument("--end-date"  , default=lastDayOfMonth.strftime('%Y-%m-%d'))
+parser.add_argument("--date", default=now.strftime('%Y-%m-%d'))
 parser.add_argument('file', type=argparse.FileType('r'), nargs='*')
 args = parser.parse_args()
 
-begin_date = list(map(int, args.begin_date.split('-')))
-begin_date = date(begin_date[0], begin_date[1], begin_date[2])
-end_date = list(map(int, args.end_date.split('-')))
+end_date = list(map(int, args.date.split('-')))
 end_date = date(end_date[0], end_date[1], end_date[2])
+begin_date = date(end_date.year, 1, 1)
 
 achieve_map = {}
+goal_map = {}
 
-p = re.compile(r'^- (--|\d\d):(--|\d\d) (\d\d\d\d)-(\d\d)-(\d\d) (\w+) -.*$')
+goal_pattern = re.compile(r'^- (\d\d\d\d) (\w+) (\d+)$')
+ts_pattern = re.compile(r'^- (--|\d\d):(--|\d\d) (\d\d\d\d)-(\d\d)-(\d\d) (\w+) -.*$')
 for f in args.file:
     for line in f:
-        m = p.match(line)
-        if m is not None:
-            year = int(m.group(3))
-            month = int(m.group(4))
-            day = int(m.group(5))
+        ts_match = ts_pattern.match(line)
+        goal_match = goal_pattern.match(line)
+        if ts_match is not None:
+            year = int(ts_match.group(3))
+            month = int(ts_match.group(4))
+            day = int(ts_match.group(5))
             day = 1 if day == 0 else day
             line_date = date(year, month, day)
             if line_date >= begin_date and line_date <= end_date:
-                group = m.group(6)
-                hours = m.group(1)
-                minutes = m.group(2)
+                group = ts_match.group(6)
+                hours = ts_match.group(1)
+                minutes = ts_match.group(2)
                 hours = 0 if hours == '--' else int(hours)
                 minutes = 0 if minutes == '--' else int(minutes)
 
@@ -42,7 +41,26 @@ for f in args.file:
                     achieve_map[group] = 0
 
                 achieve_map[group] += hours*60 + minutes
+        elif goal_match is not None:
+            year = int(goal_match.group(1))
+            if end_date.year == year:
+                group = goal_match.group(2)
+                hours = int(goal_match.group(3))
+                if group not in goal_map:
+                    goal_map[group] = hours
+
+numOfDays = (end_date - begin_date).days
+numOfDaysInYear = 366 if calendar.isleap(end_date.year) else 365
+
+
+def format_hour_min(hours):
+    return "{:>3}:{:02d}".format(math.floor(hours), math.floor(hours % 1 * 60))
 
 for key in sorted(achieve_map.keys()):
-    print(key, achieve_map[key]/60)
-
+    achieve_hours = achieve_map[key]/60
+    achieve = format_hour_min(achieve_hours)
+    if key in goal_map:
+        goal_hours = goal_map[key] * numOfDays / numOfDaysInYear
+        print("{} {} / {}".format(key, achieve, format_hour_min(goal_hours)))
+    else:
+        print("{} {}".format(key, achieve))
