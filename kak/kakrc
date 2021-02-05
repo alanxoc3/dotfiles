@@ -5,6 +5,9 @@ hook global InsertChar k %{ try %{
 
 set-option -add global ui_options ncurses_enable_mouse=off
 
+map global user y '<a-|>xclip -selection clipboard<ret>'
+map global user p '<|>xclip -selection clipboard -o<ret>'
+
 eval %sh{kak-lsp --kakoune -s $kak_session}
 hook global WinSetOption filetype=(rust|python|go|javascript|typescript|c|cpp) %{
     lsp-enable-window
