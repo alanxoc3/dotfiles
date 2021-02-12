@@ -1,0 +1,66 @@
+#!/usr/bin/env python3
+import os, sys, re, argparse
+import calendar
+import math
+from datetime import datetime, date
+parser = argparse.ArgumentParser()
+
+now = datetime.now()
+
+parser.add_argument("--date", default=now.strftime('%Y-%m-%d'))
+parser.add_argument('file', type=argparse.FileType('r'), nargs='*')
+args = parser.parse_args()
+
+end_date = list(map(int, args.date.split('-')))
+end_date = date(end_date[0], end_date[1], end_date[2])
+begin_date = date(end_date.year, 1, 1)
+
+achieve_map = {}
+goal_map = {}
+
+goal_pattern = re.compile(r'^- (\d\d\d\d) (\w+) (\d+)$')
+ts_pattern = re.compile(r'^- (--|\d\d):(--|\d\d) (\d\d\d\d)-(\d\d)-(\d\d) (\w+) -.*$')
+for f in args.file:
+    for line in f:
+        ts_match = ts_pattern.match(line)
+        goal_match = goal_pattern.match(line)
+        if ts_match is not None:
+            year = int(ts_match.group(3))
+            month = int(ts_match.group(4))
+            day = int(ts_match.group(5))
+            day = 1 if day == 0 else day
+            line_date = date(year, month, day)
+            if line_date >= begin_date and line_date <= end_date:
+                group = ts_match.group(6)
+                hours = ts_match.group(1)
+                minutes = ts_match.group(2)
+                hours = 0 if hours == '--' else int(hours)
+                minutes = 0 if minutes == '--' else int(minutes)
+
+                if group not in achieve_map:
+                    achieve_map[group] = 0
+
+                achieve_map[group] += hours*60 + minutes
+        elif goal_match is not None:
+            year = int(goal_match.group(1))
+            if end_date.year == year:
+                group = goal_match.group(2)
+                hours = int(goal_match.group(3))
+                if group not in goal_map:
+                    goal_map[group] = hours
+
+numOfDays = (end_date - begin_date).days
+numOfDaysInYear = 366 if calendar.isleap(end_date.year) else 365
+
+
+def format_hour_min(hours):
+    return "{:>3}:{:02d}".format(math.floor(hours), math.floor(hours % 1 * 60))
+
+for key in sorted(achieve_map.keys()):
+    achieve_hours = achieve_map[key]/60
+    achieve = format_hour_min(achieve_hours)
+    if key in goal_map:
+        goal_hours = goal_map[key] * numOfDays / numOfDaysInYear
+        print("{} {} / {}".format(key, achieve, format_hour_min(goal_hours)))
+    else:
+        print("{} {}".format(key, achieve))

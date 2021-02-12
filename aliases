@@ -43,8 +43,11 @@ alias gm='git merge'
 alias gp='git push'
 alias gpn='git push -u origin $(git branch --show-current)'
 alias gpd='git push origin --delete $(git branch --show-current)'
-alias gd='git diff HEAD'
-alias gl='git log'
+alias gd='git diff --color=never HEAD'
+alias gl='git log --color=never'
+alias glo="gl --pretty='%h %ad %an: %s%d' --date=short --graph"
+alias gla="glo --all"
+alias glf="gl --name-status --find-renames --oneline"
 alias gt='git tag'
 alias gb='git branch'
 alias gba='git branch --all'
@@ -65,40 +68,29 @@ alias vid2mp3='youtube-dl --extract-audio --audio-format mp3'
 # golang
 alias gocover='go test -coverprofile=/tmp/cover.out; go tool cover -html=/tmp/cover.out'
 
-# vim
-alias cv="cd ~/.config/nvim"
+# vim & kak
 alias vim='nvim'
 alias vi='nvim'
-alias im='nvim'
 alias v='nvim'
-alias editsnips="vim ~/.dotfiles/snips/*"
+alias k="kak"
+alias editsnips="kak ~/.dotfiles/snips/*"
 alias es='editsnips'
-alias vortaro="vim ~/sync/ref/esperanto_dictionary.txt"
-alias vortar=vortaro
-alias editvim='vim ~/.config/nvim/lua/init.lua'
-alias editnvim=editvim
-alias ev=editvim
-alias editprofile='vim ~/.profile'
-alias editalias='vim ~/.aliases'
-alias editbash='vim ~/.bashrc'
-alias editxterm='vim ~/.Xresources'
-alias editi3='vim ~/sync/work/config/i3-config'
-alias ea='editalias'
-alias eb='editbash'
-alias editbosh=editbash
-alias editbsh=editbash
-alias ep='editprofile'
-alias ez='vim ~/.zshrc ~/.zshenv'
+alias ev='kak ~/.config/nvim/lua/init.lua'
+alias ek='kak ~/.config/kak/kakrc'
+alias ea='kak ~/.aliases'
+alias ez='kak ~/.zshrc ~/.zshenv'
 
 # diary
 alias diary='cd ~/diary/alan'
-alias jrn='vim ~/diary/alan/{2021_diary,achievements,todos}.md'
+alias di='diary'
+alias jrn='kak ~/diary/alan/{2021_diary,achievements,todos,plans}.md'
 alias rnj='jrn'
 alias nrj='jrn'
 alias njr='jrn'
 alias tl='jrn'
 alias rjn='jrn'
 alias jnr='jrn'
+alias ap='achieve_parser ~/diary/alan/achievements.md'
 
 # acpi
 alias acip=acpi
@@ -151,13 +143,13 @@ alias dot='cd ~/.dotfiles'
 alias sdcard='cd /sdcard; ls;'
 alias down='cd ~/Downloads; ls'
 alias drop='cd ~/Dropbox; ls'
-alias cd....='cd ../..'
-alias cd..='cd ..'
-alias cd.='cd .'
 alias cdpico="cd ~/.lexaloffle/pico-8/carts"
-alias cdr='cd /'
-alias dc-='cd -'
-alias cd-='cd -'
+alias cv="cd ~/.config/nvim"
+alias c='cd'
+alias c-='cd -'
+alias c~='cd;cd' # Example: `c~ .dotfiles` will open '~/.dotfiles'.
+alias c.='cd ..'
+alias c/='cd /'
 
 # dropbox
 alias rapiddrop="while [ true ]; do clear; dropstat; sleep 1; done"
@@ -294,8 +286,9 @@ viewmarkdown() { md2html $1 | qutepipe }
 alias vm='viewmarkdown'
 
 # concards
-alias cards="cd ~/sync/cards"
-alias cnc="concards ~/sync/cards ~/diary/alan"
+alias cards="cd ~/diary/alan/cards"
+alias ca="cards"
+alias cnc="concards ~/diary/alan"
 
 # list things for fzf
 alias fzf='fzf --height 40% --reverse'
