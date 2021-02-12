@@ -6,5 +6,5 @@ Host aur aur.archlinux.org
    User aur
 
 Host github github.com
-   IdentityFile ~/.ssh/id_git
+   IdentityFile ~/.ssh/id_github
    User git
