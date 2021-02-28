@@ -42,3 +42,4 @@ cf concards           .config/concards
 cf ssh-config         .ssh/config
 cf mimeapps.list      .config/mimeapps.list
 cf alacritty.yml      .config/alacritty/alacritty.yml
+cf search-ignore      .config/fd/ignore
