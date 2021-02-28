@@ -13,3 +13,12 @@ eval %sh{kak-lsp --kakoune -s $kak_session}
 hook global WinSetOption filetype=(rust|python|go|javascript|typescript|c|cpp) %{
     lsp-enable-window
 }
+
+source "%val{config}/plugins/plug.kak/rc/plug.kak"
+plug "andreyorst/plug.kak" noload
+plug "andreyorst/fzf.kak"
+
+plug "andreyorst/fzf.kak" config %{
+    set-option global fzf_file_command 'fd'
+    set-option global fzf_grep_command 'rg'
+}

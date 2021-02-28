@@ -1,0 +1,15 @@
+# Search Ignore.
+# A custom gitignore file that makes searching my home directory more efficient.
+
+.*
+node_modules/
+target/
+tags
+**/pico-8/backup/
+*.bin/
+sync/archive/
+sync/library/
+
+!.dotfiles
+!.go
+.go/pkg
