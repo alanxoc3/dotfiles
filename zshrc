@@ -51,7 +51,7 @@ liquibase() {
 
 # Keyboard Shortcuts
 kb_pass_files() {
-   LBUFFER="${LBUFFER}pass show -c $(fd --base-directory ~/.password-store -t f | sed -rn 's/^(.*)\.gpg$/\1/p' | fzf) 2> /dev/null"
+   LBUFFER="${LBUFFER}pass show -c $(fd --base-directory ~/.password-store -t f | sed -En 's/^(.*)\.gpg$/\1/p' | fzf) 2> /dev/null"
 
    local ret=$?
    zle reset-prompt
