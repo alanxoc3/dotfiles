@@ -41,3 +41,4 @@ export FZF_DEFAULT_COMMAND="fd --hidden --color=always --ignore-file ~/.dotfiles
 export FZF_DEFAULT_OPTS="--ansi"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND -t f"
 export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND -t d"
+export TERM='xterm-256color'

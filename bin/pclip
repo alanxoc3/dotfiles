@@ -1,0 +1,6 @@
+#!/bin/bash
+if [[ "$(uname)" =~ Darwin ]]; then 
+  cat - | pbpaste
+else
+  cat - | xclip -selection clipboard -o
+fi

@@ -165,8 +165,6 @@ alias clera=clear
 # xclip
 alias copycurrent='echo cd $(pwd) | xclip'
 alias copypath=copycurrent
-alias cclip='xclip -selection clipboard'
-alias clipp='xclip -selection clipboard -o'
 
 # make
 alias ake=make
