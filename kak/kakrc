@@ -3,11 +3,26 @@ hook global InsertChar k %{ try %{
         exec <esc>
 }}
 
+# Hacky way to disable the startup message on the scratch screen.
+set-option global startup_info_version 99999999
+
+# No picture of clippy.
+set-option global ui_options ncurses_assistant=none
+
+# Disable mouse support.
 set-option -add global ui_options ncurses_enable_mouse=off
 
+# Clipboard management.
 map global user y '<a-|>xclip -selection clipboard<ret>'
 map global user p '<|>xclip -selection clipboard -o<ret>'
+
+# Formatting text.
 map global user f '<|>tr "\n" " " | fold -s | awk "{\$1=\$1};1"<ret>'
+
+# Remove the scratch buffer message.
+hook global BufCreate \*scratch\* %{
+    execute-keys Ged <esc>
+}
 
 eval %sh{kak-lsp --kakoune -s $kak_session}
 hook global WinSetOption filetype=(rust|python|go|javascript|typescript|c|cpp) %{
@@ -15,7 +30,6 @@ hook global WinSetOption filetype=(rust|python|go|javascript|typescript|c|cpp) %
 }
 
 # Fzf Kak Configuration
-
 source "%val{config}/fzf.kak/rc/fzf.kak"
 source "%val{config}/fzf.kak/rc/modules/fzf-file.kak"
 source "%val{config}/fzf.kak/rc/modules/fzf-buffer.kak"
