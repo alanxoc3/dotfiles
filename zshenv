@@ -11,7 +11,7 @@ export PATH="$PATH:$HOME/.cargo/bin"
 export PATH="$PATH:$HOME/.local/bin"
 
 # A bunch more environment variables
-export ANACONDA_HOME="/home/alanxoc3/anaconda3"
+export ANACONDA_HOME="$HOME/anaconda3"
 export ANDROID_HOME=/opt/android-sdk
 export BROWSER=qutebrowser
 export GOPATH=~/.go
@@ -35,9 +35,10 @@ export XKB_DEFAULT_VARIANT=dvorak
 export XMODIFIERS=@im=fcitx
 export PAGER=kak_pager
 export GIT_PAGER='kak -e "set buffer filetype diff"'
+export RIPGREP_CONFIG_PATH="$HOME/.dotfiles/rgconfig"
 
 # FZF environment variables
-export FZF_DEFAULT_COMMAND="fd --hidden --color=always --ignore-file ~/.dotfiles/fzf-ignore ."
+export FZF_DEFAULT_COMMAND="fd --hidden --color=always --ignore-file ~/.dotfiles/search-ignore ."
 export FZF_DEFAULT_OPTS="--ansi"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND -t f"
 export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND -t d"

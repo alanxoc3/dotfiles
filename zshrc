@@ -50,14 +50,15 @@ liquibase() {
 }
 
 # Keyboard Shortcuts
-kb_ssh_hosts() {
-   LBUFFER="${LBUFFER}$(kbf_ssh_hosts | fzf)"
+kb_pass_files() {
+   LBUFFER="${LBUFFER}pass show -c $(fd --base-directory ~/.password-store -t f | sed -rn 's/^(.*)\.gpg$/\1/p' | fzf) 2> /dev/null"
+
    local ret=$?
    zle reset-prompt
    return $ret
 }
-zle     -N    kb_ssh_hosts
-bindkey '\es' kb_ssh_hosts
+zle     -N    kb_pass_files
+bindkey '\es' kb_pass_files
 
 kb_git_branches() {
    LBUFFER="${LBUFFER}$(kbf_git_branch | fzf)"
