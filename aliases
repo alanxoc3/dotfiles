@@ -296,6 +296,9 @@ alias kbf_ssh_hosts="sed -rn 's/^\s*Host\s+(.*)$/\1/ip' ~/.ssh/config ~/.ssh/loc
 # Thank you: https://gist.github.com/igemnace/9b6fb8c2885c3e35299b3a122e1009e5
 alias fzf_apropos='apropos "." 2> /dev/null | cut -f 1 -d "(" | uniq | fzf'
 
+# Pomodoro. Countdown is a golang program.
+alias pm='countdown 25m && echo times up, next task | espeak; countdown 15m && echo times up, next task | espeak'
+
 # random
 alias lam='lookatme --live -e terminal'
 alias vo='i3b_volume'

@@ -65,7 +65,7 @@ str fzf_tmux_height '25%'
 
 declare-option -docstring "height of fzf tmux split for file preview in screen lines or percents.
 Default value: 70%%" \
-str fzf_preview_tmux_height '70%'
+str fzf_preview_tmux_height '80%'
 
 declare-option -docstring "width of preview window.
 Default value: 50%%" \
@@ -167,24 +167,11 @@ fzf -params .. %{ evaluate-commands %sh{
     if [ "${preview}" = "true" ]; then
         # bake position option to define them at runtime
         [ -n "${kak_client_env_TMUX}" ] && tmux_height="${kak_opt_fzf_preview_tmux_height}"
-        case ${kak_opt_fzf_preview_pos} in
-            (top|up)      preview_position="pos=top:${kak_opt_fzf_preview_height};" ;;
-            (bottom|down) preview_position="pos=down:${kak_opt_fzf_preview_height};" ;;
-            (right)       preview_position="pos=right:${kak_opt_fzf_preview_width};" ;;
-            (left)        preview_position="pos=left:${kak_opt_fzf_preview_width};" ;;
-            (auto|*)      preview_position="sleep 0.1; [ \$(tput cols) -gt \$(expr \$(tput lines) \* 2) ] && pos=right:${kak_opt_fzf_preview_width} || pos=top:${kak_opt_fzf_preview_height};"
-        esac
 
         # handle preview if not defined explicitly with `-preview-cmd'
         if [ ${kak_opt_fzf_preview} = "true" ] && [ -z "${preview_cmd}" ]; then
-            case ${kak_opt_fzf_highlight_command} in
-                (bat)       highlight_cmd="bat --color=always --style=plain {}" ;;
-                (coderay)   highlight_cmd="coderay {}" ;;
-                (highlight) highlight_cmd="highlight --failsafe -O ansi {}" ;;
-                (rouge)     highlight_cmd="rougify {}" ;;
-                (*)         highlight_cmd="${kak_opt_fzf_highlight_command}" ;;
-            esac
-            preview_cmd="--preview '(${highlight_cmd} || cat {}) 2>/dev/null | head -n ${kak_opt_fzf_preview_lines}' --preview-window=\${pos}"
+            highlight_cmd="bat --color=always --style=plain {}"
+            preview_cmd="--preview '(${highlight_cmd} || cat {}) 2>/dev/null | head -n ${kak_opt_fzf_preview_lines}' --preview-window=right:50%"
         fi
     fi
 
@@ -213,7 +200,7 @@ fzf -params .. %{ evaluate-commands %sh{
         # if height contains `%' then `-p' will be used
         [ -n "${tmux_height%%*%}" ] && measure="-l" || measure="-p"
         # `terminal' doesn't support any kind of width and height parameters, so tmux panes are created by tmux itself
-        cmd="nop %sh{ command tmux split-window -t '${kak_client_env_TMUX_PANE}' ${measure} ${tmux_height%%%*} env ${fzfcmd} < /dev/null > /dev/null 2>&1 }"
+        cmd="nop %sh{ command tmux split-window -v -l 50% '${fzfcmd}' < /dev/null > /dev/null 2>&1 }"
     else
         cmd="${kak_opt_fzf_terminal_command%% *} %{${fzfcmd}}"
     fi
