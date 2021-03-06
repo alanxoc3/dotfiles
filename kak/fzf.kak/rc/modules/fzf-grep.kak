@@ -18,17 +18,15 @@ str fzf_grep_command 'grep'
 
 map -docstring 'grep file contents recursively' global fzf g ': fzf-grep<ret>'
 
-define-command -hidden fzf-grep %{ info %sh{
+define-command -hidden fzf-grep %{ evaluate-commands %sh{
     fzf_args="--expect $kak_opt_fzf_window_map --expect $kak_opt_fzf_vertical_map --expect $kak_opt_fzf_horizontal_map"
-    cmd="rg --line-number --no-column --no-heading --color=never"
+    cmd="rg --line-number --no-column --no-heading --color=never '' 2>/dev/null"
 
-    # printf "fzf %s %s %s %s\n" \
-        # "-kak-cmd %{evaluate-commands}" \
-        # "-fzf-args %{--expect $fzf_args}" \
-        # "-items-cmd %{$cmd}" \
-        # "-filter %{sed -E 's/([^:]+):([^:]+):.*/edit -existing \1; execute-keys \2gvc/'}"
-
-    echo -n "fzf -kak-cmd %{evaluate-commands} -fzf-args %{$fzf_args} -items-cmd %{$cmd} -filter %{sed -E 's/([^:]+):([^:]+):.*/edit -existing \1; execute-keys \2gvc/'}"
+    printf "fzf %s %s %s %s\n" \
+        "-kak-cmd %{evaluate-commands}" \
+        "-fzf-args %{$fzf_args}" \
+        "-items-cmd %{$cmd}" \
+        "-filter %{sed -E 's/([^:]+):([^:]+):.*/edit -existing \1; execute-keys \2gvc/'}"
 }}
 
 §
