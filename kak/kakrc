@@ -30,9 +30,6 @@ source "%val{config}/fzf.kak/rc/modules/fzf-grep.kak"
 source "%val{config}/fzf.kak/rc/modules/fzf-search.kak"
 
 require-module fzf
-set-option global fzf_file_command 'fd'
-set-option global fzf_grep_command 'rg'
-
 
 # --- USER BINDINGS ---
 # Clipboard management.
@@ -49,3 +46,5 @@ text-mode %{ evaluate-commands 'enter-user-mode text' }
 
 map -docstring 'Enter Text Mode' global user t ': text-mode<ret>'
 map -docstring 'Format a paragraph to respect the 80 character limit.' global text p '<|>tr "\n" " " | fold -s | awk "{\$1=\$1};1"<ret>'
+
+map -docstring 'Fzf mode' global user f ': fzf-mode<ret>'

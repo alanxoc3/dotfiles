@@ -169,10 +169,6 @@ fzf -params .. %{ evaluate-commands %sh{
         [ -n "${kak_client_env_TMUX}" ] && tmux_height="${kak_opt_fzf_preview_tmux_height}"
 
         # handle preview if not defined explicitly with `-preview-cmd'
-        if [ ${kak_opt_fzf_preview} = "true" ] && [ -z "${preview_cmd}" ]; then
-            highlight_cmd="bat --color=always --style=plain {}"
-            preview_cmd="--preview '(${highlight_cmd} || cat {}) 2>/dev/null | head -n ${kak_opt_fzf_preview_lines}' --preview-window=right:50%"
-        fi
     fi
 
     fzf_tmp=$(mktemp -d ${TMPDIR:-/tmp}/fzf.kak.XXXXXX)
@@ -189,7 +185,7 @@ fzf -params .. %{ evaluate-commands %sh{
         fi
         # compose entire fzf command with all args into single file which will be executed later
         printf "%s\n" "export FZF_DEFAULT_OPTS=\"$kak_opt_fzf_default_opts\""
-        printf "%s\n" "cd \"${PWD}\" && ${preview_position} ${items_cmd} ${fzf_impl} ${default_query} ${fzf_args} ${preview_cmd} ${filter} > ${result}"
+        printf "%s\n" "cd \"${PWD}\" && ${items_cmd} fzf ${default_query} ${fzf_args} ${filter} > ${result}"
         printf "%s\n" "rm ${fzfcmd}"
     ) >> ${fzfcmd}
     chmod 755 ${fzfcmd}
@@ -199,8 +195,8 @@ fzf -params .. %{ evaluate-commands %sh{
         [ -z "${tmux_height}" ] && tmux_height=${kak_opt_fzf_tmux_height}
         # if height contains `%' then `-p' will be used
         [ -n "${tmux_height%%*%}" ] && measure="-l" || measure="-p"
-        # `terminal' doesn't support any kind of width and height parameters, so tmux panes are created by tmux itself
-        cmd="nop %sh{ command tmux split-window -v -l 50% '${fzfcmd}' < /dev/null > /dev/null 2>&1 }"
+
+        cmd="nop %sh{ command tmux split-window -Zv -l 50% '${fzfcmd}' < /dev/null > /dev/null 2>&1 }"
     else
         cmd="${kak_opt_fzf_terminal_command%% *} %{${fzfcmd}}"
     fi
