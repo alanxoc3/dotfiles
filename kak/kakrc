@@ -24,8 +24,6 @@ hook global WinSetOption filetype=(rust|python|go|javascript|typescript|c|cpp) %
 
 # Fzf Kak Configuration
 source "%val{config}/fzf/fzf.kak"
-source "%val{config}/fzf/fzf-file.kak"
-source "%val{config}/fzf/fzf-buffer.kak"
 source "%val{config}/fzf/fzf-commands.kak"
 
 require-module fzf
