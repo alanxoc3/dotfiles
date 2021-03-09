@@ -22,11 +22,10 @@ hook global WinSetOption filetype=(rust|python|go|javascript|typescript|c|cpp) %
     lsp-enable-window
 }
 
-# Fzf Kak Configuration
+# Source files that contain commands.
 source "%val{config}/fzf/fzf.kak"
 source "%val{config}/fzf/fzf-commands.kak"
-
-require-module fzf
+source "%val{config}/text-mode.kak"
 
 # --- USER BINDINGS ---
 # Clipboard management.
@@ -35,13 +34,5 @@ map global user p '<|>pclip<ret>'
 
 map global user g ': fzf-grep<ret>'
 
-# Formatting text.
-try %{ declare-user-mode text }
-define-command -docstring "Enter text-mode.
-Text mode contains keybindings for different methods to format highlighted text." \
-text-mode %{ evaluate-commands 'enter-user-mode text' }
-
 map -docstring 'Enter Text Mode' global user t ': text-mode<ret>'
-map -docstring 'Format a paragraph to respect the 80 character limit.' global text p '<|>tr "\n" " " | fold -s | awk "{\$1=\$1};1"<ret>'
-
 map -docstring 'Fzf mode' global user f ': fzf-mode<ret>'
