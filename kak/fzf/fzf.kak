@@ -18,71 +18,9 @@ fzf-mode %{ require-module fzf; evaluate-commands 'enter-user-mode fzf' }
 
 provide-module fzf %§
 
-# Options
-declare-option -docstring 'implementation of fzf that you want to use.
-Currently supported implementations:
-    fzf:  github.com/junegunn/fzf
-    sk: github.com/lotabout/skim' \
-str fzf_implementation 'fzf'
-
-declare-option -docstring 'allow showing preview window
-Default value:
-    true
-' \
-bool fzf_preview true
-
-declare-option -docstring 'amount of lines to pass to preview window
-Default value: 100' \
-int fzf_preview_lines 100
-
-declare-option -docstring 'preview window position.
-Supported values: up (top),  down (bottom), left, right, auto
-
-Default value: auto' \
-str fzf_preview_pos "auto"
-
-declare-option -docstring 'Highlighter to use in preview window. You can provide
-only the name of the tool that you want to use, or specify a command.
-Supported tools:
-    <package>: <value>:
-    Bat:       "bat"
-    Coderay:   "coderay"
-    Highlight: "highlight"
-    Rouge:     "rouge"
-
-These are default arguments for the tools above:
-    <tool>:    <value>:
-    bat:       "bat --color=always --style=plain {}"
-    coderay:   "coderay {}"
-    highlight: "highlight --failsafe -O ansi {}"
-    rouge:     "rougify {}"
-' \
-str fzf_highlight_command "highlight"
-
 declare-option -docstring "height of fzf tmux split in screen lines or percents.
 Default value: 25%%" \
 str fzf_tmux_height '25%'
-
-declare-option -docstring "height of fzf tmux split for file preview in screen lines or percents.
-Default value: 70%%" \
-str fzf_preview_tmux_height '80%'
-
-declare-option -docstring "width of preview window.
-Default value: 50%%" \
-str fzf_preview_width '50%'
-
-declare-option -docstring "height of preview window.
-Default value: 60%%" \
-str fzf_preview_height '60%'
-
-declare-option -docstring "mapping to execute action in new window" \
-str fzf_window_map 'ctrl-w'
-
-declare-option -docstring "mapping to execute action in new vertical split" \
-str fzf_vertical_map 'ctrl-v'
-
-declare-option -docstring "mapping to execute action in new horizontal split" \
-str fzf_horizontal_map 'ctrl-s'
 
 declare-option -docstring 'command to use to create new window when not using tmux.
 
@@ -96,16 +34,6 @@ declare-option -docstring "Default options for fzf." \
 str fzf_default_opts ''
 
 try %{ declare-user-mode fzf }
-
-define-command -hidden -docstring "wrapper command to create new vertical split" \
-fzf-vertical -params .. %{ evaluate-commands %{
-    tmux-terminal-vertical kak -c %val{session} -e "%arg{@}"
-}}
-
-define-command -hidden -docstring "wrapper command to create new horizontal split" \
-fzf-horizontal -params .. %{ evaluate-commands %{
-    tmux-terminal-horizontal kak -c %val{session} -e "%arg{@}"
-}}
 
 define-command -hidden -docstring "wrapper command to create new terminal" \
 fzf-window -params .. %{ evaluate-commands %sh{
@@ -123,26 +51,18 @@ Switches:
     -kak-cmd <command>: A Kakoune cmd that is applied to fzf resulting value
     -multiple-cmd <command>: A Kakoune cmd that is applied all multiple selected files but the first one
     -items-cmd <items command>: A command that is used as a pipe to provide list of values to fzf
-    -fzf-impl <implementation>: Owerride fzf implementation variable
     -fzf-args <args>: Additional flags for fzf program
-    -preview-cmd <command>: A preview command
-    -preview: Should fzf window include preview
     -filter <commands>: A pipe which will be applied to result provided by fzf
     -post-action <commands>: Extra commands that are preformed after `-kak-cmd' command" \
 -shell-script-completion %{
     printf "%s\n" "-kak-cmd
 -multiple-cmd
 -items-cmd
--fzf-impl
 -fzf-args
--preview-cmd
--preview
 -filter
 -post-action"
 } \
 fzf -params .. %{ evaluate-commands %sh{
-    fzf_impl="${kak_opt_fzf_implementation}"
-
     [ "${kak_opt_fzf_use_main_selection}" = "true" ] && \
     [ $(printf "%s" "${kak_selection}" | wc -m) -gt 1 ] && \
     default_query="-i -q ${kak_selection}"
@@ -150,26 +70,14 @@ fzf -params .. %{ evaluate-commands %sh{
     while [ $# -gt 0 ]; do
         case $1 in
             (-kak-cmd)      shift; kakoune_cmd="$1"  ;;
-            (-multiple-cmd) shift; multiple_cmd="$1" ;;
-            (-items-cmd)    shift; items_cmd="$1 |"  ;;
-            (-fzf-impl)     shift; fzf_impl="$1"     ;;
             (-fzf-args)     shift; fzf_args="$1"     ;;
-            (-preview-cmd)  shift; preview_cmd="$1"  ;;
-            (-preview)             preview="true"    ;;
+            (-items-cmd)    shift; items_cmd="$1 |"  ;;
             (-filter)       shift; filter="| $1"     ;;
+            (-multiple-cmd) shift; multiple_cmd="$1" ;;
             (-post-action)  shift; post_action="$1"  ;;
         esac
         shift
     done
-
-    [ -z "$multiple_cmd" ] && multiple_cmd="$kakoune_cmd"
-
-    if [ "${preview}" = "true" ]; then
-        # bake position option to define them at runtime
-        [ -n "${kak_client_env_TMUX}" ] && tmux_height="${kak_opt_fzf_preview_tmux_height}"
-
-        # handle preview if not defined explicitly with `-preview-cmd'
-    fi
 
     fzf_tmp=$(mktemp -d ${TMPDIR:-/tmp}/fzf.kak.XXXXXX)
     fzfcmd="${fzf_tmp}/fzfcmd"
@@ -180,7 +88,6 @@ fzf -params .. %{ evaluate-commands %sh{
         if [ -n "${shell_path}" ]; then
             # portable shebang
             printf "%s\n" "#!${shell_path}"
-            # set SHELL because fzf preview uses it
             printf "%s\n" "SHELL=${shell_path}"
         fi
         # compose entire fzf command with all args into single file which will be executed later
@@ -208,24 +115,11 @@ fzf -params .. %{ evaluate-commands %sh{
         if [ -s ${result} ]; then
             (
                 while read -r line; do
-                    case ${line} in
-                        (${kak_opt_fzf_window_map})     wincmd="fzf-window"     ;;
-                        (${kak_opt_fzf_vertical_map})   wincmd="fzf-vertical"   ;;
-                        (${kak_opt_fzf_horizontal_map}) wincmd="fzf-horizontal" ;;
-                        (*)                             item=${line} ;;
-                    esac
-                    if [ -n "${item}" ]; then
-                        item=$(printf "%s\n" "${item}" | sed "s/@/@@/g;s/&/&&/g")
-                        kakoune_cmd=$(printf "%s\n" "${kakoune_cmd}" | sed "s/&/&&/g")
-                        printf "%s\n" "evaluate-commands -client ${kak_client} ${wincmd} %&${kakoune_cmd} %@${item}@&"
-                        break
-                    fi
-                done
-                [ -n "${multiple_cmd}" ] && multiple_cmd=$(printf "%s\n" "${multiple_cmd}" | sed "s/&/&&/g")
-                while read -r line; do
                     line=$(printf "%s\n" "${line}" | sed "s/@/@@/g;s/&/&&/g")
-                    printf "%s\n" "evaluate-commands -client ${kak_client} ${wincmd} %&${multiple_cmd} %@${line}@&"
+                    kakoune_cmd=$(printf "%s\n" "${kakoune_cmd}" | sed "s/&/&&/g")
+                    printf "%s\n" "evaluate-commands -client ${kak_client} ${wincmd} %&${kakoune_cmd} %@${line}@&"
                 done
+
                 if [ -n "${post_action}" ]; then
                     post_action=$(printf "%s\n" "${post_action}" | sed "s/&/&&/g")
                     printf "%s\n" "evaluate-commands -client ${kak_client} %&${post_action}&"

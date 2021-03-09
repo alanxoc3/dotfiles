@@ -1,10 +1,12 @@
-# Fzf grep command
+# ----------------
+# FZF GREP COMMAND
+# ----------------
 
 hook global ModuleLoaded fzf %§
-map global fzf g ': fzf-grep<ret>' -docstring 'grep file contents recursively' 
+map global fzf r ': fzf-grep<ret>' -docstring 'grep file contents recursively' 
 
 define-command -hidden fzf-grep %{ evaluate-commands %sh{
-    grep_cmd="rg --line-number --no-column --no-heading --color=never '' 2>/dev/null"
+    grep_cmd="rg --line-number --no-column --no-heading --color=ansi '' 2>/dev/null"
 
     fzf_args=" \
         --delimiter : \
@@ -13,9 +15,7 @@ define-command -hidden fzf-grep %{ evaluate-commands %sh{
         --preview 'fzf_bat_preview {1} {2}' \
         --preview-window up:50% \
         --no-mouse \
-        --expect $kak_opt_fzf_window_map \
-        --expect $kak_opt_fzf_vertical_map \
-        --expect $kak_opt_fzf_horizontal_map \
+        --ansi \
         --no-hscroll \
     "
 

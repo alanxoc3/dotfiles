@@ -11,9 +11,6 @@ define-command -hidden fzf-file %{ evaluate-commands %sh{
         --preview 'fzf_bat_preview {1} 0' \
         --preview-window up:50% \
         --no-mouse \
-        --expect $kak_opt_fzf_window_map \
-        --expect $kak_opt_fzf_vertical_map \
-        --expect $kak_opt_fzf_horizontal_map \
         --no-hscroll \
     "
 
