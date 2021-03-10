@@ -1,48 +1,13 @@
-# ╭─────────────╥───────────────────╮
-# │ Author:     ║ Plugin:           │
-# │ Andrey Orst ║ fzf.kak           │
-# ╞═════════════╩═══════════════════╡
-# │ This plugin implements fzf      │
-# │ mode for Kakoune. This mode     │
-# │ adds several mappings to invoke │
-# │ different fzf commands.         │
-# ╰─────────────────────────────────╯
+# fzf-mode
 
 define-command -docstring "Enter fzf-mode.
 fzf-mode contains mnemonic key bindings for every fzf.kak command
-
-Best used with mapping like:
-    map global normal '<some key>' ': fzf-mode<ret>'
 " \
 fzf-mode %{ require-module fzf; evaluate-commands 'enter-user-mode fzf' }
 
 provide-module fzf %§
 
-declare-option -docstring "height of fzf tmux split in screen lines or percents.
-Default value: 25%%" \
-str fzf_tmux_height '25%'
-
-declare-option -docstring 'command to use to create new window when not using tmux.
-
-Default value: terminal kak -c %val{session} -e "%arg{@}"' \
-str fzf_terminal_command 'terminal kak -c %val{session} -e "%arg{@}"'
-
-declare-option -docstring "use main selection as default query for fzf if the selection is longer than 1 char." \
-bool fzf_use_main_selection true
-
-declare-option -docstring "Default options for fzf." \
-str fzf_default_opts ''
-
 try %{ declare-user-mode fzf }
-
-define-command -hidden -docstring "wrapper command to create new terminal" \
-fzf-window -params .. %{ evaluate-commands %sh{
-    if [ -n "$kak_client_env_TMUX" ]; then
-        printf "%s\n" 'tmux-terminal-window kak -c %val{session} -e "%arg{@}"'
-    else
-        printf "%s\n" "$kak_opt_fzf_terminal_command"
-    fi
-}}
 
 define-command -docstring \
 "fzf <switches>: generic fzf command. This command can be used to create new fzf wrappers for various Kakoune or external features.
@@ -63,7 +28,6 @@ Switches:
 -post-action"
 } \
 fzf -params .. %{ evaluate-commands %sh{
-    [ "${kak_opt_fzf_use_main_selection}" = "true" ] && \
     [ $(printf "%s" "${kak_selection}" | wc -m) -gt 1 ] && \
     default_query="-i -q ${kak_selection}"
 
@@ -91,22 +55,12 @@ fzf -params .. %{ evaluate-commands %sh{
             printf "%s\n" "SHELL=${shell_path}"
         fi
         # compose entire fzf command with all args into single file which will be executed later
-        printf "%s\n" "export FZF_DEFAULT_OPTS=\"$kak_opt_fzf_default_opts\""
         printf "%s\n" "cd \"${PWD}\" && ${items_cmd} fzf ${default_query} ${fzf_args} ${filter} > ${result}"
         printf "%s\n" "rm ${fzfcmd}"
     ) >> ${fzfcmd}
     chmod 755 ${fzfcmd}
 
-    if [ -n "${kak_client_env_TMUX}" ]; then
-        # set default height if not set already
-        [ -z "${tmux_height}" ] && tmux_height=${kak_opt_fzf_tmux_height}
-        # if height contains `%' then `-p' will be used
-        [ -n "${tmux_height%%*%}" ] && measure="-l" || measure="-p"
-
-        cmd="nop %sh{ command tmux split-window -Zv -l 50% '${fzfcmd}' < /dev/null > /dev/null 2>&1 }"
-    else
-        cmd="${kak_opt_fzf_terminal_command%% *} %{${fzfcmd}}"
-    fi
+    cmd="nop %sh{ command tmux split-window -Zv -l 50% '${fzfcmd}' < /dev/null > /dev/null 2>&1 }"
 
     printf "%s\n" "${cmd}"
 
@@ -131,3 +85,56 @@ fzf -params .. %{ evaluate-commands %sh{
 }}
 
 §
+
+# Command Mappings
+hook global ModuleLoaded fzf %{
+    map global fzf r ': fzf-grep<ret>' -docstring 'grep file contents recursively' 
+    map global fzf f ': fzf-file<ret>' -docstring 'open file'
+}
+
+# --------------
+#    fzf-grep
+# --------------
+
+define-command -hidden fzf-grep %{ evaluate-commands %sh{
+    grep_cmd="rg --line-number --no-column --no-heading --color=ansi '' 2>/dev/null"
+
+    fzf_args=" \
+        --delimiter : \
+        --nth 3.. \
+        --no-mouse \
+        --preview 'fzf_bat_preview {1} {2}' \
+        --preview-window up:50% \
+        --no-mouse \
+        --ansi \
+        --no-hscroll \
+    "
+
+    printf "fzf %s %s %s %s\n" \
+        "-kak-cmd %{evaluate-commands}" \
+        "-fzf-args %{$fzf_args}" \
+        "-items-cmd %{$grep_cmd}" \
+        "-filter %{sed -E 's/([^:]+):([^:]+):.*/edit -existing \1; execute-keys \2gvcx/'}"
+}}
+
+# --------------
+#    fzf-file
+# --------------
+
+define-command -hidden fzf-file %{ evaluate-commands %sh{
+    cmd="fd --color always --type f --follow 2>/dev/null"
+
+    fzf_args=" \
+    	-m \
+    	--ansi \
+        --preview 'fzf_bat_preview {1} 0' \
+        --preview-window up:50% \
+        --no-mouse \
+        --no-hscroll \
+    "
+
+    printf "fzf %s %s %s %s\n" \
+        "-kak-cmd %{edit -existing}" \
+        "-fzf-args %{$fzf_args}" \
+        "-items-cmd %{$cmd}"
+}}
