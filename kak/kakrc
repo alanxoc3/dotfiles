@@ -22,10 +22,6 @@ hook global WinSetOption filetype=(rust|python|go|javascript|typescript|c|cpp) %
     lsp-enable-window
 }
 
-# Source files that contain commands.
-source "%val{config}/fzf-mode.kak"
-source "%val{config}/text-mode.kak"
-
 # --- USER BINDINGS ---
 # Clipboard management.
 map global user y '<a-|>cclip<ret>'
