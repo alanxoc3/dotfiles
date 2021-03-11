@@ -2,3 +2,4 @@ local_*
 nvim/plugged
 *.spl
 .netrwhist
+kak/autoload/rc
