@@ -208,6 +208,7 @@ alias gqw='setxkbmap -layout "us"'
 alias gwm='setxkbmap -layout "us" -variant "workman"'
 
 # ls
+alias ls='exa'
 alias l='ls'
 alias lls='ls'
 alias lss='ls'
@@ -222,7 +223,6 @@ alias lsl='ls -l'
 alias sls='ls -l'
 alias ssl='ls -l'
 alias ls..="ls .."
-alias ls="ls --color -vGFp"
 
 # poweroff
 alias poweraff='poweroff'

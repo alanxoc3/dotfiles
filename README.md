@@ -6,6 +6,7 @@ Here are programs I use often as part of my daily workflow.
 
 ### Terminal Apps
 - [concards](https://github.com/alanxoc3/concards). I've been reviewing/creating flashcards everyday with this.
+- [exa](https://github.com/ogham/exa). A modern implementation of ls.
 - [fd](https://github.com/sharkdp/fd). Search file names super fast. Faster and cooler than find.
 - [fzf](https://github.com/junegunn/fzf). Fuzzy find for anything.
 - [gh](https://cli.github.com/). Github made an official CLI. I use it for managing issues and PRs now.
