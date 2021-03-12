@@ -10,4 +10,5 @@ redshift &
 sxhkd &
 # xsetroot -solid black
 
+xss-lock -- i3lock -nc 000000 &
 exec bspwm

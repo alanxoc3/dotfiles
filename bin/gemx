@@ -1,0 +1,3 @@
+#!/bin/bash
+# Similar to npx, but for ruby gems.
+~/.gem/ruby/2.7.0/bin/$1 "${@:2}"
