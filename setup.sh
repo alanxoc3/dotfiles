@@ -36,7 +36,6 @@ cf doom               .doom.d
 cf git-templates      .git-templates
 cf nvim               .config/nvim
 cf kak                .config/kak
-cf /usr/share/kak/rc  .config/kak/autoload/rc
 cf kak-lsp            .config/kak-lsp
 cf bspwmrc            .config/bspwm/bspwmrc
 cf sxhkdrc            .config/sxhkd/sxhkdrc
@@ -50,3 +49,7 @@ cf ssh-config         .ssh/config
 cf mimeapps.list      .config/mimeapps.list
 cf alacritty.yml      .config/alacritty/alacritty.yml
 cf search-ignore      .config/fd/ignore
+
+# Use whichever one exists. One is mac, one is arch.
+cf /usr/share/kak/rc        .config/kak/autoload/rc
+cf /usr/local/share/kak/rc  .config/kak/autoload/rc
