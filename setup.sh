@@ -37,6 +37,7 @@ cf sxhkdrc            .config/sxhkd/sxhkdrc
 cf i3blocks-config    .config/i3blocks/config
 cf i3-config          .config/i3/config
 cf gitconfig          .config/git/config
+cf kitty-config       .config/kitty/kitty.conf
 cf i3-status-config   .config/i3status/config
 cf concards           .config/concards
 cf ssh-config         .ssh/config

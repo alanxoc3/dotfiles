@@ -3,6 +3,9 @@
 # Allows me to use some of the obscure <alt> keybindings in kakoune.
 macos_option_as_alt yes
 
+# Run tmux on kitty startup.
+shell /bin/zsh -lic tmux
+
 #------------- BELOW IS ALL COMMENTS ---------------#
 #: Fonts {{{
 
@@ -717,8 +720,6 @@ macos_option_as_alt yes
 #: }}}
 
 #: Advanced {{{
-
-# shell .
 
 #: The shell program to execute. The default value of . means to use
 #: whatever shell is set as the default shell for the current user.

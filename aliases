@@ -149,7 +149,6 @@ alias c='cd'
 alias c-='cd -'
 alias c~='cd;cd' # Example: `c~ .dotfiles` will open '~/.dotfiles'.
 alias c.='cd ..'
-alias c/='cd /'
 
 # dropbox
 alias rapiddrop="while [ true ]; do clear; dropstat; sleep 1; done"
@@ -316,5 +315,5 @@ alias r='ranger'
 alias ta='tmux attach'
 alias updatexterm='xrdb merge ~/.Xresources'
 alias watch='watch -c -d'
-alias daet=date
-alias slblk=lsblk
+alias daet='date'
+alias slblk='lsblk'
