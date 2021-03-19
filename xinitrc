@@ -1,14 +1,20 @@
+#-- Environment
 export CURR_WM=bspwm
 export DESKTOP_SESSION=bspwm
 
+#-- Keyboard
 setxkbmap us -variant dvorak
-xmodmap -e "clear lock"
-xmodmap -e "keysym Caps_Lock = Escape"
+setxkbmap -option caps:escape &
+sxhkd &
+
+#-- Tools
 keynav
 fcitx -d -r
-redshift &
-sxhkd &
-# xsetroot -solid black
-
 xss-lock -- i3lock -nc 000000 &
+
+#-- Screen
+redshift -x
+redshift -O 3500K
+
+#-- Window Manager
 exec bspwm
