@@ -9,6 +9,7 @@ tags
 *.bin/
 sync/archive/
 sync/library/
+Library/
 GPUCache/
 
 !.dotfiles

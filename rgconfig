@@ -2,3 +2,4 @@
 --no-follow
 --hidden
 --ignore-file=/home/alanxoc3/.dotfiles/search-ignore
+--ignore-file=/Users/alanmorgan/.dotfiles/search-ignore

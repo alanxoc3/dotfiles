@@ -46,7 +46,7 @@ sbri() {
 }
 
 liquibase() {
-   mvn -Drelease.environment=local -Dserver=$1 -Ddatabase=$2 -Dusername=liquibase -Dpassword=l1qu1b\$e -Dcontexts=db,$3 clean install
+   mvn -DskipTests=true -Drelease.environment=local -Dserver=$1 -Ddatabase=$2 -Dusername=liquibase -Dpassword=l1qu1b\$e -Dcontexts=db,$3 clean install
 }
 
 # Keyboard Shortcuts
