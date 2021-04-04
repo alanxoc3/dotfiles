@@ -43,8 +43,8 @@ alias gm='git merge'
 alias gp='git push'
 alias gpn='git push -u origin $(git branch --show-current)'
 alias gpd='git push origin --delete $(git branch --show-current)'
-alias gd='git diff --color=never HEAD'
-alias gl='git log --color=never'
+alias gd='git diff HEAD'
+alias gl='git log'
 alias glo="gl --pretty='%h %ad %an: %s%d' --date=short --graph"
 alias gla="glo --all"
 alias glf="gl --name-status --find-renames --oneline"
@@ -83,14 +83,14 @@ alias ez='kak ~/.zshrc ~/.zshenv'
 # diary
 alias diary='cd ~/diary/alan'
 alias di='diary'
-alias jrn='kak ~/diary/alan/{2021_diary,achievements,todos,plans}.md'
+alias jrn='kak ~/diary/alan/{2021_diary,timelog,achievements,plans,todos}.md'
 alias rnj='jrn'
 alias nrj='jrn'
 alias njr='jrn'
 alias tl='jrn'
 alias rjn='jrn'
 alias jnr='jrn'
-alias ap='achieve_parser ~/diary/alan/achievements.md'
+alias ap='achieve_parser ~/diary/alan/timelog.md'
 
 # acpi
 alias acip=acpi
