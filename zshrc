@@ -81,4 +81,4 @@ bindkey '\em' kb_apropos
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Do custom things for work or home with a local zshrc!
-if [ -f "$HOME/.dotfiles/local_zshrc" ]; then . "$HOME/.dotfiles/local_zshrc" fi
+if [ -f "$HOME/.dotfiles/local_zshrc" ]; then . "$HOME/.dotfiles/local_zshrc"; fi
