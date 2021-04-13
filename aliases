@@ -1,325 +1,328 @@
 #!/bin/bash
+# alias
+alias a='alias'
+
 # maven
-alias mvnci='mvn clean install'
-alias mvncc='mvn clean compile'
-alias mvncid='mvnci -DskipDependencyCheck=true'
-alias mvncidt='mvnci -DskipDependencyCheck=true -DskipTests=true'
-alias mvntr='mvn com.clearwateranalytics:dependency:resolve-transitives'
-alias mvnj="mvn javadoc:javadoc"
-alias mvnp="mvn package"
+a mvnci='mvn clean install'
+a mvncc='mvn clean compile'
+a mvncid='mvnci -DskipDependencyCheck=true'
+a mvncidt='mvnci -DskipDependencyCheck=true -DskipTests=true'
+a mvntr='mvn com.clearwateranalytics:dependency:resolve-transitives'
+a mvnj="mvn javadoc:javadoc"
+a mvnp="mvn package"
 
 # source
-alias testbash='source $(cat > /tmp/.testbash; echo /tmp/.testbash)';
-alias updatealias='source ~/.aliases'
-alias updatebash='source ~/.bashrc'
-alias updateprofile='source ~/.profile'
-alias ua='updatealias'
-alias ub='updatebash'
-alias up='updateprofile'
-alias uz='source ~/.zshenv; source ~/.zshrc'
+a testbash='source $(cat > /tmp/.testbash; echo /tmp/.testbash)';
+a updatealias='source ~/.aliases'
+a updatebash='source ~/.bashrc'
+a updateprofile='source ~/.profile'
+a ua='updatealias'
+a ub='updatebash'
+a up='updateprofile'
+a uz='source ~/.zshenv; source ~/.zshrc'
 
 # mount
-alias mone="sudo mount /dev/sda1 /mnt"
-alias mountmicrosd=mountcard
-alias mountsdcard=mountcard
-alias mtwo="sudo mount /dev/sdb1 /mnt2"
-alias umnt='sudo umount /mnt'
-alias umone="sudo umount /mnt"
-alias umtwo="sudo umount /mnt2"
+a mone="sudo mount /dev/sda1 /mnt"
+a mountmicrosd=mountcard
+a mountsdcard=mountcard
+a mtwo="sudo mount /dev/sdb1 /mnt2"
+a umnt='sudo umount /mnt'
+a umone="sudo umount /mnt"
+a umtwo="sudo umount /mnt2"
 
 # git
-alias repos='cd ~/repos'
-alias rep=repos
-alias cg='cd $(git rev-parse --show-toplevel)'
-alias gs='git status'
-alias gst='git stash'
-alias g='git'
-alias gu='git pull'
-alias gf='git fetch'
-alias ga='git add'
-alias ga.='git add --all'
-alias gc='git add --all; git commit;'
-alias gcl='git clone'
-alias gm='git merge'
-alias gp='git push'
-alias gpf='git push --force'
-alias gpn='git push -u origin $(git branch --show-current)'
-alias gpd='git push origin --delete $(git branch --show-current)'
-alias gd='git diff HEAD'
-alias gdf='git diff --name-only HEAD'
-alias gl='git log'
-alias glo="gl --pretty='%h %ad %an: %s%d' --date=short"
-alias gla="glo --all --graph"
-alias glf="gl --name-status --find-renames --oneline"
-alias gt='git tag'
-alias gb='git branch'
-alias gba='git branch --all'
-alias gpa='git push --all origin'
-alias gbc='git branch --show-current'
-alias gk='git checkout'
-alias gkb='git checkout -b'
-alias gkt='git checkout --track'
-alias gbl='git blame'
-alias gitsvnignore='git svn show-ignore >> .git/info/exclude'
+a repos='cd ~/repos'
+a rep=repos
+a cg='cd $(git rev-parse --show-toplevel)'
+a gs='git status'
+a gst='git stash'
+a g='git'
+a gu='git pull'
+a gf='git fetch'
+a ga='git add'
+a ga.='git add --all'
+a gc='git add --all; git commit;'
+a gcl='git clone'
+a gm='git merge'
+a gp='git push'
+a gpf='git push --force'
+a gpn='git push -u origin $(git branch --show-current)'
+a gpd='git push origin --delete $(git branch --show-current)'
+a gd='git diff HEAD'
+a gdf='git diff --name-only HEAD'
+a gl='git log'
+a glo="gl --pretty='%h %ad %an: %s%d' --date=short"
+a gla="glo --all --graph"
+a glf="gl --name-status --find-renames --oneline"
+a gt='git tag'
+a gb='git branch'
+a gba='git branch --all'
+a gpa='git push --all origin'
+a gbc='git branch --show-current'
+a gk='git checkout'
+a gkb='git checkout -b'
+a gkt='git checkout --track'
+a gbl='git blame'
+a gitsvnignore='git svn show-ignore >> .git/info/exclude'
 
 # mpsyt & youtube-dl
-alias mpsyt='rm ~/.config/mps-youtube/cache* 2> /dev/null; mpsyt'
-alias chiptune='mpsyt "set player cvlc", "set playerargs --no-video", "play chiptune"'
-alias getvid="youtube-dl -f 18"
-alias vid2mp3='youtube-dl --extract-audio --audio-format mp3'
+a mpsyt='rm ~/.config/mps-youtube/cache* 2> /dev/null; mpsyt'
+a chiptune='mpsyt "set player cvlc", "set playerargs --no-video", "play chiptune"'
+a getvid="youtube-dl -f 18"
+a vid2mp3='youtube-dl --extract-audio --audio-format mp3'
 
 # golang
-alias gocover='go test -coverprofile=/tmp/cover.out; go tool cover -html=/tmp/cover.out'
+a gocover='go test -coverprofile=/tmp/cover.out; go tool cover -html=/tmp/cover.out'
 
 # vim & kak
-alias vim='nvim'
-alias vi='nvim'
-alias v='nvim'
-alias k="kak"
-alias editsnips="kak ~/.dotfiles/snips/*"
-alias es='editsnips'
-alias ev='kak ~/.config/nvim/lua/init.lua'
-alias ek='kak ~/.config/kak/kakrc'
-alias ea='kak ~/.aliases'
-alias ez='kak ~/.zshrc ~/.zshenv'
+a vim='nvim'
+a vi='nvim'
+a v='nvim'
+a k="kak"
+a editsnips="kak ~/.dotfiles/snips/*"
+a es='editsnips'
+a ev='kak ~/.config/nvim/lua/init.lua'
+a ek='kak ~/.config/kak/kakrc'
+a ea='kak ~/.aliases'
+a ez='kak ~/.zshrc ~/.zshenv'
 
 # diary
-alias diary='cd ~/diary/alan'
-alias di='diary'
-alias jrn='kak ~/diary/alan/{2021_diary,timelog,achievements,plans,todos}.md'
-alias rnj='jrn'
-alias nrj='jrn'
-alias njr='jrn'
-alias tl='jrn'
-alias rjn='jrn'
-alias jnr='jrn'
-alias ap='achieve_parser ~/diary/alan/timelog.md'
+a diary='cd ~/diary/alan'
+a di='diary'
+a jrn='kak ~/diary/alan/{2021_diary,timelog,achievements,plans,todos}.md'
+a rnj='jrn'
+a nrj='jrn'
+a njr='jrn'
+a tl='jrn'
+a rjn='jrn'
+a jnr='jrn'
+a ap='achieve_parser ~/diary/alan/timelog.md'
 
 # acpi
-alias acip=acpi
-alias piac=acpi
-alias paci=acpi
-alias ipca=acpi
-alias ipac=acpi
-alias paic=acpi
-alias pcai=acpi
-alias pcia=acpi
-alias pica=acpi
-alias aicp=acpi
-alias aipc=acpi
-alias apci=acpi
-alias apic=acpi
-alias iacp=acpi
-alias cpai=acpi
-alias cpia=acpi
-alias cpi=acpi
-alias ciap=acpi
-alias cipa=acpi
-alias caip=acpi
-alias capi=acpi
-alias iapc=acpi
-alias icap=acpi
-alias icpa=acpi
-alias acp=acpi
-alias ac=acpi
+a acip=acpi
+a piac=acpi
+a paci=acpi
+a ipca=acpi
+a ipac=acpi
+a paic=acpi
+a pcai=acpi
+a pcia=acpi
+a pica=acpi
+a aicp=acpi
+a aipc=acpi
+a apci=acpi
+a apic=acpi
+a iacp=acpi
+a cpai=acpi
+a cpia=acpi
+a cpi=acpi
+a ciap=acpi
+a cipa=acpi
+a caip=acpi
+a capi=acpi
+a iapc=acpi
+a icap=acpi
+a icpa=acpi
+a acp=acpi
+a ac=acpi
 
 # i3
-alias 3il='i3l'
-alias iomut=imout
-alias meout=imout
-alias i3l='i3lock -c 000000'
-alias ruin=runi
-alias rnui=runi
-alias runi=startx
+a 3il='i3l'
+a iomut=imout
+a meout=imout
+a i3l='i3lock -c 000000'
+a ruin=runi
+a rnui=runi
+a runi=startx
 
 # sdcv
-alias define=sdcv
-alias defin=sdcv
-alias defi=sdcv
-alias def=sdcv
-alias dic=sdcv
-alias dictionary=sdcv
-alias dict=sdcv
+a define=sdcv
+a defin=sdcv
+a defi=sdcv
+a def=sdcv
+a dic=sdcv
+a dictionary=sdcv
+a dict=sdcv
 
 # cd
-alias dot='cd ~/.dotfiles'
-alias sdcard='cd /sdcard; ls;'
-alias down='cd ~/Downloads; ls'
-alias drop='cd ~/Dropbox; ls'
-alias cdpico="cd ~/.lexaloffle/pico-8/carts"
-alias cv="cd ~/.config/nvim"
-alias c='cd'
-alias c-='cd -'
-alias c~='cd;cd' # Example: `c~ .dotfiles` will open '~/.dotfiles'.
-alias c.='cd ..'
+a dot='cd ~/.dotfiles'
+a sdcard='cd /sdcard; ls;'
+a down='cd ~/Downloads; ls'
+a drop='cd ~/Dropbox; ls'
+a cdpico="cd ~/.lexaloffle/pico-8/carts"
+a cv="cd ~/.config/nvim"
+a c='cd'
+a c-='cd -'
+a c~='cd;cd' # Example: `c~ .dotfiles` will open '~/.dotfiles'.
+a c.='cd ..'
 
 # dropbox
-alias rapiddrop="while [ true ]; do clear; dropstat; sleep 1; done"
-alias redrop='pkill dropbox; echo dropbox | bash - &'
-alias dropfile="dropbox-cli sharelink"
-alias dropls='dropbox-cli ls'
-alias dropstat='dropbox-cli status'
+a rapiddrop="while [ true ]; do clear; dropstat; sleep 1; done"
+a redrop='pkill dropbox; echo dropbox | bash - &'
+a dropfile="dropbox-cli sharelink"
+a dropls='dropbox-cli ls'
+a dropstat='dropbox-cli status'
 
 # clear
-alias cls=clear
-alias clera=clear
+a cls=clear
+a clera=clear
 
 # xclip
-alias copycurrent='echo cd $(pwd) | xclip'
-alias copypath=copycurrent
+a copycurrent='echo cd $(pwd) | xclip'
+a copypath=copycurrent
 
 # make
-alias ake=make
-alias maake=make
-alias kmake=make
-alias jake=make
-alias jmake=make
-alias maek=make
-alias mak=make
-alias mkae=make
-alias mkea=make
-alias amke=make
+a ake=make
+a maake=make
+a kmake=make
+a jake=make
+a jmake=make
+a maek=make
+a mak=make
+a mkae=make
+a mkea=make
+a amke=make
 
 # exit
-alias xeit='exit'
-alias quit='exit'
-alias eitx='exit'
-alias eixt='exit'
-alias etix='exit'
-alias etxi='exit'
-alias exti='exit'
-alias xite='exit'
-alias xit='exit'
-alias ext='exit'
-alias xti='exit'
+a xeit='exit'
+a quit='exit'
+a eitx='exit'
+a eixt='exit'
+a etix='exit'
+a etxi='exit'
+a exti='exit'
+a xite='exit'
+a xit='exit'
+a ext='exit'
+a xti='exit'
 
 # sbri
-alias supbri="sbri 100"
-alias mid="sbri 50"
-alias dim="sbri 20"
-alias bri="sbri 80"
-alias morbri="sbri 90"
-alias mordim="sbri 10"
-alias supdim="sbri 1"
+a supbri="sbri 100"
+a mid="sbri 50"
+a dim="sbri 20"
+a bri="sbri 80"
+a morbri="sbri 90"
+a mordim="sbri 10"
+a supdim="sbri 1"
 
 # localectl & setxkbmap
-alias cdv='localectl set-keymap --no-convert dvorak-programmer'
-alias cqw='localectl set-keymap --no-convert us'
-alias gdv='setxkbmap -layout "us" -variant "dvorak"'
-alias gqw='setxkbmap -layout "us"'
-alias gwm='setxkbmap -layout "us" -variant "workman"'
+a cdv='localectl set-keymap --no-convert dvorak-programmer'
+a cqw='localectl set-keymap --no-convert us'
+a gdv='setxkbmap -layout "us" -variant "dvorak"'
+a gqw='setxkbmap -layout "us"'
+a gwm='setxkbmap -layout "us" -variant "workman"'
 
 # ls
-alias ls='exa'
-alias l='ls'
-alias lls='ls'
-alias lss='ls'
-alias sl='ls'
-alias la='ls -A'
-alias lsa='ls -A'
-alias ll='ls -l'
-alias l.='ls -d .*'
-alias lsla='ls -la'
-alias lla='ls -la'
-alias lsl='ls -l'
-alias sls='ls -l'
-alias ssl='ls -l'
-alias ls..="ls .."
+a ls='exa'
+a l='ls'
+a lls='ls'
+a lss='ls'
+a sl='ls'
+a la='ls -A'
+a lsa='ls -A'
+a ll='ls -l'
+a l.='ls -d .*'
+a lsla='ls -la'
+a lla='ls -la'
+a lsl='ls -l'
+a sls='ls -l'
+a ssl='ls -l'
+a ls..="ls .."
 
 # poweroff
-alias poweraff='poweroff'
-alias pwoeroff='poweroff'
-alias pworeoff='poweroff'
-alias powreoff='poweroff'
-alias oweroff='poweroff'
+a poweraff='poweroff'
+a pwoeroff='poweroff'
+a pworeoff='poweroff'
+a powreoff='poweroff'
+a oweroff='poweroff'
 
 # w3m
-alias w3m='w3m -no-mouse'
-alias googleit='w3m www.google.com'
+a w3m='w3m -no-mouse'
+a googleit='w3m www.google.com'
 
 # xrandr
-alias tolap="xrandr --output HDMI-1 --off --output eDP-1 --auto --mode 1366x768 --panning 1366x768"
-alias tomirror="xrandr --output HDMI-1 --mode 1366x768 --output eDP-1 --same-as HDMI-1"
+a tolap="xrandr --output HDMI-1 --off --output eDP-1 --auto --mode 1366x768 --panning 1366x768"
+a tomirror="xrandr --output HDMI-1 --mode 1366x768 --output eDP-1 --same-as HDMI-1"
 
 # feh
-alias feh='feh --force-aliasing --scale-down'
-alias rndbkgd="feh --randomize --bg-fill ~/Pictures/photos/*"
-alias difbkgd="rndbkgd"
+a feh='feh --force-aliasing --scale-down'
+a rndbkgd="feh --randomize --bg-fill ~/Pictures/photos/*"
+a difbkgd="rndbkgd"
 
 # zathura
-alias zath=zathura
+a zath=zathura
 
 # systemctl
-alias renet='systemctl restart NetworkManager.service'
-alias printer='systemctl start org.cups.cupsd'
-alias nonet='systemctl stop NetworkManager.service'
-alias netman='systemctl start NetworkManager.service'
-alias noprinter='systemctl stop org.cups.cupsd'
+a renet='systemctl restart NetworkManager.service'
+a printer='systemctl start org.cups.cupsd'
+a nonet='systemctl stop NetworkManager.service'
+a netman='systemctl start NetworkManager.service'
+a noprinter='systemctl stop org.cups.cupsd'
 
 # pico8
-alias p8tool='~/repos/picotool/p8tool'
-alias pico="pico8"
+a p8tool='~/repos/picotool/p8tool'
+a pico="pico8"
 
 # rm
-alias rmrf="rm -rf"
-alias rmr="rm -r"
+a rmrf="rm -rf"
+a rmr="rm -r"
 
 # pass
-alias pe='pass edit'
+a pe='pass edit'
 
 # PS1
-alias tops='PS1="[\u-\[\033[0;31m\]\#\[\033[0m\] \W]\$ "'
-alias nops='PS1="$ "'
+a tops='PS1="[\u-\[\033[0;31m\]\#\[\033[0m\] \W]\$ "'
+a nops='PS1="$ "'
 
 # synclient
-alias mouse='synclient TouchpadOff=0'
-alias nomouse='synclient TouchpadOff=1'
+a mouse='synclient TouchpadOff=0'
+a nomouse='synclient TouchpadOff=1'
 
 # sudo
-alias psudo='sudo env "PATH=$PATH" '
-alias sudo='sudo '
+a psudo='sudo env "PATH=$PATH" '
+a sudo='sudo '
 
 # publish
-alias listchinesefonts='fc-list :lang=zh'
-alias markdowntopdf='pandoc --pdf-engine=xelatex -V CJKmainfont="Source Han Sans CN" -o' # outputfile then input file.
+a listchinesefonts='fc-list :lang=zh'
+a markdowntopdf='pandoc --pdf-engine=xelatex -V CJKmainfont="Source Han Sans CN" -o' # outputfile then input file.
 viewmarkdown() { md2html $1 | qutepipe }
-alias vm='viewmarkdown'
+a vm='viewmarkdown'
 
 # concards
-alias cards="cd ~/diary/alan/cards"
-alias ca="cards"
-alias cnc="concards ~/diary/alan"
+a cards="cd ~/diary/alan/cards"
+a ca="cards"
+a cnc="concards ~/diary/alan"
 
 # list things for fzf
-alias fzf='fzf --height 40% --reverse'
-alias kbf_git_branch="git branch -a | sed 's/^ *//g' | grep -v '*'"
-alias kbf_ssh_hosts="sed -rn 's/^\s*Host\s+(.*)$/\1/ip' ~/.ssh/config ~/.ssh/local_ssh 2> /dev/null | xargs -n1"
+a fzf='fzf --height 40% --reverse'
+a kbf_git_branch="git branch -a | sed 's/^ *//g' | grep -v '*'"
+a kbf_ssh_hosts="sed -rn 's/^\s*Host\s+(.*)$/\1/ip' ~/.ssh/config ~/.ssh/local_ssh 2> /dev/null | xargs -n1"
 
 # Thank you: https://gist.github.com/igemnace/9b6fb8c2885c3e35299b3a122e1009e5
-alias fzf_apropos='apropos "." 2> /dev/null | cut -f 1 -d "(" | uniq | fzf'
+a fzf_apropos='apropos "." 2> /dev/null | cut -f 1 -d "(" | uniq | fzf'
 
 # Pomodoro. Countdown is a golang program.
-alias pm='countdown 25m && echo times up, next task | espeak; countdown 15m && echo times up, next task | espeak'
+a pm='countdown 25m && echo times up, next task | espeak; countdown 15m && echo times up, next task | espeak'
 
 # random
-alias lam='lookatme --live -e terminal'
-alias vo='i3b_volume'
-alias pipi='pip install --user'
-alias bc='bc -q'
-alias dd='dd status=progress'
-alias du='du -h'
-alias df='df -h'
-alias emacs='emacs -nw'
-alias fb="~/repos/fuzzybird/fuzzybird.py --hashtag"
-alias int='sudo wifi-menu'
-alias lid="echo locked > '/tmp/.lid-lock-file'"
-alias lock="physlock"
-alias pavucontrol="ncpamixer"
-alias pinger='ping www.google.com'
-alias renginx="sudo nginx -s reload"
-alias r='ranger'
-alias ta='tmux attach'
-alias updatexterm='xrdb merge ~/.Xresources'
-alias watch='watch -c -d'
-alias daet='date'
-alias slblk='lsblk'
+a lam='lookatme --live -e terminal'
+a vo='i3b_volume'
+a pipi='pip install --user'
+a bc='bc -q'
+a dd='dd status=progress'
+a du='du -h'
+a df='df -h'
+a emacs='emacs -nw'
+a fb="~/repos/fuzzybird/fuzzybird.py --hashtag"
+a int='sudo wifi-menu'
+a lid="echo locked > '/tmp/.lid-lock-file'"
+a lock="physlock"
+a pavucontrol="ncpamixer"
+a pinger='ping www.google.com'
+a renginx="sudo nginx -s reload"
+a r='ranger'
+a ta='tmux attach'
+a updatexterm='xrdb merge ~/.Xresources'
+a watch='watch -c -d'
+a daet='date'
+a slblk='lsblk'
