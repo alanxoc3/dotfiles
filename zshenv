@@ -33,8 +33,8 @@ export XENVIRONMENT="${HOME}/.Xresources"
 export XKB_DEFAULT_LAYOUT=us
 export XKB_DEFAULT_VARIANT=dvorak
 export XMODIFIERS=@im=fcitx
-export PAGER=kak_pager
-export GIT_PAGER='kak -e "set buffer filetype diff"'
+export PAGER=kak
+export MANPAGER=kak_man
 export RIPGREP_CONFIG_PATH="$HOME/.dotfiles/rgconfig"
 
 # FZF environment variables

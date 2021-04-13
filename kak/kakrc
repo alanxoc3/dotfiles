@@ -27,8 +27,8 @@ hook global WinSetOption filetype=(rust|python|go|javascript|typescript|c|cpp) %
 
 # --- USER BINDINGS ---
 # Clipboard management.
-map global user y '<a-|>cclip<ret>'
-map global user p '<|>pclip<ret>'
+map global user y '<a-|> cclip<ret>'
+map global user p '<|> pclip<ret>'
 
 map global user g ': fzf-grep<ret>'
 
