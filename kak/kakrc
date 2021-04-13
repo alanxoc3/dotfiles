@@ -6,6 +6,9 @@ hook global InsertChar k %{ try %{
 # Hacky way to disable the startup message on the scratch screen.
 set-option global startup_info_version 99999999
 
+# Comment out for demos. Shows all key presses.
+# set-option global autoinfo command|onkey|normal
+
 # No picture of clippy.
 set-option global ui_options ncurses_assistant=none
 

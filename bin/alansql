@@ -9,6 +9,6 @@ if [ "$#" -ne 2 ]; then
   exit 1
 fi
 
-FILE=/tmp/.$BIN_NAME.sql
+FILE=$(mktemp)
 cat - > $FILE
 sqlcmd -S "$1" -i "$FILE" -Y 50 -y 50 -u -E -d "$2"

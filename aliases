@@ -1,6 +1,7 @@
 #!/bin/bash
 # maven
 alias mvnci='mvn clean install'
+alias mvncc='mvn clean compile'
 alias mvncid='mvnci -DskipDependencyCheck=true'
 alias mvncidt='mvnci -DskipDependencyCheck=true -DskipTests=true'
 alias mvntr='mvn com.clearwateranalytics:dependency:resolve-transitives'
@@ -44,9 +45,10 @@ alias gp='git push'
 alias gpn='git push -u origin $(git branch --show-current)'
 alias gpd='git push origin --delete $(git branch --show-current)'
 alias gd='git diff --color=never HEAD'
+alias gdf='git diff --color=never --name-only HEAD'
 alias gl='git log --color=never'
-alias glo="gl --pretty='%h %ad %an: %s%d' --date=short --graph"
-alias gla="glo --all"
+alias glo="gl --pretty='%h %ad %an: %s%d' --date=short"
+alias gla="glo --all --graph"
 alias glf="gl --name-status --find-renames --oneline"
 alias gt='git tag'
 alias gb='git branch'
