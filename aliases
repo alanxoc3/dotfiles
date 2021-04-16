@@ -217,6 +217,8 @@ a gwm='setxkbmap -layout "us" -variant "workman"'
 # ls
 a ls='exa'
 a l='ls'
+a lst='exa --tree'
+a lt='lst'
 a lls='ls'
 a lss='ls'
 a sl='ls'
