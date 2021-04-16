@@ -1,0 +1,2 @@
+#!/bin/bash
+kak -f 'S\n\n<ret><a-K>^<minus><ret><a-K>^```<ret><a-K>^<space><space><space><space><ret><a-s><a-K>^#<ret>LH|tr<space>"\n"<space>"<space>"<space>|<space>fold<space><minus>s<space>|<space>awk<space>"{\$1=\$1}<semicolon>1"<ret><percent>s^\n\n<ret>c<ret><esc>'
