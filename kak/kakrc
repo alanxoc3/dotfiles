@@ -34,3 +34,12 @@ map global user g ': fzf-grep<ret>'
 
 map -docstring 'enter fzf-mode' global user f ': fzf-mode<ret>'
 map -docstring 'enter text-mode' global user t ': text-mode<ret>'
+
+# Record time for the current file.
+hook global RawKey . %{
+  evaluate-commands %sh{
+    {
+      [ ! -z "$(command -v ttrack)" ] && ttrack rec -- "kak:$kak_bufname" 5s
+    } > /dev/null 2>&1 < /dev/null &
+  }
+}
