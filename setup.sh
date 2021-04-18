@@ -44,6 +44,7 @@ cf gitconfig          .config/git/config
 cf kitty-config       .config/kitty/kitty.conf
 cf i3-status-config   .config/i3status/config
 cf concards-data      .local/share/concards
+cf concards-config    .config/concards
 cf ssh-config         .ssh/config
 cf mimeapps.list      .config/mimeapps.list
 cf alacritty.yml      .config/alacritty/alacritty.yml
