@@ -1,0 +1,2 @@
+#!/bin/bash
+ssh -L 20000:127.0.0.1:8384 alanxoc3@syncthing
