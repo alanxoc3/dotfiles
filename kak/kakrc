@@ -43,3 +43,13 @@ hook global RawKey . %{
     } > /dev/null 2>&1 < /dev/null &
   }
 }
+
+set global tabstop 4
+set global indentwidth 4
+
+    remove-hooks global expandtab
+    hook -group expandtab global InsertChar '\t' %{ execute-keys -draft h@ }
+    hook -group expandtab global InsertKey <backspace> %{ try %{
+        execute-keys -draft <a-h><a-k> "^\h+.\z" <ret>I<space><esc><lt>
+    }}
+    set-option global aligntab false
