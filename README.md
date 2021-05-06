@@ -2,7 +2,7 @@
 Alan's dotfiles. Feel free to plagiarize.
 
 ## My Workflow
-Here are programs I use often as part of my daily workflow.
+Here are programs I use as part of my daily workflow.
 
 ### Terminal Apps
 - [concards](https://github.com/alanxoc3/concards). I've been reviewing/creating flashcards everyday with this.
@@ -19,6 +19,7 @@ Here are programs I use often as part of my daily workflow.
 - [ranger](https://github.com/ranger/ranger). Navigate files with Vim bindings. (I'm looking for a more minimalistic replacement though.)
 - [rg](https://github.com/BurntSushi/ripgrep). Search file content super fast. Faster and cooler than grep.
 - [tmux](https://github.com/tmux/tmux). Terminal multiplexer.
+- [ttrack](https://github.com/alanxoc3/ttrack). Time tracker CLI app.
 - [zsh](https://www.zsh.org/). I was actually still using bash until August-ish 2020.
 
 ### Neovim Plugins

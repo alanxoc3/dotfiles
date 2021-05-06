@@ -27,7 +27,6 @@ cf profile            .profile
 cf Xresources         .Xresources
 cf tmuxconf           .tmux.conf
 cf keynavrc           .keynavrc
-cf concards-meta      .concards-meta
 cf local_aliases      .local_aliases
 cf local_bash_profile .local_bash_profile
 cf local_gitconfig    .local_gitconfig
@@ -44,7 +43,8 @@ cf i3-config          .config/i3/config
 cf gitconfig          .config/git/config
 cf kitty-config       .config/kitty/kitty.conf
 cf i3-status-config   .config/i3status/config
-cf concards           .config/concards
+cf concards-data      .local/share/concards
+cf concards-config    .config/concards
 cf ssh-config         .ssh/config
 cf mimeapps.list      .config/mimeapps.list
 cf alacritty.yml      .config/alacritty/alacritty.yml

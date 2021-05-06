@@ -163,6 +163,7 @@ a c='cd'
 a c-='cd -'
 a c~='cd;cd' # Example: `c~ .dotfiles` will open '~/.dotfiles'.
 a c.='cd ..'
+a sand='cd ~/repos/sand'
 
 # dropbox
 a rapiddrop="while [ true ]; do clear; dropstat; sleep 1; done"
