@@ -42,6 +42,8 @@ a gf='git fetch'
 a ga='git add'
 a gaa='git add --all'
 a gr='git rebase'
+a gra='git rebase --abort'
+a grc='git rebase --continue'
 a gc='git add --all; git commit;'
 a gcl='git clone'
 a gm='git merge'
@@ -62,6 +64,7 @@ a gba='git branch --all'
 a gpa='git push --all origin'
 a gbc='git branch --show-current'
 a gk='git checkout'
+a gk-='git checkout -'
 a gkb='git checkout -b'
 a gkt='git checkout --track'
 a gbl='git blame'
@@ -127,6 +130,9 @@ a icap=acpi
 a icpa=acpi
 a acp=acpi
 a ac=acpi
+
+# docker
+a dkl="docker kill $(docker ps | awk '{print $1;}' | tail -n 1)"
 
 # i3
 a 3il='i3l'
