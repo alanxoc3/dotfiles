@@ -1,2 +1,2 @@
 #!/bin/bash
-ttrack rec concards 15s
+ttrack rec concards 30s

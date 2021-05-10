@@ -80,6 +80,7 @@ a vid2mp3='youtube-dl --extract-audio --audio-format mp3'
 a gocover='go test -coverprofile=/tmp/cover.out; go tool cover -html=/tmp/cover.out'
 
 # vim & kak
+a vor='kak ~/sync/library/dicts/esperanto_dictionary.txt'
 a vim='nvim'
 a vi='nvim'
 a v='nvim'
@@ -94,7 +95,7 @@ a ez='kak ~/.zshrc ~/.zshenv'
 # diary
 a diary='cd ~/diary/alan'
 a di='diary'
-a jrn='kak ~/diary/alan/{2021_diary,timelog,achievements,plans,todos}.md'
+a jrn='kak ~/diary/alan/{2021_diary,motive,achievements,todos,plans,timelog}.md'
 a rnj='jrn'
 a nrj='jrn'
 a njr='jrn'
@@ -132,7 +133,7 @@ a acp=acpi
 a ac=acpi
 
 # docker
-a dkl="docker kill $(docker ps | awk '{print $1;}' | tail -n 1)"
+a dkl='docker kill $(docker ps | awk "{print \$1;}" | tail -n 1)'
 
 # i3
 a 3il='i3l'
@@ -249,7 +250,7 @@ a oweroff='poweroff'
 
 # w3m
 a w3m='w3m -no-mouse'
-a googleit='w3m www.google.com'
+a ddg='w3m ddg.gg'
 
 # xrandr
 a tolap="xrandr --output HDMI-1 --off --output eDP-1 --auto --mode 1366x768 --panning 1366x768"

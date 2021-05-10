@@ -30,8 +30,6 @@ hook global WinSetOption filetype=(rust|python|go|javascript|typescript|c|cpp) %
 map global user y '<a-|> cclip<ret>'
 map global user p '<|> pclip<ret>'
 
-map global user g ': fzf-grep<ret>'
-
 map -docstring 'enter fzf-mode' global user f ': fzf-mode<ret>'
 map -docstring 'enter text-mode' global user t ': text-mode<ret>'
 
