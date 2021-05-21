@@ -318,7 +318,6 @@ a pm='countdown 25m && echo times up, next task | espeak; countdown 15m && echo 
 
 # random
 a lam='lookatme --live -e terminal'
-a vo='i3b_volume'
 a pipi='pip install --user'
 a bc='bc -q'
 a dd='dd status=progress'
