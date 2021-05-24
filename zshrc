@@ -49,6 +49,14 @@ liquibase() {
    mvn -DskipTests=true -Drelease.environment=local -Dserver=$1 -Ddatabase=$2 -Dusername=liquibase -Dpassword=l1qu1b\$e -Dcontexts=db,$3 clean install
 }
 
+did() { # Docker container id
+    docker ps | grep "$1" | cut -d ' ' -f1
+}
+
+dl() { # Docker container id
+    docker logs $(did $1)
+}
+
 # Keyboard Shortcuts
 kb_pass_files() {
    LBUFFER="${LBUFFER}pass show -c $(fd --base-directory ~/.password-store -t f | sed -En 's/^(.*)\.gpg$/\1/p' | fzf) 2> /dev/null"
