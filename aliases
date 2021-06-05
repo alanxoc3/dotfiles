@@ -3,13 +3,12 @@
 alias a='alias'
 
 # maven
-a mvnci='mvn clean install'
-a mvncc='mvn clean compile'
-a mvncid='mvnci -DskipDependencyCheck=true'
-a mvncidt='mvnci -DskipDependencyCheck=true -DskipTests=true'
-a mvntr='mvn com.clearwateranalytics:dependency:resolve-transitives'
+a mvnc='mvn clean'
+a mvnv='mvn verify -DskipDependencyCheck=true'
+a mvnp='mvn package -DskipDependencyCheck=true -DskipTests=true'
+a mvni='mvn install -DskipDependencyCheck=true -DskipTests=true'
+a mvnt='mvn com.clearwateranalytics:dependency:resolve-transitives'
 a mvnj="mvn javadoc:javadoc"
-a mvnp="mvn package"
 
 # source
 a testbash='source $(cat > /tmp/.testbash; echo /tmp/.testbash)';
@@ -45,6 +44,7 @@ a gr='git rebase'
 a gra='git rebase --abort'
 a grc='git rebase --continue'
 a gc='git add --all; git commit;'
+a gca='git add --all; git commit --amend;'
 a gcl='git clone'
 a gm='git merge'
 a gmf='git merge --ff-only'
@@ -134,6 +134,7 @@ a ac=acpi
 
 # docker
 a dkl='docker kill $(docker ps | awk "{print \$1;}" | tail -n 1)'
+a dps='docker ps'
 
 # i3
 a 3il='i3l'
