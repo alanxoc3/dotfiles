@@ -1,8 +1,3 @@
-hook global InsertChar k %{ try %{
-      exec -draft hH <a-k>jk<ret> d
-        exec <esc>
-}}
-
 # Hacky way to disable the startup message on the scratch screen.
 set-option global startup_info_version 99999999
 

@@ -32,5 +32,11 @@ set -g status-keys vi
 set -g status-left ""
 set -g status-right "#[bold]#(i3b_time)"
 
+set -g monitor-activity on
+set -g activity-action current
+set -g bell-action none
+set -g visual-bell off
+set-hook -g alert-activity "run-shell 'ttrack rec tmux 5s'"
+
 set -g default-terminal "tmux-256color"
 set -ga terminal-overrides ",col:Tc"
