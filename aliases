@@ -318,8 +318,9 @@ a fzf_apropos='apropos "." 2> /dev/null | cut -f 1 -d "(" | uniq | fzf'
 a pm='countdown 25m && echo times up, next task | espeak; countdown 15m && echo times up, next task | espeak'
 
 # random
+a u='echo -e "$(whoami)@$(hostname)"'
 a bn='basename'
-a s='echo -e "$(whoami)@$(hostname) - $(basename $(pwd))"'
+a p='pwd'
 a wai=whoami
 a rgl='rg -l'
 a xargs='xargs '

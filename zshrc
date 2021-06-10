@@ -38,7 +38,8 @@ source "$HOME/.fzf/shell/key-bindings.zsh" 2> /dev/null
 
 # Functions
 _fzf_compgen_path() {
-   fd -t f -t d . "$1"
+    # (fd --exact-depth 1 -t f -t d . "$1"; fd --exact-depth 2 -t f -t d . "$1"; fd --exact-depth 3 -t f -t d . "$1"; fd --exact-depth 4 -t f -t d . "$1"; fd --min-depth 4 -t f -t d . "$1";) | cat
+    fd -t f -t d . "$1"
 }
 
 sbri() {
