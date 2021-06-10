@@ -9,7 +9,7 @@ autoload -z edit-command-line
 zle -N edit-command-line
 bindkey '^[v' edit-command-line
 
-export PROMPT='%F{white}[%#%f %F{red}%M%f %F{white}%c]%f '
+export PROMPT='%F{yellow}>%f '
 export CLICOLOR=1
 
 # History & prompt
@@ -46,7 +46,7 @@ sbri() {
 }
 
 liquibase() {
-   mvn -DskipTests=true -Drelease.environment=local -Dserver=$1 -Ddatabase=$2 -Dusername=liquibase -Dpassword=l1qu1b\$e -Dcontexts=db,$3 clean install
+   mvn -DskipTests=true -Drelease.environment=local -Dserver=$1 -Ddatabase=$2 -Dusername=liquibase -Dpassword=l1qu1b\$e -Dcontexts=$3 clean install
 }
 
 did() { # Docker container id
