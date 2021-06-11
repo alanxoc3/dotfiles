@@ -10,6 +10,9 @@ a mvni='mvn install -DskipDependencyCheck=true -DskipTests=true'
 a mvnt='mvn com.clearwateranalytics:dependency:resolve-transitives'
 a mvnj="mvn javadoc:javadoc"
 
+filebasename() { basename $1 | cut -f 1 -d '.' }
+mvntc() { mvn test -DfailIfNoTests=false -Dtest=$(filebasename $1) }
+
 # source
 a testbash='source $(cat > /tmp/.testbash; echo /tmp/.testbash)';
 a updatealias='source ~/.aliases'
@@ -68,6 +71,9 @@ a gk-='git checkout -'
 a gkb='git checkout -b'
 a gkt='git checkout --track'
 a gbl='git blame'
+a gwa='git worktree add'
+a gwr='git worktree remove'
+a gwl='git worktree list'
 a gitsvnignore='git svn show-ignore >> .git/info/exclude'
 
 # mpsyt & youtube-dl
@@ -217,11 +223,10 @@ a mordim="sbri 10"
 a supdim="sbri 1"
 
 # localectl & setxkbmap
-a cdv='localectl set-keymap --no-convert dvorak-programmer'
+a cdv='localectl set-keymap --no-convert dvorak'
 a cqw='localectl set-keymap --no-convert us'
 a gdv='setxkbmap -layout "us" -variant "dvorak"'
 a gqw='setxkbmap -layout "us"'
-a gwm='setxkbmap -layout "us" -variant "workman"'
 
 # ls
 a ls='exa'
@@ -317,14 +322,20 @@ a fzf_apropos='apropos "." 2> /dev/null | cut -f 1 -d "(" | uniq | fzf'
 # Pomodoro. Countdown is a golang program.
 a pm='countdown 25m && echo times up, next task | espeak; countdown 15m && echo times up, next task | espeak'
 
+# clipboard
+a ccl=cclip
+a pcl=pclip
+
+# xargs
+a xargs='xargs '
+a x='xargs '
+
 # random
 a u='echo -e "$(whoami)@$(hostname)"'
 a bn='basename'
 a p='pwd'
 a wai=whoami
 a rgl='rg -l'
-a xargs='xargs '
-a x='xargs '
 a lam='lookatme --live -e terminal'
 a pipi='pip install --user'
 a bc='bc -q'
