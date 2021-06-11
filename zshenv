@@ -38,8 +38,10 @@ export MANPAGER=kak_man
 export RIPGREP_CONFIG_PATH="$HOME/.dotfiles/rgconfig"
 
 # FZF environment variables
-export FZF_DEFAULT_COMMAND="fd --hidden --color=always --ignore-file ~/.dotfiles/search-ignore ."
+BFT="fd -t f --hidden --color=always --ignore-file ~/.dotfiles/search-ignore ."
+BFC="fd -t d --hidden --color=always --ignore-file ~/.dotfiles/search-ignore ."
+export FZF_DEFAULT_COMMAND="$BFT"
 export FZF_DEFAULT_OPTS="--ansi"
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND -t f"
-export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND -t d"
+export FZF_CTRL_T_COMMAND="($BFT --exact-depth 1; $BFT --exact-depth 2; $BFT --exact-depth 3; $BFT --min-depth 4;) | cat"
+export FZF_ALT_C_COMMAND="($BFC --exact-depth 1; $BFC --exact-depth 2; $BFC --exact-depth 3; $BFC --min-depth 4;) | cat"
 export TERM='xterm-256color'
