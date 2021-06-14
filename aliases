@@ -78,7 +78,8 @@ a gitsvnignore='git svn show-ignore >> .git/info/exclude'
 
 # mpsyt & youtube-dl
 a mpsyt='rm ~/.config/mps-youtube/cache* 2> /dev/null; mpsyt'
-a chiptune='mpsyt "set player cvlc", "set playerargs --no-video", "play chiptune"'
+a chiptune='mpv http://79.120.11.40:8000/chiptune.ogg'
+
 a getvid="youtube-dl -f 18"
 a vid2mp3='youtube-dl --extract-audio --audio-format mp3'
 
