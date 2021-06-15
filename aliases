@@ -76,6 +76,10 @@ a gwr='git worktree remove'
 a gwl='git worktree list'
 a gitsvnignore='git svn show-ignore >> .git/info/exclude'
 
+# github
+a ghi='gh issue'
+a ghil='gh issue list'
+
 # mpsyt & youtube-dl
 a mpsyt='rm ~/.config/mps-youtube/cache* 2> /dev/null; mpsyt'
 a chiptune='mpv http://79.120.11.40:8000/chiptune.ogg'

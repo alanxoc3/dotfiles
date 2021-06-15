@@ -36,6 +36,8 @@ export XMODIFIERS=@im=fcitx
 export PAGER=kak
 export MANPAGER=kak_man
 export RIPGREP_CONFIG_PATH="$HOME/.dotfiles/rgconfig"
+export TTRACK_DATA_DIR="$HOME/new-ttrack-data-dir" # Temporary for ttrack dev.
+export TTRACK_CACHE_DIR="$HOME/new-ttrack-cache-dir" # Temporary for ttrack dev.
 
 # FZF environment variables
 BFT="fd -t f --hidden --color=always --ignore-file ~/.dotfiles/search-ignore ."
