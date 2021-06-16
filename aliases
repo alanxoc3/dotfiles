@@ -146,6 +146,7 @@ a ac=acpi
 # docker
 a dkl='docker kill $(docker ps | awk "{print \$1;}" | tail -n 1)'
 a dps='docker ps'
+a db.='docker build .'
 
 # i3
 a 3il='i3l'
