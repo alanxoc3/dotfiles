@@ -3,3 +3,4 @@ shell /bin/zsh -lic tmux
 
 italic_font      Source Code Pro
 bold_italic_font Source Code Pro
+enable_audio_bell no
