@@ -1,0 +1,2 @@
+#!/bin/bash
+sudo minecraftd command "whitelist list" | kak -f 's:<ret>Ggd' | tail -n 1 | ~/.dotfiles/bin/remove_extra_spaces
