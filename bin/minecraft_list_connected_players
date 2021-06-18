@@ -1,2 +1,2 @@
 #!/bin/bash
-sudo minecraftd command "list" | kak -f 's:<ret>Ggd' | tail -n 1 | ~/.dotfiles/bin/remove_extra_spaces | kak -f 'S,<ret><a-semicolon><a-E>Ld'
+sudo minecraftd command "list" | kak -f 's:<ret>Ggd' | tail -n 1 | /home/alanxoc3/.dotfiles/bin/remove_extra_spaces | kak -f 'S,<ret><a-semicolon><a-E>Ld'
