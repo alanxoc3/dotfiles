@@ -1,2 +1,2 @@
 #!/bin/bash
-sudo minecraft command "say THE KING DECREES: $(fortune -n 80 -s | remove_extra_spaces)"
+sudo minecraftd command "say THE KING DECREES: $(fortune -n 80 -s | remove_extra_spaces)"
