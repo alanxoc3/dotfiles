@@ -18,18 +18,23 @@ echo
 
 echo "Creating the ${TARGET_USER} user..."
 useradd -m -d ${TARGET_DIR} ${TARGET_USER}
+echo
 
 echo "Copying server scripts to ${TARGET_DIR}/server..."
 mkdir ${TARGET_DIR}/server
 cp ./gemini_server ./http_server ${TARGET_DIR}/server
+echo
 
 if [[ ! -d ${TARGET_DIR}/capsule ]]; then
     echo "Cloning the capsule..."
     git clone 'https://github.com/alanxoc3/capsule.git'
+    echo
 fi
 
+echo "Restricting permissions for ${TARGET_USER} user..."
 chown -R ${TARGET_USER}:${TARGET_USER} ${TARGET_DIR}
 chmod -R go-rwx ${TARGET_DIR}
+echo
 
 echo "Installing systemd scripts..."
 pushd /etc/systemd/system/
@@ -86,6 +91,7 @@ WantedBy=timers.target
 EOF
 
 popd
+echo
 
 echo "Reloading & restarting systemctl..."
 systemctl daemon-reload
@@ -98,6 +104,8 @@ systemctl restart gemini-server.service
 systemctl restart gemini-proxy.service
 systemctl restart gemini-git-pull.timer
 
+echo
+
 # Assumes these commands have already been run as well.
 # If I have to set up a new server, I'll actually automate this.
 # pacman -S certbot-nginx nginx-mainline
@@ -106,6 +114,7 @@ systemctl restart gemini-git-pull.timer
 # certbot --nginx
 
 # For the https proxy, copy over the nginx config file.
-echo "Copying nginx configuration..."
+echo "Copying nginx configuration & reloading..."
 cp ./nginx.conf /etc/nginx/nginx.conf
 nginx -s reload
+echo
