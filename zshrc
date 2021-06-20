@@ -8,6 +8,7 @@ bindkey -e
 autoload -z edit-command-line
 zle -N edit-command-line
 bindkey '^[v' edit-command-line
+umask 077 # No permission to group or others.
 
 export PROMPT='%F{yellow}>%f '
 export CLICOLOR=1
