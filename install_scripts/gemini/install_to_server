@@ -85,6 +85,8 @@ Persistent=true
 WantedBy=timers.target
 EOF
 
+popd
+
 echo "Reloading & restarting systemctl..."
 systemctl daemon-reload
 
