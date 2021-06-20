@@ -44,7 +44,7 @@ cat << EOF | tee gemini-server.service > /dev/null
 Description=The Gemini Server for my blog.
 
 [Service]
-ExecStart=${TARGET_DIR}/server/gemini_server ${TARGET_DIR}
+ExecStart=${TARGET_DIR}/server/gemini_server ${TARGET_DIR}/capsule
 WorkingDirectory=${TARGET_DIR}
 
 [Install]
