@@ -1,0 +1,108 @@
+#!/bin/bash
+# This script installs the systemd files on a server.
+# This should be run in the current directory.
+
+TARGET_DIR=/srv/gemini
+TARGET_USER=gemini
+
+if [ "${EUID:-$(id -u)}" -ne 0 ]; then
+    echo "Rerun this script as root! Exiting with non-zero error code."
+    exit 1
+fi
+ 
+# Print info.
+echo "This is the current directory: '${PWD}'."
+echo "This is the install location: '${TARGET_DIR}'."
+echo "This is the user/group to use: '${TARGET_USER}:${TARGET_USER}'."
+echo
+
+echo "Creating the ${TARGET_USER} user..."
+useradd -m -d ${TARGET_DIR} ${TARGET_USER}
+
+echo "Copying server scripts to ${TARGET_DIR}/server..."
+cp ./gemini_server ./http_server ${TARGET_DIR}/server
+
+if [[ ! -d ${TARGET_DIR}/capsule ]]; then
+    echo "Cloning the capsule..."
+    git clone 'https://github.com/alanxoc3/capsule.git'
+fi
+
+chown -R ${TARGET_USER}:${TARGET_USER} ${TARGET_DIR}
+chmod -R go-rwx ${TARGET_DIR}
+
+echo "Installing systemd scripts..."
+pushd /etc/systemd/system/
+
+cat << EOF | tee gemini-server.service > /dev/null
+[Unit]
+Description=The Gemini Server for my blog.
+
+[Service]
+ExecStart=${TARGET_DIR}/server/gemini_server ${TARGET_DIR}
+WorkingDirectory=${TARGET_DIR}
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+cat << EOF | tee gemini-proxy.service > /dev/null
+[Unit]
+Description=The Gemini to Http proxy for my blog. Nginx calls this.
+
+[Service]
+ExecStart=${TARGET_DIR}/server/http_server
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+cat << EOF | tee gemini-git-pull.service > /dev/null
+[Unit]
+Description=Updates the folder for git. Meant to be called by a timer.
+
+[Service]
+ExecStartPre=git fetch
+ExecStart=git merge
+WorkingDirectory=${TARGET_DIR}/capsule
+User=${TARGET_USER}
+Group=${TARGET_USER}
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+cat << EOF | tee gemini-git-pull.timer > /dev/null
+[Unit]
+Description=Update git repo 4 times an hour.
+
+[Timer]
+OnCalendar=*:0/15
+AccuracySec=1m
+Persistent=true
+
+[Install]
+WantedBy=timers.target
+EOF
+
+echo "Reloading & restarting systemctl..."
+systemctl daemon-reload
+
+systemctl enable gemini-server.service
+systemctl enable gemini-proxy.service
+systemctl enable gemini-git-pull.timer
+
+systemctl restart gemini-server.service
+systemctl restart gemini-proxy.service
+systemctl restart gemini-git-pull.timer
+
+# Assumes these commands have already been run as well.
+# If I have to set up a new server, I'll actually automate this.
+# pacman -S certbot-nginx nginx-mainline
+# systemctl enable nginx.service
+# systemctl start nginx.service
+# certbot --nginx
+
+# For the https proxy, copy over the nginx config file.
+echo "Copying nginx configuration..."
+cp ./nginx.conf /etc/nginx/nginx.conf
+nginx -s reload

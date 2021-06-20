@@ -12,6 +12,12 @@ ufw default deny
 ufw allow ssh
 ufw enable
 
+echo "New users should use zsh..."
+sed -i -E 's/^(SHELL=).*$/\1\/bin\/zsh/g' /etc/default/useradd
+
+echo "Changing default umask to 077..."
+sed -i -E 's/^(umask )[0-9]+$/\1077/g' /etc/profile
+
 echo "Creating user & setting password..."
 useradd -m -G wheel -s /bin/zsh alanxoc3
 passwd alanxoc3
@@ -21,7 +27,7 @@ printf "Enter hostname: "
 read MYHOSTNAME
 hostnamectl set-hostname $MYHOSTNAME
 
-echo "Switching to zsh..."
+echo "Switching root's shell to zsh..."
 chsh -s /bin/zsh
 
 echo "Allowing wheel users to use sudo..."
