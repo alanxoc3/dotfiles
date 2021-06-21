@@ -46,4 +46,4 @@ export FZF_DEFAULT_COMMAND="$BFT"
 export FZF_DEFAULT_OPTS="--ansi"
 export FZF_CTRL_T_COMMAND="($BFT --exact-depth 1; $BFT --exact-depth 2; $BFT --exact-depth 3; $BFT --min-depth 4;) | cat"
 export FZF_ALT_C_COMMAND="($BFC --exact-depth 1; $BFC --exact-depth 2; $BFC --exact-depth 3; $BFC --min-depth 4;) | cat"
-export TERM='tmux-256color'
+export TERM='xterm-256color'

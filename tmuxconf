@@ -41,5 +41,5 @@ set -g bell-action none
 set -g visual-bell off
 set-hook -g alert-activity "run-shell 'ttrack rec tmux 5s'"
 
-set -g default-terminal "tmux-256color"
+set -g default-terminal "xterm-256color"
 set -ga terminal-overrides ",col:Tc"

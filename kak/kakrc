@@ -26,6 +26,8 @@ map global user y '<a-|> cclip<ret>'
 map global user p '<|> pclip<ret>'
 
 map -docstring 'enter fzf-mode' global user f ': fzf-mode<ret>'
+map -docstring 'next buffer' global user n ': bn<ret>'
+map -docstring 'prev buffer' global user N ': bp<ret>'
 map -docstring 'enter text-mode' global user t ': text-mode<ret>'
 
 # Record time for the current file.
