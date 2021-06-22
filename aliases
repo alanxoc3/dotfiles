@@ -148,14 +148,10 @@ a dkl='docker kill $(docker ps | awk "{print \$1;}" | tail -n 1)'
 a dps='docker ps'
 a db.='docker build .'
 
-# i3
-a 3il='i3l'
-a iomut=imout
-a meout=imout
+# gui
 a i3l='i3lock -c 000000'
-a ruin=runi
-a rnui=runi
-a runi=startx
+a 3il='i3l'
+a sx=startx
 
 # sdcv
 a define=sdcv

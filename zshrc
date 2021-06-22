@@ -32,11 +32,6 @@ setopt interactivecomments  # Allow comments in interactive mode.
 setopt +o nomatch
 
 # Source files.
-source "$HOME/.local_aliases" 2> /dev/null
-source "$HOME/.aliases" 2> /dev/null
-source "$HOME/.fzf/shell/completion.zsh" 2> /dev/null
-source "$HOME/.fzf/shell/key-bindings.zsh" 2> /dev/null
-
 # Functions
 _fzf_compgen_path() {
     fd -t f -t d . "$1"
@@ -58,36 +53,11 @@ dl() { # Docker container id
     docker logs $(did $1)
 }
 
-# Keyboard Shortcuts
-kb_pass_files() {
-   LBUFFER="${LBUFFER}pass show -c $(fd --base-directory ~/.password-store -t f | sed -En 's/^(.*)\.gpg$/\1/p' | fzf) 2> /dev/null"
-
-   local ret=$?
-   zle reset-prompt
-   return $ret
+source_file() {
+    if [ -f "$1" ]; then source "$1" 2> /dev/null; fi
 }
-zle     -N    kb_pass_files
-bindkey '\es' kb_pass_files
 
-kb_git_branches() {
-   LBUFFER="${LBUFFER}$(kbf_git_branch | fzf)"
-   local ret=$?
-   zle reset-prompt
-   return $ret
-}
-zle     -N    kb_git_branches
-bindkey '\eg' kb_git_branches
-
-kb_apropos() {
-   LBUFFER="${LBUFFER}man $(fzf_apropos)"
-   local ret=$?
-   zle accept-line
-   return $ret
-}
-zle     -N    kb_apropos
-bindkey '\em' kb_apropos
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-# Do custom things for work or home with a local zshrc!
-if [ -f "$HOME/.dotfiles/local_zshrc" ]; then . "$HOME/.dotfiles/local_zshrc"; fi
+source_file "$HOME/.local_aliases"
+source_file "$HOME/.aliases"
+source_file "$HOME/.dotfiles/local_zshrc"
+source_file "$HOME/.dotfiles/zbindings"
