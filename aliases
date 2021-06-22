@@ -13,15 +13,9 @@ a mvnj="mvn javadoc:javadoc"
 filebasename() { basename $1 | cut -f 1 -d '.' }
 mvntc() { mvn test -DfailIfNoTests=false -Dtest=$(filebasename $1) }
 
-# source
-a testbash='source $(cat > /tmp/.testbash; echo /tmp/.testbash)';
-a updatealias='source ~/.aliases'
-a updatebash='source ~/.bashrc'
-a updateprofile='source ~/.profile'
-a ua='updatealias'
-a ub='updatebash'
-a up='updateprofile'
-a uz='source ~/.zshenv; source ~/.zshrc'
+# update files
+a ua='unalias -a; source ~/.aliases'
+a uz='unalias -a; source ~/.zshenv; source ~/.zshrc'
 
 # mount
 a mone="sudo mount /dev/sda1 /mnt"
@@ -333,6 +327,7 @@ a xargs='xargs '
 a x='xargs '
 
 # random
+ssht() { ssh $1 -t tmux "${@:2}" }
 a u='echo -e "$(whoami)@$(hostname)"'
 a bn='basename'
 a p='pwd'
