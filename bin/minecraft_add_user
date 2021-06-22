@@ -1,4 +1,3 @@
 #!/bin/bash
 sudo minecraftd command "whitelist add $1"
 sudo minecraftd command "team join ${2:-peasant} $1"
-sudo minecraftd command "recipe give $1 *"
