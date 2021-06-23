@@ -177,8 +177,7 @@ a dropls='dropbox-cli ls'
 a dropstat='dropbox-cli status'
 
 # clear
-a cls=clear
-a clera=clear
+a cl=clear
 
 # xclip
 a copycurrent='echo cd $(pwd) | xclip'
@@ -326,8 +325,12 @@ a pcl=pclip
 a xargs='xargs '
 a x='xargs '
 
+# TODO: Make an fzf for the screen with this script:
+# bind-key P 'capture-pane' \; capture-pane -S - \; save-buffer /tmp/tmux \; delete-buffer
+
 # random
 ssht() { ssh $1 -t tmux "${@:2}" }
+a pomo='while true; do echo "WORK TIME"; sleep 25m; say "timez up... break time" > /dev/null 2>&1; echo "BREAK TIME"; sleep 5m; say "timez up... start working again" > /dev/null 2>&1; done'
 a u='echo -e "$(whoami)@$(hostname)"'
 a bn='basename'
 a p='pwd'
