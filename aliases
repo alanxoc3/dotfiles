@@ -327,6 +327,13 @@ a x='xargs '
 
 # TODO: Make an fzf for the screen with this script:
 # bind-key P 'capture-pane' \; capture-pane -S - \; save-buffer /tmp/tmux \; delete-buffer
+#
+
+# Ripgrep replace.
+rr() { rg "$1" -l | xargs sed -Ei "s/$1/$2/g" }
+
+# Rename a file.
+rn() { mv $1 "$(dirname $1)/$2" }
 
 # random
 ssht() { ssh $1 -t tmux "${@:2}" }

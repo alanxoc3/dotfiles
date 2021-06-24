@@ -53,3 +53,12 @@ cf search-ignore      .config/fd/ignore
 # Use whichever one exists. One is mac, one is arch.
 cf /usr/share/kak/rc        .config/kak/autoload/rc
 cf /usr/local/share/kak/rc  .config/kak/autoload/rc
+
+# Ripgrep config can't recognize environment variables in its configuration.
+# Putting the config here is my best solution.
+cat << EOF > $HOME/.rgconfig
+--no-heading
+--no-follow
+--hidden
+--ignore-file=${HOME}/.dotfiles/search-ignore
+EOF
