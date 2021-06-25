@@ -31,28 +31,6 @@ setopt SHARE_HISTORY        # Share history between session/terminals
 setopt interactivecomments  # Allow comments in interactive mode.
 setopt +o nomatch
 
-# Source files.
-# Functions
-_fzf_compgen_path() {
-    fd -t f -t d . "$1"
-}
-
-sbri() {
-   echo $(expr $1 \* 192) > /sys/class/backlight/intel_backlight/brightness
-}
-
-liquibase() {
-   mvn -DskipTests=true -Drelease.environment=local -Dserver=$1 -Ddatabase=$2 -Dusername=liquibase -Dpassword=l1qu1b\$e -Dcontexts=$3 clean install
-}
-
-did() { # Docker container id
-    docker ps | grep "$1" | cut -d ' ' -f1
-}
-
-dl() { # Docker container id
-    docker logs $(did $1)
-}
-
 source_file() {
     if [ -f "$1" ]; then source "$1" 2> /dev/null; fi
 }
