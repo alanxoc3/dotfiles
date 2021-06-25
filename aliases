@@ -9,9 +9,9 @@ a mvnp='mvn package -DskipDependencyCheck=true -DskipTests=true'
 a mvni='mvn install -DskipDependencyCheck=true -DskipTests=true'
 a mvnt='mvn com.clearwateranalytics:dependency:resolve-transitives'
 a mvnj="mvn javadoc:javadoc"
+mvntc() { mvn test -DfailIfNoTests=false -Dtest=$(filebasename $1) }
 
 filebasename() { basename $1 | cut -f 1 -d '.' }
-mvntc() { mvn test -DfailIfNoTests=false -Dtest=$(filebasename $1) }
 
 # update files
 a ua='unalias -a; source ~/.aliases'
@@ -330,10 +330,10 @@ a x='xargs '
 #
 
 # Ripgrep replace.
-rr() { rg "$1" -l | xargs sed -Ei "s/$1/$2/g" }
+rr() { rg "$1" "${@:3}" -l | xargs sed -Ei "s/$1/$2/g" }
 
-# Rename a file.
-rn() { mv $1 "$(dirname $1)/$2" }
+rmv() { mv $1 "$(dirname $1)/$2" } # Mv a file local to its directory.
+rcp() { cp $1 "$(dirname $1)/$2" } # Cp a file local to its directory.
 
 # random
 ssht() { ssh $1 -t tmux "${@:2}" }
