@@ -49,6 +49,8 @@ cf ssh-config         .ssh/config
 cf mimeapps.list      .config/mimeapps.list
 cf alacritty.yml      .config/alacritty/alacritty.yml
 cf search-ignore      .config/fd/ignore
+cf irssi-config       .irssi/config
+cf irssi-theme        .irssi/default.theme
 
 # Use whichever one exists. One is mac, one is arch.
 cf /usr/share/kak/rc        .config/kak/autoload/rc
@@ -62,3 +64,13 @@ cat << EOF > $HOME/.rgconfig
 --hidden
 --ignore-file=${HOME}/.dotfiles/search-ignore
 EOF
+
+# For irssi, you need to generate a pem file and connect to it. In a shell:
+# openssl req -nodes -newkey rsa:4096 -keyout /tmp/libera.key -x509 -days 365 -out /tmp/libera.cer
+# mkdir -p ~/.irssi/certs
+# cat /tmp/libera.cer /tmp/libera.key > ~/.irssi/certs
+# rm /tmp/libera.cer /tmp/libera.key
+
+# Then in irssi:
+# /msg nickserv identify <pass>
+# /msg nickserv cert add
