@@ -23,10 +23,10 @@ systemctl start nginx.service
 echo
 
 echo "Installing kineto..."
-if [[ ! -d $HOME/repos/kineto ]]; then
-    git clone 'https://github.com/alanxoc3/kineto.git' $HOME/repos/kineto
+if [[ ! -d ${HOME}/repos/kineto ]]; then
+    git clone 'https://github.com/alanxoc3/kineto.git' ${HOME}/repos/kineto
 fi
-pushd $HOME/repos/kineto
+pushd ${HOME}/repos/kineto
 git fetch
 git merge
 go build .
@@ -52,7 +52,7 @@ echo
 
 if [[ ! -d ${TARGET_DIR}/capsule ]]; then
     echo "Cloning the capsule..."
-    git clone 'https://github.com/alanxoc3/capsule.git'
+    git clone 'https://github.com/alanxoc3/capsule.git' ${TARGET_DIR}/capsule
     echo
 fi
 
