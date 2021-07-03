@@ -4,6 +4,4 @@ echo "Directory to use is: '${REPO_DIR}'."
 docker build ${REPO_DIR} -t prod-gemini
 
 # --init is needed so systemd can kill this.
-mkdir ${REPO_DIR}/.certificates
-chmod 600 ${REPO_DIR}/.certificates
 docker run --init -p 1965:1965 -v ${REPO_DIR}/.certificates:/certificates -v ${REPO_DIR}/cap:/capsule prod-gemini
