@@ -48,7 +48,7 @@ useradd -m -d ${TARGET_DIR} ${TARGET_USER}
 echo
 
 echo "Copying server scripts to ${TARGET_DIR}/server..."
-mkdir ${TARGET_DIR}/server
+mkdir -p ${TARGET_DIR}/server
 cp ./gemini_server ./http_server ${TARGET_DIR}/server
 echo
 
