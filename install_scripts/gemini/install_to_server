@@ -14,8 +14,12 @@ echo "Checking docker installation for gemini server, nginx for https server, & 
 pacman --needed -Sy docker certbot-nginx nginx-mainline go
 echo
 
-echo "Copying the nginx config..."
-cp ./nginx.conf /etc/nginx/nginx.conf
+echo "Ensuring that docker and nginx are both running running..."
+systemctl enable docker.service
+systemctl start docker.service
+
+systemctl enable nginx.service
+systemctl start nginx.service
 echo
 
 echo "Installing kineto..."
@@ -124,9 +128,8 @@ systemctl restart gemini-proxy.service
 systemctl restart gemini-git-pull.timer
 echo
 
-echo "starting nginx systemctl & reloading config..."
-systemctl enable nginx.service
-systemctl start nginx.service
+echo "Copying and reloading nginx config..."
+cp ./nginx.conf /etc/nginx/nginx.conf
 nginx -s reload
 echo
 
