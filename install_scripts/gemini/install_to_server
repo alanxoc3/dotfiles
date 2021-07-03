@@ -22,6 +22,7 @@ systemctl enable nginx.service
 systemctl start nginx.service
 echo
 
+# This block has an "rm" before "cp", because binaries cannot be overwritten while executing, but they can be removed.
 echo "Installing kineto..."
 if [[ ! -d ${HOME}/repos/kineto ]]; then
     git clone 'https://github.com/alanxoc3/kineto.git' ${HOME}/repos/kineto
@@ -30,6 +31,7 @@ pushd ${HOME}/repos/kineto
 git fetch
 git merge
 go build .
+rm -f /usr/bin/kineto
 cp kineto /usr/bin/kineto
 chmod ga+rx /usr/bin/kineto
 popd
