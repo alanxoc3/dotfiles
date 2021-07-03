@@ -61,9 +61,9 @@ fi
 echo "Restricting permissions for ${TARGET_USER} user..."
 chown -R ${TARGET_USER}:${TARGET_USER} ${TARGET_DIR}
 
-mkdir ${REPO_DIR}/.certificates
-chmod 700 ${REPO_DIR}/.certificates
-chown -R root:root ${TARGET_DIR}/.certificates
+mkdir -p ${TARGET_DIR}/capsule/.certificates
+chmod 700 ${TARGET_DIR}/capsule/.certificates
+chown -R root:root ${TARGET_DIR}/capsule/.certificates
 
 chmod -R go-rwx ${TARGET_DIR}
 echo
