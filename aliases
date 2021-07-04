@@ -350,7 +350,7 @@ rcp() { cp $1 "$(dirname $1)/$2" } # Cp a file local to its directory.
 
 # random
 ssht() { ssh $1 -t tmux "${@:2}" }
-a pomo='while true; do echo "WORK TIME"; sleep 25m; say "timez up... break time" > /dev/null 2>&1; echo "BREAK TIME"; sleep 5m; say "timez up... start working again" > /dev/null 2>&1; done'
+a pomo='while true; do echo "WORK TIME"; sleep 25m; speak "timez up... break time" > /dev/null 2>&1; echo "BREAK TIME"; sleep 5m; speak "timez up... start working again" > /dev/null 2>&1; done'
 a u='echo -e "$(whoami)@$(hostname)"'
 a bn='basename'
 a p='pwd'
