@@ -28,6 +28,7 @@ map global user p '<|> pclip<ret>'
 map -docstring 'enter fzf-mode' global user f ': fzf-mode<ret>'
 map -docstring 'next buffer' global user n ': bn<ret>'
 map -docstring 'prev buffer' global user N ': bp<ret>'
+map -docstring 'delete buffer' global user d ': db<ret>'
 map -docstring 'enter text-mode' global user t ': text-mode<ret>'
 
 # Record time for the current file.
@@ -42,9 +43,9 @@ hook global RawKey . %{
 set global tabstop 4
 set global indentwidth 4
 
-    remove-hooks global expandtab
-    hook -group expandtab global InsertChar '\t' %{ execute-keys -draft h@ }
-    hook -group expandtab global InsertKey <backspace> %{ try %{
-        execute-keys -draft <a-h><a-k> "^\h+.\z" <ret>I<space><esc><lt>
-    }}
-    set-option global aligntab false
+remove-hooks global expandtab
+hook -group expandtab global InsertChar '\t' %{ execute-keys -draft h@ }
+hook -group expandtab global InsertKey <backspace> %{ try %{
+    execute-keys -draft <a-h><a-k> "^\h+.\z" <ret>I<space><esc><lt>
+}}
+set-option global aligntab false
