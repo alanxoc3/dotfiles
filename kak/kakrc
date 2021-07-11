@@ -32,12 +32,16 @@ map -docstring 'delete buffer' global user d ': db<ret>'
 map -docstring 'enter text-mode' global user t ': text-mode<ret>'
 
 # Record time for the current file.
-hook global RawKey . %{
+hook global -group ttrack RawKey . %{
   evaluate-commands %sh{
     {
-      [ ! -z "$(command -v ttrack)" ] && ttrack rec -- "kak:$kak_bufname" 5s
+      [ ! -z "$(command -v ttrack)" ] && ttrack rec -- "kak/$kak_bufname" 5s
     } > /dev/null 2>&1 < /dev/null &
   }
+}
+
+hook global BufCreate .+\.tt %{
+    remove-hooks global ttrack
 }
 
 set global tabstop 4
