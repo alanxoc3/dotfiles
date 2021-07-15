@@ -8,6 +8,7 @@
 	autocrlf = false
 	eol = lf
 	excludesfile = ~/.gitignore
+	pager = diff-so-fancy | kak
 
 [alias]
    # Taken from online :).
@@ -22,3 +23,6 @@
 [init]
 	templatedir = ~/.git-templates
 	defaultBranch = main
+
+[interactive]
+	diffFilter = diff-so-fancy --patch

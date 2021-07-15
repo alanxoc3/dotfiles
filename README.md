@@ -21,6 +21,7 @@ Here are programs I use as part of my daily workflow.
 - [tmux](https://github.com/tmux/tmux). Terminal multiplexer.
 - [ttrack](https://github.com/alanxoc3/ttrack). Time tracker CLI app.
 - [zsh](https://www.zsh.org/). I was actually still using bash until August-ish 2020.
+- [diff-so-fancy](https://github.com/so-fancy/diff-so-fancy). A pretty diff program.
 
 ### Neovim Plugins
 - [fzf.vim](https://github.com/junegunn/fzf.vim). Fzf integration with Vim.

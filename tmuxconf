@@ -10,6 +10,10 @@ bind-key -T copy-mode-vi v send-keys -X begin-selection
 bind-key -T copy-mode-vi y send-keys -X copy-selection
 bind-key -T copy-mode-vi r send-keys -X rectangle-toggle
 bind-key -T prefix \` attach-session -c "#{pane_current_path}"
+bind-key -T prefix H clear-history
+
+# Saves the current shell text into a separate buffer.
+bind-key -T prefix P 'capture-pane' \; capture-pane -JS - \; save-buffer /tmp/tmux \; delete-buffer
 
 # For killing things.
 bind-key -T prefix x kill-pane
