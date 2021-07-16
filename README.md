@@ -32,6 +32,7 @@ Here are programs I use as part of my daily workflow.
 ### Kakoune Plugins
 - [kak-lsp](https://github.com/kak-lsp/kak-lsp). Language server support for kakoune.
 - [fzf.kak](https://github.com/andreyorst/fzf.kak). Fzf integration with kakoune via tmux.
+- [kak-ansi](https://github.com/eraserhd/kak-ansi). Ansi color codes to kakoune highlighters.
 
 ### Gui Apps
 - [bspwm](https://github.com/baskerville/bspwm). Tiling based window manager.
