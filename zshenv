@@ -1,15 +1,6 @@
 #!/usr/bin/zsh
 # zshenv - Alan Morgan
 
-# Set the path.
-
-export PATH="$PATH:$HOME/.fzf/bin"
-export PATH="$PATH:$HOME/.dotfiles/bin"
-export PATH="$PATH:$HOME/.local_bin"
-export PATH="$PATH:$HOME/.go/bin"
-export PATH="$PATH:$HOME/.cargo/bin"
-export PATH="$PATH:$HOME/.local/bin"
-
 # A bunch more environment variables
 export ANACONDA_HOME="$HOME/anaconda3"
 export ANDROID_HOME=/opt/android-sdk
@@ -29,6 +20,7 @@ export VISUAL=kak
 export EDITOR=$VISUAL
 export XDG_CACHE_HOME=$HOME/.cache
 export XDG_CONFIG_HOME=$HOME/.config
+export PICO_WORK_DIR=$HOME/.lexaloffle/pico-8/carts/pico-8-work
 export XENVIRONMENT="${HOME}/.Xresources"
 export XKB_DEFAULT_LAYOUT=us
 export XKB_DEFAULT_VARIANT=dvorak
@@ -47,3 +39,12 @@ export FZF_DEFAULT_OPTS="--ansi"
 export FZF_CTRL_T_COMMAND="($BFT --exact-depth 1; $BFT --exact-depth 2; $BFT --exact-depth 3; $BFT --min-depth 4;) | cat"
 export FZF_ALT_C_COMMAND="($BFC --exact-depth 1; $BFC --exact-depth 2; $BFC --exact-depth 3; $BFC --min-depth 4;) | cat"
 export TERM='xterm-256color'
+
+# Set the path last, because it depends on an environment variable.
+export PATH="$PATH:$HOME/.fzf/bin"
+export PATH="$PATH:$HOME/.dotfiles/bin"
+export PATH="$PATH:$HOME/.local_bin"
+export PATH="$PATH:$HOME/.go/bin"
+export PATH="$PATH:$HOME/.cargo/bin"
+export PATH="$PATH:$HOME/.local/bin"
+export PATH="$PATH:$PICO_WORK_DIR/bin"

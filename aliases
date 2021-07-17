@@ -332,9 +332,6 @@ a kbf_ssh_hosts="sed -rn 's/^\s*Host\s+(.*)$/\1/ip' ~/.ssh/config ~/.ssh/local_s
 # Thank you: https://gist.github.com/igemnace/9b6fb8c2885c3e35299b3a122e1009e5
 a fzf_apropos='apropos "." 2> /dev/null | cut -f 1 -d "(" | uniq | fzf'
 
-# Pomodoro. Countdown is a golang program.
-a pm='countdown 25m && echo times up, next task | espeak; countdown 15m && echo times up, next task | espeak'
-
 # clipboard
 a ccl=cclip
 a pcl=pclip
@@ -361,6 +358,11 @@ doublespeed() {
     mencoder -ovc copy -oac copy -audiofile ".tmp-$2.wav" ".tmp-$2" -o "$2"
     rm ".tmp-old-$2.wav" ".tmp-$2" ".tmp-$2.wav"
 }
+
+# pico8 workflow commands
+a pm="pico-minify"
+a pc="pico-compile"
+a pw="pico-watch"
 
 # random
 ssht() { ssh $1 -t tmux "${@:2}" }
