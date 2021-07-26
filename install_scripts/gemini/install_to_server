@@ -50,6 +50,15 @@ echo
 echo "Copying server scripts to ${TARGET_DIR}/server..."
 mkdir -p ${TARGET_DIR}/server
 cp ./gemini_server ./http_server ${TARGET_DIR}/server
+
+cat << EOF | tee ${TARGET_DIR}/server/updateandcompile > /dev/null
+#!/bin/bash
+git fetch
+git merge
+./compile
+EOF
+chmod 700 ${TARGET_DIR}/server/updateandcompile
+
 echo
 
 if [[ ! -d ${TARGET_DIR}/capsule ]]; then
@@ -99,9 +108,7 @@ cat << EOF | tee gemini-git-pull.service > /dev/null
 Description=Updates the folder for git. Meant to be called by a timer.
 
 [Service]
-ExecStartPre=git fetch
-ExecStart=git merge
-ExecStartPost=${TARGET_DIR}/capsule/compile
+ExecStart=${TARGET_DIR}/server/updateandcompile
 WorkingDirectory=${TARGET_DIR}/capsule
 User=${TARGET_USER}
 Group=${TARGET_USER}
