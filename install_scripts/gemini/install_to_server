@@ -10,8 +10,8 @@ if [ "${EUID:-$(id -u)}" -ne 0 ]; then
     exit 1
 fi
 
-echo "Checking docker installation for gemini server, nginx for https server, & go for gemini proxy..."
-pacman --needed -Sy docker certbot-nginx nginx-mainline go
+echo "Checking docker installation for gemini server, nginx for https server, rsync, & go for gemini proxy..."
+pacman --needed -Sy docker certbot-nginx nginx-mainline go rsync
 echo
 
 echo "Ensuring that docker and nginx are both running running..."
