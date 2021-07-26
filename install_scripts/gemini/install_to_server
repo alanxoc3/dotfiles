@@ -101,7 +101,7 @@ Description=Updates the folder for git. Meant to be called by a timer.
 [Service]
 ExecStartPre=git fetch
 ExecStart=git merge
-ExecStartPost=./compile
+ExecStartPost=${TARGET_DIR}/capsule/compile
 WorkingDirectory=${TARGET_DIR}/capsule
 User=${TARGET_USER}
 Group=${TARGET_USER}
