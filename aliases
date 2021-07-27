@@ -53,6 +53,7 @@ a gra='git rebase --abort'
 a grc='git rebase --continue'
 a gc='git add --all; git commit;'
 a gca='git add --all; git commit --amend;'
+a grh='git reset --hard'
 a gcl='git clone'
 a gm='git merge'
 a gmf='git merge --ff-only'
@@ -82,7 +83,6 @@ a gwl='git worktree list'
 gwa() { git worktree add "$HOME/work/$1" }
 gwr() { git worktree remove --force "$HOME/work/$1" }
 a gitsvnignore='git svn show-ignore >> .git/info/exclude'
-
 
 # git list cases
 # First parameter is where you are merging into.
