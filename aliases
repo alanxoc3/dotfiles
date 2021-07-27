@@ -14,6 +14,14 @@ mvntc() { mvn test -DfailIfNoTests=false -Dtest=$(filebasename $1) }
 
 filebasename() { basename $1 | cut -f 1 -d '.' }
 
+# https://unix.stackexchange.com/questions/159253/decoding-url-encoding-percent-encoding
+urlencode() { python -c "$(echo -e 'import sys,urllib.parse as ul;\nprint(ul.quote(sys.argv[1]))')" "$*" }
+
+# gemini
+a am='amfora'
+ams() { amfora "gemini://geminispace.info/search?$(urlencode $@)" }
+a ama='amfora alanxoc3.xyz'
+
 # update files
 a ua='unalias -a; source ~/.aliases'
 a uz='unalias -a; source ~/.zshenv; source ~/.zshrc'
@@ -88,8 +96,9 @@ a ghi='gh issue'
 a ghil='gh issue list'
 
 # mpsyt & youtube-dl
-a mpsyt='rm ~/.config/mps-youtube/cache* 2> /dev/null; mpsyt'
 a chiptune='mpv http://79.120.11.40:8000/chiptune.ogg'
+a anonradio='mpv http://anonradio.net:8000/anonradio'
+a tilderadio='mpv https://radio.tildeverse.org/radio/8000/radio.ogg'
 
 a getvid="youtube-dl -f 18"
 a vid2mp3='youtube-dl --extract-audio --audio-format mp3'
