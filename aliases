@@ -117,6 +117,7 @@ a es='editsnips'
 a ev='kak ~/.config/nvim/lua/init.lua'
 a ek='kak ~/.config/kak/kakrc'
 a ea='kak ~/.aliases'
+a eb='kak ~/repos/capsule/cap/blog/$(date +%F.gmi)'
 a ez='kak ~/.zshrc ~/.zshenv'
 
 # diary
