@@ -1,6 +1,6 @@
 channels = (
   { name = "#kakoune"; chatnet = "libera"; autojoin = "yes"; },
-  { name = "#gemini"; chatnet = "libera"; autojoin = "yes"; }
+  { name = "#gemini"; chatnet = "tilde"; autojoin = "yes"; }
 );
 
 aliases = {
