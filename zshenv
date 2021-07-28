@@ -43,7 +43,6 @@ export TERM='xterm-256color'
 # Set the path last, because it depends on an environment variable.
 export PATH="$PATH:$HOME/.fzf/bin"
 export PATH="$PATH:$HOME/.dotfiles/bin"
-export PATH="$PATH:$HOME/.local_bin"
 export PATH="$PATH:$HOME/.go/bin"
 export PATH="$PATH:$HOME/.cargo/bin"
 export PATH="$PATH:$HOME/.local/bin"
