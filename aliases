@@ -23,7 +23,7 @@ ams() { amfora "gemini://geminispace.info/search?$(urlencode $@)" }
 a ama='amfora alanxoc3.xyz'
 
 # update files
-a ua='unalias -a; source ~/.aliases'
+a ua='unalias -a; source ~/.aliases; source ~/.local_aliases'
 a uz='unalias -a; source ~/.zshenv; source ~/.zshrc'
 
 # mount
@@ -116,7 +116,7 @@ a editsnips="kak ~/.dotfiles/snips/*"
 a es='editsnips'
 a ev='kak ~/.config/nvim/lua/init.lua'
 a ek='kak ~/.config/kak/kakrc'
-a ea='kak ~/.aliases'
+a ea='kak ~/.aliases ~/.local_aliases'
 a eb='kak ~/repos/capsule/cap/blog/$(date +%F.gmi)'
 a ez='kak ~/.zshrc ~/.zshenv'
 
