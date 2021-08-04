@@ -1,0 +1,10 @@
+#!/bin/bash
+tmux capture-pane
+
+TTF=$(mktemp)
+tmux save-buffer $TTF
+tmux delete-buffer
+
+grep -o -E '\S+[^:]' $TTF | tac | awk '!x[$0]++' | fzf -m --height 40% --reverse
+
+rm $TTF

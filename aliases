@@ -15,7 +15,7 @@ mvntc() { mvn test -DfailIfNoTests=false -Dtest=$(filebasename $1) }
 filebasename() { basename $1 | cut -f 1 -d '.' }
 
 # https://unix.stackexchange.com/questions/159253/decoding-url-encoding-percent-encoding
-urlencode() { python -c "$(echo -e 'import sys,urllib.parse as ul;\nprint(ul.quote(sys.argv[1]))')" "$*" }
+urlencode() { python3 -c "$(echo -e 'import sys,urllib.parse as ul;\nprint(ul.quote(sys.argv[1]))')" "$*" }
 
 # gemini
 a am='amfora'

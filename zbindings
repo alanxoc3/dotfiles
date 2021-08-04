@@ -125,6 +125,25 @@ kb_pass_files() {
 zle     -N    kb_pass_files
 bindkey '\es' kb_pass_files
 
+kb_tmux_screen() {
+    # LBUFFER="${LBUFFER}echo $(tfzf)"
+
+   # local ret=$?
+   # zle reset-prompt
+   # return $ret
+
+    setopt localoptions pipefail no_aliases 2> /dev/null
+    zle redisplay
+    zle push-line # Clear buffer. Auto-restored on next prompt.
+    BUFFER='cat <<< "$(tfzf)"'
+    zle accept-line
+    local ret=$?
+    zle reset-prompt
+    return $ret
+}
+zle     -N    kb_tmux_screen
+bindkey '\ez' kb_tmux_screen
+
 kb_git_branches() {
    LBUFFER="${LBUFFER}$(kbf_git_branch | fzf)"
    local ret=$?
