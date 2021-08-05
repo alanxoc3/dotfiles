@@ -1,6 +1,8 @@
 #!/bin/bash
-if [[ "$(uname)" =~ Darwin ]]; then 
-  cat - | pbcopy 
+copyfunc() { [[ "$(uname)" =~ Darwin ]] && pbcopy || xclip -selection clipboard; }
+
+if [ -t 0 ]; then
+    echo -n "$@" | copyfunc
 else
-  cat - | xclip -selection clipboard
+    cat - | copyfunc
 fi

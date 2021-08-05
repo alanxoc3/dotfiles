@@ -1,22 +1,4 @@
 #!/usr/bin/zsh
-#     ____      ____
-#    / __/___  / __/
-#   / /_/_  / / /_
-#  / __/ / /_/ __/
-# /_/   /___/_/ key-bindings.zsh
-#
-# - $FZF_TMUX_OPTS
-# - $FZF_CTRL_T_COMMAND
-# - $FZF_CTRL_T_OPTS
-# - $FZF_CTRL_R_OPTS
-# - $FZF_ALT_C_COMMAND
-# - $FZF_ALT_C_OPTS
-
-# Key bindings
-# ------------
-
-# The code at the top and the bottom of this file is the same as in completion.zsh.
-# Refer to that file for explanation.
 if 'zmodload' 'zsh/parameter' 2>'/dev/null' && (( ${+options} )); then
   __fzf_key_bindings_options="options=(${(j: :)${(kv)options[@]}})"
 else
@@ -47,7 +29,7 @@ __fsel() {
     -o -type l -print 2> /dev/null | cut -b3-"}"
   setopt localoptions pipefail no_aliases 2> /dev/null
   local item
-  eval "$cmd" | FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} --reverse --bind=ctrl-z:ignore $FZF_DEFAULT_OPTS $FZF_CTRL_T_OPTS" $(__fzfcmd) -m "$@" | while read item; do
+  eval "$cmd" | FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} --reverse --bind=ctrl-z:ignore $FZF_DEFAULT_OPTS" $(__fzfcmd) -m "$@" | while read item; do
     echo -n "${(q)item} "
   done
   local ret=$?
@@ -95,7 +77,7 @@ fzf-history-widget() {
   local selected num
   setopt localoptions noglobsubst noposixbuiltins pipefail no_aliases 2> /dev/null
   selected=( $(fc -rl 1 | perl -ne 'print if !$seen{(/^\s*[0-9]+\**\s+(.*)/, $1)}++' |
-    FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} $FZF_DEFAULT_OPTS -n2..,.. --tiebreak=index --bind=ctrl-r:toggle-sort,ctrl-z:ignore $FZF_CTRL_R_OPTS --query=${(qqq)LBUFFER} +m" $(__fzfcmd)) )
+    FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} $FZF_DEFAULT_OPTS -n2..,.. --tiebreak=index --bind=ctrl-r:toggle-sort,ctrl-z:ignore --query=${(qqq)LBUFFER} +m" $(__fzfcmd)) )
   local ret=$?
   if [ -n "$selected" ]; then
     num=$selected[1]
@@ -126,17 +108,15 @@ zle     -N    kb_pass_files
 bindkey '\es' kb_pass_files
 
 kb_tmux_screen() {
-    # LBUFFER="${LBUFFER}echo $(tfzf)"
+    local val
+    read -A val <<< $(tsl | FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} --reverse --bind=ctrl-z:ignore $FZF_DEFAULT_OPTS" fzf -m "$@" | tr '\n' ' ' | awk '{gsub(/ +$/,"")}{print}')
 
-   # local ret=$?
-   # zle reset-prompt
-   # return $ret
+    if [[ -z "$val" ]]; then
+        zle redisplay
+        return 0
+    fi
 
-    setopt localoptions pipefail no_aliases 2> /dev/null
-    zle redisplay
-    zle push-line # Clear buffer. Auto-restored on next prompt.
-    BUFFER='cat <<< "$(tfzf)"'
-    zle accept-line
+    LBUFFER="${LBUFFER}${(@q-)val}"
     local ret=$?
     zle reset-prompt
     return $ret

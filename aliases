@@ -23,8 +23,8 @@ ams() { amfora "gemini://geminispace.info/search?$(urlencode $@)" }
 a ama='amfora alanxoc3.xyz'
 
 # update files
-a ua='unalias -a; source ~/.aliases; source ~/.local_aliases'
-a uz='unalias -a; source ~/.zshenv; source ~/.zshrc'
+a ua='unalias -a; source ~/.aliases 2> /dev/null; source ~/.local_aliases 2> /dev/null'
+a uz='unalias -a; source ~/.zshenv 2> /dev/null;  source ~/.zshrc 2> /dev/null'
 
 # mount
 a mone="sudo mount /dev/sda1 /mnt"
@@ -327,6 +327,7 @@ a listchinesefonts='fc-list :lang=zh'
 a markdowntopdf='pandoc --pdf-engine=xelatex -V CJKmainfont="Source Han Sans CN" -o' # outputfile then input file.
 viewmarkdown() { md2html $1 | qutepipe }
 a vm='viewmarkdown'
+a qb='qutebrowser'
 
 # concards
 a cards="cd ~/diary/alan/cards"
@@ -358,6 +359,8 @@ a x='xargs '
 rr() { rg "$1" "${@:3}" -l | xargs sed -Ei "s^$1^$2^g" }
 rmv() { mv $1 "$(dirname $1)/$2" } # Mv a file local to its directory.
 rcp() { cp $1 "$(dirname $1)/$2" } # Cp a file local to its directory.
+
+trim() { awk '{gsub(/^ +| +$/,"")}{print}' }
 
 # My hacky way to make a video 2x speed.
 # vidspeed <input-file> <output-file>
