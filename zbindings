@@ -107,7 +107,7 @@ kb_pass_files() {
 zle     -N    kb_pass_files
 bindkey '\es' kb_pass_files
 
-kb_tmux_screen() {
+kb_tmux_screen_list() {
     local val
     read -A val <<< $(tsl | FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} --reverse --bind=ctrl-z:ignore $FZF_DEFAULT_OPTS" fzf -m "$@" | tr '\n' ' ' | awk '{gsub(/ +$/,"")}{print}')
 
@@ -121,8 +121,8 @@ kb_tmux_screen() {
     zle reset-prompt
     return $ret
 }
-zle     -N    kb_tmux_screen
-bindkey '\ez' kb_tmux_screen
+zle     -N    kb_tmux_screen_list
+bindkey '\ez' kb_tmux_screen_list
 
 kb_git_branches() {
    LBUFFER="${LBUFFER}$(kbf_git_branch | fzf)"

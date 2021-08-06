@@ -1,5 +1,6 @@
 #!/bin/bash
-tmux capture-pane
+# tsl - tmux screen list. prints all the tokens currently visible on the screen.
+tmux capture-pane -eJ
 
 TTF=$(mktemp)
 tmux save-buffer $TTF
