@@ -1,0 +1,10 @@
+#!/bin/bash
+# arith - arithmetic. applies simple arithmetic from args to first number of each line in stdin.
+
+perl -E '
+while (<STDIN>) {
+    s/(\d+)/sprintf("%.".length($1)."d", qx(recho $1$ARGV[0] | bc))/e;
+} continue {
+    print
+}
+' -- "$*"
