@@ -1,2 +1,3 @@
 #!/bin/bash
+# recho - raw echo. same as echo, but raw text. no dash arguments.
 cat <<< "$@"
