@@ -377,6 +377,10 @@ a pm="pico-minify"
 a pc="pico-compile"
 a pw="pico-watch"
 
+# gpg
+a gpglk='gpg --list-keys --with-subkey-fingerprints'
+a gpgfgk='gpg --full-generate-key'
+
 # random
 ssht() { ssh $1 -t tmux "${@:2}" }
 a pomo='while true; do echo "WORK TIME"; sleep 25m; speak "timez up... break time" > /dev/null 2>&1; echo "BREAK TIME"; sleep 5m; speak "timez up... start working again" > /dev/null 2>&1; done'

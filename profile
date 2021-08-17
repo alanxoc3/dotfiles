@@ -41,7 +41,7 @@ export JAVA_HOME="/usr/lib/jvm/default-java/"
 export npm_config_prefix=~/.node_modules
 
 # For i3 to get my terminal right.
-export TERMINAL="termite"
+export TERMINAL="alacritty"
 
 # For mandarin support.
 export GTK_IM_MODULE=fcitx # or xim

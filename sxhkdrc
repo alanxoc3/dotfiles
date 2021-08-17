@@ -41,7 +41,7 @@ super + s
    passmenu
 
 super + Return
-   termite -e 'zsh -ic "tmux"'
+   alacritty
 
 super + d
    rofi_menu

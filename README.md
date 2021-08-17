@@ -35,12 +35,12 @@ Here are programs I use as part of my daily workflow.
 - [kak-ansi](https://github.com/eraserhd/kak-ansi). Ansi color codes to kakoune highlighters.
 
 ### Gui Apps
+- [alacritty](https://github.com/alacritty/alacritty). The terminal emulator I use.
 - [bspwm](https://github.com/baskerville/bspwm). Tiling based window manager.
 - [i3lock](https://github.com/i3/i3lock). Simple Xorg lock screen.
 - [qutebrowser](https://qutebrowser.org/). Chromium based web browser with Vim bindings.
 - [rofi](https://github.com/davatorium/rofi). Configurable search menu.
 - [sxhkd](https://github.com/baskerville/sxhkd). Simple Xorg Hot Key Daemon.
-- [termite](https://github.com/thestinger/termite). The terminal emulator I use.
 
 ### Misc Technologies
 - [arch linux](https://www.archlinux.org/). My main operating system.
