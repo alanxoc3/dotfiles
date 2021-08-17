@@ -2,16 +2,6 @@
 # alias
 alias a='alias'
 
-# maven
-liquibase() { mvn -DskipTests=true -Drelease.environment=local -Dserver=$1 -Ddatabase=$2 -Dusername=liquibase -Dpassword=l1qu1b\$e -Dcontexts=$3 clean install }
-a mvnc='mvn clean'
-a mvnv='mvn verify -DskipDependencyCheck=true'
-a mvnp='mvn package -DskipDependencyCheck=true -DskipTests=true'
-a mvni='mvn install -DskipDependencyCheck=true -DskipTests=true'
-a mvnt='mvn com.clearwateranalytics:dependency:resolve-transitives'
-a mvnj="mvn javadoc:javadoc"
-mvntc() { mvn test -DfailIfNoTests=false -Dtest=$(filebasename $1) }
-
 filebasename() { basename $1 | cut -f 1 -d '.' }
 
 # https://unix.stackexchange.com/questions/159253/decoding-url-encoding-percent-encoding

@@ -71,6 +71,7 @@ key_bindings:
   - { key: Key9,      mods: Alt|Shift, chars: "\x1b("                       }
   - { key: Key0,      mods: Alt|Shift, chars: "\x1b)"                       }
   - { key: Space,     mods: Control,   chars: "\x00"                        } # Ctrl + Space
+  - { key: Semicolon, mods: Alt,       chars: "\x1b;"                       } # Alt + ;
   - { key: Grave,     mods: Alt,       chars: "\x1b`"                       } # Alt + `
   - { key: Grave,     mods: Alt|Shift, chars: "\x1b~"                       } # Alt + ~
   - { key: Period,    mods: Alt,       chars: "\x1b."                       } # Alt + .
@@ -83,5 +84,32 @@ key_bindings:
   - { key: Key6,      mods: Alt|Shift, chars: "\x1b^"                       } # Alt + ^
   - { key: Backslash, mods: Alt,       chars: "\x1b\\"                      } # Alt + \
   - { key: Backslash, mods: Alt|Shift, chars: "\x1b|"                       } # Alt + |
+
+  # Speed up the zooming: https://github.com/alacritty/alacritty/issues/5425
+  - { key: Equals, mods: Command, action: IncreaseFontSize }
+  - { key: Equals, mods: Command, action: IncreaseFontSize }
+  - { key: Equals, mods: Command, action: IncreaseFontSize }
+  - { key: Equals, mods: Command, action: IncreaseFontSize }
+  - { key: Equals, mods: Command, action: IncreaseFontSize }
+  - { key: Equals, mods: Command, action: IncreaseFontSize }
+  - { key: Minus,  mods: Command, action: DecreaseFontSize }
+  - { key: Minus,  mods: Command, action: DecreaseFontSize }
+  - { key: Minus,  mods: Command, action: DecreaseFontSize }
+  - { key: Minus,  mods: Command, action: DecreaseFontSize }
+  - { key: Minus,  mods: Command, action: DecreaseFontSize }
+  - { key: Minus,  mods: Command, action: DecreaseFontSize }
+
+  - { key: Equals, mods: Control, action: IncreaseFontSize }
+  - { key: Equals, mods: Control, action: IncreaseFontSize }
+  - { key: Equals, mods: Control, action: IncreaseFontSize }
+  - { key: Equals, mods: Control, action: IncreaseFontSize }
+  - { key: Equals, mods: Control, action: IncreaseFontSize }
+  - { key: Equals, mods: Control, action: IncreaseFontSize }
+  - { key: Minus,  mods: Control, action: DecreaseFontSize }
+  - { key: Minus,  mods: Control, action: DecreaseFontSize }
+  - { key: Minus,  mods: Control, action: DecreaseFontSize }
+  - { key: Minus,  mods: Control, action: DecreaseFontSize }
+  - { key: Minus,           mods: Control,                    action: DecreaseFontSize      }
+  - { key: Minus,           mods: Control,                    action: DecreaseFontSize      }
 
 alt_send_esc: false
