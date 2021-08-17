@@ -1,28 +1,31 @@
 [include]
-   path = ~/.local_gitconfig
+    path = ~/.local_gitconfig
 
 [url "git@github.com:"]
-	insteadOf = ssh://git@github.com/
+    insteadOf = ssh://git@github.com/
 
 [core]
-	autocrlf = false
-	eol = lf
-	excludesfile = ~/.gitignore
-	pager = diff-so-fancy | kak
+    autocrlf = false
+    eol = lf
+    excludesfile = ~/.gitignore
+    pager = diff-so-fancy | kak
 
 [alias]
-   # Taken from online :).
-	oldest-ancestor = !bash -c 'diff --old-line-format= --new-line-format= <(git rev-list --first-parent \"${1:-master}\") <(git rev-list --first-parent \"${2:-HEAD}\") | head -1' -
-   parent = "!git show-branch | grep '*' | grep -v \"$(git rev-parse --abbrev-ref HEAD)\" | head -n1 | sed 's/.*\\[\\(.*\\)\\].*/\\1/' | sed 's/[\\^~].*//' #"
+    # Taken from online :).
+    oldest-ancestor = !bash -c 'diff --old-line-format= --new-line-format= <(git rev-list --first-parent \"${1:-master}\") <(git rev-list --first-parent \"${2:-HEAD}\") | head -1' -
+    parent = "!git show-branch | grep '*' | grep -v \"$(git rev-parse --abbrev-ref HEAD)\" | head -n1 | sed 's/.*\\[\\(.*\\)\\].*/\\1/' | sed 's/[\\^~].*//' #"
 
-   # Self made!
-   l  = log --pretty='%C(Yellow)%h %C(reset)%ad %C(Cyan)%an: %C(reset)%s%C(Red)%d%C(reset)' --date=short --graph
-   la = log --pretty='%C(Yellow)%h %C(reset)%ad %C(Cyan)%an: %C(reset)%s%C(Red)%d%C(reset)' --date=short --graph --all
-   lf = log --name-status --find-renames --oneline
+    # Self made!
+    l  = log --pretty='%C(Yellow)%h %C(reset)%ad %C(Cyan)%an: %C(reset)%s%C(Red)%d%C(reset)' --date=short --graph
+    la = log --pretty='%C(Yellow)%h %C(reset)%ad %C(Cyan)%an: %C(reset)%s%C(Red)%d%C(reset)' --date=short --graph --all
+    lf = log --name-status --find-renames --oneline
 
 [init]
-	templatedir = ~/.git-templates
-	defaultBranch = main
+    templatedir = ~/.git-templates
+    defaultBranch = main
 
 [interactive]
-	diffFilter = diff-so-fancy --patch
+    diffFilter = diff-so-fancy --patch
+
+[commit]
+    gpgsign = true

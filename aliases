@@ -63,7 +63,7 @@ a gpn='git push -u origin $(git branch --show-current)'
 a gpd='git push origin --delete $(git branch --show-current)'
 a gd='git diff HEAD'
 a gdf='git diff --name-only HEAD'
-a gl='git log'
+a gl='git log --show-signature'
 a glo="gl --pretty='%h %ad %an: %s%d' --date=short"
 a gla="glo --all --graph"
 a glf="gl --name-status --find-renames --oneline"

@@ -130,6 +130,26 @@ Persistent=true
 WantedBy=timers.target
 EOF
 
+cat << EOF | tee certbot.timer > /dev/null
+[Unit]
+Description=Auto renew certbot certificates.
+
+[Timer]
+OnBootSec=300
+OnUnitActiveSec=1w
+
+[Install]
+WantedBy=timers.target
+EOF
+
+cat << EOF | tee certbot.service > /dev/null
+[Unit]
+Description=Renew certbot certificates
+
+[Service]
+ExecStart=/usr/bin/certbot renew --nginx
+EOF
+
 popd
 echo
 
@@ -138,9 +158,11 @@ systemctl daemon-reload
 systemctl enable gemini-server.service
 systemctl enable gemini-proxy.service
 systemctl enable gemini-git-pull.timer
+systemctl enable certbot.timer
 systemctl restart gemini-server.service
 systemctl restart gemini-proxy.service
 systemctl restart gemini-git-pull.timer
+systemctl restart certbot.timer
 echo
 
 echo "Copying and reloading nginx config..."
