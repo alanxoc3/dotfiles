@@ -373,6 +373,8 @@ a gpgfgk='gpg --full-generate-key'
 
 # random
 ssht() { ssh $1 -t tmux "${@:2}" }
+a bat='bat -p --color always'
+a b='bat'
 a pomo='while true; do echo "WORK TIME"; sleep 25m; speak "timez up... break time" > /dev/null 2>&1; echo "BREAK TIME"; sleep 5m; speak "timez up... start working again" > /dev/null 2>&1; done'
 a u='echo -e "$(whoami)@$(hostname)"'
 a bn='basename'
