@@ -48,6 +48,7 @@ cf alacritty.yml      .config/alacritty/alacritty.yml
 cf search-ignore      .config/fd/ignore
 cf irssi-config       .irssi/config
 cf irssi-theme        .irssi/default.theme
+cf gpg-agent.conf     .gnupg/gpg-agent.conf
 
 # Use whichever one exists. One is mac, one is arch.
 cf /usr/share/kak/rc        .config/kak/autoload/rc
