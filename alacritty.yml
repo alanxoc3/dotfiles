@@ -113,3 +113,66 @@ key_bindings:
   - { key: Minus,           mods: Control,                    action: DecreaseFontSize      }
 
 alt_send_esc: false
+
+colors:
+  primary:
+    background: '#000000'
+    foreground: '#c5c8c6'
+    dim_foreground: '#828482'
+    bright_foreground: '#eaeaea'
+  cursor:
+    text: CellBackground
+    cursor: CellForeground
+  vi_mode_cursor:
+    text: CellBackground
+    cursor: CellForeground
+  search:
+    matches:
+      foreground: '#000000'
+      background: '#ffffff'
+    focused_match:
+      foreground: '#ffffff'
+      background: '#000000'
+    bar:
+      background: '#c5c8c6'
+      foreground: '#1d1f21'
+  hints:
+    start:
+      foreground: '#1d1f21'
+      background: '#e9ff5e'
+    end:
+      foreground: '#e9ff5e'
+      background: '#1d1f21'
+  line_indicator:
+    foreground: None
+    background: None
+  selection:
+    text: CellBackground
+    background: CellForeground
+  normal:
+    black:   '#000000'
+    red:     '#cc6666'
+    green:   '#8bbc67'
+    yellow:  '#f0c674'
+    blue:    '#3f5c75'
+    magenta: '#b294bb'
+    cyan:    '#8abeb7'
+    white:   '#ffffff'
+  bright:
+    black:   '#000000'
+    red:     '#cc6666'
+    green:   '#8bbc67'
+    yellow:  '#f0c674'
+    blue:    '#3f5c75'
+    magenta: '#b294bb'
+    cyan:    '#8abeb7'
+    white:   '#ffffff'
+  dim:
+    black:   '#000000'
+    red:     '#cc6666'
+    green:   '#8bbc67'
+    yellow:  '#f0c674'
+    blue:    '#3f5c75'
+    magenta: '#b294bb'
+    cyan:    '#8abeb7'
+    white:   '#ffffff'
