@@ -47,3 +47,11 @@ export PATH="$PATH:$HOME/.go/bin"
 export PATH="$PATH:$HOME/.cargo/bin"
 export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:$PICO_WORK_DIR/bin"
+
+# For macs, this will add standard gui apps to the path.
+for app_path in /Applications/*; do
+    full_path="$app_path/Contents/MacOS"
+    if [ -d $full_path ]; then
+        export PATH="$PATH:$app_path/Contents/MacOS"
+    fi
+done

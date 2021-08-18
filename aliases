@@ -108,7 +108,7 @@ a ev='kak ~/.config/nvim/lua/init.lua'
 a ek='kak ~/.config/kak/kakrc'
 a ea='kak ~/.aliases ~/.local_aliases'
 a eb='kak ~/repos/capsule/cap/blog/$(date +%F.gmi)'
-a ez='kak ~/.zshrc ~/.zshenv'
+a ez='kak ~/.zshrc ~/.zshenv ~/.dotfiles/local_zshrc'
 
 # diary
 a diary='cd ~/diary/alan'
