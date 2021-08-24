@@ -87,9 +87,16 @@ a ghi='gh issue'
 a ghil='gh issue list'
 
 # mpsyt & youtube-dl
-a chiptune='mpv http://79.120.11.40:8000/chiptune.ogg'
-a anonradio='mpv http://anonradio.net:8000/anonradio'
-a tilderadio='mpv https://radio.tildeverse.org/radio/8000/radio.ogg'
+mpv_category() {
+    local filename=$(mktemp --suffix=.lua)
+    echo 'mp.add_periodic_timer(1, function() os.execute("ttrack rec '"$1"' 3s") end)' > $filename
+    mpv --script=$filename "${@:2}"
+}
+
+a chiptune='mpv_category webradio/chiptune http://79.120.11.40:8000/chiptune.ogg'
+a anonradio='mpv_category webradio/anonradio http://anonradio.net:8000/anonradio'
+a tilderadio='mpv_category webradio/tilderadio https://radio.tildeverse.org/radio/8000/radio.ogg'
+a book='mpv_category book'
 
 a getvid="youtube-dl -f 18"
 a vid2mp3='youtube-dl --extract-audio --audio-format mp3'
