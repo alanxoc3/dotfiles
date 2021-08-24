@@ -5,7 +5,9 @@ alias a='alias'
 filebasename() { basename $1 | cut -f 1 -d '.' }
 
 # https://unix.stackexchange.com/questions/159253/decoding-url-encoding-percent-encoding
-urlencode() { python3 -c "$(echo -e 'import sys,urllib.parse as ul;\nprint(ul.quote(sys.argv[1]))')" "$*" }
+alias urlencode='python -c "import urllib, sys; print urllib.quote(  \" \".join(sys.argv[1:]) if len(sys.argv) > 1 else sys.stdin.read()[0:-1])"'
+alias urlencodeslash='python -c "import urllib, sys; print urllib.quote(  \" \".join(sys.argv[1:]) if len(sys.argv) > 1 else sys.stdin.read()[0:-1], \"\")"'
+alias urldecode='python -c "import urllib, sys; print urllib.unquote(\" \".join(sys.argv[1:]) if len(sys.argv) > 1 else sys.stdin.read()[0:-1])"'
 
 # gemini
 a am='amfora'
@@ -88,8 +90,10 @@ a ghil='gh issue list'
 
 # mpsyt & youtube-dl
 mpv_category() {
-    local filename=$(mktemp --suffix=.lua)
-    echo 'mp.add_periodic_timer(1, function() os.execute("ttrack rec '"$1"' 3s") end)' > $filename
+    local filename=$(mktemp)
+    mv $filename $filename.lua
+    filename=$filename.lua
+    echo 'mp.add_periodic_timer(1, function() if "no" == mp.get_property("core-idle") then os.execute("ttrack rec '"$1"' 3s") end end)' > $filename
     mpv --script=$filename "${@:2}"
 }
 
