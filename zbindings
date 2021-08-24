@@ -142,3 +142,12 @@ kb_apropos() {
 zle     -N    kb_apropos
 bindkey '\em' kb_apropos
 
+# Alt+Backspace goes to slashes. Credit to:
+# https://unix.stackexchange.com/questions/258656/how-can-i-have-two-keystrokes-to-delete-to-either-a-slash-or-a-word-in-zsh
+backward-kill-dir () {
+    local WORDCHARS=${WORDCHARS/\/}
+    zle backward-kill-word
+    zle -f kill
+}
+zle -N backward-kill-dir
+bindkey '^[^?' backward-kill-dir
