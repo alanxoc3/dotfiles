@@ -3,6 +3,8 @@
 alias a='alias'
 
 filebasename() { basename $1 | cut -f 1 -d '.' }
+abs() { echo "$(cd "$(dirname "$1")" && pwd -P)/$(basename "$1")" }
+
 
 # https://unix.stackexchange.com/questions/159253/decoding-url-encoding-percent-encoding
 alias urlencode='python -c "import urllib, sys; print urllib.quote(  \" \".join(sys.argv[1:]) if len(sys.argv) > 1 else sys.stdin.read()[0:-1])"'
