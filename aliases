@@ -7,14 +7,38 @@ abs() { echo "$(cd "$(dirname "$1")" && pwd -P)/$(basename "$1")" }
 
 
 # https://unix.stackexchange.com/questions/159253/decoding-url-encoding-percent-encoding
-alias urlencode='python -c "import urllib, sys; print urllib.quote(  \" \".join(sys.argv[1:]) if len(sys.argv) > 1 else sys.stdin.read()[0:-1])"'
-alias urlencodeslash='python -c "import urllib, sys; print urllib.quote(  \" \".join(sys.argv[1:]) if len(sys.argv) > 1 else sys.stdin.read()[0:-1], \"\")"'
-alias urldecode='python -c "import urllib, sys; print urllib.unquote(\" \".join(sys.argv[1:]) if len(sys.argv) > 1 else sys.stdin.read()[0:-1])"'
+alias urlencode='python3 -c "import urllib.parse, sys; print(urllib.parse.quote(\" \".join(sys.argv[1:]) if len(sys.argv) > 1 else sys.stdin.read()[0:-1]))"'
+alias urlencodeslash='python3 -c "import urllib.parse, sys; print(urllib.parse.quote(  \" \".join(sys.argv[1:]) if len(sys.argv) > 1 else sys.stdin.read()[0:-1], \"\"))"'
+alias urldecode='python3 -c "import urllib.parse, sys; print(urllib.parse.unquote(\" \".join(sys.argv[1:]) if len(sys.argv) > 1 else sys.stdin.read()[0:-1]))"'
+
+multiqr() {
+    if [ "$#" -ne 2 ]; then
+       echo "Usage: echo x | multiqr DIRNAME MAX_BYTES"
+       return 1;
+    fi
+
+    tempdir=$(mktemp -d)
+    pushd "$tempdir" > /dev/null
+    cat > original_file
+    char_count=$(cat original_file | wc -m)
+    cat original_file | split -b $(calc_partition "$char_count" $2)
+    rm original_file
+    for file in $(ls); do
+        cat $file | qrencode -o $file.png
+        shred $file
+        rm $file
+    done
+    popd > /dev/null
+    mv "$tempdir" "$1"
+}
 
 # gemini
 a am='amfora'
 ams() { amfora "gemini://geminispace.info/search?$(urlencode $@)" }
 a ama='amfora alanxoc3.xyz'
+
+# qrdecode
+qrdecode='zbarimg --raw -q'
 
 # update files
 a ua='unalias -a; source ~/.aliases 2> /dev/null; source ~/.local_aliases 2> /dev/null'
@@ -103,6 +127,7 @@ a chiptune='mpv_category webradio/chiptune http://79.120.11.40:8000/chiptune.ogg
 a anonradio='mpv_category webradio/anonradio http://anonradio.net:8000/anonradio'
 a tilderadio='mpv_category webradio/tilderadio https://radio.tildeverse.org/radio/8000/radio.ogg'
 a book='mpv_category book'
+a anonsched="curl https://anonradio.net/schedule/ 2> /dev/null | k -f 'spre>|^$<ret><a-x>d'"
 
 a getvid="youtube-dl -f 18"
 a vid2mp3='youtube-dl --extract-audio --audio-format mp3'

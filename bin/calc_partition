@@ -1,0 +1,9 @@
+#!/usr/bin/env lua
+-- How big a partition should be given a max partition size and the overal max
+-- size.
+s = tonumber(arg[1])
+m = tonumber(arg[2])
+x = s / m
+new_x = math.ceil(x)
+new_m = math.ceil(s / new_x)
+print(new_m)
