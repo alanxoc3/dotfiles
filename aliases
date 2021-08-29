@@ -35,7 +35,7 @@ multiqr() {
 # gemini
 a am='amfora'
 ams() { amfora "gemini://geminispace.info/search?$(urlencode $@)" }
-a ama='amfora alanxoc3.xyz'
+a ama='amfora xoc3.io'
 
 # qrdecode
 qrdecode='zbarimg --raw -q'
