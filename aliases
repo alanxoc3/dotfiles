@@ -415,6 +415,9 @@ rmv() { mv $1 "$(dirname $1)/$2" } # Mv a file local to its directory.
 rcp() { cp $1 "$(dirname $1)/$2" } # Cp a file local to its directory.
 sw() { tf=$(mktemp $(dirname "$1")/XXXXXX) && mv "$1" "$tf" && mv "$2" "$1" &&  mv "$tf" "$2" }
 
+# Networking Notes
+# find which domain names are used for an IP with "nslookup"
+
 # random
 ssht() { ssh $1 -t tmux "${@:2}" }
 a bat='bat -p --color always'

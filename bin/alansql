@@ -12,4 +12,4 @@ fi
 FILE=$(mktemp)
 echo -e 'SET QUOTED_IDENTIFIER ON\nGO\n' > $FILE
 cat - >> $FILE
-sqlcmd -S "$1" -i "$FILE" -Y 50 -y 50 -u -E -d "$2"
+sqlcmd -S "$1" -i "$FILE" -Y 50 -y 50 -u -E -d "$2" | dos2unix
