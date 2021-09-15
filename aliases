@@ -2,14 +2,19 @@
 # alias
 alias a='alias'
 
+extension() { [[ $1 =~ '\.' ]] && recho "${@##*.}" }
 filebasename() { basename $1 | cut -f 1 -d '.' }
 abs() { echo "$(cd "$(dirname "$1")" && pwd -P)/$(basename "$1")" }
-
 
 # https://unix.stackexchange.com/questions/159253/decoding-url-encoding-percent-encoding
 alias urlencode='python3 -c "import urllib.parse, sys; print(urllib.parse.quote(\" \".join(sys.argv[1:]) if len(sys.argv) > 1 else sys.stdin.read()[0:-1]))"'
 alias urlencodeslash='python3 -c "import urllib.parse, sys; print(urllib.parse.quote(  \" \".join(sys.argv[1:]) if len(sys.argv) > 1 else sys.stdin.read()[0:-1], \"\"))"'
 alias urldecode='python3 -c "import urllib.parse, sys; print(urllib.parse.unquote(\" \".join(sys.argv[1:]) if len(sys.argv) > 1 else sys.stdin.read()[0:-1]))"'
+
+mvcat() {
+    cat "${@:1:${#@}-1}" >> "${@:${#@}}"
+    rm "${@:1:${#@}-1}"
+}
 
 multiqr() {
     if [ "$#" -ne 2 ]; then
@@ -146,20 +151,19 @@ a es='editsnips'
 a ev='kak ~/.config/nvim/lua/init.lua'
 a ek='kak ~/.config/kak/kakrc'
 a ea='kak ~/.aliases ~/.local_aliases'
-a eb='kak ~/repos/capsule/cap/blog/$(date +%F.gmi)'
+a eb='kak ~/repos/capsule/cap/blog/$(date -u +%F).gmi'
 a ez='kak ~/.zshrc ~/.zshenv ~/.dotfiles/local_zshrc'
 
 # diary
 a diary='cd ~/diary/alan'
 a di='diary'
-a jrn='kak ~/diary/alan/{2021_diary,motive,achievements,todos,plans,timelog}.md'
+a jrn='kak ~/diary/alan/{2021_diary,motive,achievements,todos,plans}.md'
 a rnj='jrn'
 a nrj='jrn'
 a njr='jrn'
 a tl='jrn'
 a rjn='jrn'
 a jnr='jrn'
-a ap='achieve_parser ~/diary/alan/timelog.md'
 
 # acpi
 a acip=acpi
@@ -341,10 +345,6 @@ a rd="rmdir"
 # pass
 a pe='pass edit'
 
-# PS1
-a tops='PS1="[\u-\[\033[0;31m\]\#\[\033[0m\] \W]\$ "'
-a nops='PS1="$ "'
-
 # synclient
 a mouse='synclient TouchpadOff=0'
 a nomouse='synclient TouchpadOff=1'
@@ -382,10 +382,6 @@ a pcl=pclip
 a xargs='xargs '
 a x='xargs '
 
-# TODO: Make an fzf for the screen with this script:
-# bind-key P 'capture-pane' \; capture-pane -S - \; save-buffer /tmp/tmux \; delete-buffer
-#
-
 trim() { awk '{gsub(/^ +| +$/,"")}{print}' }
 
 # My hacky way to make a video 2x speed.
@@ -404,7 +400,8 @@ a pc="pico-compile"
 a pw="pico-watch"
 
 # gpg
-a gpglk='gpg --list-keys --with-subkey-fingerprints'
+a gpglk='gpg --list-keys --with-subkey-fingerprints --with-keygrip'
+a gpgek='gpg --armor --export'
 a gpgfgk='gpg --full-generate-key'
 
 # rg
@@ -417,6 +414,11 @@ sw() { tf=$(mktemp $(dirname "$1")/XXXXXX) && mv "$1" "$tf" && mv "$2" "$1" &&  
 
 # Networking Notes
 # find which domain names are used for an IP with "nslookup"
+
+# human readable flags
+a free='free -h'
+a du='du -h'
+a df='df -h'
 
 # random
 ssht() { ssh $1 -t tmux "${@:2}" }
@@ -431,8 +433,6 @@ a lam='lookatme --live -e terminal'
 a pipi='pip install --user'
 a bc='bc -q'
 a dd='dd status=progress'
-a du='du -h'
-a df='df -h'
 a emacs='emacs -nw'
 a fb="~/repos/fuzzybird/fuzzybird.py --hashtag"
 a int='sudo wifi-menu'

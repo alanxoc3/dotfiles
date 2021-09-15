@@ -1,0 +1,14 @@
+#!/bin/bash
+# Achivement Parser Stats
+# Usage: apstats <goal-name> <hours-in-year> <ttrack groups>...
+# This script can be used to show progress on a yearly goal.
+
+YEAR=$(date +%Y)
+DOY=$(date +%j)
+BEG_DATE="$YEAR-01-01"
+END_DATE="$YEAR-12-31"
+
+hours=$(echo "print(math.floor($2*$DOY/365))" | lua)
+minutes=$(echo "print(math.floor($2*$DOY/365%1*60))" | lua)
+seconds=$(echo "print(math.floor($2*$DOY/365%1*60%1*60))" | lua)
+printf "%-10s %-11s/ %-11s %-12s\n" "$1:" $(ttrack agg -b $BEG_DATE -e $END_DATE ${*:3}) ${hours}h${minutes}m${seconds}s "(${2}h goal)"
