@@ -5,7 +5,6 @@ alias a='alias'
 filebasename() { basename $1 | cut -f 1 -d '.' }
 abs() { echo "$(cd "$(dirname "$1")" && pwd -P)/$(basename "$1")" }
 
-
 # https://unix.stackexchange.com/questions/159253/decoding-url-encoding-percent-encoding
 alias urlencode='python3 -c "import urllib.parse, sys; print(urllib.parse.quote(\" \".join(sys.argv[1:]) if len(sys.argv) > 1 else sys.stdin.read()[0:-1]))"'
 alias urlencodeslash='python3 -c "import urllib.parse, sys; print(urllib.parse.quote(  \" \".join(sys.argv[1:]) if len(sys.argv) > 1 else sys.stdin.read()[0:-1], \"\"))"'
@@ -193,6 +192,8 @@ a ac=acpi
 did() { docker ps | grep "$1" | cut -d ' ' -f1 }
 dl() { docker logs $(did $1) }
 dsh() { docker exec -it "$1" /bin/sh }
+dbash() { docker exec -it "$1" /bin/bash }
+dzsh() { docker exec -it "$1" /bin/zsh }
 a dka='docker kill $(docker container ls -q)' # Kill all running containers.
 a dkl='docker kill $(docker ps | awk "{print \$1;}" | tail -n 1)' # Kill first container.
 a dps='docker ps'
@@ -408,10 +409,16 @@ a gpglk='gpg --list-keys --with-subkey-fingerprints'
 a gpgfgk='gpg --full-generate-key'
 
 # rg
+fnam() { local filename=$(basename -- $1); echo "${filename%.*}"; }
+enam() { local filename=$(basename -- $1); echo $([[ "$filename" = *.* ]] && echo ".${filename##*.}" || echo ''); }
+
 a rgl='rg -l'
 a rgc='rg --color always'
 rr() { rg "$1" "${@:3}" -l | xargs sed -Ei "s^$1^$2^g" }
-rmv() { mv $1 "$(dirname $1)/$2" } # Mv a file local to its directory.
+rgf() { rg "$1"; fd -t f -s "$1" }
+
+# Mv a file local to its directory.
+rmv() { mv "$1" "$(dirname $1)/$2" }
 rcp() { cp $1 "$(dirname $1)/$2" } # Cp a file local to its directory.
 sw() { tf=$(mktemp $(dirname "$1")/XXXXXX) && mv "$1" "$tf" && mv "$2" "$1" &&  mv "$tf" "$2" }
 
