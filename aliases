@@ -130,7 +130,7 @@ mpv_category() {
 
 a chiptune='mpv_category webradio/chiptune http://79.120.11.40:8000/chiptune.ogg'
 a anonradio='mpv_category webradio/anonradio http://anonradio.net:8000/anonradio'
-a tilderadio='mpv_category webradio/tilderadio https://radio.tildeverse.org/radio/8000/radio.ogg'
+a tilderadio='mpv_category webradio/tilderadio https://azuracast.tilderadio.org/radio/8000/radio.ogg'
 a book='mpv_category book'
 a anonsched="curl https://anonradio.net/schedule/ 2> /dev/null | k -f 'spre>|^$<ret><a-x>d'"
 
@@ -395,7 +395,6 @@ doublespeed() {
 }
 
 # pico8 workflow commands
-a pm="pico-minify"
 a pc="pico-compile"
 a pw="pico-watch"
 
@@ -422,6 +421,8 @@ a df='df -h'
 
 # random
 ssht() { ssh $1 -t tmux "${@:2}" }
+ttt() { [[ -n $1 ]] && while true; do sleep 1s; ttrack rec $1 2s; done || echo 'Requires argument for group' }
+a tt='ttrack'
 a bat='bat -p --color always'
 a b='bat'
 a pomo='while true; do echo "WORK TIME"; sleep 25m; speak "timez up... break time" > /dev/null 2>&1; echo "BREAK TIME"; sleep 5m; speak "timez up... start working again" > /dev/null 2>&1; done'
@@ -447,3 +448,14 @@ a updatexterm='xrdb merge ~/.Xresources'
 a watch='watch -c -d'
 a daet='date'
 a slblk='lsblk'
+a repinyin='repelify pinyin'
+
+# Turns any command into a repl!
+repelify() {
+    if [[ -z $1 ]]; then echo 'No command provided'; return; fi
+    printf '-> '
+    while read -r line; do
+        cat <<< "$line" | $*
+        printf '-> '
+    done
+}
