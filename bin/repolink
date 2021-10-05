@@ -1,7 +1,7 @@
 #!/bin/bash
 # By: @alanxoc3
 
-if [ "$#" -ne 1 ]; then
+if [ "$#" -eq 0 ]; then
    echo "Usage: repolink FILENAME"
    exit 1;
 fi
@@ -25,11 +25,14 @@ GROUP=$(echo $REPO_ARR | awk '{print $2;}')
 REPO=$(echo $REPO_ARR  | awk '{print $3;}')
 
 LOCAL_REPO_PATH=$(realpath $(git rev-parse --show-toplevel))
-LOCAL_FILE_PATH=$(realpath $1)
-FILE_PATH_RELATIVE_TO_GIT=${LOCAL_FILE_PATH#$LOCAL_REPO_PATH}
 
-if echo "$HOST" | grep 'stash' &> /dev/null; then
-   echo "https://$HOST/projects/$GROUP/repos/$REPO/browse$FILE_PATH_RELATIVE_TO_GIT"
-elif echo "$HOST" | grep 'github' &> /dev/null; then
-   echo "https://$HOST/$GROUP/$REPO/blob/main$FILE_PATH_RELATIVE_TO_GIT"
-fi
+for file in "$@"; do
+    LOCAL_FILE_PATH=$(realpath $file)
+    FILE_PATH_RELATIVE_TO_GIT=${LOCAL_FILE_PATH#$LOCAL_REPO_PATH}
+
+    if echo "$HOST" | grep 'stash' &> /dev/null; then
+       echo "https://$HOST/projects/$GROUP/repos/$REPO/browse$FILE_PATH_RELATIVE_TO_GIT"
+    elif echo "$HOST" | grep 'github' &> /dev/null; then
+       echo "https://$HOST/$GROUP/$REPO/blob/main$FILE_PATH_RELATIVE_TO_GIT"
+   fi
+done
