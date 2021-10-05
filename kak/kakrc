@@ -35,7 +35,8 @@ map -docstring 'enter text-mode' global user t ': text-mode<ret>'
 hook global -group ttrack RawKey . %{
   evaluate-commands %sh{
     {
-      [ ! -z "$(command -v ttrack)" ] && ttrack rec -- "kak/$kak_bufname" 5s
+      [[ $(basename $kak_bufname) =~ '.' ]] && ttrack_name="ext:${kak_bufname##*.}" || ttrack_name="misc"
+      [ ! -z "$(command -v ttrack)" ] && ttrack rec "kak/$ttrack_name" 3s
     } > /dev/null 2>&1 < /dev/null &
   }
 }
