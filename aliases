@@ -59,6 +59,8 @@ a umone="sudo umount /mnt"
 a umtwo="sudo umount /mnt2"
 
 # git
+# Interesting article: https://redfin.engineering/visualize-merge-history-with-git-log-graph-first-parent-and-no-merges-c6a9b5ff109c
+# Interesting git log options from that article: git log --pretty="format:%h %ar %s" --no-merges --first-parent --graph
 a repos='cd ~/repos'
 a rep=repos
 a cg='cd $(git rev-parse --show-toplevel)'
