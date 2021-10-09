@@ -1,2 +1,2 @@
 #!/bin/bash
-kineto gemini://xoc3.io
+kineto -s /srv/gemini/capsule/site.css gemini://xoc3.io
