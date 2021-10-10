@@ -329,6 +329,7 @@ a difbkgd="rndbkgd"
 
 # zathura
 a zath=zathura
+a z=zathura
 
 # systemctl
 a renet='systemctl restart NetworkManager.service'
