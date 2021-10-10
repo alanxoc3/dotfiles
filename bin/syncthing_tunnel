@@ -1,2 +1,6 @@
 #!/bin/bash
-ssh -L 20000:127.0.0.1:8384 alanxoc3@syncthing
+EXPECTED_ARGS=(ssh-destination)
+[ "$#" -ne ${#EXPECTED_ARGS[@]} ] && echo "USAGE: $(basename $0) ${EXPECTED_ARGS[@]}" && exit
+
+# The syncthing server is now on port 20000 on your local machine.
+ssh -L 20000:127.0.0.1:8384 "$1"

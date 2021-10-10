@@ -157,9 +157,9 @@ a eb='kak ~/repos/capsule/cap/blog/$(date -u +%F).gmi'
 a ez='kak ~/.zshrc ~/.zshenv ~/.dotfiles/local_zshrc'
 
 # diary
-a diary='cd ~/diary/alan'
+a diary='cd ~/sync/alan/diary'
 a di='diary'
-a jrn='kak ~/diary/alan/{2021_diary,motive,achievements,todos,plans}.md'
+a jrn='kak ~/sync/alan/diary/{2021_diary,motive,achievements,todos,plans}.md'
 a rnj='jrn'
 a nrj='jrn'
 a njr='jrn'
@@ -366,9 +366,9 @@ a vm='viewmarkdown'
 a qb='qutebrowser'
 
 # concards
-a cards="cd ~/diary/alan/cards"
+a cards="cd ~/sync/alan/diary/cards"
 a ca="cards"
-a cnc="concards ~/diary/alan"
+a cnc="concards ~/sync/alan/diary"
 
 # list things for fzf
 _fzf_compgen_path() { fd -t f -t d . "$1" }
