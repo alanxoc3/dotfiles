@@ -1,0 +1,16 @@
+# The Wonderful World of the Command Line
+
+Developers often overlook the power of the command line. While GUI tools may seem easier to use, they lack scripting ability and are often slower than their command line counterparts. So let's see how powerful the command line really is!
+
+The main objective of this presentation is to inspire you to start using the command line a bit more than you already do. Because of this objective, less time is spent explaining specifics in order to have more time to grab your attention with a variety of different tools and command line related topics.
+
+The entire presentation is completely contained within a terminal interface and consists of mostly live demos. Some of the tools and topics that will be covered include: posix, unix, terminal emulators, shells, man pages, aliases, env vars, multiplexers, modal editors, irc, email, internet, multimedia, and lots of modern CLI apps.
+
+Because of the posix/unix nature of the presentation, most of the tools covered in the presentation are transferrable between linux, wsl, and mac. This presentation should be informative to both junior and senior developers alike, no matter what one's command line skills are.
+
+pass, fzf, fd, rg, ranger, diff-so-fancy, nvim, kak, w3m, lynx, irssi, lam, asciinema
+
+git.io/devcon2021 ?
+xoc3.io/pres/devcon2021 ?
+
+https://github.com/alacritty/alacritty/issues/3129
