@@ -54,7 +54,7 @@ cp ./gemini_server ./http_server ${TARGET_DIR}/server
 cat << EOF | tee ${TARGET_DIR}/server/updateandcompile > /dev/null
 #!/bin/bash
 git fetch
-git merge
+git reset --hard origin/main
 ./compile
 EOF
 chmod 700 ${TARGET_DIR}/server/updateandcompile
