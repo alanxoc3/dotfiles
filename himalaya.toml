@@ -1,0 +1,23 @@
+# ~/.config/himalaya/config.toml
+
+name = "Alan Morgan"
+downloads-dir = "/home/alanxoc3/Downloads/"
+signature = """
+--
+Regards,
+"""
+
+[xoc3]
+default = true
+email = "alan@xoc3.io"
+
+imap-host = "xoc3.io"
+imap-port = 993
+imap-login = "alanxoc3"
+imap-passwd-cmd = "pass show _servers/linode"
+
+smtp-host = ""
+smtp-port = 0
+smtp-login = ""
+smtp-passwd-cmd = ""
+

@@ -49,6 +49,7 @@ cf search-ignore      .config/fd/ignore
 cf irssi-config       .irssi/config
 cf irssi-theme        .irssi/default.theme
 cf gpg-agent.conf     .gnupg/gpg-agent.conf
+cf himalaya.toml      .config/himalaya/config.toml
 
 # Ripgrep config can't recognize environment variables in its configuration.
 # Putting the config here is my best solution.

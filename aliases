@@ -37,6 +37,17 @@ multiqr() {
     mv "$tempdir" "$1"
 }
 
+# openssl
+# How to get a certificate
+# openssl s_client -connect www.google.com:443 2>/dev/null </dev/null |  sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p'
+
+# https://www.jvt.me/posts/2019/12/04/openssl-certs-dir-setup/
+
+# Usage: domain port
+get_ssl_cert() {
+    openssl s_client -connect "$1:$2" 2>/dev/null </dev/null |  sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p'
+}
+
 # gemini
 a am='amfora'
 ams() { amfora "gemini://geminispace.info/search?$(urlencode $@)" }
