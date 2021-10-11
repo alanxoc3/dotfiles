@@ -12,7 +12,6 @@ export IGNOREEOF=2
 export JAVA_HOME=$(/usr/libexec/java_home -v 13 2> /dev/null)
 export LC_ALL=en_US.UTF-8
 export npm_config_prefix=~/.node_modules
-export PYTHONPATH="/home/alanxoc3/Projects/caffe/python"
 export QEMU_AUDIO_DRV='pa'
 export QT_IM_MODULE=fcitx
 export TERMINAL="alacritty"

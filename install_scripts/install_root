@@ -18,9 +18,12 @@ sed -i -E 's/^(SHELL=).*$/\1\/bin\/zsh/g' /etc/default/useradd
 echo "Changing default umask to 077..."
 sed -i -E 's/^(umask )[0-9]+$/\1077/g' /etc/profile
 
+printf "Enter main username: "
+read MAINUSER
+
 echo "Creating user & setting password..."
-useradd -m -G wheel -s /bin/zsh alanxoc3
-passwd alanxoc3
+useradd -m -G wheel -s /bin/zsh $MAINUSER
+passwd $MAINUSER
 
 echo "Setting the hostname..."
 printf "Enter hostname: "

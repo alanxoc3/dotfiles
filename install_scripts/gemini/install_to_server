@@ -175,8 +175,8 @@ echo
 
 # If migrating certificates from an existing place, use these command on one computer:
 # cd /etc/letsencrypt; sudo tar -cvf /root/letsencrypt.tar ./
-# sudo scp /root/letsencrypt.tar alanxoc3@server:/home/alanxoc3
+# sudo scp /root/letsencrypt.tar <server-alias>:$HOME
 # sudo rm /root/letsencrypt.tar
 
 # And on the other computer:
-# cd /etc/letsencrypt; sudo tar --same-owner -xvf /home/alanxoc3/letsencrypt.tar
+# cd /etc/letsencrypt; sudo tar --same-owner -xvf $HOME/letsencrypt.tar

@@ -42,9 +42,6 @@ killport() { sudo fuser -k "$*/tcp"; }
 
 pdefc() { pdef " $* "; }
 
-# wubi define
-wdef() { grep -i "$*" /home/alanxoc3/sync/ref/wubi/wb.txt; }
-
 wdefc() { pdef "$* "; }
 
 # For my pico-8 package management system.
@@ -70,9 +67,6 @@ repicolib() {
 		[[ $new_fc -gt $fc ]] || break
 	done
 }
-
-# pinyin find
-pfind() { grep -i "$*" /home/alanxoc3/sync/ref/wubi/wbpy.txt; }
 
 bind -x '"\C-o": vim_fzf;'
 
@@ -109,6 +103,3 @@ export QEMU_AUDIO_DRV=pa
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/home/ARBFUND/alanmorgan/.sdkman"
 [[ -s "/home/ARBFUND/alanmorgan/.sdkman/bin/sdkman-init.sh" ]] && source "/home/ARBFUND/alanmorgan/.sdkman/bin/sdkman-init.sh"
-
-# added by travis gem
-[ ! -s /home/alanxoc3/.travis/travis.sh ] || source /home/alanxoc3/.travis/travis.sh

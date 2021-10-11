@@ -37,6 +37,14 @@ multiqr() {
     mv "$tempdir" "$1"
 }
 
+check_dns_a_record() {
+    dig +short $1
+}
+
+check_rdns() {
+    dig -x $(check_dns_a_record $1) +short
+}
+
 # openssl
 # How to get a certificate
 # openssl s_client -connect www.google.com:443 2>/dev/null </dev/null |  sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p'

@@ -16,8 +16,7 @@ imap-port = 993
 imap-login = "alanxoc3"
 imap-passwd-cmd = "pass show _servers/linode"
 
-smtp-host = ""
-smtp-port = 0
-smtp-login = ""
-smtp-passwd-cmd = ""
-
+smtp-host = "xoc3.io"
+smtp-port = 587
+smtp-login = "alanxoc3"
+smtp-passwd-cmd = "pass show _servers/linode"

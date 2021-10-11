@@ -8,7 +8,7 @@ cat << EOF | sudo tee minecraft-server-decree.service > /dev/null
 Description=Server decree timer.
 
 [Service]
-ExecStart=/home/alanxoc3/.dotfiles/bin/minecraft_server_decree
+ExecStart=$HOME/.dotfiles/bin/minecraft_server_decree
 User=root
 Group=root
 

@@ -1,2 +1,2 @@
 #!/bin/bash
-sudo minecraftd command "say THE KING DECREES: $(fortune -n 80 -s | /home/alanxoc3/.dotfiles/bin/remove_extra_spaces)"
+sudo minecraftd command "say THE KING DECREES: $(fortune -n 80 -s | $HOME/.dotfiles/bin/remove_extra_spaces)"
