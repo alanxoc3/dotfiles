@@ -45,6 +45,12 @@ check_rdns() {
     dig -x $(check_dns_a_record $1) +short
 }
 
+# renaming user: https://linuxtechlab.com/rename-user-in-linux-rename-home-directory/
+# pkill -u $old_username # (end running sessions)
+# usermod -l $new_username $old_username
+# usermod -d /home/$new_username -m $new_username
+# groupmod -n $new_username $old_username
+
 # openssl
 # How to get a certificate
 # openssl s_client -connect www.google.com:443 2>/dev/null </dev/null |  sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p'

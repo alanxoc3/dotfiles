@@ -2,21 +2,22 @@
 
 name = "Alan Morgan"
 downloads-dir = "/home/alanxoc3/Downloads/"
-signature = """
---
-Regards,
-"""
+signature-delimiter = "-- "
+signature = "Alan"
 
 [xoc3]
 default = true
 email = "alan@xoc3.io"
 
+# Used for receiving email.
 imap-host = "xoc3.io"
 imap-port = 993
-imap-login = "alanxoc3"
+imap-login = "alan"
 imap-passwd-cmd = "pass show _servers/linode"
 
+# Used for sending email.
 smtp-host = "xoc3.io"
 smtp-port = 587
-smtp-login = "alanxoc3"
+smtp-starttls = true
+smtp-login = "alan"
 smtp-passwd-cmd = "pass show _servers/linode"
