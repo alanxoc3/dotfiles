@@ -1,7 +1,8 @@
 shell:
   program: /bin/zsh
   args:
-    - -lic
+    - -li
+    - -c
     - tmux
 
 # Thanks to a comment here: https://github.com/alacritty/alacritty/issues/62

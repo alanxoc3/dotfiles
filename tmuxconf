@@ -39,8 +39,10 @@ set -g bell-action none
 set -g visual-bell off
 set-hook -g alert-activity "run-shell 'ttrack rec tmux 5s'"
 
-set -g default-terminal "screen-256color"
 set -ga terminal-overrides ",col:Tc"
+
+# screen-256color does not allow italics
+set -g default-terminal "tmux-256color"
 
 # This block comes from: https://github.com/tmux-plugins/tmux-sensible
 set -g history-limit 50000
