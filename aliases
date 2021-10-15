@@ -8,8 +8,18 @@ abs() { echo "$(cd "$(dirname "$1")" && pwd -P)/$(basename "$1")" }
 
 # https://unix.stackexchange.com/questions/159253/decoding-url-encoding-percent-encoding
 alias urlencode='python3 -c "import urllib.parse, sys; print(urllib.parse.quote(\" \".join(sys.argv[1:]) if len(sys.argv) > 1 else sys.stdin.read()[0:-1]))"'
+alias urlencodeplus='python3 -c "import urllib.parse, sys; print(urllib.parse.quote_plus(\" \".join(sys.argv[1:]) if len(sys.argv) > 1 else sys.stdin.read()[0:-1]))"'
 alias urlencodeslash='python3 -c "import urllib.parse, sys; print(urllib.parse.quote(  \" \".join(sys.argv[1:]) if len(sys.argv) > 1 else sys.stdin.read()[0:-1], \"\"))"'
 alias urldecode='python3 -c "import urllib.parse, sys; print(urllib.parse.unquote(\" \".join(sys.argv[1:]) if len(sys.argv) > 1 else sys.stdin.read()[0:-1]))"'
+
+# Pass
+cli_yt() {
+    if [ "$#" -ne 1 ]; then
+       echo "Usage: $0 <youtube-url>"
+       return 1;
+    fi
+    CACA_DRIVER=ncurses mpv --no-terminal -vo caca "$1"
+}
 
 mvcat() {
     cat "${@:1:${#@}-1}" >> "${@:${#@}}"
@@ -341,7 +351,9 @@ a oweroff='poweroff'
 
 # w3m
 a w3m='w3m -no-mouse'
-a ddg='w3m ddg.gg'
+ddg() {
+    w3m ddg.gg?q=$(urlencodeplus "$@")
+}
 
 # xrandr
 a tolap="xrandr --output HDMI-1 --off --output eDP-1 --auto --mode 1366x768 --panning 1366x768"
@@ -456,7 +468,7 @@ a du='du -h'
 a df='df -h'
 
 # random
-ssht() { ssh $1 -t tmux "${@:2}" }
+ssht() { ssh $1 -t 'tmux attach 2> /dev/null || tmux 2> /dev/null || zsh 2> /dev/null || bash 2> /dev/null' "${@:2}" }
 ttt() { [[ -n $1 ]] && while true; do sleep 1s; ttrack rec $1 2s; done || echo 'Requires argument for group' }
 a tt='ttrack'
 a bat='bat -p --color always'

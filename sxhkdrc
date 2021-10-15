@@ -10,7 +10,7 @@ super + Escape
 super + {p,t,g,f}
    bspc node -t {pseudo_tiled,tiled,floating,fullscreen}
 
-super + shift + e
+super + shift + x
    bspc quit
 
 super + q
