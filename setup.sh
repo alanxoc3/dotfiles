@@ -38,6 +38,7 @@ cf kak                .config/kak
 cf kak-lsp            .config/kak-lsp
 cf bspwmrc            .config/bspwm/bspwmrc
 cf sxhkdrc            .config/sxhkd/sxhkdrc
+cf mpv.conf           .config/mpv/mpv.conf
 cf gitconfig          .config/git/config
 cf kitty-config       .config/kitty/kitty.conf
 cf concards-data      .local/share/concards
