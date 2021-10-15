@@ -12,8 +12,11 @@ alias urlencodeplus='python3 -c "import urllib.parse, sys; print(urllib.parse.qu
 alias urlencodeslash='python3 -c "import urllib.parse, sys; print(urllib.parse.quote(  \" \".join(sys.argv[1:]) if len(sys.argv) > 1 else sys.stdin.read()[0:-1], \"\"))"'
 alias urldecode='python3 -c "import urllib.parse, sys; print(urllib.parse.unquote(\" \".join(sys.argv[1:]) if len(sys.argv) > 1 else sys.stdin.read()[0:-1]))"'
 
-# Pass
-cli_yt() {
+# Installation:
+# pacman -S libcaca                       # needed for ascii video driver
+# yay mpv-git                             # needed for yt-dlp default & libcaca built-in integration
+# python3 -m pip install --upgrade yt-dlp # youtube-dl is too laggy now and not maintained as much
+# cli_yt() {
     if [ "$#" -ne 1 ]; then
        echo "Usage: $0 <youtube-url>"
        return 1;
