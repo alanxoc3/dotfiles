@@ -1,10 +1,26 @@
 #!/usr/bin/env python3
-import keyboard # recording key presses
-import signal # waiting and exiting sub processes
-import subprocess # for executing external commands
-import sys # for exiting
-import os # for exiting
 
+# tmux key log
+# a script by @alanxoc3
+# this python script listens for specific key presses and prints them out to tmux.
+# dependencies: sudo pip install keyboard
+
+import keyboard   # recording key presses
+import os         # for exiting
+import signal     # waiting and exiting sub processes
+import subprocess # for executing external commands
+import sys        # for exiting & print error
+
+def force_exit():
+    try:
+        sys.exit(1)
+    except SystemExit:
+        os._exit(1)
+
+def eprint(*args, **kwargs):
+    print(*args, file=sys.stderr, **kwargs)
+
+USERNAME="alanxoc3" # change this if you want to use this script
 MAX_OUTPUT_LEN=40
 
 global output_str
@@ -80,17 +96,18 @@ def press_callback(event):
             name = f'«{mod}-{name}»'
 
         output_str = (output_str + name)[-MAX_OUTPUT_LEN:]
-        subprocess.Popen(["sudo", "-u", "alanxoc3", "tmux", "set", "-g", "status-right", output_str], preexec_fn=preexec_function)
+        subprocess.Popen(["sudo", "-u", USERNAME, "tmux", "set", "-g", "status-right", output_str], preexec_fn=preexec_function)
     else:
         pass # print(event.name)
 
-keyboard.on_press(callback=press_callback)
+try:
+    keyboard.on_press(callback=press_callback)
+except ImportError:
+    eprint("ERROR: You must run this script as root.")
+    force_exit()
 
 # do nothing in main thread
 try:
     signal.pause()
 except KeyboardInterrupt:
-    try:
-        sys.exit(1)
-    except SystemExit:
-        os._exit(1)
+    force_exit()
