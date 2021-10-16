@@ -1,0 +1,96 @@
+#!/usr/bin/env python3
+import keyboard # recording key presses
+import signal # waiting and exiting sub processes
+import subprocess # for executing external commands
+import sys # for exiting
+import os # for exiting
+
+MAX_OUTPUT_LEN=40
+
+global output_str
+output_str = ""
+
+# don't show shift modifier if the key matches any of these:
+shift_exceptions = ('~', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '{', '}', '"', '<', '>', '?', '?', '+', '|', '_', ':', )
+
+mappings = {
+    '#': '####', '%': '%%',
+    '!': '!', '@': '@', '$': '$', '^': '^', '&': '&',
+    '*': '*', '(': '(', ')': ')',
+
+    '1': '1', '2': '2', '3': '3', '4': '4', '5': '5',
+    '6': '6', '7': '7', '8': '8', '9': '9', '0': '0',
+
+    '`': '`', '~': '~',
+    '/': '/', '?': '?',
+    '\\': '\\', '|': '|',
+    '[': '[', ']': ']',
+    '{': '{', '}': '}',
+    '-': '-', '_': '_', '−': '−',
+    '=': '=', '+': '+',
+    "'": "'", '"': '"',
+    ',': ',', '<': '<',
+    '.': '.', '>': '>',
+    ';': ';', ':': ':',
+
+    'a': 'a', 'b': 'b', 'c': 'c', 'd': 'd', 'e': 'e', 'f': 'f',
+    'g': 'g', 'h': 'h', 'i': 'i', 'j': 'j', 'k': 'k', 'l': 'l',
+    'm': 'm', 'n': 'n', 'o': 'o', 'p': 'p', 'q': 'q', 'r': 'r',
+    's': 's', 't': 't', 'u': 'u', 'v': 'v', 'w': 'w', 'x': 'x',
+    'y': 'y', 'z': 'z',
+
+    'f1' : 'f1' , 'f2' : 'f2' , 'f3' : 'f3' ,
+    'f4' : 'f4' , 'f5' : 'f5' , 'f6' : 'f6' ,
+    'f7' : 'f7' , 'f8' : 'f8' , 'f9' : 'f9' ,
+    'f10': 'f10', 'f11': 'f11', 'f12': 'f12',
+
+    'backspace': '⇤',
+    'tab': '⇥',
+    'space': '␣',
+    'enter': '↵',
+    'esc': '↖',
+
+    'left': '←',
+    'right': '→',
+    'up': '↑',
+    'down': '↓',
+}
+
+def preexec_function():
+    signal.signal(signal.SIGINT, signal.SIG_IGN)
+
+def press_callback(event):
+    global output_str
+    if event.name in mappings:
+        name = mappings[event.name]
+        mod = ""
+
+        if 'ctrl' in event.modifiers: mod += 'c'
+        if 'alt' in event.modifiers: mod += 'a'
+        if 'windows' in event.modifiers: mod += 'm'
+
+        if 'shift' in event.modifiers:
+            nameupper = name.upper()
+            if mod == "" and (name != nameupper or name in shift_exceptions):
+                name = nameupper
+            else:
+                mod += "s"
+
+        if mod != "":
+            name = f'«{mod}-{name}»'
+
+        output_str = (output_str + name)[-MAX_OUTPUT_LEN:]
+        subprocess.Popen(["sudo", "-u", "alanxoc3", "tmux", "set", "-g", "status-right", output_str], preexec_fn=preexec_function)
+    else:
+        pass # print(event.name)
+
+keyboard.on_press(callback=press_callback)
+
+# do nothing in main thread
+try:
+    signal.pause()
+except KeyboardInterrupt:
+    try:
+        sys.exit(1)
+    except SystemExit:
+        os._exit(1)

@@ -13,7 +13,7 @@ bind-key -T copy-mode-vi y send-keys -X copy-selection
 bind-key -T copy-mode-vi r send-keys -X rectangle-toggle
 bind-key -T prefix \` attach-session -c "#{pane_current_path}"
 bind-key -T prefix H clear-history
-bind-key -T prefix R source-file ~/.tmux.conf \; display-message "RELOADED TMUX CONFIG"
+bind-key -T prefix R source-file ~/.tmux.conf
 
 # Saves the current window output into a file and pipes that into kakoune.
 bind-key -T prefix k capture-pane -eJS - \; run-shell 'TTF=$(mktemp); tmux save-buffer $TTF; tmux delete-buffer; tmux split-window -Z sh -c "(cat $TTF; rm $TTF) | kak"'

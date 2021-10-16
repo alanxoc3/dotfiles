@@ -16,13 +16,27 @@ alias urldecode='python3 -c "import urllib.parse, sys; print(urllib.parse.unquot
 # pacman -S libcaca                       # needed for ascii video driver
 # yay mpv-git                             # needed for yt-dlp default & libcaca built-in integration
 # python3 -m pip install --upgrade yt-dlp # youtube-dl is too laggy now and not maintained as much
+cli_yt_mute() {
+    if [ "$#" -ne 1 ]; then
+       echo "Usage: $0 <youtube-url>"
+       return 1;
+    fi
+    CACA_DRIVER=ncurses mpv --aid=no --no-terminal -vo caca "$1"
+}
+
 cli_yt() {
     if [ "$#" -ne 1 ]; then
        echo "Usage: $0 <youtube-url>"
        return 1;
     fi
-    CACA_DRIVER=ncurses mpv --no-terminal --aid=no -vo caca "$1"
+    CACA_DRIVER=ncurses mpv --no-terminal -vo caca "$1"
 }
+
+cli_yt_mute() {
+}
+
+
+
 
 mvcat() {
     cat "${@:1:${#@}-1}" >> "${@:${#@}}"
