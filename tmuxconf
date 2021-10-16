@@ -28,7 +28,20 @@ set -g status-interval 1
 set -g status-left ""
 
 if-shell 'test -z "$SSH_CLIENT"' {
+    # local time is the default right message
     set -g status-right "#[bold]#(i3b_time)"
+
+    # add disable keybinding
+    bind -T root F12 set prefix None \
+        \; set key-table off \
+        \; set status-left "#[fg=yellow,bold]DISABLED#[default] " \
+        \;
+
+    bind -T off F12 set -u prefix \
+        \; set -u key-table \
+        \; set status-left "" \
+        \;
+
 } {
     set -g status-right '#[bold]#(echo -e "$(whoami)@$(hostname)")'
 }

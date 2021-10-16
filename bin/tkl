@@ -28,6 +28,7 @@ output_str = ""
 
 # don't show shift modifier if the key matches any of these:
 shift_exceptions = ('~', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '{', '}', '"', '<', '>', '?', '?', '+', '|', '_', ':', )
+should_wrap_in_angles = ('f1' , 'f2' , 'f3' , 'f4' , 'f5' , 'f6' , 'f7' , 'f8' , 'f9' , 'f10', 'f11', 'f12', )
 
 mappings = {
     '#': '####', '%': '%%',
@@ -94,6 +95,8 @@ def press_callback(event):
 
         if mod != "":
             name = f'«{mod}-{name}»'
+        elif name in should_wrap_in_angles:
+            name = f'«{name}»'
 
         output_str = (output_str + name)[-MAX_OUTPUT_LEN:]
         subprocess.Popen(["sudo", "-u", USERNAME, "tmux", "set", "-g", "status-right", output_str], preexec_fn=preexec_function)
