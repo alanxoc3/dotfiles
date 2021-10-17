@@ -3,9 +3,9 @@
 # single interface for pasting from the clipboard for both OSX and linux.
 
 if [[ "$(uname)" =~ Darwin ]] && command -v pbpaste 2>/dev/null; then
-    pbpaste
+    pbpaste &>/dev/null
 elif command -v xclip &>/dev/null; then
-    xclip -selection clipboard -o
+    xclip -selection clipboard -o &>/dev/null
 else
     cat "${TMPDIR:-/tmp}/.clip-${USER:-$(whoami)}" &>/dev/null
 fi

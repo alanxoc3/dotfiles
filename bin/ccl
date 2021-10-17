@@ -9,9 +9,9 @@ copyfunc() {
 
     cat - > "$TMP_FILE"
     if [[ "$(uname)" =~ Darwin ]] && command -v pbcopy &>/dev/null ; then
-        cat "$TMP_FILE" | pbcopy
+        cat "$TMP_FILE" | pbcopy &>/dev/null
     elif command -v xclip &>/dev/null; then
-        cat "$TMP_FILE" | xclip -selection clipboard
+        cat "$TMP_FILE" | xclip -selection clipboard &>/dev/null
     fi
 }
 
