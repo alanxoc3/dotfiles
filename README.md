@@ -44,5 +44,9 @@ Here are programs I use as part of my daily workflow.
 - [kineto](https://github.com/alanxoc3/kineto). Gemini to https proxy.
 - [nginx](https://nginx.org/). Manage proxies.
 
-### OS
+### Internet Things
+- [amfora](https://github.com/makeworld-the-better-one/amfora). Cli based gemini client.
+- [browsh](https://github.com/browsh-org/browsh). Cli based interface to firefox.
+
+### Other
 - [arch linux](https://www.archlinux.org/). My main operating system.
