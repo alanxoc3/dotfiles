@@ -31,7 +31,7 @@ shift_exceptions = ('~', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '{', 
 should_wrap_in_angles = ('f1' , 'f2' , 'f3' , 'f4' , 'f5' , 'f6' , 'f7' , 'f8' , 'f9' , 'f10', 'f11', 'f12', )
 
 mappings = {
-    '#': '####', '%': '%%',
+    '#': '#', '%': '%',
     '!': '!', '@': '@', '$': '$', '^': '^', '&': '&',
     '*': '*', '(': '(', ')': ')',
 
@@ -99,7 +99,12 @@ def press_callback(event):
             name = f'«{name}»'
 
         output_str = (output_str + name)[-MAX_OUTPUT_LEN:]
-        subprocess.Popen(["sudo", "-u", USERNAME, "tmux", "set", "-g", "status-right", output_str], preexec_fn=preexec_function)
+        final_str = output_str.replace("#", "####")
+        final_str = final_str.replace("%", "%%")
+
+        # length must be 4 times the max size, because that is how long "#" can expand up to.
+        subprocess.Popen(["sudo", "-u", USERNAME, "tmux", "set", "-g", "status-right-length", str(MAX_OUTPUT_LEN*4)], preexec_fn=preexec_function)
+        subprocess.Popen(["sudo", "-u", USERNAME, "tmux", "set", "-g", "status-right", final_str], preexec_fn=preexec_function)
     else:
         pass # print(event.name)
 
