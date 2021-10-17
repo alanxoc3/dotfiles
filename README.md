@@ -14,9 +14,8 @@ Here are programs I use as part of my daily workflow.
 - [git](https://git-scm.com/). The magical version control software.
 - [gpg](https://gnupg.org/). A popular pgp key manager.
 - [kakoune](http://kakoune.org/). A modal editor that closely follows the unix philosophy.
-- [keynav](https://github.com/jordansissel/keynav). Navigate your keyboard with Vim key bindings.
 - [lookatme](https://github.com/d0c-s4vage/lookatme). A markdown + terminal based presentation tool.
-- [mpv](https://mpv.io/). Nice for streaming webradios.
+- [mpv](https://mpv.io/). Nice CLI based media player. Good for webradios and streaming videos.
 - [pass](https://www.passwordstore.org/). A terminal based & gpg encrypted password manager.
 - [ranger](https://github.com/ranger/ranger). Navigate files with Vim bindings. (I'm looking for a more minimalistic replacement though.)
 - [rg](https://github.com/BurntSushi/ripgrep). Search file content super fast. Faster and cooler than grep.
@@ -32,6 +31,7 @@ Here are programs I use as part of my daily workflow.
 ### Window Management
 - [bspwm](https://github.com/baskerville/bspwm). Tiling based window manager.
 - [i3lock](https://github.com/i3/i3lock). Simple Xorg lock screen.
+- [keynav](https://github.com/jordansissel/keynav). Navigate your keyboard with Vim key bindings.
 - [rofi](https://github.com/davatorium/rofi). Configurable search menu.
 - [sxhkd](https://github.com/baskerville/sxhkd). Simple Xorg Hot Key Daemon.
 
@@ -41,12 +41,12 @@ Here are programs I use as part of my daily workflow.
 
 ### Server Technology
 - [agate](https://github.com/mbrubeck/agate). Simple gemini server written in rust.
+- [archlinux](https://www.archlinux.org/). My main operating system. Nice for servers too.
 - [kineto](https://github.com/alanxoc3/kineto). Gemini to https proxy.
 - [nginx](https://nginx.org/). Manage proxies.
 
 ### Internet Things
-- [amfora](https://github.com/makeworld-the-better-one/amfora). Cli based gemini client.
-- [browsh](https://github.com/browsh-org/browsh). Cli based interface to firefox.
-
-### Other
-- [arch linux](https://www.archlinux.org/). My main operating system.
+- [amfora](https://github.com/makeworld-the-better-one/amfora). CLI based gemini client.
+- [browsh](https://github.com/browsh-org/browsh). CLI based interface to firefox.
+- [irssi](https://irssi.org/). CLI based IRC client.
+- [yt-dlp](https://github.com/yt-dlp/yt-dlp). Better internet video downloader.
