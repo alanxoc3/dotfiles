@@ -55,9 +55,9 @@ if-shell 'test -z "$SSH_CLIENT"' {
         \; set status-left "#[fg=green,bold]LOCAL#[default] " \
         \;
 } {
-    set status-left "#[fg=cyan,bold]SSH#[default] "
-    set -g status-right '#[fg=white,bold]#(echo -e "$(whoami)@$(hostname)")'
     set-option -g status-position top
+    set -g status-left "#[fg=cyan,bold]SSH#[default] "
+    set -g status-right '#[fg=white,bold]#(echo -e "$(whoami)@$(hostname)")'
 }
 
 set -g monitor-activity on
