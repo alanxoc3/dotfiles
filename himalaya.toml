@@ -3,7 +3,7 @@
 name = "Alan Morgan"
 downloads-dir = "/home/alanxoc3/Downloads/"
 signature-delimiter = "-- "
-signature = "Alan"
+signature = "Alan Morgan"
 
 [xoc3]
 default = true
@@ -21,3 +21,16 @@ smtp-port = 587
 smtp-starttls = true
 smtp-login = "alan"
 smtp-passwd-cmd = "pass show _servers/linode"
+
+[gmail]
+email = "alanxoc3@gmail.com"
+
+imap-host = "imap.gmail.com"
+imap-port = 993
+imap-login = "alanxoc3@gmail.com"
+imap-passwd-cmd = "pass show gmail"
+
+smtp-host = "smtp.gmail.com"
+smtp-port = 465
+smtp-login = "alanxoc3@gmail.com"
+smtp-passwd-cmd = "pass show gmail"
