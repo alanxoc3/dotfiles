@@ -25,17 +25,24 @@ bind-key -T prefix S new-session
 
 set -g status-style fg=white,bg=#112222,dim
 set -g status-interval 1
-set -g status-left ""
 
-# set -g window-status-format "#I:#W#{?window_flags,#{window_flags}, }"
+set -g pane-border-lines heavy
+set -g window-active-style 'fg=#ffffff'
+set -g window-style 'fg=#aaaaaa'
+set -g pane-active-border-style 'fg=#556666,bg=default'
+set -g pane-border-style 'fg=#112222,bg=default'
+set -g display-panes-colour blue
+set -g display-panes-active-colour red
+
 set -g window-status-format "#[fg=blue]#I#[default]"
 set -g window-status-current-format "#[fg=blue,bold][#[default]#[fg=yellow,bold]#I#[fg=red,bold]#{?window_zoomed_flag,:Z,}#[fg=blue,bold]]#[default]"
 
 if-shell 'test -z "$SSH_CLIENT"' {
+    set -g status-left "#[fg=green,bold]LOCAL#[default] "
     set-option -g status-position bottom
 
     # local time is the default right message
-    set -g status-right "#[bold]#(i3b_time)"
+    set -g status-right "#[fg=green,bold]#(i3b_time)"
 
     # add disable keybinding
     bind -T root F12 set prefix None \
@@ -47,9 +54,8 @@ if-shell 'test -z "$SSH_CLIENT"' {
         \; set -u key-table \
         \; set status-left "#[fg=green,bold]LOCAL#[default] " \
         \;
-
-    set status-left "#[fg=green,bold]LOCAL#[default] "
 } {
+    set -g status-left ""
     set-option -g status-position top
     set -g status-right '#[bold]#(echo -e "$(whoami)@$(hostname)")'
 }
