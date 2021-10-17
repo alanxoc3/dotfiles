@@ -1,0 +1,12 @@
+#!/bin/bash
+# pcl - paste clipboard.
+# single interface for pasting from the clipboard for both OSX and linux.
+
+if [[ "$(uname)" =~ Darwin ]] && command -v pbpaste 2>/dev/null; then
+    pbpaste
+elif command -v xclip &>/dev/null; then
+    echo hello
+    xclip -selection clipboard -o
+else
+    cat "${TMPDIR:-/tmp}/.clip-${USER:-$(whoami)}" &>/dev/null
+fi

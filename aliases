@@ -428,10 +428,6 @@ a kbf_ssh_hosts="sed -rn 's/^\s*Host\s+(.*)$/\1/ip' ~/.ssh/config ~/.ssh/local_s
 # Thank you: https://gist.github.com/igemnace/9b6fb8c2885c3e35299b3a122e1009e5
 a fzf_apropos='apropos "." 2> /dev/null | cut -f 1 -d "(" | uniq | fzf'
 
-# clipboard
-a ccl=cclip
-a pcl=pclip
-
 # xargs
 a xargs='xargs '
 a x='xargs '

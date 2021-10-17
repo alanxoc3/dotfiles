@@ -1,9 +1,0 @@
-#!/bin/bash
-# ccl - copy clipboard. single interface for copying to the clipboard on mac or linux.
-copyfunc() { [[ "$(uname)" =~ Darwin ]] && pbcopy || xclip -selection clipboard; }
-
-if [ -t 0 ]; then
-    echo -n "$@" | copyfunc
-else
-    cat - | copyfunc
-fi
