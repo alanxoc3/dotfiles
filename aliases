@@ -12,38 +12,37 @@ alias urlencodeplus='python3 -c "import urllib.parse, sys; print(urllib.parse.qu
 alias urlencodeslash='python3 -c "import urllib.parse, sys; print(urllib.parse.quote(  \" \".join(sys.argv[1:]) if len(sys.argv) > 1 else sys.stdin.read()[0:-1], \"\"))"'
 alias urldecode='python3 -c "import urllib.parse, sys; print(urllib.parse.unquote(\" \".join(sys.argv[1:]) if len(sys.argv) > 1 else sys.stdin.read()[0:-1]))"'
 
-# Installation:
+# cli_yt installation:
 # pacman -S libcaca                       # needed for ascii video driver
 # yay mpv-git                             # needed for yt-dlp default & libcaca built-in integration
 # python3 -m pip install --upgrade yt-dlp # youtube-dl is too laggy now and not maintained as much
 
 cli_yt_mute() {
-    if [ "$#" -ne 1 ]; then
-       echo "Usage: $0 <youtube-url>"
-       return 1;
-    fi
+    [ "$#" -ne 1 ] && echo "USAGE: $0 <youtube-url>" && return 1
     CACA_DRIVER=ncurses mpv --no-terminal --aid=no -vo caca "$1"
 }
 
 cli_yt() {
-    if [ "$#" -ne 1 ]; then
-       echo "Usage: $0 <youtube-url>"
-       return 1;
-    fi
+    [ "$#" -ne 1 ] && echo "USAGE: $0 <youtube-url>" && return 1
     CACA_DRIVER=ncurses mpv --no-terminal -vo caca "$1"
 }
 
+# cats files to a destination, then shreds & rms them.
 mvcat() {
     cat "${@:1:${#@}-1}" >> "${@:${#@}}"
+    command -v shred &>/dev/null && shred "${@:1:${#@}-1}"
     rm "${@:1:${#@}-1}"
 }
 
-multiqr() {
-    if [ "$#" -ne 2 ]; then
-       echo "Usage: echo x | multiqr DIRNAME MAX_BYTES"
-       return 1;
-    fi
+# cats files to stdout, then shreds & rms them.
+rmcat() {
+    cat "${@:1:${#@}}"
+    command -v shred &>/dev/null && shred "${@:1:${#@}}"
+    rm "${@:1:${#@}}"
+}
 
+multiqr() {
+    [ "$#" -ne 2 ] && echo "USAGE: echo x | multiqr DIRNAME MAX_BYTES" && return 1
     tempdir=$(mktemp -d)
     pushd "$tempdir" > /dev/null
     cat > original_file
@@ -79,7 +78,7 @@ check_rdns() {
 
 # https://www.jvt.me/posts/2019/12/04/openssl-certs-dir-setup/
 
-# Usage: domain port
+# USAGE: domain port
 get_ssl_cert() {
     openssl s_client -connect "$1:$2" 2>/dev/null </dev/null |  sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p'
 }
@@ -449,6 +448,21 @@ a pc="pico-compile"
 a pw="pico-watch"
 
 # gpg
+# gpg, manage email:         gpg --edit-key X; adduid; list; uid X; trust; uid X; revuid; save
+# gpg, create subkey:        gpg --edit-key X; addkey (4, 4096); save;
+# transfer subkey w/ssh:     gpg --export-secret-subkeys X! | ssh X -C 'gpg --import' # exclamation mark forces subkey.
+# transfer all public w/ssh: gpg --armor --export X | ssh X -C 'gpg --import'
+
+gpg-send-private() {
+    [ "$#" -ne 2 ] && echo "USAGE: $0 <gpg-key-hash> <ssh-profile>" && return 1
+    (pass show gpg 2>/dev/null; gpg --export-secret-subkeys "$1!") | ssh "$2" gpg --import --pinentry-mode loopback --passphrase-fd 0
+}
+
+gpg-send-public() {
+    [ "$#" -ne 2 ] && echo "USAGE: $0 <gpg-key-hash> <ssh-profile>" && return 1
+    (pass show gpg 2>/dev/null; gpg --armor --export "$1") | ssh "$2" gpg --import --pinentry-mode loopback --passphrase-fd 0
+}
+
 a gpglk='gpg --list-keys --with-subkey-fingerprints --with-keygrip'
 a gpgek='gpg --armor --export'
 a gpgfgk='gpg --full-generate-key'
