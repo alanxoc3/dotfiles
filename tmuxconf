@@ -42,7 +42,7 @@ if-shell 'test -z "$SSH_CLIENT"' {
     set-option -g status-position bottom
 
     # local time is the default right message
-    set -g status-right "#[fg=white,bold]#(i3b_time)"
+    set -g status-right "#[fg=white]#(i3b_time)"
 
     # add disable keybinding
     bind -T root F12 set prefix None \
@@ -57,7 +57,7 @@ if-shell 'test -z "$SSH_CLIENT"' {
 } {
     set-option -g status-position top
     set -g status-left "#[fg=cyan,bold]SSH#[default] "
-    set -g status-right '#[fg=white,bold]#(echo -e "$(whoami)@$(hostname)")'
+    set -g status-right '#[fg=white]#(echo -e "$(whoami)@$(hostname)")'
 }
 
 set -g monitor-activity on
