@@ -4,9 +4,10 @@
 
 copyfunc() {
     TMP_FILE="${TMPDIR:-/tmp}/.clip-${USER:-$(whoami)}"
+    touch "$TMP_FILE"
     chmod 600 "$TMP_FILE"
-    cat - > "$TMP_FILE"
 
+    cat - > "$TMP_FILE"
     if [[ "$(uname)" =~ Darwin ]] && command -v pbcopy &>/dev/null ; then
         cat "$TMP_FILE" | pbcopy
     elif command -v xclip &>/dev/null; then
