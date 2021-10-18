@@ -2,7 +2,7 @@
 # runs irc with "ii"
 
 # install ii:
-# git clone https://git.suckless.org/ii; cd ii; make; cp ii ~/.local/bin
+# git clone git@github.com:alanxoc3/ii.git; cd ii; make; cp ii ~/.local/bin
 # pacman -S socat
 
 # this guy wrote a nice article about ii too:
@@ -24,8 +24,9 @@ connect() {
     socat "tcp-listen:$1,reuseaddr,fork" "openssl-connect:$2:$3" &
     socat /dev/null TCP:127.0.0.1:$1,forever
 
-    # Remove the dir to ensure tail captures all output.
+    # Remove main & nickserv out files to ensure tail captures everything.
     rm "$BASEDIR/$4/out" &>/dev/null
+    rm "$BASEDIR/$4/nickserv/out" 2>/dev/null
     ii -i "$BASEDIR/$4" -s 127.0.0.1 -p $1 -n "$IRCNICK" >/dev/null &
 
     echo "[$4]: initializing..."
@@ -35,9 +36,10 @@ connect() {
     # Grep is used below because that is line buffered. I need line buffered because the pass and echo commands are separate. Cat is not line buffered.
     echo "[$4]: authenticating nickname..."
     (echo -n "/j nickserv identify " && pass show "$2/$IRCNICK") | grep ^ --line-buffered > "$BASEDIR/$4/in"
-    rm -r "$BASEDIR/$4/nickserv"
+    tail -F "$BASEDIR/$4/nickserv/out" -n +1 2>/dev/null | grep "$6" -m 1 | head -n 1 &>/dev/null
+    sed -Ei 's/^.*identify.*$//g' "$BASEDIR/$4/nickserv/out"
 
-    for channel in "${@:6}"; do
+    for channel in "${@:7}"; do
         echo "[$4]: joining $channel..."
         echo "/j $channel" > "$BASEDIR/$4/in"
     done
@@ -49,8 +51,8 @@ echo "irc setup for $IRCNICK. populates files & dirs in ~/irc."
 echo "ctrl+d or ctrl+c to exit."
 echo
 
-connect 33123 irc.libera.chat 6697 libera 'Welcome to the Libera.Chat Internet' '#archlinux' '#kakoune' &
-connect 33124 irc.tilde.chat  6697 tilde  'welcome to tilde.chat'               '#gemini'               &
+connect 33123 irc.libera.chat 6697 libera 'Welcome to the Libera.Chat Internet' 'identified' '#archlinux' '#kakoune' &
+connect 33124 irc.tilde.chat  6697 tilde  'welcome to tilde.chat'               'recognized' '#gemini'               &
 
 # Wait forever until exit.
 cat &>/dev/null
