@@ -17,6 +17,9 @@ alias urldecode='python3 -c "import urllib.parse, sys; print(urllib.parse.unquot
 # yay mpv-git                             # needed for yt-dlp default & libcaca built-in integration
 # python3 -m pip install --upgrade yt-dlp # youtube-dl is too laggy now and not maintained as much
 
+# gemini curl:
+# echo gemini://gemini.circumlunar.space/ | ncat -C --ssl gemini.circumlunar.space 1965
+
 cli_yt_mute() {
     [ "$#" -ne 1 ] && echo "USAGE: $0 <youtube-url>" && return 1
     CACA_DRIVER=ncurses mpv --no-terminal --aid=no -vo caca "$1"
