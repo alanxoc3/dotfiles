@@ -1,0 +1,56 @@
+#!/bin/bash
+# runs irc with "ii"
+
+# install ii:
+# git clone https://git.suckless.org/ii; cd ii; make; cp ii ~/.local/bin
+# pacman -S socat
+
+# this guy wrote a nice article about ii too:
+# https://medium.com/@okubax/ii-irc-client-485a395a836a
+
+# Cleanup background processes. Thanks to:
+# https://stackoverflow.com/questions/360201/how-do-i-kill-background-processes-jobs-when-my-shell-script-exits
+trap "trap - SIGTERM && kill -- -$$" SIGINT SIGTERM EXIT
+
+BASEDIR="$HOME/irc"
+IRCNICK="alanxoc3"
+
+waitforfile() {
+    until [ -r "$1" ]; do sleep .25; done
+}
+
+connect() {
+    echo "[$4]: connecting..."
+    socat "tcp-listen:$1,reuseaddr,fork" "openssl-connect:$2:$3" &
+    socat /dev/null TCP:127.0.0.1:$1,forever
+
+    # Remove the dir to ensure tail captures all output.
+    rm "$BASEDIR/$4/out" &>/dev/null
+    ii -i "$BASEDIR/$4" -s 127.0.0.1 -p $1 -n "$IRCNICK" >/dev/null &
+
+    echo "[$4]: initializing..."
+    waitforfile "$BASEDIR/$4/in"
+    tail -F "$BASEDIR/$4/out" -n +1 2>/dev/null | grep "$5" -m 1 | head -n 1 &>/dev/null
+
+    # Grep is used below because that is line buffered. I need line buffered because the pass and echo commands are separate. Cat is not line buffered.
+    echo "[$4]: authenticating nickname..."
+    (echo -n "/j nickserv identify " && pass show "$2/$IRCNICK") | grep ^ --line-buffered > "$BASEDIR/$4/in"
+    rm -r "$BASEDIR/$4/nickserv"
+
+    for channel in "${@:6}"; do
+        echo "[$4]: joining $channel..."
+        echo "/j $channel" > "$BASEDIR/$4/in"
+    done
+
+    echo "[$4]: ready to chat!"
+}
+
+echo "irc setup for $IRCNICK. populates files & dirs in ~/irc."
+echo "ctrl+d or ctrl+c to exit."
+echo
+
+connect 33123 irc.libera.chat 6697 libera 'Welcome to the Libera.Chat Internet' '#archlinux' '#kakoune' &
+connect 33124 irc.tilde.chat  6697 tilde  'welcome to tilde.chat'               '#gemini'               &
+
+# Wait forever until exit.
+cat &>/dev/null
