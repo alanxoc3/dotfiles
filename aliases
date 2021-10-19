@@ -20,14 +20,14 @@ alias urldecode='python3 -c "import urllib.parse, sys; print(urllib.parse.unquot
 # gemini curl:
 # echo gemini://gemini.circumlunar.space/ | ncat -C --ssl gemini.circumlunar.space 1965
 
-cli_yt_mute() {
-    [ "$#" -ne 1 ] && echo "USAGE: $0 <youtube-url>" && return 1
-    CACA_DRIVER=ncurses mpv --no-terminal --aid=no -vo caca "$1"
+mpv_cli_mute() {
+    [ "$#" -lt 1 ] && echo "USAGE: $0 <mpv-options>..." && return 1
+    CACA_DRIVER=ncurses mpv --no-terminal --aid=no -vo caca "$@"
 }
 
-cli_yt() {
-    [ "$#" -ne 1 ] && echo "USAGE: $0 <youtube-url>" && return 1
-    CACA_DRIVER=ncurses mpv --no-terminal -vo caca "$1"
+mpv_cli() {
+    [ "$#" -lt 1 ] && echo "USAGE: $0 <mpv-options>..." && return 1
+    CACA_DRIVER=ncurses mpv --no-terminal -vo caca "$@"
 }
 
 # cats files to a destination, then shreds & rms them.
