@@ -1,2 +1,2 @@
 #!/bin/bash
-tail -F $(fd out -E nickserv "$@" --exact-depth 3 -t f ~/irc) -n 10 2>/dev/null
+tail -F $(fd out -E nickserv "$@" --exact-depth 3 -t f ~/irc) -n 10 2>/dev/null | grep -vE '^[0-9]+ -!-'

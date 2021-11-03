@@ -5,12 +5,13 @@ Alan's dotfiles. Feel free to plagiarize.
 Here are programs I use as part of my daily workflow.
 
 ### Terminal Apps
+- [asciinema](https://asciinema.org/). Super easy to record your terminal screen.
 - [concards](https://github.com/alanxoc3/concards). I've been reviewing/creating flashcards everyday with this.
 - [diff-so-fancy](https://github.com/so-fancy/diff-so-fancy). A pretty diff program.
 - [exa](https://github.com/ogham/exa). A modern implementation of ls.
 - [fd](https://github.com/sharkdp/fd). Search file names super fast. Faster and cooler than find.
 - [fzf](https://github.com/junegunn/fzf). Fuzzy find for anything.
-- [gh](https://cli.github.com/). Github made an official CLI. I use it for managing issues and PRs now.
+- [gh](https://cli.github.com/). Github made an official CLI. I sometimes use it for managing issues and PRs now.
 - [git](https://git-scm.com/). The magical version control software.
 - [gpg](https://gnupg.org/). A popular pgp key manager.
 - [kakoune](http://kakoune.org/). A modal editor that closely follows the unix philosophy.

@@ -12,6 +12,9 @@ alias urlencodeplus='python3 -c "import urllib.parse, sys; print(urllib.parse.qu
 alias urlencodeslash='python3 -c "import urllib.parse, sys; print(urllib.parse.quote(  \" \".join(sys.argv[1:]) if len(sys.argv) > 1 else sys.stdin.read()[0:-1], \"\"))"'
 alias urldecode='python3 -c "import urllib.parse, sys; print(urllib.parse.unquote(\" \".join(sys.argv[1:]) if len(sys.argv) > 1 else sys.stdin.read()[0:-1]))"'
 
+# create short github url
+# curl -i https://git.io -F "url=<github-url>"
+
 # cli_yt installation:
 # pacman -S libcaca                       # needed for ascii video driver
 # yay mpv-git                             # needed for yt-dlp default & libcaca built-in integration
@@ -426,6 +429,7 @@ _fzf_compgen_path() { fd -t f -t d . "$1" }
 a fzf='fzf --height 40% --reverse'
 a kbf_git_branch="git branch -a | sed 's/^ *//g' | grep -v '*'"
 a kbf_ssh_hosts="sed -rn 's/^\s*Host\s+(.*)$/\1/ip' ~/.ssh/config ~/.ssh/local_ssh 2> /dev/null | xargs -n1"
+a emoj="emoji-fzf preview | fzf -m --with-nth 2.. -d ' ' | cut -d ' ' -f 1 | emoji-fzf get"
 
 # Thank you: https://gist.github.com/igemnace/9b6fb8c2885c3e35299b3a122e1009e5
 a fzf_apropos='apropos "." 2> /dev/null | cut -f 1 -d "(" | uniq | fzf'
@@ -496,9 +500,13 @@ a df='df -h'
 ssht() { ssh $1 -t 'tmux attach 2> /dev/null || tmux 2> /dev/null || zsh 2> /dev/null || bash 2> /dev/null' "${@:2}" }
 ttt() { [[ -n $1 ]] && while true; do sleep 1s; ttrack rec $1 2s; done || echo 'Requires argument for group' }
 a tt='ttrack'
-a bat='bat -p --color always'
+a bat='bat -p --paging never'
 a b='bat'
-a pomo='while true; do echo "WORK TIME"; sleep 25m; speak "timez up... break time" > /dev/null 2>&1; echo "BREAK TIME"; sleep 5m; speak "timez up... start working again" > /dev/null 2>&1; done'
+speakecho() {
+    echo "$@"
+    speak "$@" &>/dev/null
+}
+a pomo='while true; do speakecho "WORK TIME"; sleep 25m; speakecho "BREAK TIME"; sleep 5m; done'
 a u='echo -e "$(whoami)@$(hostname)"'
 a bn='basename'
 a p='pwd'

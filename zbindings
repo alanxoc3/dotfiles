@@ -136,6 +136,15 @@ kb_git_branches() {
 zle     -N    kb_git_branches
 bindkey '\eg' kb_git_branches
 
+kb_emoji() {
+   LBUFFER="${LBUFFER}$(emoj)"
+   local ret=$?
+   zle reset-prompt
+   return $ret
+}
+zle     -N    kb_emoji
+bindkey '\ee' kb_emoji
+
 kb_apropos() {
    LBUFFER="${LBUFFER}man $(fzf_apropos)"
    local ret=$?
