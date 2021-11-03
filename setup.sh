@@ -19,16 +19,12 @@ cf() {
 
 cf zshrc              .zshrc
 cf zshenv             .zshenv
-cf bashrc             .bashrc
 cf aliases            .aliases
 cf xinitrc            .xinitrc
-cf bash_profile       .bash_profile
-cf profile            .profile
 cf Xresources         .Xresources
 cf tmuxconf           .tmux.conf
 cf keynavrc           .keynavrc
 cf local_aliases      .local_aliases
-cf local_bash_profile .local_bash_profile
 cf local_gitconfig    .local_gitconfig
 cf gitignore          .gitignore
 cf doom               .doom.d
