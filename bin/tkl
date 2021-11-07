@@ -20,7 +20,7 @@ def force_exit():
 def eprint(*args, **kwargs):
     print(*args, file=sys.stderr, **kwargs)
 
-USERNAME="alanxoc3" # change this if you want to use this script
+USERNAME=os.environ.get('SUDO_USER', os.environ['USER'])
 MAX_OUTPUT_LEN=40
 
 global output_str
@@ -45,7 +45,7 @@ mappings = {
     '{': '{', '}': '}',
     '-': '-', '_': '_', '−': '−',
     '=': '=', '+': '+',
-    "'": "'", '"': '"',
+    '\'': '\'', '"': '"',
     ',': ',', '<': '<',
     '.': '.', '>': '>',
     ';': ';', ':': ':',
@@ -62,6 +62,7 @@ mappings = {
     'f10': 'f10', 'f11': 'f11', 'f12': 'f12',
 
     'backspace': '⇤',
+    'delete': '⇤',
     'tab': '⇥',
     'space': '␣',
     'enter': '↵',
@@ -71,6 +72,18 @@ mappings = {
     'right': '→',
     'up': '↑',
     'down': '↓',
+}
+
+to_shift = {
+    '1': '!', '2': '@', '3': '#', '4': '$', '5': '%', '6': '^', '7': '&', '8': '*', '9': '(', '0': ')',
+    '`': '~', '[': '{', ']': '}', ',': '<', '.': '>', '/': '?', '=': '+', '-': '_', ';': ':',
+    '\'': '"', '\\': '|',
+
+    'a': 'A', 'b': 'B', 'c': 'C', 'd': 'D', 'e': 'E', 'f': 'F',
+    'g': 'G', 'h': 'H', 'i': 'I', 'j': 'J', 'k': 'K', 'l': 'L',
+    'm': 'M', 'n': 'N', 'o': 'O', 'p': 'P', 'q': 'Q', 'r': 'R',
+    's': 'S', 't': 'T', 'u': 'U', 'v': 'V', 'w': 'W', 'x': 'X',
+    'y': 'Y', 'z': 'Z',
 }
 
 def preexec_function():
@@ -83,13 +96,17 @@ def press_callback(event):
         mod = ""
 
         if 'ctrl' in event.modifiers: mod += 'c'
-        if 'alt' in event.modifiers: mod += 'a'
-        if 'windows' in event.modifiers: mod += 'm'
+        if 'alt' in event.modifiers or 'option' in event.modifiers: mod += 'a'
+        if 'windows' in event.modifiers or 'command' in event.modifiers: mod += 'm'
 
         if 'shift' in event.modifiers:
-            nameupper = name.upper()
-            if mod == "" and (name != nameupper or name in shift_exceptions):
-                name = nameupper
+            if mod == "":
+                if name in to_shift:
+                    name = to_shift[name]
+                elif name in shift_exceptions:
+                    pass
+                else:
+                    mod = "s"
             else:
                 mod += "s"
 
@@ -99,8 +116,12 @@ def press_callback(event):
             name = f'«{name}»'
 
         output_str = (output_str + name)[-MAX_OUTPUT_LEN:]
+
+        # tmux is weird. these are to get around all the exceptions with the status line
         final_str = output_str.replace("#", "####")
         final_str = final_str.replace("%", "%%")
+        if final_str.endswith(";"):
+            final_str = final_str + ';'
 
         # length must be 4 times the max size, because that is how long "#" can expand up to.
         subprocess.Popen(["sudo", "-u", USERNAME, "tmux", "set", "-g", "status-right-length", str(MAX_OUTPUT_LEN*4)], preexec_fn=preexec_function)
@@ -116,6 +137,7 @@ except ImportError:
 
 # do nothing in main thread
 try:
-    signal.pause()
+    while True:
+        signal.pause()
 except KeyboardInterrupt:
     force_exit()
