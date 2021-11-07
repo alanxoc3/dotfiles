@@ -206,7 +206,7 @@ a ev='kak ~/.config/nvim/lua/init.lua'
 a ek='kak ~/.config/kak/kakrc'
 a ea='kak ~/.aliases ~/.local_aliases'
 a eb='kak ~/repos/capsule/cap/blog/$(date -u +%F).gmi'
-a ez='kak ~/.zshrc ~/.zshenv ~/.dotfiles/local_zshrc'
+a ez='kak ~/.zshrc ~/.zshenv ~/.dotfiles/local_zshrc ~/.dotfiles/zbindings'
 
 # diary
 a diary='cd ~/sync/alan/diary'
@@ -430,6 +430,7 @@ a fzf='fzf --height 40% --reverse'
 a kbf_git_branch="git branch -a | sed 's/^ *//g' | grep -v '*'"
 a kbf_ssh_hosts="sed -rn 's/^\s*Host\s+(.*)$/\1/ip' ~/.ssh/config ~/.ssh/local_ssh 2> /dev/null | xargs -n1"
 a emoj="emoji-fzf preview | fzf -m --with-nth 2.. -d ' ' | cut -d ' ' -f 1 | emoji-fzf get"
+a ttls="ttrack ls -r | fzf -m"
 
 # Thank you: https://gist.github.com/igemnace/9b6fb8c2885c3e35299b3a122e1009e5
 a fzf_apropos='apropos "." 2> /dev/null | cut -f 1 -d "(" | uniq | fzf'
@@ -499,14 +500,29 @@ a df='df -h'
 # random
 ssht() { ssh $1 -t 'tmux attach 2> /dev/null || tmux 2> /dev/null || zsh 2> /dev/null || bash 2> /dev/null' "${@:2}" }
 ttt() { [[ -n $1 ]] && while true; do sleep 1s; ttrack rec $1 2s; done || echo 'Requires argument for group' }
+
+pomo() {
+    speakecho() {
+        echo "$@"
+        speak "$@" &>/dev/null
+    }
+
+    pomotermdown() {
+        termdown -a --font 3x5 -c 10 --exec-cmd '[[ {0} -le 10 ]] && espeak {0}' $1
+    }
+
+    while true; do
+        speakecho "WORK TIME"
+        pomotermdown 25m
+        speakecho "BREAK TIME"
+        pomotermdown 5m
+    done
+}
+
+alias termdown='termdown -a --font 3x5'
 a tt='ttrack'
 a bat='bat -p --paging never'
 a b='bat'
-speakecho() {
-    echo "$@"
-    speak "$@" &>/dev/null
-}
-a pomo='while true; do speakecho "WORK TIME"; sleep 25m; speakecho "BREAK TIME"; sleep 5m; done'
 a u='echo -e "$(whoami)@$(hostname)"'
 a bn='basename'
 a p='pwd'

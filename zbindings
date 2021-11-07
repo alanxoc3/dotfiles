@@ -145,6 +145,15 @@ kb_emoji() {
 zle     -N    kb_emoji
 bindkey '\ee' kb_emoji
 
+kb_ttls() {
+   LBUFFER="${LBUFFER}$(ttls)"
+   local ret=$?
+   zle reset-prompt
+   return $ret
+}
+zle     -N    kb_ttls
+bindkey '\er' kb_ttls
+
 kb_apropos() {
    LBUFFER="${LBUFFER}man $(fzf_apropos)"
    local ret=$?
