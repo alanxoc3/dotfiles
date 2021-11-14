@@ -29,7 +29,6 @@ cf local_gitconfig    .local_gitconfig
 cf gitignore          .gitignore
 cf doom               .doom.d
 cf git-templates      .git-templates
-cf nvim               .config/nvim
 cf kak                .config/kak
 cf kak-lsp            .config/kak-lsp
 cf bspwmrc            .config/bspwm/bspwmrc

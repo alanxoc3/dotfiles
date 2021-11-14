@@ -196,13 +196,9 @@ a gocover='go test -coverprofile=/tmp/cover.out; go tool cover -html=/tmp/cover.
 
 # vim & kak
 a vor='kak ~/sync/library/dicts/esperanto_dictionary.txt'
-a vim='nvim'
-a vi='nvim'
-a v='nvim'
 a k="kak"
 a editsnips="kak ~/.dotfiles/snips/*"
 a es='editsnips'
-a ev='kak ~/.config/nvim/lua/init.lua'
 a ek='kak ~/.config/kak/kakrc'
 a ea='kak ~/.aliases ~/.local_aliases'
 a eb='kak ~/repos/capsule/cap/blog/$(date -u +%F).gmi'
@@ -427,13 +423,6 @@ a cnc="concards ~/sync/alan/diary"
 # list things for fzf
 _fzf_compgen_path() { fd -t f -t d . "$1" }
 a fzf='fzf --height 40% --reverse'
-a kbf_git_branch="git branch -a | sed 's/^ *//g' | grep -v '*'"
-a kbf_ssh_hosts="sed -rn 's/^\s*Host\s+(.*)$/\1/ip' ~/.ssh/config ~/.ssh/local_ssh 2> /dev/null | xargs -n1"
-a emoj="emoji-fzf preview | fzf -m --with-nth 2.. -d ' ' | cut -d ' ' -f 1 | emoji-fzf get"
-a ttls="ttrack ls -r | fzf -m"
-
-# Thank you: https://gist.github.com/igemnace/9b6fb8c2885c3e35299b3a122e1009e5
-a fzf_apropos='apropos "." 2> /dev/null | cut -f 1 -d "(" | uniq | fzf'
 
 # xargs
 a xargs='xargs '
@@ -556,3 +545,64 @@ repelify() {
         printf '-> '
     done
 }
+
+printnotnil() { [[ -n "${@:2}" ]] && cat <<< ${1/\%\%/${@:2}} }
+
+fzf_echo_all_dirs()    { printnotnil '%%' $(fd -IHt d | fzf -m) }
+fzf_echo_all_files()   { printnotnil '%%' $(fd -IHt f | fzf -m) }
+fzf_echo_dirs()        { printnotnil '%%' $(fd -t d | fzf -m) }
+fzf_echo_emoji()       { printnotnil '%%' $(emoji-fzf preview | fzf -m --with-nth 2.. -d ' ' | awk '{print $1;}' | emoji-fzf get) }
+fzf_echo_files()       { printnotnil '%%' $(fd -t f | fzf -m) }
+fzf_echo_git_branch()  { printnotnil '%%' $(git branch -a | sed 's/^ *//g' | grep -v '*' | fzf -m) }
+fzf_echo_git_tag()     { printnotnil '%%' $(git tag | fzf -m) }
+fzf_echo_history()     { printnotnil '%%' $(fc -rl 1 | fzf --nth 2.. | sed -E 's/^ *[0-9]+ *//g') }
+fzf_echo_man()         { printnotnil '%%' $(apropos "." 2> /dev/null | awk '{print $1;}' | uniq | fzf) }
+fzf_echo_pass()        { printnotnil '%%' $(fd --base-directory ~/.password-store -t f | rg '\.gpg$' | sed -E 's/\.gpg$//g' | fzf) }
+fzf_echo_ssh()         { printnotnil '%%' $(sed -rn 's/^\s*Host\s+(.*)$/\1/ip' ~/.ssh/config ~/.ssh/local_ssh 2> /dev/null | xargs -n1 | fzf -m) }
+fzf_echo_tmux_tokens() { printnotnil '%%' $(tsl | FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} --reverse --bind=ctrl-z:ignore $FZF_DEFAULT_OPTS" fzf -m "$@" | tr '\n' ' ' | awk '{gsub(/ +$/,"")}{print}') }
+fzf_echo_ttrack()      { printnotnil '%%' $(ttrack ls -r | fzf) }
+fzf_echo_himalaya_account() { cat ~/.config/himalaya/config.toml | rg '^\[(.+)\]$' -r '$1' | fzf --bind space:accept }
+
+fzf_echo_himalaya_mbox() {
+    local ACCOUNT=${1:-$(fzf_echo_himalaya_account)}
+    [[ -n $ACCOUNT ]] || exit
+    himalaya -a $ACCOUNT -o json mboxes | jq '.response | map(.name)[]' -r | fzf
+}
+
+fzf_echo_himalaya_id() {
+    local ACCOUNT=${1:-$(fzf_echo_himalaya_account)}
+    [[ -n $ACCOUNT ]] || exit
+    local MBOX=${2:-$(fzf_echo_himalaya_mbox $ACCOUNT)}
+    [[ -n $MBOX ]] || exit
+    himalaya -a "$ACCOUNT" -m "$MBOX" -o json list | jq '.response | map((if (.flags | length) > 0 then "  " else "* " end) + (.id|tostring) + " - " + .sender + " - " + .subject)[]' -r | fzf | rg '^..(\d+).+$' -r '$1'
+}
+
+fzf_eval_himalaya_read() {
+    local ACCOUNT=$(fzf_echo_himalaya_account)
+    [[ -n $ACCOUNT ]] || exit
+    local MBOX=$(fzf_echo_himalaya_mbox $ACCOUNT)
+    [[ -n $MBOX ]] || exit
+    local ID=$(fzf_echo_himalaya_id $ACCOUNT $MBOX)
+    [[ -n $ID ]] || exit
+    cat <<< "himalaya -a '$ACCOUNT' -m '$MBOX' read '$ID'"
+}
+
+fzf_eval_bat()     { printnotnil 'bat %%'                            $(fzf_echo_files) }
+fzf_eval_cat()     { printnotnil 'cat %%'                            $(fzf_echo_files) }
+fzf_eval_cd()      { printnotnil 'cd %% && pwd'                      $(fd -t d | fzf) }
+fzf_eval_history() { printnotnil '%%'                                $(fzf_echo_history) }
+fzf_eval_man()     { printnotnil 'man %%'                            $(fzf_echo_man) }
+fzf_eval_pass()    { printnotnil 'pass show "%%" 2> /dev/null | ccl' $(fzf_echo_pass) }
+
+fzf_eval_rg_kak() {
+    RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case "
+    RG_LINE=$(eval "$RG_PREFIX ''" | fzf --nth 3.. -d ':' --bind "change:reload:$RG_PREFIX {q} || true")
+    FILE=$(cut -d ':' -f 1   <<< $RG_LINE)
+    LINE=$(cut -d ':' -f 2   <<< $RG_LINE)
+    COLUMN=$(cut -d ':' -f 3 <<< $RG_LINE)
+
+    printnotnil "kak \"%%\" +$LINE:$COLUMN" "$FILE"
+}
+
+fzf_echo_modes() { eval $(printnotnil '%%' ${1:-$(print -l ${(ok)functions} | rg '^fzf_echo_' | sed -E 's/_/ /g' | fzf --bind space:accept --with-nth 3.. -d ' ' | sed -E 's/ /_/g')}) }
+fzf_eval_modes() { eval $(printnotnil '%%' ${1:-$(print -l ${(ok)functions} | rg '^fzf_eval_' | sed -E 's/_/ /g' | fzf --bind space:accept --with-nth 3.. -d ' ' | sed -E 's/ /_/g')}) }
