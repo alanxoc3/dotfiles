@@ -553,8 +553,9 @@ fzf_echo_all_files()   { printnotnil '%%' $(fd -IHt f | fzf -m) }
 fzf_echo_dirs()        { printnotnil '%%' $(fd -t d | fzf -m) }
 fzf_echo_emoji()       { printnotnil '%%' $(emoji-fzf preview | fzf -m --with-nth 2.. -d ' ' | awk '{print $1;}' | emoji-fzf get) }
 fzf_echo_files()       { printnotnil '%%' $(fd -t f | fzf -m) }
-fzf_echo_git_branch()  { printnotnil '%%' $(git branch -a | sed 's/^ *//g' | grep -v '*' | fzf -m) }
-fzf_echo_git_tag()     { printnotnil '%%' $(git tag | fzf -m) }
+fzf_echo_git_branch()  { printnotnil '%%' $(git for-each-ref --format='%(refname:short)' refs/remotes refs/heads | fzf -m) }
+fzf_echo_git_refs()    { printnotnil '%%' $(git for-each-ref --format='%(refname:short)' | fzf -m) }
+fzf_echo_git_tag()     { printnotnil '%%' $(git for-each-ref --format='%(refname:short)' refs/tags | fzf -m) }
 fzf_echo_history()     { printnotnil '%%' $(fc -rl 1 | fzf --nth 2.. | sed -E 's/^ *[0-9]+ *//g') }
 fzf_echo_man()         { printnotnil '%%' $(apropos "." 2> /dev/null | awk '{print $1;}' | uniq | fzf) }
 fzf_echo_pass()        { printnotnil '%%' $(fd --base-directory ~/.password-store -t f | rg '\.gpg$' | sed -E 's/\.gpg$//g' | fzf) }
