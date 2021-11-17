@@ -92,7 +92,8 @@ get_ssl_cert() {
 # gemini
 a am='amfora'
 ams() { amfora "gemini://geminispace.info/search?$(urlencode $@)" }
-a ama='amfora xoc3.io'
+a ama='amfora warmedal.se/~antenna/'
+a amx='amfora xoc3.io'
 
 # qrdecode
 qrdecode='zbarimg --raw -q'
@@ -561,7 +562,7 @@ fzf_echo_man()         { printnotnil '%%' $(apropos "." 2> /dev/null | awk '{pri
 fzf_echo_pass()        { printnotnil '%%' $(fd --base-directory ~/.password-store -t f | rg '\.gpg$' | sed -E 's/\.gpg$//g' | fzf) }
 fzf_echo_ssh()         { printnotnil '%%' $(sed -rn 's/^\s*Host\s+(.*)$/\1/ip' ~/.ssh/config ~/.ssh/local_ssh 2> /dev/null | xargs -n1 | fzf -m) }
 fzf_echo_tmux_tokens() { printnotnil '%%' $(tsl | FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} --reverse --bind=ctrl-z:ignore $FZF_DEFAULT_OPTS" fzf -m "$@" | tr '\n' ' ' | awk '{gsub(/ +$/,"")}{print}') }
-fzf_echo_ttrack()      { printnotnil '%%' $(ttrack ls -r | fzf) }
+fzf_echo_ttrack()      { printnotnil '%%' $(ttrack ls -r | fzf -m) }
 fzf_echo_himalaya_account() { cat ~/.config/himalaya/config.toml | rg '^\[(.+)\]$' -r '$1' | fzf --bind space:accept }
 
 fzf_echo_himalaya_mbox() {

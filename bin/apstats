@@ -6,9 +6,9 @@
 formatdur() {
 cat << EOF | lua
 str = ''
-num = math.floor($1)           if num ~= 0 then str = str..num..'h' end
-num = math.floor($1%1*60)      if num ~= 0 or str ~= '' then str = str..num..'m' end
-num = math.floor($1%1*60%1*60) str = str..num..'s'
+num = math.floor(($1))           if num ~= 0 then str = str..num..'h' end
+num = math.floor(($1)%1*60)      if num ~= 0 or str ~= '' then str = str..num..'m' end
+num = math.floor(($1)%1*60%1*60) str = str..num..'s'
 print(str)
 EOF
 }
@@ -18,30 +18,29 @@ parsedur() {
     cat <<< ${x:-0}
 }
 
-getpercent() {
-    local ttduration=$(ttrack agg -b $BEG_DATE -e $END_DATE ${*:4})
+durdecimal() {
     local tthours=$(parsedur $1 h)
     local ttminutes=$(parsedur $1 m)
     local ttseconds=$(parsedur $1 s)
-    echo "print(math.floor(($tthours+$ttminutes/60+$ttseconds/60/60)/($2)*100))" | lua
+    echo "print($tthours+$ttminutes/60+$ttseconds/60/60)" | lua
 }
 
 END_DATE=${3:-$(date +%F)}
 YEAR=$(date -d $END_DATE +%Y)
 DAY_OF_YEAR=$(date -d $END_DATE +%j)
 DAYS_IN_YEAR=$(date -d "$YEAR-12-31" +%j)
+DAYS_LEFT=$(echo "$DAYS_IN_YEAR-$DAY_OF_YEAR" | bc)
 BEG_DATE="$YEAR-01-01"
 
 OVERALL_DURATION=$(ttrack agg -b $BEG_DATE -e $END_DATE ${*:4})
 DAILY_DURATION=$(ttrack agg -b $END_DATE -e $END_DATE ${*:4})
-OVERALL_PERCENTAGE=$(getpercent $OVERALL_DURATION "$2*$DAY_OF_YEAR/$DAYS_IN_YEAR")
-DAILY_PERCENTAGE=$(getpercent $DAILY_DURATION "$2/$DAYS_IN_YEAR")
 
-OVERALL_GOAL_DURATION=$(formatdur "$2*$DAY_OF_YEAR/$DAYS_IN_YEAR")
-DAILY_GOAL_DURATION=$(formatdur "$2/$DAYS_IN_YEAR")
-printf "%-10s: %3s%% = %-18s | %3s%% = %s\n" \
-    "$1" \
-    "$DAILY_PERCENTAGE" \
-    "$DAILY_DURATION/$DAILY_GOAL_DURATION" \
-    "$OVERALL_PERCENTAGE" \
-    "$OVERALL_DURATION/$OVERALL_GOAL_DURATION" \
+OVERALL_GOAL_DURATION=$(formatdur "$2")
+HOURS_PER_REMAINING_DAY=$(echo "print(math.max(0, ($2-$(durdecimal $OVERALL_DURATION))/$DAYS_LEFT))" | lua)
+DURATION_PER_REMAINING_DAY=$(formatdur $HOURS_PER_REMAINING_DAY)
+printf "%+9s %+9s / %-9s %+11s / %-11s\n" \
+    "$1:" \
+    "$DAILY_DURATION" \
+    "$DURATION_PER_REMAINING_DAY" \
+    "$OVERALL_DURATION" \
+    "$OVERALL_GOAL_DURATION" \
