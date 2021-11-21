@@ -5,6 +5,10 @@
 # this python script listens for specific key presses and prints them out to tmux.
 # dependencies: sudo pip install keyboard
 
+# tested on both arch linux & mac os darwin
+# i merged a PR into the the keyboard library to get darwin working. so make
+# sure you are using a version AFTER v0.13.5.
+
 import keyboard   # recording key presses
 import os         # for exiting
 import signal     # waiting and exiting sub processes
