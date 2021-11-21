@@ -36,7 +36,7 @@ OVERALL_DURATION=$(ttrack agg -b $BEG_DATE -e $END_DATE ${*:4})
 DAILY_DURATION=$(ttrack agg -b $END_DATE -e $END_DATE ${*:4})
 
 OVERALL_GOAL_DURATION=$(formatdur "$2")
-HOURS_PER_REMAINING_DAY=$(echo "print(math.max(0, ($2-$(durdecimal $OVERALL_DURATION))/$DAYS_LEFT))" | lua)
+HOURS_PER_REMAINING_DAY=$(echo "print(math.max(0, ($2-$(durdecimal $OVERALL_DURATION)+$(durdecimal $DAILY_DURATION))/$DAYS_LEFT))" | lua)
 DURATION_PER_REMAINING_DAY=$(formatdur $HOURS_PER_REMAINING_DAY)
 printf "%+9s %+9s / %-9s %+11s / %-11s\n" \
     "$1:" \
