@@ -2,7 +2,7 @@
 # pcl - paste clipboard.
 # single interface for pasting from the clipboard for both OSX and linux.
 
-if [[ "$(uname)" =~ Darwin ]] && command -v pbpaste 2>/dev/null; then
+if [[ "$(uname)" =~ Darwin ]] && command -v pbpaste &>/dev/null; then
     pbpaste 2>/dev/null
 elif command -v xclip &>/dev/null; then
     xclip -selection clipboard -o 2>/dev/null
