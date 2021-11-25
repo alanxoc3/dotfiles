@@ -64,6 +64,9 @@ multiqr() {
     mv "$tempdir" "$1"
 }
 
+# A poor vpn
+a pvpn="sshuttle -r work 0/0 -x work.xoc3.io"
+
 check_dns_a_record() {
     dig +short $1
 }
