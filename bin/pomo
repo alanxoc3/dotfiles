@@ -1,0 +1,20 @@
+#!/bin/zsh
+# pomo - pomodoro timer.
+
+trap "trap - SIGTERM && kill -- -$$" SIGINT SIGTERM EXIT
+
+ttt() { [[ -n $1 ]] && while sleep 1s; do (ttrack rec "$1" 2s &); done || echo 'Requires argument for group' }
+
+speakechosleep() {
+    echo "$2 - $3"
+    (speak "$2" &>/dev/null &)
+    ttt "$1" &
+    local TTT_PID="$!"
+    sleep "$3"
+    kill -9 "$TTT_PID"
+}
+
+while true; do
+    speakechosleep "pomo/work"  "WORK TIME"  ${1:-25m}
+    speakechosleep "pomo/break" "BREAK TIME" ${2:-5m}
+done
