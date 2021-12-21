@@ -8,7 +8,7 @@ set-option global startup_info_version 99999999
 set-option global ui_options ncurses_assistant=none
 
 # Disable mouse support.
-set-option -add global ui_options ncurses_enable_mouse=off
+set-option -add global ui_options terminal_enable_mouse=false
 
 # Remove the scratch buffer message.
 hook global BufCreate \*scratch\* %{

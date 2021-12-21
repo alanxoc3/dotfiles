@@ -191,6 +191,7 @@ mpv_category() {
 }
 
 a chiptune='mpv_category webradio/chiptune http://79.120.11.40:8000/chiptune.ogg'
+a smolfm='mpv_category webradio/smolfm http://jdj.golf:8000/radio.mp3'
 a anonradio='mpv_category webradio/anonradio http://anonradio.net:8000/anonradio'
 a tilderadio='mpv_category webradio/tilderadio https://azuracast.tilderadio.org/radio/8000/radio.ogg'
 a book='mpv_category book'
@@ -577,6 +578,9 @@ fzf_eval_himalaya_read() {
     [[ -n $ID ]] || exit
     cat <<< "himalaya -a '$ACCOUNT' -m '$MBOX' read '$ID'"
 }
+
+# transfer.sh
+transfer(){ if [ $# -eq 0 ];then echo "No arguments specified.\nUsage:\n transfer <file|directory>\n ... | transfer <file_name>">&2;return 1;fi;if tty -s;then file="$1";file_name=$(basename "$file");if [ ! -e "$file" ];then echo "$file: No such file or directory">&2;return 1;fi;if [ -d "$file" ];then file_name="$file_name.zip" ,;(cd "$file"&&zip -r -q - .)|curl -s --upload-file "-" "https://transfer.sh/$file_name"|tee /dev/null,;else cat "$file"|curl -s --upload-file "-" "https://transfer.sh/$file_name"|tee /dev/null;fi;else file_name=$1;curl -s --upload-file "-" "https://transfer.sh/$file_name"|tee /dev/null;fi;}
 
 fzf_eval_bat()     { printnotnil 'bat %%'                            $(fzf_echo_files) }
 fzf_eval_cat()     { printnotnil 'cat %%'                            $(fzf_echo_files) }
