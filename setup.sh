@@ -36,7 +36,6 @@ cf sxhkdrc            .config/sxhkd/sxhkdrc
 cf mpv.conf           .config/mpv/mpv.conf
 cf gitconfig          .config/git/config
 cf kitty-config       .config/kitty/kitty.conf
-cf concards-data      .local/share/concards
 cf concards-config    .config/concards
 cf ssh-config         .ssh/config
 cf mimeapps.list      .config/mimeapps.list
@@ -46,6 +45,8 @@ cf irssi-config       .irssi/config
 cf irssi-theme        .irssi/default.theme
 cf gpg-agent.conf     .gnupg/gpg-agent.conf
 cf himalaya.toml      .config/himalaya/config.toml
+
+cf ~/sync/alan/diary/concards-data      .local/share/concards
 
 # Ripgrep config can't recognize environment variables in its configuration.
 # Putting the config here is my best solution.

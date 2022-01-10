@@ -29,7 +29,8 @@ END_DATE=${3:-$(date +%F)}
 YEAR=$(date -d $END_DATE +%Y)
 DAY_OF_YEAR=$(date -d $END_DATE +%j)
 DAYS_IN_YEAR=$(date -d "$YEAR-12-31" +%j)
-DAYS_LEFT=$(echo "$DAYS_IN_YEAR-$DAY_OF_YEAR" | bc)
+DAYS_LEFT=$(echo "$DAYS_IN_YEAR-$DAY_OF_YEAR+1" | bc)
+
 BEG_DATE="$YEAR-01-01"
 
 OVERALL_DURATION=$(ttrack agg -b $BEG_DATE -e $END_DATE ${*:4})

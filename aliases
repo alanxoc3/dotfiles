@@ -12,6 +12,13 @@ alias urlencodeplus='python3 -c "import urllib.parse, sys; print(urllib.parse.qu
 alias urlencodeslash='python3 -c "import urllib.parse, sys; print(urllib.parse.quote(  \" \".join(sys.argv[1:]) if len(sys.argv) > 1 else sys.stdin.read()[0:-1], \"\"))"'
 alias urldecode='python3 -c "import urllib.parse, sys; print(urllib.parse.unquote(\" \".join(sys.argv[1:]) if len(sys.argv) > 1 else sys.stdin.read()[0:-1]))"'
 
+# Adding ogg meta-data
+# vorbiscomment -w -t 'ARTIST=alan@xoc3.io' -t 'ALBUM=piano-tunes' -t 'TITLE=canon theme' canon_theme.ogg
+# vorbiscomment canon_theme.ogg
+
+# Show if airplane mode is on or off
+# rfkill list all
+
 # create midi connection:
 # timidity -iA
 # aconnect <send-midi> <receive-midi>
@@ -216,7 +223,7 @@ a ez='kak ~/.zshrc ~/.zshenv ~/.dotfiles/local_zshrc ~/.dotfiles/zbindings'
 # diary
 a diary='cd ~/sync/alan/diary'
 a di='diary'
-a jrn='kak ~/sync/alan/diary/{2021_diary,motive,achievements,todos,plans}.md'
+a jrn='kak ~/sync/alan/diary/{2022_diary,motive,achievements,todos,plans}.md'
 a rnj='jrn'
 a nrj='jrn'
 a njr='jrn'
@@ -374,7 +381,7 @@ a oweroff='poweroff'
 # w3m
 a w3m='w3m -no-mouse'
 ddg() {
-    w3m ddg.gg?q=$(urlencodeplus "$@")
+    w3m ddg.gg?q=$(urlencodeplus "${@:-}")
 }
 
 # xrandr
@@ -526,6 +533,15 @@ a watch='watch -c -d'
 a daet='date'
 a slblk='lsblk'
 a repinyin='repelify pinyin'
+
+# himalaya archive inbox
+emailarchive() {
+    last=$(himalaya -a "$1" -o json list -s 1 | jq -r '.response[].id')
+    [[ -n $last ]] && himalaya -a "$1" move "1:$last" "$2"
+}
+
+a garch='emailarchive gmail "[Gmail]/All Mail"'
+a xarch='emailarchive xoc3  All'
 
 # Turns any command into a repl!
 repelify() {

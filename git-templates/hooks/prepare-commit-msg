@@ -17,3 +17,8 @@ elif [[ $text =~ $gh_regex ]]; then
    name="GH-${BASH_REMATCH[1]}"
    sed -i.old '1s;^;['"$name"'] '"\\$nl"';' $COMMIT_MSG_FILE
 fi
+
+# Append the diff to the comments
+echo "# REPO LOCATION: $(git rev-parse --show-toplevel)" >> $COMMIT_MSG_FILE; echo
+echo '# DIFFERENCES TO BE COMMITTED:' >> $COMMIT_MSG_FILE
+git diff --staged | awk '{print "# " $0;}' >> $COMMIT_MSG_FILE
