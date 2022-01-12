@@ -12,6 +12,9 @@ alias urlencodeplus='python3 -c "import urllib.parse, sys; print(urllib.parse.qu
 alias urlencodeslash='python3 -c "import urllib.parse, sys; print(urllib.parse.quote(  \" \".join(sys.argv[1:]) if len(sys.argv) > 1 else sys.stdin.read()[0:-1], \"\"))"'
 alias urldecode='python3 -c "import urllib.parse, sys; print(urllib.parse.unquote(\" \".join(sys.argv[1:]) if len(sys.argv) > 1 else sys.stdin.read()[0:-1]))"'
 
+# remove duplicates no sorting.
+# awk '{ if (a[$0] == 0){ a[$0] += 1; print $0} else {print "NULL";}}'
+
 # Adding ogg meta-data
 # vorbiscomment -w -t 'ARTIST=alan@xoc3.io' -t 'ALBUM=piano-tunes' -t 'TITLE=canon theme' canon_theme.ogg
 # vorbiscomment canon_theme.ogg
