@@ -37,6 +37,15 @@ alias urldecode='python3 -c "import urllib.parse, sys; print(urllib.parse.unquot
 # gemini curl:
 # echo gemini://gemini.circumlunar.space/ | ncat -C --ssl gemini.circumlunar.space 1965
 
+# waitexecquiet
+waitexecq() {
+    (&>/dev/null nohup bash -c "sleep $1; ${@:2}" &)
+}
+
+waitexec() {
+    (bash -c "sleep $1; ${@:2}" &)
+}
+
 mpv_cli_mute() {
     [ "$#" -lt 1 ] && echo "USAGE: $0 <mpv-options>..." && return 1
     CACA_DRIVER=ncurses mpv --no-terminal --aid=no -vo caca "$@"
@@ -95,15 +104,16 @@ check_rdns() {
 # usermod -d /home/$new_username -m $new_username
 # groupmod -n $new_username $old_username
 
-# openssl
-# How to get a certificate
-# openssl s_client -connect www.google.com:443 2>/dev/null </dev/null |  sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p'
-
 # https://www.jvt.me/posts/2019/12/04/openssl-certs-dir-setup/
 
+# Returns the PEM-like certificate from https thing
 # USAGE: domain port
 get_ssl_cert() {
-    openssl s_client -connect "$1:$2" 2>/dev/null </dev/null |  sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p'
+    openssl s_client -connect "$1:${2:-443}" 2>/dev/null </dev/null | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p'
+}
+
+parse_ssl_cert() {
+    openssl s_client -connect "$1:${2:-443}" 2>/dev/null </dev/null | openssl x509 -inform pem -noout -text
 }
 
 # gemini
