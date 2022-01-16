@@ -519,6 +519,7 @@ a df='df -h'
 ssht() { ssh $1 -t 'tmux attach 2> /dev/null || tmux 2> /dev/null || zsh 2> /dev/null || bash 2> /dev/null' "${@:2}" }
 ttt() { [[ -n $1 ]] && while sleep 1s; do (ttrack rec "$1" 2s &); done || echo 'Requires argument for group' }
 
+a wh=which
 a termdown='termdown -a --font 3x5'
 a tt='ttrack'
 a bat='bat -p --paging never'
