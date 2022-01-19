@@ -236,7 +236,7 @@ a ez='kak ~/.zshrc ~/.zshenv ~/.dotfiles/local_zshrc ~/.dotfiles/zbindings'
 # diary
 a diary='cd ~/sync/alan/diary'
 a di='diary'
-a jrn='kak ~/sync/alan/diary/{2022_diary,motive,achievements,todos,plans}.md'
+a jrn='kak ~/sync/alan/diary/{2022_diary,schedule,achievements,todos}.md'
 a rnj='jrn'
 a nrj='jrn'
 a njr='jrn'
