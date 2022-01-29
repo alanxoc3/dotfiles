@@ -46,7 +46,8 @@ cf irssi-theme        .irssi/default.theme
 cf gpg-agent.conf     .gnupg/gpg-agent.conf
 cf himalaya.toml      .config/himalaya/config.toml
 
-cf ~/sync/alan/diary/concards-data      .local/share/concards
+cf ~/sync/alan/diary/concards-data .local/share/concards
+cf ~/sync/alan/diary/ttrack        .local/share/ttrack
 
 # Ripgrep config can't recognize environment variables in its configuration.
 # Putting the config here is my best solution.

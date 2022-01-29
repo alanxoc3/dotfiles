@@ -27,5 +27,5 @@
 [interactive]
     diffFilter = diff-so-fancy --patch
 
-# [commit]
-    # gpgsign = true
+[commit]
+    gpgsign = true
