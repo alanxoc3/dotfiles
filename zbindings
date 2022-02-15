@@ -63,8 +63,8 @@ zshbind '\ec' kb_fzf_eval_cd
 kb_fzf_echo_files() { kbf_fzf_echo_modes fzf_echo_files }
 zshbind '^t' kb_fzf_echo_files
 
-kb_fzf_eval_history() { kbf_fzf_eval_modes fzf_eval_history }
-zshbind '^r' kb_fzf_eval_history
+kb_fzf_echo_history() { kbf_fzf_echo_modes fzf_echo_history }
+zshbind '^r' kb_fzf_echo_history
 
 # tab & backspace
 bindkey '\t' expand-or-complete-prefix

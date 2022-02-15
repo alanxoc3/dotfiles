@@ -624,3 +624,24 @@ fzf_eval_rg_kak() {
 
 fzf_echo_modes() { eval $(printnotnil '%%' ${1:-$(print -l ${(ok)functions} | rg '^fzf_echo_' | sed -E 's/_/ /g' | fzf --bind space:accept --with-nth 3.. -d ' ' | sed -E 's/ /_/g')}) }
 fzf_eval_modes() { eval $(printnotnil '%%' ${1:-$(print -l ${(ok)functions} | rg '^fzf_eval_' | sed -E 's/_/ /g' | fzf --bind space:accept --with-nth 3.. -d ' ' | sed -E 's/ /_/g')}) }
+
+# Creates a hash of all your arguments. This is guaranteed to be unique
+argshash() { for arg in "$@"; do sha256sum <<< "$arg"; done | sha256sum | awk '{print $1;}' }
+
+# If a command was run recently, just cat the cache file. If not recent, run the command.
+# Duration defaults to days, but can have other time endings too: smhdw
+# cachemd DURATION CMD ARGS...
+cachecmd() {
+    CACHE_DIR=${CACHECMD_DIR:-${XDG_CACHE_HOME:-/tmp}}/cachecmd
+    DURATION=$1
+    FILE=${CACHE_DIR}/$(argshash "${@:2}")
+
+    if [[ $(find $FILE -mtime -${DURATION} 2>/dev/null) ]] && [[ -z "$CACHECMD_CLEAR" ]]; then
+        [[ -n "$CACHECMD_DEBUG" ]] && echo '[cachecmd] cache mode' >&2
+        cat < "$FILE"
+    else
+        [[ -n "$CACHECMD_DEBUG" ]] && echo '[cachecmd] command mode' >&2
+        mkdir -p "$CACHE_DIR"
+        "${@:2}" | tee "$FILE"
+    fi
+}
