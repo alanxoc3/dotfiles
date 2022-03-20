@@ -563,10 +563,10 @@ repelify() {
 printnotnil() { [[ -n "${@:2}" ]] && cat <<< ${1/\%\%/${@:2}} }
 
 fzf_echo_all_dirs()    { printnotnil '%%' $(fd -IHt d | fzf -m) }
-fzf_echo_all_files()   { printnotnil '%%' $(fd -IHt f | fzf -m) }
+fzf_echo_all_files()   { printnotnil '%%' $(fd -IHt f -t l | fzf -m) }
 fzf_echo_dirs()        { printnotnil '%%' $(fd -t d | fzf -m) }
 fzf_echo_emoji()       { printnotnil '%%' $(emoji-fzf preview | fzf -m --with-nth 2.. -d ' ' | awk '{print $1;}' | emoji-fzf get) }
-fzf_echo_files()       { printnotnil '%%' $(fd -t f | fzf -m) }
+fzf_echo_files()       { printnotnil '%%' $(fd -t f -t l | fzf -m) }
 fzf_echo_git_branch()  { printnotnil '%%' $(git for-each-ref --format='%(refname:short)' refs/remotes refs/heads | fzf -m) }
 fzf_echo_git_refs()    { printnotnil '%%' $(git for-each-ref --format='%(refname:short)' | fzf -m) }
 fzf_echo_git_tag()     { printnotnil '%%' $(git for-each-ref --format='%(refname:short)' refs/tags | fzf -m) }
