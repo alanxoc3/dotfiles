@@ -12,8 +12,18 @@ alias urlencodeplus='python3 -c "import urllib.parse, sys; print(urllib.parse.qu
 alias urlencodeslash='python3 -c "import urllib.parse, sys; print(urllib.parse.quote(  \" \".join(sys.argv[1:]) if len(sys.argv) > 1 else sys.stdin.read()[0:-1], \"\"))"'
 alias urldecode='python3 -c "import urllib.parse, sys; print(urllib.parse.unquote(\" \".join(sys.argv[1:]) if len(sys.argv) > 1 else sys.stdin.read()[0:-1]))"'
 
+# hex string to int:
+# python -c 'import sys; print(int(sys.stdin.read(), 16))'
+
+# diff -u f1 f2 | diff-so-fancy
 # remove duplicates no sorting.
 # awk '{ if (a[$0] == 0){ a[$0] += 1; print $0} else {print "NULL";}}'
+
+# Get the fingerprint of an ssh private key (useful for aws).
+# openssl pkcs8 -in <path_to_private_key> -inform PEM -outform DER -topk8 -nocrypt | openssl sha1 -c
+
+# increment git tag
+# git tag | sort -V | tail -n 1 | awk -vFS=. -vOFS=. '{$NF++;print}'
 
 # Adding ogg meta-data
 # vorbiscomment -w -t 'ARTIST=alan@xoc3.io' -t 'ALBUM=piano-tunes' -t 'TITLE=canon theme' canon_theme.ogg
@@ -471,6 +481,8 @@ a pw="pico-watch"
 # gpg, create subkey:        gpg --edit-key X; addkey (4, 4096); save;
 # transfer subkey w/ssh:     gpg --export-secret-subkeys X! | ssh X -C 'gpg --import' # exclamation mark forces subkey.
 # transfer all public w/ssh: gpg --armor --export X | ssh X -C 'gpg --import'
+# import: gpg --import
+# view info about key: gpg --list-packets
 
 gpg-send-private() {
     [ "$#" -ne 2 ] && echo "USAGE: $0 <gpg-key-hash> <ssh-profile>" && return 1
@@ -645,3 +657,21 @@ cachecmd() {
         "${@:2}" | tee "$FILE"
     fi
 }
+
+# # Proof of concept for cachecmd with ax shell.
+# a cachecmd ^EOF
+#     $CACHE_DIR [!if (test -n {CACHECMD_DIR}) {CACHCMD_DIR} [!if (test -n {XDG_CACHE_HOME}) {XDG_CACHE_HOME} -/tmp]]/cachecmd
+#     $CACHE_DIR [or {CACHECMD_DIR} {XDG_CACHE_HOME} /tmp]/cachecmd
+#     $DURATION {1}
+#     $FILE {CACHE_DIR}/(argshash *[range '2:' *{@}])
+# 
+#     !if (!and (find {FILE} -mtime -{DURATION} 2>/dev/null) (test -z {CACHECMD_CLEAR}))
+#         [
+#             (!if (test -n {CACHECMD_DEBUG}) [echo '[cachecmd] cache mode'])
+#             cat -- {FILE}
+#         ][
+#             (!if (test -n {CACHECMD_DEBUG}) [echo '[cachecmd] command mode'])
+#             mkdir -p {CACHE_DIR}
+#             [range '2:' *{@}] | tee {FILE}
+#         ];
+# EOF
