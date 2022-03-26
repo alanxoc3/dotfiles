@@ -34,9 +34,6 @@ alias urldecode='python3 -c "import urllib.parse, sys; print(urllib.parse.unquot
 # yay mpv-git                             # needed for yt-dlp default & libcaca built-in integration
 # python3 -m pip install --upgrade yt-dlp # youtube-dl is too laggy now and not maintained as much
 
-# gemini curl:
-# echo gemini://gemini.circumlunar.space/ | ncat -C --ssl gemini.circumlunar.space 1965
-
 # waitexecquiet
 waitexecq() {
     (&>/dev/null nohup bash -c "sleep $1; ${@:2}" &)
@@ -121,6 +118,9 @@ a am='amfora'
 ams() { amfora "gemini://geminispace.info/search?$(urlencode $@)" }
 a ama='amfora warmedal.se/~antenna/'
 a amx='amfora xoc3.io'
+
+# host name then path
+cgem() { echo "gemini://$1/$2" | ncat -C --ssl "$1" 1965 }
 
 # qrdecode
 qrdecode='zbarimg --raw -q'
