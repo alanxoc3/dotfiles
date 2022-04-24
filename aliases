@@ -211,21 +211,17 @@ glc() {
 a ghi='gh issue'
 a ghil='gh issue list'
 
-# mpsyt & youtube-dl
-mpv_category() {
-    local filename=$(mktemp)
-    mv $filename $filename.lua
-    filename=$filename.lua
-    echo 'mp.add_periodic_timer(1, function() if "no" == mp.get_property("core-idle") then os.execute("ttrack rec '"$1"' 3s") end end)' > $filename
-    mpv --script=$filename "${@:2}"
-}
-
-a chiptune='mpv_category webradio/chiptune http://79.120.11.40:8000/chiptune.ogg'
-a smolfm='mpv_category webradio/smolfm http://jdj.golf:8000/radio.mp3'
-a anonradio='mpv_category webradio/anonradio http://anonradio.net:8000/anonradio'
-a tilderadio='mpv_category webradio/tilderadio https://azuracast.tilderadio.org/radio/8000/radio.ogg'
-a book='mpv_category book'
+a chiptune='mpv_category   webradio/chiptune   75 http://79.120.11.40:8000/chiptune.ogg'
+a smolfm='mpv_category     webradio/smolfm     75 http://jdj.golf:8000/radio.mp3'
+a anonradio='mpv_category  webradio/anonradio  75 http://anonradio.net:8000/anonradio'
+a tilderadio='mpv_category webradio/tilderadio 75 https://azuracast.tilderadio.org/radio/8000/radio.ogg'
+a book='mpv_category       book                75'
 a anonsched="curl https://anonradio.net/schedule/ 2> /dev/null | k -f 'spre>|^$<ret><a-x>d'"
+
+chipbook() {
+    tmux split-window mpv_category webradio/chiptune 25 http://79.120.11.40:8000/chiptune.ogg
+    mpv_category book 100 "$@"
+}
 
 a getvid="youtube-dl -f 18"
 a vid2mp3='youtube-dl --extract-audio --audio-format mp3'
@@ -365,8 +361,8 @@ a supdim="sbri 1"
 # localectl & setxkbmap
 a cdv='localectl set-keymap --no-convert dvorak'
 a cqw='localectl set-keymap --no-convert us'
-a gdv='setxkbmap -layout "us" -variant "dvorak"'
-a gqw='setxkbmap -layout "us"'
+a gdv='killall sxhkd keynav; setxkbmap -layout "us" -variant "dvorak"; (keynav &; sxhkd &)'
+a gqw='killall sxhkd keynav; setxkbmap -layout "us"; (keynav &; sxhkd &)'
 
 # ls
 a ls='exa'

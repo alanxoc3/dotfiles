@@ -1,0 +1,14 @@
+#!/bin/bash
+# mpv_category ttrack_category volume ...
+
+filename=$(mktemp)
+mv $filename $filename.lua
+filename=$filename.lua
+echo 'mp.add_periodic_timer(1, function() if "no" == mp.get_property("core-idle") then os.execute("ttrack rec '"$1"' 3s") end end)' > $filename
+
+waitexecq() {
+    (&>/dev/null nohup bash -c "sleep $1; ${@:2}" &)
+}
+
+waitexecq 5s 'for x in $(pactl list short sink-inputs | awk "{print \$1}"); do pactl set-sink-input-volume $x 100%; done'
+mpv --volume="$2" --script=$filename "${@:3}"
