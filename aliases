@@ -151,6 +151,10 @@ a umtwo="sudo umount /mnt2"
 # git
 # Interesting article: https://redfin.engineering/visualize-merge-history-with-git-log-graph-first-parent-and-no-merges-c6a9b5ff109c
 # Interesting git log options from that article: git log --pretty="format:%h %ar %s" --no-merges --first-parent --graph
+
+# use filter-repo to remove a file from history
+# git filter-repo --path <absolute-path-of-file-from-base-dir> --invert-paths --force
+
 a repos='cd ~/repos'
 a rep=repos
 a cg='cd $(git rev-parse --show-toplevel)'
@@ -219,7 +223,7 @@ a book='mpv_category       book                75'
 a anonsched="curl https://anonradio.net/schedule/ 2> /dev/null | k -f 'spre>|^$<ret><a-x>d'"
 
 chipbook() {
-    tmux split-window mpv_category webradio/chiptune 25 http://79.120.11.40:8000/chiptune.ogg
+    tmux split-window mpv_category webradio/chiptune 35 http://79.120.11.40:8000/chiptune.ogg
     mpv_category book 100 "$@"
 }
 
