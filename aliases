@@ -454,7 +454,7 @@ a cnc="concards ~/sync/alan/diary"
 
 # list things for fzf
 _fzf_compgen_path() { fd -t f -t d . "$1" }
-a fzf='fzf --height 40% --reverse'
+export FZF_DEFAULT_OPTS='--height 40% --reverse'
 
 # xargs
 a xargs='xargs '
@@ -622,7 +622,7 @@ fzf_eval_cat()     { printnotnil 'cat %%'                            $(fzf_echo_
 fzf_eval_cd()      { printnotnil 'cd %% && pwd'                      $(fd -t d | fzf) }
 fzf_eval_history() { printnotnil '%%'                                $(fzf_echo_history) }
 fzf_eval_man()     { printnotnil 'man %%'                            $(fzf_echo_man) }
-fzf_eval_pass()    { printnotnil 'pass show "%%" 2> /dev/null | tr -d "\n" | ccl' $(fzf_echo_pass) }
+fzf_eval_pass()    { printnotnil 'pass show "%%" 2> /dev/null | perl -pe "chomp if eof" | ccl' $(fzf_echo_pass) }
 
 fzf_eval_rg_kak() {
     RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case "
@@ -634,8 +634,14 @@ fzf_eval_rg_kak() {
     printnotnil "kak \"%%\" +$LINE:$COLUMN" "$FILE"
 }
 
+fzf_gui_copy_file()  { cd $HOME; output=$(fzf_echo_files); [[ -n "$output" ]] && cat "$output" | ccl }
+fzf_gui_pass()       { output=$(fzf_echo_pass); [[ -n "$output" ]] && echo "$output" | xargs pass show 2> /dev/null | perl -pe "chomp if eof" | ccl }
+fzf_gui_qute()       { echo 'search for what?'; echo -n '' | fzf --no-info --print-query --height 1 | read search; [[ -n "$search" ]] && qutebrowser "$search" & }
+fzf_gui_exec()       { VAL=$(echo "$PATH" | tr : '\0' | xargs -0 fd . --exact-depth 1 2>/dev/null | sed -E 's,.+/,,g' | sort -u | fzf); [[ -n "$VAL" ]] && setsid "$VAL" & }
+
 fzf_echo_modes() { eval $(printnotnil '%%' ${1:-$(print -l ${(ok)functions} | rg '^fzf_echo_' | sed -E 's/_/ /g' | fzf --bind space:accept --with-nth 3.. -d ' ' | sed -E 's/ /_/g')}) }
 fzf_eval_modes() { eval $(printnotnil '%%' ${1:-$(print -l ${(ok)functions} | rg '^fzf_eval_' | sed -E 's/_/ /g' | fzf --bind space:accept --with-nth 3.. -d ' ' | sed -E 's/ /_/g')}) }
+fzf_gui_modes()  { eval $(print -l ${(ok)functions} | rg '^fzf_gui_'  | sed -E 's/_/ /g' | fzf --height 100% --bind space:accept --with-nth 3.. -d ' ' | sed -E 's/ /_/g'); exit }
 
 # Creates a hash of all your arguments. This is guaranteed to be unique
 argshash() { for arg in "$@"; do sha256sum <<< "$arg"; done | sha256sum | awk '{print $1;}' }

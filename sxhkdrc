@@ -1,47 +1,47 @@
 # On mouse button 1 press Alt_R+F1
 super + {_,shift + }{h,j,k,l}
-   bspc node -{f,s} {west,south,north,east}
+    bspc node -{f,s} {west,south,north,east}
 
 super + Escape
-   bspc wm -r; \
-   killall sxhkd; \
-   sxhkd
+    bspc wm -r; \
+    killall sxhkd; \
+    sxhkd
+
+super + shift + Escape
+    bspc quit
 
 super + {p,t,g,f}
-   bspc node -t {pseudo_tiled,tiled,floating,fullscreen}
-
-super + shift + x
-   bspc quit
+    bspc node -t {pseudo_tiled,tiled,floating,fullscreen}
 
 super + q
-   bspc node -c
+    bspc node -c
 
 super + shift + q
-   bspc node -k
+    bspc node -k
 
 super + {grave,Tab}
-   bspc {node,desktop} -f last
+    bspc {node,desktop} -f last
 
 super + bracket{left,right}
-   bspc desktop -f {prev,next}.local
+    bspc desktop -f {prev,next}.local
 
 super + {_,shift} + {1,2,3}
-   bspc {desktop -f, node -d} {1,2,3}
+    bspc {desktop -f, node -d} {1,2,3}
 
 XF86AudioRaiseVolume
-   amixer -q -D pulse sset Master 5%+ && pkill -RTMIN+10 i3blocks
+    amixer -q -D pulse sset Master 5%+ && pkill -RTMIN+10 i3blocks
 
 XF86AudioLowerVolume
-   amixer -q -D pulse sset Master 5%- && pkill -RTMIN+10 i3blocks
+    amixer -q -D pulse sset Master 5%- && pkill -RTMIN+10 i3blocks
 
 XF86AudioMute
-   amixer -q -D pulse sset Master toggle && pkill -RTMIN+10 i3blocks
-
-super + s
-   passmenu
+    amixer -q -D pulse sset Master toggle && pkill -RTMIN+10 i3blocks
 
 super + Return
-   alacritty
+    alacritty -e /bin/zsh -li -c tmux
 
-super + d
-   rofi_menu
+super + shift + Return
+    alacritty -e /bin/zsh -li -c 'tmux attach'
+
+super + @{d,s,b,space}
+    alacritty --class progterm -e /bin/zsh -li -c 'export FZF_DEFAULT_OPTS="--height 100% --reverse"; {fzf_gui_exec,fzf_gui_pass,fzf_gui_qute,fzf_gui_modes}'
