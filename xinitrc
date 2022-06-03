@@ -3,13 +3,12 @@ export CURR_WM=bspwm
 export DESKTOP_SESSION=bspwm
 
 #-- Keyboard
-# setxkbmap us # -variant dvorak
+setxkbmap us -variant dvorak
 setxkbmap -option caps:escape &
 sxhkd &
 
 #-- Tools
 keynav
-fcitx -d -r
 xss-lock -- i3lock -nc 000000 &
 
 #-- Screen

@@ -421,6 +421,7 @@ a netman='systemctl start NetworkManager.service'
 a noprinter='systemctl stop org.cups.cupsd'
 
 # pico8
+a picoman='k /opt/pico-8/pico-8_manual.txt'
 a p8tool='~/repos/picotool/p8tool'
 a pico="pico8"
 
