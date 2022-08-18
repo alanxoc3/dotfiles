@@ -120,7 +120,7 @@ get_ssl_cert() {
 }
 
 parse_ssl_cert() {
-    openssl s_client -connect "$1:${2:-443}" 2>/dev/null </dev/null | openssl x509 -inform pem -noout -text
+    openssl x509 -inform pem -noout -text
 }
 
 # gemini
@@ -180,10 +180,8 @@ a gp='git push'
 a gpf='git push --force'
 a gpn='git push -u origin $(git branch --show-current)'
 a gpd='git push origin --delete $(git branch --show-current)'
-a gl='git log --show-signature'
-a glo="gl --pretty='%h %ad %an: %s%d' --date=short"
-a gla="glo --all --graph"
-a glf="gl --name-status --find-renames --oneline"
+a gl="git log --format='%C(auto)%h%C(reset) %<(21)%C(blue)%p%C(reset) %ci %C(green)%cl%C(reset) %s'"
+a glf="gl --name-status | sed '/^ *$/d'"
 a gd='git diff'
 a gdc='git diff --cached'
 a gdf='git diff --name-only'
@@ -215,7 +213,7 @@ glc() {
 a ghi='gh issue'
 a ghil='gh issue list'
 
-a chiptune='mpv_category   webradio/chiptune   75 http://79.120.11.40:8000/chiptune.ogg'
+a chiptune='mpv_category   webradio/chiptune   75 http://79.120.11.40:8000/stream.ogg'
 a smolfm='mpv_category     webradio/smolfm     75 http://jdj.golf:8000/radio.mp3'
 a anonradio='mpv_category  webradio/anonradio  75 http://anonradio.net:8000/anonradio'
 a tilderadio='mpv_category webradio/tilderadio 75 https://azuracast.tilderadio.org/radio/8000/radio.ogg'
@@ -308,17 +306,24 @@ a dictionary=sdcv
 a dict=sdcv
 
 # cd
-a dot='cd ~/.dotfiles'
-a sdcard='cd /sdcard; ls;'
-a down='cd ~/Downloads; ls'
-a drop='cd ~/Dropbox; ls'
-a cdpico="cd ~/.lexaloffle/pico-8/carts"
-a cv="cd ~/.config/nvim"
-a c='cd'
-a c-='cd -'
-a c~='cd;cd' # Example: `c~ .dotfiles` will open '~/.dotfiles'.
-a c.='cd ..'
-a sand='cd ~/repos/sand'
+cd_print() {
+    if cd $1 >/dev/null; then
+        local FILE_COUNT=$(fd -HI --exact-depth 1 -0 | xargs -0 argcount)
+        if [[ -z $FILE_COUNT ]]; then FILE_COUNT=0; fi
+        echo -e '\033[31;1;40m'$(pwd)' ('$FILE_COUNT' files)\033[0m'
+        ls --color
+    fi
+}
+
+a cdot='cd_print ~/.dotfiles'
+a cdow='cd_print ~/Downloads'
+a cwor='cd_print ~/work'
+a csyn='cd_print ~/sync'
+a cpic='cd_print ~/.lexaloffle/pico-8/carts'
+a c='cd_print'
+a c-='cd_print -'
+a c~='cd;cd_print' # Example: `c~ .dotfiles` will open '~/.dotfiles'.
+a c.='cd_print ..'
 
 # clear
 a cl=clear
@@ -439,7 +444,11 @@ a nomouse='synclient TouchpadOff=1'
 
 # sudo
 a psudo='sudo env "PATH=$PATH" '
+
+# expand aliases
 a sudo='sudo '
+a unbuffer='unbuffer '
+a ub='unbuffer'
 
 # publish
 a listchinesefonts='fc-list :lang=zh'
@@ -480,6 +489,7 @@ a pw="pico-watch"
 # gpg
 # gpg, manage email:         gpg --edit-key X; adduid; list; uid X; trust; uid X; revuid; save
 # gpg, create subkey:        gpg --edit-key X; addkey (4, 4096); save;
+# gpg, change key pass:      gpg --edit-key X; passwd; save;
 # gpg, extend key:           gpg --edit-key X; expire; save;
 # transfer subkey w/ssh:     gpg --export-secret-subkeys X! | ssh X -C 'gpg --import' # exclamation mark forces subkey.
 # gpg, list secret keys:     gpg --list-secret-keys # "#" means the secret key is not on the machine
@@ -589,7 +599,7 @@ fzf_echo_git_refs()    { printnotnil '%%' $(git for-each-ref --format='%(refname
 fzf_echo_git_tag()     { printnotnil '%%' $(git for-each-ref --format='%(refname:short)' refs/tags | fzf -m) }
 fzf_echo_history()     { printnotnil '%%' $(fc -rl 1 | fzf --tiebreak=index --nth 2.. | sed -E 's/^ *[0-9]+ *//g') }
 fzf_echo_man()         { printnotnil '%%' $(apropos "." 2> /dev/null | awk '{print $1;}' | uniq | fzf) }
-fzf_echo_pass()        { printnotnil '%%' $(fd --base-directory ~/.password-store -t f | rg '\.gpg$' | sed -E 's/\.gpg$//g' | fzf) }
+fzf_echo_pass()        { printnotnil '%%' $(fd -It f '^.*\.gpg$' --base-directory ~/.password-store | sed 's/\.gpg$//g' | fzf) }
 fzf_echo_ssh()         { printnotnil '%%' $(sed -rn 's/^\s*Host\s+(.*)$/\1/ip' ~/.ssh/config ~/.ssh/local_ssh 2> /dev/null | xargs -n1 | fzf -m) }
 fzf_echo_tmux_tokens() { printnotnil '%%' $(tsl | FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} --reverse --bind=ctrl-z:ignore $FZF_DEFAULT_OPTS" fzf -m "$@" | tr '\n' ' ' | awk '{gsub(/ +$/,"")}{print}') }
 fzf_echo_ttrack()      { printnotnil '%%' $(ttrack ls -r | fzf -m) }
