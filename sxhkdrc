@@ -43,5 +43,5 @@ super + Return
 super + shift + Return
     alacritty -e /bin/zsh -li -c 'tmux attach'
 
-super + @{d,s,b,space}
+super + {d,s,b,space}
     alacritty --class progterm -e /bin/zsh -li -c 'export FZF_DEFAULT_OPTS="--height 100% --reverse"; {fzf_gui_exec,fzf_gui_pass,fzf_gui_qute,fzf_gui_modes}'

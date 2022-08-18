@@ -1,0 +1,8 @@
+#!/bin/bash
+# Assumes there is a little web server setup, here is that web server command:
+# cd ~/simplewebserver/; python -m http.server 30123
+rm ~/simplewebserver/mods.zip
+pushd /srv/minecraft
+sudo zip ~/simplewebserver/mods.zip mods -r
+popd
+sudo chown alan ~/simplewebserver/mods.zip

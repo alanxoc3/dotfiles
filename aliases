@@ -246,7 +246,7 @@ a ez='kak ~/.zshrc ~/.zshenv ~/.dotfiles/local_zshrc ~/.dotfiles/zbindings'
 # diary
 a diary='cd ~/sync/alan/diary'
 a di='diary'
-a jrn='kak ~/sync/alan/diary/{2022_diary,schedule,achievements,todos}.md'
+a jrn='kak ~/sync/alan/diary/{2022_diary.md,tasks,schedule}'
 a rnj='jrn'
 a nrj='jrn'
 a njr='jrn'
@@ -480,10 +480,13 @@ a pw="pico-watch"
 # gpg
 # gpg, manage email:         gpg --edit-key X; adduid; list; uid X; trust; uid X; revuid; save
 # gpg, create subkey:        gpg --edit-key X; addkey (4, 4096); save;
+# gpg, extend key:           gpg --edit-key X; expire; save;
 # transfer subkey w/ssh:     gpg --export-secret-subkeys X! | ssh X -C 'gpg --import' # exclamation mark forces subkey.
+# gpg, list secret keys:     gpg --list-secret-keys # "#" means the secret key is not on the machine
 # transfer all public w/ssh: gpg --armor --export X | ssh X -C 'gpg --import'
 # import: gpg --import
-# view info about key: gpg --list-packets
+# view info about key:       gpg --list-packets
+# delete secret key:         gpg-connect-agent "delete_key X" "/bye"
 
 gpg-send-private() {
     [ "$#" -ne 2 ] && echo "USAGE: $0 <gpg-key-hash> <ssh-profile>" && return 1
@@ -496,6 +499,7 @@ gpg-send-public() {
 }
 
 a gpglk='gpg --list-keys --with-subkey-fingerprints --with-keygrip'
+a gpglks='gpg --list-secret-keys --with-subkey-fingerprints --with-keygrip'
 a gpgek='gpg --armor --export'
 a gpgfgk='gpg --full-generate-key'
 
