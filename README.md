@@ -24,6 +24,10 @@ Here are programs I use as part of my daily workflow.
 - [ttrack](https://github.com/alanxoc3/ttrack). Time tracker CLI app.
 - [zsh](https://www.zsh.org/). I was actually still using bash until August-ish 2020.
 
+### Terminal Utilities
+- [unbuffer](http://expect.sourceforge.net/example/unbuffer.man.html). Trick command to think stdout is a terminal device.
+- [sponge](https://joeyh.name/code/moreutils/). Collect stdin before executing command.
+
 ### Kakoune Plugins
 - [fzf.kak](https://github.com/andreyorst/fzf.kak). Fzf integration with kakoune via tmux.
 - [kak-ansi](https://github.com/eraserhd/kak-ansi). Ansi color codes to kakoune highlighters.
