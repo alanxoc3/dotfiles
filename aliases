@@ -180,10 +180,8 @@ a gp='git push'
 a gpf='git push --force'
 a gpn='git push -u origin $(git branch --show-current)'
 a gpd='git push origin --delete $(git branch --show-current)'
-a gl='git log --show-signature'
-a glo="gl --pretty='%h %ad %an: %s%d' --date=short"
-a gla="glo --all --graph"
-a glf="gl --name-status --find-renames --oneline"
+a gl="git log --format='%C(auto)%h%C(reset) %<(21)%C(blue)%p%C(reset) %ci %C(green)%cl%C(reset) %s'"
+a glf="gl --name-status | sed '/^ *$/d'"
 a gd='git diff'
 a gdc='git diff --cached'
 a gdf='git diff --name-only'
@@ -445,7 +443,11 @@ a nomouse='synclient TouchpadOff=1'
 
 # sudo
 a psudo='sudo env "PATH=$PATH" '
+
+# expand aliases
 a sudo='sudo '
+a unbuffer='unbuffer '
+a ub='unbuffer'
 
 # publish
 a listchinesefonts='fc-list :lang=zh'
