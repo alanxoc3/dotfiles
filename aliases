@@ -180,7 +180,7 @@ a gp='git push'
 a gpf='git push --force'
 a gpn='git push -u origin $(git branch --show-current)'
 a gpd='git push origin --delete $(git branch --show-current)'
-a gl="git log --format='%C(auto)%h%C(reset) %<(21)%C(blue)%p%C(reset) %ci %C(green)%cl%C(reset) %s'"
+a gl="git log --format='%C(auto)%h%C(reset)%C(blue)% p%C(reset) : %ci : %C(green)%cl%C(reset) : %s'"
 a glf="gl --name-status | sed '/^ *$/d'"
 a gd='git diff'
 a gdc='git diff --cached'
