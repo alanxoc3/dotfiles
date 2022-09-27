@@ -214,6 +214,7 @@ a ghi='gh issue'
 a ghil='gh issue list'
 
 a chiptune='mpv_category   webradio/chiptune   75 http://79.120.11.40:8000/chiptune.ogg'
+a radico8='mpv_category   webradio/radico8     75 http://radico8.xoc3.io'
 a smolfm='mpv_category     webradio/smolfm     75 http://jdj.golf:8000/radio.mp3'
 a anonradio='mpv_category  webradio/anonradio  75 http://anonradio.net:8000/anonradio'
 a tilderadio='mpv_category webradio/tilderadio 75 https://azuracast.tilderadio.org/radio/8000/radio.ogg'
@@ -470,7 +471,7 @@ export FZF_DEFAULT_OPTS='--height 40% --reverse'
 a xargs='xargs '
 a x='xargs '
 
-trim() { awk '{gsub(/^ +| +$/,"")}{print}' }
+trim() { awk '{gsub(/^\s+|\s+$/,"")}{print}' }
 
 # My hacky way to make a video 2x speed.
 # vidspeed <input-file> <output-file>
