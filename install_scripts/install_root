@@ -3,7 +3,7 @@
 
 echo "Installing packages..."
 pacman -Syyu --noconfirm
-pacman --noconfirm -S git sudo exa zsh kakoune neovim python-neovim glibc ripgrep tmux base-devel htop ufw fzf fd
+pacman --noconfirm -S git sudo exa zsh kakoune ripgrep tmux base-devel htop ufw fzf fd
 
 echo "Enabling ufw..."
 systemctl enable ufw.service
