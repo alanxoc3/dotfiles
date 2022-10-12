@@ -1,0 +1,76 @@
+#!/bin/bash
+# A shell script that should install most of the archlinux configurations I put on my laptop.
+
+# Don't forget to download, checksum, and verify key from iso.
+
+# First step is set the console to use dvorak. Qwerty isn't very usable for me.
+# localectl set-keymap --no-convert dvorak
+
+# Next, connect to the internet, with the amazing iwctl.
+# iwctl device list
+# iwctl station <device> scan
+# iwctl station <device> get-networks
+# iwctl station <device> connect <ssid>
+
+# Now create the partitions. Need an EFI and normal partition.
+# fdisk /dev/<drive>
+# n, 1, <default>, +512M,    t, 1, ef # efi partition
+# n, 2, <default>, <default>          # normal partition
+# w # save and exit
+
+# Wipe the disk with random data. This method actually encrypts the disk and writes zeros to it encrypted, which is pretty much random.
+# cryptsetup open --type plain -d /dev/urandom /dev/<device-or-partition> to_be_wiped
+# dd if=/dev/zero of=/dev/mapper/to_be_wiped status=progress
+# cryptsetup close to_be_wiped
+
+# Now encrypt the root partition.
+# cryptsetup -y -v luksFormat /dev/<root-partition>
+# cryptsetup open /dev/sda2 root
+
+# And next, format the root + efi partitions.
+# mkfs.btrfs /dev/mapper/root
+# mkfs.fat -F 32 /dev/<partition>
+
+# And we can now mount the partitions
+# mount /dev/mapper/root /mnt
+# mount /dev/<efi-partition> /mnt/boot
+
+# Install base packages
+# pacstrap -K /mnt base linux linux-firmware git sudo exa zsh kakoune ripgrep tmux base-devel htop ufw fzf fd go grub efibootmgr iwd dhcpcd
+
+# Install system packages
+# pacstrap -K /mnt grub efibootmgr iwd dhcpcd
+
+# Install user packages
+# pacstrap -K /mnt git sudo exa zsh kakoune ripgrep tmux base-devel htop ufw fzf fd go
+
+# Now generate fstab file for autobooting:
+# genfstab -U /mnt >> /mnt/etc/fstab
+
+# chroot into system
+# arch-chroot /mnt
+
+    # while chrooted: set time info
+    # ln -sf /usr/share/zoneinfo/Region/City /etc/localtime
+    # hwclock --systohc
+
+    # while chrooted: set locale
+    # sed -iE 's/#\s*(en_US\.UTF-8)/\1/g' /etc/locale.gen
+    # echo 'LANG=en_US.UTF-8' > /etc/locale.conf
+    # echo 'KEYMAP=dvorak' > /etc/vconsole.conf
+    # echo 'amorg-laptop' > /etc/hostname
+
+    # configure mkinitcpio with encrypted root volume
+    # specifically, you need configuration that has keyboard, keymap, and encrypt. Like so in /etc/mkinitcpio.conf:
+    # HOOKS=(base udev autodetect keyboard keymap modconf block encrypt filesystems keyboard fsck)
+    # mkinitcpio -P
+
+    # install a bootloader (grub)
+    # grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
+
+    # configure bootloader with encryption
+    # Edit /etc/default/grub so GRUB_CMDLINE_LINUX_DEFAULT contains (replacing <DEVICE-UUID>): cryptdevice=UUID=<DEVICE-UUID>:root root=/dev/mapper/root
+    # grub-mkconfig -o /boot/grub/grub.cfg
+
+# When you boot up, make sure to enable iwd:
+# systemctl enable iwd dhcpcd

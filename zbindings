@@ -34,7 +34,7 @@ backward-kill-dir() {
     zle -f kill
 }
 
-# fzf_eval_modes is a bash function in ~/.dotfiles/aliases
+# fzf_eval_modes is a bash function in ~/.dot/aliases
 kbf_fzf_eval_modes() {
     zle reset-prompt
     BUFFER="$(fzf_eval_modes $1)"
@@ -43,7 +43,7 @@ kbf_fzf_eval_modes() {
     return $ret
 }
 
-# fzf_echo_modes is a bash function in ~/.dotfiles/aliases
+# fzf_echo_modes is a bash function in ~/.dot/aliases
 kbf_fzf_echo_modes() {
     LBUFFER="${LBUFFER}$(fzf_echo_modes $1)"
     local ret=$?

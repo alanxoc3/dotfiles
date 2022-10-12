@@ -55,7 +55,7 @@ cat << EOF > $HOME/.rgconfig
 --no-heading
 --no-follow
 --hidden
---ignore-file=${HOME}/.dotfiles/search-ignore
+--ignore-file=${HOME}/.dot/search-ignore
 EOF
 
 # For irssi, you need to generate a pem file and connect to it. In a shell:

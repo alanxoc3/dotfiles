@@ -75,6 +75,14 @@ chmod 700 ${TARGET_DIR}/capsule/.certificates
 chown -R root:root ${TARGET_DIR}/capsule/.certificates
 
 chmod -R go-rwx ${TARGET_DIR}
+
+cat << EOF | tee /etc/sudoers.d/gemini > /dev/null
+Cmnd_Alias HANDLE_PUBLICAPI = /usr/bin/systemctl restart gemini-server.service
+
+gemini ALL = (root) NOPASSWD: HANDLE_PUBLICAPI
+EOF
+
+chmod 600 /etc/sudoers.d/gemini
 echo
 
 echo "Installing systemd scripts..."

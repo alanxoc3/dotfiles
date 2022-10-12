@@ -37,5 +37,5 @@ source_file() {
 
 source_file "$HOME/.local_aliases"
 source_file "$HOME/.aliases"
-source_file "$HOME/.dotfiles/local_zshrc"
-source_file "$HOME/.dotfiles/zbindings"
+source_file "$HOME/.dot/local_zshrc"
+source_file "$HOME/.dot/zbindings"

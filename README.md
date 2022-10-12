@@ -54,4 +54,8 @@ Here are programs I use as part of my daily workflow.
 - [amfora](https://github.com/makeworld-the-better-one/amfora). CLI based gemini client.
 - [browsh](https://github.com/browsh-org/browsh). CLI based interface to firefox.
 - [irssi](https://irssi.org/). CLI based IRC client.
+- [transmission](https://transmissionbt.com/). A popular bittorrent client.
 - [yt-dlp](https://github.com/yt-dlp/yt-dlp). Better internet video downloader.
+
+## Todo
+- try replacing gpg with sequoia

@@ -28,8 +28,8 @@ export MANPAGER=kak_man
 export RIPGREP_CONFIG_PATH="$HOME/.rgconfig"
 
 # FZF environment variables
-BFT="fd -t f --hidden --color=always --ignore-file ~/.dotfiles/search-ignore ."
-BFC="fd -t d --hidden --color=always --ignore-file ~/.dotfiles/search-ignore ."
+BFT="fd -t f --hidden --color=always --ignore-file ~/.dot/search-ignore ."
+BFC="fd -t d --hidden --color=always --ignore-file ~/.dot/search-ignore ."
 export FZF_DEFAULT_COMMAND="$BFT"
 export FZF_DEFAULT_OPTS="--ansi"
 export FZF_CTRL_T_COMMAND="($BFT --exact-depth 1; $BFT --exact-depth 2; $BFT --exact-depth 3; $BFT --min-depth 4;) | cat"
@@ -38,7 +38,7 @@ export TERM='xterm-256color'
 
 # Set the path last, because it depends on an environment variable.
 export PATH="$PATH:$HOME/.fzf/bin"
-export PATH="$PATH:$HOME/.dotfiles/bin"
+export PATH="$PATH:$HOME/.dot/bin"
 export PATH="$PATH:$HOME/.go/bin"
 export PATH="$PATH:$HOME/.cargo/bin"
 export PATH="$PATH:$HOME/.local/bin"

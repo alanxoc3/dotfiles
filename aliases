@@ -2,6 +2,7 @@
 # alias
 alias a='alias'
 
+# convert utc to localtime: date -d '10:00:00 UTC'
 extension() { [[ $1 =~ '\.' ]] && recho "${@##*.}" }
 filebasename() { basename $1 | cut -f 1 -d '.' }
 abs() { echo "$(cd "$(dirname "$1")" && pwd -P)/$(basename "$1")" }
@@ -235,12 +236,12 @@ a gocover='go test -coverprofile=/tmp/cover.out; go tool cover -html=/tmp/cover.
 # vim & kak
 a vor='kak ~/sync/library/dicts/esperanto_dictionary.txt'
 a k="kak"
-a editsnips="kak ~/.dotfiles/snips/*"
+a editsnips="kak ~/.dot/snips/*"
 a es='editsnips'
 a ek='kak ~/.config/kak/kakrc'
 a ea='kak ~/.aliases ~/.local_aliases'
 a eb='kak ~/repos/capsule/cap/blog/$(date -u +%F).gmi'
-a ez='kak ~/.zshrc ~/.zshenv ~/.dotfiles/local_zshrc ~/.dotfiles/zbindings'
+a ez='kak ~/.zshrc ~/.zshenv ~/.dot/local_zshrc ~/.dot/zbindings'
 
 # diary
 a diary='cd ~/sync/alan/diary'
@@ -316,14 +317,14 @@ cd_print() {
     fi
 }
 
-a cdot='cd_print ~/.dotfiles'
+a cdot='cd_print ~/.dot'
 a cdow='cd_print ~/Downloads'
 a cwor='cd_print ~/work'
 a csyn='cd_print ~/sync'
 a cpic='cd_print ~/.lexaloffle/pico-8/carts'
 a c='cd_print'
 a c-='cd_print -'
-a c~='cd;cd_print' # Example: `c~ .dotfiles` will open '~/.dotfiles'.
+a c~='cd;cd_print' # Example: `c~ .dot` will open '~/.dot'.
 a c.='cd_print ..'
 
 # clear
@@ -487,6 +488,10 @@ doublespeed() {
 a pc="pico-compile"
 a pw="pico-watch"
 
+# sq
+# verify file came from source:     sq verify --signer-cert release-key.pgp --detached <file.sig> <file>
+# check information in a file:      sq inspect <file>
+
 # gpg
 # gpg, manage email:         gpg --edit-key X; adduid; list; uid X; trust; uid X; revuid; save
 # gpg, create subkey:        gpg --edit-key X; addkey (4, 4096); save;
@@ -552,7 +557,11 @@ a wai=whoami
 a lam='lookatme --live -e terminal'
 a pipi='pip install --user'
 a bc='bc -q'
-a dd='dd status=progress'
+
+# this claims 64k to be a good block size for modern hardware. Arch docs say 1m is fine though:
+# https://superuser.com/questions/234199/good-block-size-for-disk-cloning-with-diskdump-dd
+a dd='dd bs=1M status=progress'
+
 a emacs='emacs -nw'
 a fb="~/repos/fuzzybird/fuzzybird.py --hashtag"
 a int='sudo wifi-menu'

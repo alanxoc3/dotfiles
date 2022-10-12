@@ -3,10 +3,10 @@
 # This must be run after the root install, as the non-root user.
 
 echo "Downloading dotfiles..."
-git clone https://github.com/alanxoc3/dotfiles.git ~/.dotfiles
+git clone https://github.com/alanxoc3/dotfiles.git ~/.dot
 
 echo "Setting up local git user..."
-pushd ~/.dotfiles
+pushd ~/.dot
 printf 'Name: ' ; read $NAME
 printf 'Email: '; read $EMAIL
 echo "[user]

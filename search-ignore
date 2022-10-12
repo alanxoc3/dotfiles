@@ -11,6 +11,6 @@ sync/archive/
 Library/
 GPUCache/
 
-!.dotfiles
+!.dot
 !.go
 .go/pkg
