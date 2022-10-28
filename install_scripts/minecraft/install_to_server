@@ -1,0 +1,172 @@
+#!/bin/bash
+# assumes ufw and mcrcon are installed: https://github.com/Tiiffi/mcrcon.git
+
+# after this script, make sure you download the minecraft installer:
+# fabric   download: https://fabricmc.net/use/server/
+# official download: https://www.minecraft.net/en-us/download/server
+
+# user group mode destination
+install_stdin() {
+    local stdin=$(cat)
+    local file=$(mktemp)
+    cat > "$file" <<< "$stdin"
+    install -o "$1" -g "$2" -m "$3" "$file" "$4"
+    rm "$file"
+}
+
+ufw allow 25565 # allow minecraft port
+ufw deny 25575  # deny rcon port to internet
+useradd -Md /srv/minecraft minecraft
+install -o minecraft -g minecraft -m 0700 -d /srv/minecraft
+
+# create symbolic link if it doesn't exist
+[ ! -L /srv/minecraft/minecraft_server.jar ] && (ln -fs /usr/bin/false /srv/minecraft/minecraft_server.jar)
+
+install_stdin minecraft minecraft 0600 /srv/minecraft/eula.txt << EOF
+eula=yes
+EOF
+
+install_stdin minecraft minecraft 0600 /srv/minecraft/server.properties << EOF
+allow-flight=false
+allow-nether=true
+broadcast-console-to-ops=true
+broadcast-rcon-to-ops=true
+difficulty=hard
+enable-command-block=true
+enable-jmx-monitoring=false
+enable-query=false
+enable-rcon=true
+enable-status=true
+enforce-secure-profile=true
+enforce-whitelist=true
+entity-broadcast-range-percentage=100
+force-gamemode=true
+function-permission-level=2
+gamemode=survival
+generate-structures=true
+generator-settings={}
+hardcore=false
+hide-online-players=false
+level-name=world
+level-seed=
+level-type=minecraft\:normal
+max-chained-neighbor-updates=1000000
+max-players=20
+max-tick-time=-1
+max-world-size=29999984
+motd=Morg Hardcore
+network-compression-threshold=256
+online-mode=true
+op-permission-level=4
+player-idle-timeout=0
+prevent-proxy-connections=false
+previews-chat=false
+pvp=true
+query.port=25565
+rate-limit=0
+rcon.password=
+rcon.port=25575
+require-resource-pack=false
+resource-pack=
+resource-pack-prompt=
+resource-pack-sha1=
+server-ip=
+server-port=25565
+simulation-distance=10
+spawn-animals=true
+spawn-monsters=true
+spawn-npcs=true
+spawn-protection=0
+sync-chunk-writes=true
+text-filtering-config=
+use-native-transport=true
+view-distance=10
+white-list=true
+EOF
+
+awk '!/^\s*#/' << EOF | install_stdin minecraft minecraft 0600 /srv/minecraft/whitelist.json
+[
+  { "uuid": "ecb96fe7-3c30-43cc-9c7d-e05f66814143", "name": "WadloTheWizard"   },
+  { "uuid": "7d0bbea7-7c5e-4fb3-91bb-9b9564b261b7", "name": "GreatCadet"       },
+  { "uuid": "22536222-f7fd-455c-b3bf-6056eba7be5e", "name": "alanxoc3"         },
+  { "uuid": "de0f3b94-e2f5-4d79-8df8-fe7567ce7ecc", "name": "WolfFang181"      }
+
+  # { "uuid": "fe92f4db-f55b-45b2-bad4-579671b62b34", "name": "FAZE_BOSSBABY"    },
+  # { "uuid": "c5b60238-96c3-460c-887b-e7917d2fadb7", "name": "21cakey12"        },
+  # { "uuid": "1b7cd20c-b5f4-4b59-9cd4-cd3a32e1da3b", "name": "OVERCAPITALIZED"  },
+  # { "uuid": "52b3d544-d4bf-4146-83b8-393aac1cd12e", "name": "Taller_Than_U"    },
+  # { "uuid": "3bdbb536-340b-4332-af89-d6d4da58d944", "name": "DaveisHere_"      },
+  # { "uuid": "4f897161-e90e-4e90-9049-1c94544d0486", "name": "super_lucas_"     },
+  # { "uuid": "9dce6790-6601-4f76-9fc6-2898d5669249", "name": "Sharkprisoner1"   },
+  # { "uuid": "8c1442a1-77ef-4d82-a2ce-4ef85db54193", "name": "CookinWithGary"   },
+  # { "uuid": "0933d752-9008-41a3-a2b9-438944d2598f", "name": "ThePurpleWurmple" },
+  # { "uuid": "6105e0c8-f18c-4160-b79e-33b1f873612b", "name": "jgilbert18"       },
+  # { "uuid": "6d223e7e-d1fa-439a-bbb0-55b14114f400", "name": "DefinitlyATurtel" }
+]
+EOF
+
+awk '!/^\s*#/' << EOF | install_stdin minecraft minecraft 0600 /srv/minecraft/ops.json
+[
+  { "uuid": "de0f3b94-e2f5-4d79-8df8-fe7567ce7ecc", "name": "WolfFang181",    "level": 1, "bypassesPlayerLimit": false },
+  { "uuid": "22536222-f7fd-455c-b3bf-6056eba7be5e", "name": "alanxoc3",       "level": 1, "bypassesPlayerLimit": false },
+  { "uuid": "ecb96fe7-3c30-43cc-9c7d-e05f66814143", "name": "WadloTheWizard", "level": 1, "bypassesPlayerLimit": false },
+  { "uuid": "7d0bbea7-7c5e-4fb3-91bb-9b9564b261b7", "name": "GreatCadet",     "level": 1, "bypassesPlayerLimit": false }
+]
+EOF
+
+JAVA_MAX_MEMORY=$(free -m | grep -E '^Mem:' | awk '{print int($2*.8)}')
+install_stdin root root 0644 /etc/systemd/system/minecraft.service << EOF
+[Unit]
+Description=systemd minecraft server
+After=local-fs.target network.target multi-user.target
+
+[Service]
+User=minecraft
+Group=minecraft
+WorkingDirectory=/srv/minecraft
+ExecStart=/usr/bin/java -Xms512M -Xmx${JAVA_MAX_MEMORY}M -jar minecraft_server.jar nogui
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+systemctl daemon-reload
+systemctl enable minecraft
+
+install_stdin root root 0555 /usr/local/bin/mccmd << EOF
+#!/bin/bash
+mcrcon -p pass "$@"
+EOF
+
+# saves the game to a backup directory and cleans up old backups
+install_stdin root root 0555 /usr/local/bin/minecraft-backup << EOF
+#!/bin/bash
+BACKUP_COUNT=10
+systemctl is-active minecraft 2>/dev/null && mcrcon -p "\$PASSWORD" save-off
+systemctl is-active minecraft 2>/dev/null && mcrcon -p "\$PASSWORD" save-all
+sleep 1s; sync; mkdir /srv/minecraft/backup
+tar -C /srv/minecraft -czf backup/"\$(date +%Y_%m_%d_%H.%M.%S).tar.gz" world --totals
+systemctl is-active minecraft 2>/dev/null && mcrcon -p "\$PASSWORD" save-on
+for f in \$(find /srv/minecraft/backup | sort -rV | awk "NR > \$BACKUP_COUNT"); do rm $f; done
+EOF
+
+install_stdin root root 0644 /etc/systemd/system/minecraft-backup.service << EOF
+[Service]
+ExecStart=/usr/local/bin/minecraft-backup
+WorkingDirectory=/srv/minecraft
+User=minecraft
+Group=minecraft
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+install_stdin root root 0644 /etc/systemd/system/minecraft-backup.timer << EOF
+[Timer]
+OnCalendar=*/4:0
+
+[Install]
+WantedBy=timers.target
+EOF
+
+

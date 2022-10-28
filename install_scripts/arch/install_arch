@@ -74,3 +74,11 @@
 
 # When you boot up, make sure to enable iwd:
 # systemctl enable iwd dhcpcd
+
+# pacman -S bspwm sxhkd xf86-video-intel mesa keynav
+# pacman -S xss-lock redshift i3lock min picom man-db
+# /etc/mkinitcpio.conf # edit MODULES to include i836
+# sudo pacman -S --needed base-devel git
+# git clone https://aur.archlinux.org/yay.git
+# cd yay
+# makepkg -si
