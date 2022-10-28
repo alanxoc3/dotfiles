@@ -54,7 +54,7 @@ max-chained-neighbor-updates=1000000
 max-players=20
 max-tick-time=-1
 max-world-size=29999984
-motd=Morg Hardcore
+motd=Morgcraft
 network-compression-threshold=256
 online-mode=true
 op-permission-level=4
@@ -64,7 +64,7 @@ previews-chat=false
 pvp=true
 query.port=25565
 rate-limit=0
-rcon.password=
+rcon.password=pass
 rcon.port=25575
 require-resource-pack=false
 resource-pack=
@@ -130,23 +130,18 @@ ExecStart=/usr/bin/java -Xms512M -Xmx${JAVA_MAX_MEMORY}M -jar minecraft_server.j
 WantedBy=multi-user.target
 EOF
 
-systemctl daemon-reload
-systemctl enable minecraft
-
 install_stdin root root 0555 /usr/local/bin/mccmd << EOF
 #!/bin/bash
 mcrcon -p pass "$@"
 EOF
 
-# saves the game to a backup directory and cleans up old backups
 install_stdin root root 0555 /usr/local/bin/minecraft-backup << EOF
 #!/bin/bash
 BACKUP_COUNT=10
-systemctl is-active minecraft 2>/dev/null && mcrcon -p "\$PASSWORD" save-off
-systemctl is-active minecraft 2>/dev/null && mcrcon -p "\$PASSWORD" save-all
-sleep 1s; sync; mkdir /srv/minecraft/backup
+mccmd save-off save-all
+mkdir /srv/minecraft/backup
 tar -C /srv/minecraft -czf backup/"\$(date +%Y_%m_%d_%H.%M.%S).tar.gz" world --totals
-systemctl is-active minecraft 2>/dev/null && mcrcon -p "\$PASSWORD" save-on
+mccmd save-on
 for f in \$(find /srv/minecraft/backup | sort -rV | awk "NR > \$BACKUP_COUNT"); do rm $f; done
 EOF
 
@@ -162,6 +157,9 @@ WantedBy=multi-user.target
 EOF
 
 install_stdin root root 0644 /etc/systemd/system/minecraft-backup.timer << EOF
+[Unit]
+After=minecraft
+
 [Timer]
 OnCalendar=*/4:0
 
@@ -169,4 +167,5 @@ OnCalendar=*/4:0
 WantedBy=timers.target
 EOF
 
-
+systemctl daemon-reload
+systemctl enable minecraft.service minecraft-backup.service minecraft-backup.timer
