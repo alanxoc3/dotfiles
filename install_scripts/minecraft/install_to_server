@@ -152,6 +152,9 @@ for f in \$(find /srv/minecraft/backup -mindepth 1 | sort -rV | awk "NR > \$BACK
 EOF
 
 install_stdin root root 0644 /etc/systemd/system/minecraft-backup.service << EOF
+[Unit]
+Requires=minecraft.service
+
 [Service]
 ExecStart=/usr/local/bin/minecraft-backup
 WorkingDirectory=/srv/minecraft
@@ -165,9 +168,10 @@ EOF
 install_stdin root root 0644 /etc/systemd/system/minecraft-backup.timer << EOF
 [Unit]
 After=minecraft.service
+Requires=minecraft.service
 
 [Timer]
-OnCalendar=*/4:00
+OnUnitActiveSec=2h
 
 [Install]
 WantedBy=timers.target
