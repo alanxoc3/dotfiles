@@ -1,6 +1,11 @@
 #!/bin/bash
 # assumes ufw and mcrcon are installed: https://github.com/Tiiffi/mcrcon.git
 
+if [ "${EUID:-$(id -u)}" -ne 0 ]; then
+    echo "Rerun this script as root! Exiting with non-zero error code."
+    exit 1
+fi
+
 # after this script, make sure you download the minecraft installer:
 # fabric   download: https://fabricmc.net/use/server/
 # official download: https://www.minecraft.net/en-us/download/server
