@@ -28,7 +28,7 @@ install -o minecraft -g minecraft -m 0700 -d /srv/minecraft
 [ ! -L /srv/minecraft/minecraft_server.jar ] && (ln -fs /usr/bin/false /srv/minecraft/minecraft_server.jar)
 
 install_stdin minecraft minecraft 0600 /srv/minecraft/eula.txt << EOF
-eula=yes
+eula=true
 EOF
 
 install_stdin minecraft minecraft 0600 /srv/minecraft/server.properties << EOF
