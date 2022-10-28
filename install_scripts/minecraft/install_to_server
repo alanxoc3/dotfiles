@@ -167,7 +167,7 @@ install_stdin root root 0644 /etc/systemd/system/minecraft-backup.timer << EOF
 After=minecraft.service
 
 [Timer]
-OnCalendar=*/4:0
+OnCalendar=*/4:00
 
 [Install]
 WantedBy=timers.target
