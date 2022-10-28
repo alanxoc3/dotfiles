@@ -137,7 +137,7 @@ EOF
 
 install_stdin root root 0555 /usr/local/bin/mccmd << EOF
 #!/bin/bash
-mcrcon -p pass "$@"
+mcrcon -p pass "\$@"
 EOF
 
 install_stdin root root 0555 /usr/local/bin/minecraft-backup << EOF
@@ -147,7 +147,7 @@ mccmd save-off save-all
 mkdir /srv/minecraft/backup
 tar -C /srv/minecraft -czf backup/"\$(date +%Y_%m_%d_%H.%M.%S).tar.gz" world --totals
 mccmd save-on
-for f in \$(find /srv/minecraft/backup | sort -rV | awk "NR > \$BACKUP_COUNT"); do rm $f; done
+for f in \$(find /srv/minecraft/backup | sort -rV | awk "NR > \$BACKUP_COUNT"); do rm \$f; done
 EOF
 
 install_stdin root root 0644 /etc/systemd/system/minecraft-backup.service << EOF
