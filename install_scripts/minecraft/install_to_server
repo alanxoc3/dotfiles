@@ -142,7 +142,7 @@ EOF
 
 install_stdin root root 0555 /usr/local/bin/minecraft-backup << EOF
 #!/bin/bash
-BACKUP_COUNT=10
+BACKUP_COUNT=5
 mccmd save-off save-all
 mkdir -p /srv/minecraft/backup
 sleep 1s; sync
@@ -164,7 +164,7 @@ EOF
 
 install_stdin root root 0644 /etc/systemd/system/minecraft-backup.timer << EOF
 [Unit]
-After=minecraft
+After=minecraft.service
 
 [Timer]
 OnCalendar=*/4:0
