@@ -174,7 +174,7 @@ Requires=minecraft.service
 OnUnitActiveSec=2h
 
 [Install]
-WantedBy=timers.target
+WantedBy=minecraft.service
 EOF
 
 systemctl daemon-reload
