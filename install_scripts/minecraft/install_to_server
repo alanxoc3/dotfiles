@@ -161,7 +161,7 @@ EOF
 install_stdin root root 0644 /etc/systemd/system/minecraft-backup.timer << EOF
 [Unit]
 After=minecraft.service
-PartOf=minecraft.service
+RequiredBy=minecraft.service
 
 [Timer]
 OnActiveSec=5m
