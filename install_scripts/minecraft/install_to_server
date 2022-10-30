@@ -123,6 +123,8 @@ JAVA_MAX_MEMORY=$(free -m | grep -E '^Mem:' | awk '{print int($2*.8)}')
 install_stdin root root 0644 /etc/systemd/system/minecraft.service << EOF
 [Unit]
 After=local-fs.target network.target multi-user.target
+Before=minecraft-backup.timer
+Wants=minecraft-backup.timer
 
 [Service]
 User=minecraft
@@ -161,7 +163,7 @@ EOF
 install_stdin root root 0644 /etc/systemd/system/minecraft-backup.timer << EOF
 [Unit]
 After=minecraft.service
-RequiredBy=minecraft.service
+Requires=minecraft.service
 
 [Timer]
 OnActiveSec=5m
