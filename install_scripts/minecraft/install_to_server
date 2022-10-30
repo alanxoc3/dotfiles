@@ -122,7 +122,6 @@ EOF
 JAVA_MAX_MEMORY=$(free -m | grep -E '^Mem:' | awk '{print int($2*.8)}')
 install_stdin root root 0644 /etc/systemd/system/minecraft.service << EOF
 [Unit]
-Description=systemd minecraft server
 After=local-fs.target network.target multi-user.target
 
 [Service]
@@ -132,7 +131,7 @@ WorkingDirectory=/srv/minecraft
 ExecStart=/usr/bin/java -Xms512M -Xmx${JAVA_MAX_MEMORY}M -jar minecraft_server.jar nogui
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=network.target
 EOF
 
 install_stdin root root 0555 /usr/local/bin/mccmd << EOF
@@ -152,29 +151,21 @@ for f in \$(find /srv/minecraft/backup -mindepth 1 | sort -rV | awk "NR > \$BACK
 EOF
 
 install_stdin root root 0644 /etc/systemd/system/minecraft-backup.service << EOF
-[Unit]
-Requires=minecraft.service
-
 [Service]
 ExecStart=/usr/local/bin/minecraft-backup
 WorkingDirectory=/srv/minecraft
 User=minecraft
 Group=minecraft
-
-[Install]
-WantedBy=multi-user.target
 EOF
 
 install_stdin root root 0644 /etc/systemd/system/minecraft-backup.timer << EOF
 [Unit]
 After=minecraft.service
-Requires=minecraft.service
+PartOf=minecraft.service
 
 [Timer]
+OnActiveSec=5m
 OnUnitActiveSec=2h
-
-[Install]
-WantedBy=minecraft.service
 EOF
 
 systemctl daemon-reload
