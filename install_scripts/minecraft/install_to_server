@@ -190,4 +190,4 @@ OnUnitActiveSec=2h
 EOF
 
 systemctl daemon-reload
-systemctl enable minecraft.service minecraft-backup.service minecraft-backup.timer
+systemctl enable minecraft-setup.service minecraft.service minecraft-backup.service minecraft-backup.timer
