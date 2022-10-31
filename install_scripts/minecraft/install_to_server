@@ -119,10 +119,27 @@ awk '!/^\s*#/' << EOF | install_stdin minecraft minecraft 0600 /srv/minecraft/op
 ]
 EOF
 
+install_stdin root root 0500 /usr/local/bin/update_install_to_server << EOF
+#!/bin/bash
+curl -o /usr/local/bin/install_to_server https://raw.githubusercontent.com/alanxoc3/dotfiles/main/install_scripts/minecraft/install_to_server 2>/dev/null && chmod 700 /usr/local/bin/install_to_server
+EOF
+
+install_stdin root root 0644 /etc/systemd/system/minecraft-setup.service << EOF
+[Unit]
+After=local-fs.target network.target multi-user.target srv-minecraft.mount
+
+[Service]
+ExecStartPre=/usr/local/bin/update_install_to_server
+ExecStart=/usr/local/bin/install_to_server
+
+[Install]
+WantedBy=network.target
+EOF
+
 JAVA_MAX_MEMORY=$(free -m | grep -E '^Mem:' | awk '{print int($2*.8)}')
 install_stdin root root 0644 /etc/systemd/system/minecraft.service << EOF
 [Unit]
-After=local-fs.target network.target multi-user.target
+After=local-fs.target network.target multi-user.target srv-minecraft.mount minecraft-setup.service
 Before=minecraft-backup.timer
 Wants=minecraft-backup.timer
 
