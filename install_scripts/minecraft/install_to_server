@@ -129,6 +129,8 @@ install_stdin root root 0644 /etc/systemd/system/minecraft-setup.service << EOF
 After=local-fs.target network.target multi-user.target srv-minecraft.mount
 
 [Service]
+Type=oneshot
+RemainAfterExit=yes
 ExecStartPre=/usr/local/bin/update_install_to_server
 ExecStart=/usr/local/bin/install_to_server
 
