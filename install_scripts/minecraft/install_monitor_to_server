@@ -38,8 +38,8 @@ EOF
 
 install_stdin root root 0644 /etc/systemd/system/minecraft-destroy.timer << EOF
 [Timer]
-OnCalendar=Sun..Fri *-*-* 20:15 US/Mountain
-OnCalendar=Sat *-*-* 14:15 US/Mountain
+OnCalendar=Sun..Fri *-*-* 20:00 US/Mountain
+OnCalendar=Sat *-*-* 14:00 US/Mountain
 
 [Install]
 WantedBy=network.target
