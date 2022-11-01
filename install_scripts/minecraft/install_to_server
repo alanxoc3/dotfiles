@@ -160,40 +160,32 @@ install_stdin root root 0555 /usr/local/bin/mccmd << EOF
 mcrcon -p pass "\$@"
 EOF
 
-install_stdin root root 0555 /usr/local/bin/minecraft-backup << EOF
+install_stdin root root 0500 /usr/local/bin/prep-for-shutdown << EOF
 #!/bin/bash
 BACKUP_COUNT=5
 
-mccmd 'say time is up for today! saving will be disabled in 1 minute.'
-sleep 50s
-for i in {10..0}; do
-    mccmd "say \$i!"
+mccmd 'say server will shutdown in 60 seconds. play again tomorrow!'
+mccmd 'say morgcraft is available SUN-FRI 6PM-8PM and SAT 12PM-2PM US/Mountain time.'
+
+for i in {55..10..5}; do
+    mccmd "say \$i"
+    sleep 5s
+done
+
+for i in {9..0}; do
+    mccmd "say \$i"
     sleep 1s
 done
 
-mccmd save-off save-all 'say saving is now disabled. log off now or waste your time until the server shuts down in a few mins.'
+mccmd save-off save-all 'saving and shutting down server. goodbye!'
 mkdir -p /srv/minecraft/backup
-sleep 1s; sync
+sleep 1s
+sync
+
 tar -C /srv/minecraft -czf backup/"\$(date +%Y_%m_%d_%H.%M.%S).tar.gz" world --totals
 for f in \$(find /srv/minecraft/backup -mindepth 1 | sort -rV | awk "NR > \$BACKUP_COUNT"); do rm \$f; done
-EOF
-
-install_stdin root root 0644 /etc/systemd/system/minecraft-backup.service << EOF
-[Service]
-ExecStart=/usr/local/bin/minecraft-backup
-WorkingDirectory=/srv/minecraft
-User=minecraft
-Group=minecraft
-EOF
-
-install_stdin root root 0644 /etc/systemd/system/minecraft-backup.timer << EOF
-[Unit]
-After=minecraft.service
-Requires=minecraft.service
-
-[Timer]
-OnActiveSec=2h15m
+sync
 EOF
 
 systemctl daemon-reload
-systemctl enable minecraft-setup.service minecraft.service minecraft-backup.service minecraft-backup.timer
+systemctl enable minecraft-setup.service minecraft.service
