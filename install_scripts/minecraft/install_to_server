@@ -163,11 +163,18 @@ EOF
 install_stdin root root 0555 /usr/local/bin/minecraft-backup << EOF
 #!/bin/bash
 BACKUP_COUNT=5
-mccmd save-off save-all
+
+mccmd 'say time is up for today! saving will be disabled in 1 minute.'
+sleep 50s
+for i in {10..0}; do
+    mccmd "say \$i!"
+    sleep 1s
+done
+
+mccmd save-off save-all 'say saving is now disabled. log off now or waste your time until the server shuts down in a few mins.'
 mkdir -p /srv/minecraft/backup
 sleep 1s; sync
 tar -C /srv/minecraft -czf backup/"\$(date +%Y_%m_%d_%H.%M.%S).tar.gz" world --totals
-mccmd save-on
 for f in \$(find /srv/minecraft/backup -mindepth 1 | sort -rV | awk "NR > \$BACKUP_COUNT"); do rm \$f; done
 EOF
 
@@ -185,8 +192,7 @@ After=minecraft.service
 Requires=minecraft.service
 
 [Timer]
-OnActiveSec=5m
-OnUnitActiveSec=2h
+OnActiveSec=2h15m
 EOF
 
 systemctl daemon-reload
