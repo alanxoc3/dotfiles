@@ -1,0 +1,106 @@
+#!/bin/bash
+# linode-auto-minecraft - assumes a volume with label "minecraft" and an image with label "minecraft-image"
+
+print_usage() {
+    echo 'linode-auto-minecraft uses the linode api to do manage my temporary minecraft instance'
+    echo
+    echo 'USAGE: TOKEN=<token> linode-auto-minecraft [build|destroy|ip]'
+    echo
+    echo 'COMMANDS:'
+    echo '  ip      - gets the running server ip and fails if it does not exist'
+    echo '  build   - creates the minecraft server and fails if it already exists'
+    echo '  destroy - deletes the minecraft server and fails if it does not exist'
+}
+
+# lapi <endpoint> <params>...
+lapi() {
+    curl -sH "Content-Type: application/json" -H "Authorization: Bearer $TOKEN" https://api.linode.com/"$1" "${@:2}"
+    return $?
+}
+
+if [[ "$#" -ne 1 ]] || [[ -z "$TOKEN" ]]; then print_usage; exit 1; fi
+
+COMMAND="$1"
+
+if [[ "$COMMAND" = 'destroy' ]]; then
+    DOMAIN_ID=$(lapi v4/domains | jq -r '.data[] | select(.domain == "xoc3.io") | .id')
+    RECORD_ID=$(lapi v4/domains/"$DOMAIN_ID"/records | jq -r '.data[] | select(.name == "mc") | .id' | head -n 1)
+    DEFAULT_IP=$(lapi v4/domains/"$DOMAIN_ID"/records | jq -r '.data[] | select(.name == "" and .type == "A") | .target')
+
+    if [[ -n "$RECORD_ID" ]]; then
+        lapi v4/domains/"$DOMAIN_ID"/records/"$RECORD_ID" -X PUT -d '{
+          "type": "A",
+          "name": "mc",
+          "target": "'"$DEFAULT_IP"'",
+          "ttl_sec": 30
+        }'
+    else
+        lapi v4/domains/"$DOMAIN_ID"/records -X POST -d '{
+          "type": "A",
+          "name": "mc",
+          "target": "'"$DEFAULT_IP"'",
+          "ttl_sec": 30
+        }'
+    fi
+
+    DOES_SERVER_ALREADY_EXIST=$(lapi v4/linode/instances | jq -r '.data | any(.label == "server-minecraft")')
+    if [[ "$DOES_SERVER_ALREADY_EXIST" = 'true' ]]; then
+        LINODE_ID=$(lapi v4/linode/instances | jq -r '.data[] | select(.label == "server-minecraft") | .id')
+        lapi v4/linode/instances/"$LINODE_ID" -X DELETE
+    fi
+
+elif [[ "$COMMAND" = 'ip' ]]; then
+    DOES_SERVER_ALREADY_EXIST=$(lapi v4/linode/instances | jq -r '.data | any(.label == "server-minecraft")')
+    if [[ "$DOES_SERVER_ALREADY_EXIST" = 'false' ]]; then echo 'server does not exist' 1>&2; exit 1; fi
+
+    lapi v4/linode/instances | jq -r '.data[] | select(.label == "server-minecraft") | .ipv4[]' | head -n 1
+
+elif [[ "$COMMAND" = 'build' ]]; then
+    DOES_SERVER_ALREADY_EXIST=$(lapi v4/linode/instances | jq -r '.data | any(.label == "server-minecraft")')
+    if [[ "$DOES_SERVER_ALREADY_EXIST" != 'true' ]]; then
+        if [[ -z "$SSHPUBKEY" ]]; then echo 'build command needs the "SSHPUBKEY" env var set to a public ssh key' 1>&2; exit 1; fi
+        IMAGE_ID=$(lapi v4/images | jq -r '.data[] | select(.label == "minecraft-image") | .id')
+
+        ROOT_PASS=$(uuidgen)
+        lapi v4/linode/instances -X POST -d '{
+          "image": "'"$IMAGE_ID"'",
+          "root_pass": "'"$ROOT_PASS"'",
+          "authorized_keys": [ "'"$SSHPUBKEY"'" ],
+          "label": "server-minecraft",
+          "type": "g6-standard-4",
+          "region": "us-west"
+        }'
+    else
+        echo 'server already exists'
+    fi
+
+    IP_ADDRESS=$(lapi v4/linode/instances | jq -r '.data[] | select(.label == "server-minecraft") | .ipv4[]' | head -n 1)
+    DOMAIN_ID=$(lapi v4/domains | jq -r '.data[] | select(.domain == "xoc3.io") | .id')
+    RECORD_ID=$(lapi v4/domains/"$DOMAIN_ID"/records | jq -r '.data[] | select(.name == "mc") | .id' | head -n 1)
+
+    if [[ -n "$RECORD_ID" ]]; then
+        lapi v4/domains/"$DOMAIN_ID"/records/"$RECORD_ID" -X PUT -d '{
+          "type": "A",
+          "name": "mc",
+          "target": "'"$IP_ADDRESS"'",
+          "ttl_sec": 30
+        }'
+    else
+        lapi v4/domains/"$DOMAIN_ID"/records -X POST -d '{
+          "type": "A",
+          "name": "mc",
+          "target": "'"$IP_ADDRESS"'",
+          "ttl_sec": 30
+        }'
+    fi
+
+    VOLUME_ID=$(lapi v4/volumes | jq -r '.data[] | select(.label == "minecraft") | .id')
+    LINODE_ID=$(lapi v4/linode/instances | jq -r '.data[] | select(.label == "server-minecraft") | .id')
+    lapi v4/volumes/"$VOLUME_ID"/attach -X POST -d '{
+      "linode_id": '"$LINODE_ID"'
+    }'
+
+else
+    print_usage
+    exit 1
+fi
