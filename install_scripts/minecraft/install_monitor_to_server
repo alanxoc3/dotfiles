@@ -1,0 +1,43 @@
+#!/bin/bash
+if [ "${EUID:-$(id -u)}" -ne 0 ]; then
+    echo "Rerun this script as root! Exiting with non-zero error code."
+    exit 1
+fi
+
+curl -o /usr/local/bin/linode-auto-minecraft https://raw.githubusercontent.com/alanxoc3/dotfiles/main/install_scripts/minecraft/linode-auto-minecraft 2>/dev/null && chmod 700 /usr/local/bin/linode-auto-minecraft
+
+install_stdin() {
+    local stdin=$(cat)
+    local file=$(mktemp)
+    cat > "$file" <<< "$stdin"
+    install -o "$1" -g "$2" -m "$3" "$file" "$4"
+    rm "$file"
+}
+
+install_stdin root root 0644 /etc/systemd/system/minecraft-build.service << EOF
+[Service]
+ExecStart=/usr/local/bin/linode-auto-minecraft build
+EnvironmentFile=/etc/minecraft/setup.env
+EOF
+
+install_stdin root root 0644 /etc/systemd/system/minecraft-destroy.service << EOF
+[Service]
+ExecStart=/usr/local/bin/linode-auto-minecraft destroy
+EnvironmentFile=/etc/minecraft/setup.env
+EOF
+
+install_stdin root root 0644 /etc/systemd/system/minecraft-build.timer << EOF
+[Timer]
+OnCalendar=Sun..Fri *-*-* 17:45 US/Mountain
+OnCalendar=Sat *-*-* 11:45 US/Mountain
+EOF
+
+install_stdin root root 0644 /etc/systemd/system/minecraft-destroy.timer << EOF
+[Timer]
+OnCalendar=Sun..Fri *-*-* 20:15 US/Mountain
+OnCalendar=Sat *-*-* 14:15 US/Mountain
+EOF
+
+systemctl daemon-reload
+systemctl enable minecraft-build.timer minecraft-destroy.timer
+systemctl start minecraft-build.timer minecraft-destroy.timer
