@@ -142,8 +142,6 @@ JAVA_MAX_MEMORY=$(free -m | grep -E '^Mem:' | awk '{print int($2*.8)}')
 install_stdin root root 0644 /etc/systemd/system/minecraft.service << EOF
 [Unit]
 After=local-fs.target network.target multi-user.target srv-minecraft.mount minecraft-setup.service
-Before=minecraft-backup.timer
-Wants=minecraft-backup.timer
 
 [Service]
 User=minecraft
@@ -164,20 +162,22 @@ install_stdin root root 0500 /usr/local/bin/prep-for-shutdown << EOF
 #!/bin/bash
 BACKUP_COUNT=5
 
-mccmd 'say server will shutdown in 60 seconds. play again tomorrow!'
-mccmd 'say morgcraft is available SUN-FRI 6PM-8PM and SAT 12PM-2PM US/Mountain time.'
+mccmd 'say server will shutdown in 60 seconds. come back tomorrow... morgcraft is available SUN-FRI 6PM-8PM and SAT 12PM-2PM US/Mountain time.'
 
 for i in {55..10..5}; do
-    mccmd "say \$i"
     sleep 5s
+    mccmd "say \$i"
 done
 
 for i in {9..0}; do
-    mccmd "say \$i"
     sleep 1s
+    mccmd "say \$i"
 done
 
-mccmd save-off save-all 'saving and shutting down server. goodbye!'
+mccmd 'say saving and shutting down server. goodbye!'
+mccmd save-off
+mccmd save-all
+
 mkdir -p /srv/minecraft/backup
 sleep 1s
 sync

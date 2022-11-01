@@ -22,7 +22,7 @@ EOF
 
 install_stdin root root 0644 /etc/systemd/system/minecraft-destroy.service << EOF
 [Service]
-ExecStartPre=-/usr/bin/ssh -p /etc/minecraft/id_rsa mc.xoc3.io /usr/local/bin/prep-for-shutdown
+ExecStartPre=-/usr/bin/ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i /etc/minecraft/id_rsa mc.xoc3.io /usr/local/bin/prep-for-shutdown
 ExecStart=/usr/local/bin/linode-auto-minecraft destroy
 EnvironmentFile=/etc/minecraft/setup.env
 EOF
