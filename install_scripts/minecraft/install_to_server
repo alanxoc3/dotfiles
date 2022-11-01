@@ -174,7 +174,7 @@ for i in {9..0}; do
     mccmd "say \$i"
 done
 
-mccmd 'say saving and shutting down server. goodbye!'
+mccmd 'say saving and shutting down server...'
 mccmd save-off
 mccmd save-all
 
@@ -182,9 +182,12 @@ mkdir -p /srv/minecraft/backup
 sleep 1s
 sync
 
-tar -C /srv/minecraft -czf backup/"\$(date +%Y_%m_%d_%H.%M.%S).tar.gz" world --totals
+tar -czf /srv/minecraft/backup/"\$(date +%Y_%m_%d_%H.%M.%S).tar.gz" /srv/minecraft/world --totals
 for f in \$(find /srv/minecraft/backup -mindepth 1 | sort -rV | awk "NR > \$BACKUP_COUNT"); do rm \$f; done
 sync
+
+mccmd save-on # in case command was run manually
+mccmd 'say goodbye!'
 EOF
 
 systemctl daemon-reload
