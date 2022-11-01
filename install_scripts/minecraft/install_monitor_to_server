@@ -30,12 +30,18 @@ install_stdin root root 0644 /etc/systemd/system/minecraft-build.timer << EOF
 [Timer]
 OnCalendar=Sun..Fri *-*-* 17:45 US/Mountain
 OnCalendar=Sat *-*-* 11:45 US/Mountain
+
+[Install]
+WantedBy=network.target
 EOF
 
 install_stdin root root 0644 /etc/systemd/system/minecraft-destroy.timer << EOF
 [Timer]
 OnCalendar=Sun..Fri *-*-* 20:15 US/Mountain
 OnCalendar=Sat *-*-* 14:15 US/Mountain
+
+[Install]
+WantedBy=network.target
 EOF
 
 systemctl daemon-reload
