@@ -29,7 +29,7 @@ EOF
 
 install_stdin root root 0644 /etc/systemd/system/minecraft-build.timer << EOF
 [Timer]
-OnCalendar=Sun..Fri *-*-* 17:45 US/Mountain
+OnCalendar=Sun,Mon,Tue,Wed,Thu,Fri *-*-* 17:45 US/Mountain
 OnCalendar=Sat *-*-* 11:45 US/Mountain
 
 [Install]
@@ -38,7 +38,7 @@ EOF
 
 install_stdin root root 0644 /etc/systemd/system/minecraft-destroy.timer << EOF
 [Timer]
-OnCalendar=Sun..Fri *-*-* 20:00 US/Mountain
+OnCalendar=Sun,Mon,Tue,Wed,Thu,Fri *-*-* 20:00 US/Mountain
 OnCalendar=Sat *-*-* 14:00 US/Mountain
 
 [Install]
