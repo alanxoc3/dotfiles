@@ -162,19 +162,32 @@ install_stdin root root 0500 /usr/local/bin/prep-for-shutdown << EOF
 #!/bin/bash
 BACKUP_COUNT=5
 
-mccmd 'say server will shutdown in 60 seconds. come back tomorrow... morgcraft is available SUN-FRI 6PM-8PM and SAT 12PM-2PM US/Mountain time.'
+mccmd 'say ----------------------------'
+mccmd 'say JOIN MORGCRAFT AGAIN TOMORROW!'
+mccmd 'say ----------------------------'
+mccmd 'say SUN-FRI 18:00-20:00 US/MT'
+mccmd 'say SAT 12:00-14:00 US/MT'
+mccmd 'say ----------------------------'
+mccmd 'say Server will shutdown in 60 seconds...'
 
-for i in {55..10..5}; do
+for i in {50..30..10}; do
+    sleep 10s
+    mccmd "say \$i"
+done
+
+for i in {25..10..5}; do
     sleep 5s
     mccmd "say \$i"
 done
 
-for i in {9..0}; do
+for i in {9..1}; do
     sleep 1s
     mccmd "say \$i"
 done
 
-mccmd 'say saving and shutting down server...'
+sleep 1s
+
+mccmd 'say Saving and shutting down server...'
 mccmd save-off
 mccmd save-all
 
@@ -187,7 +200,7 @@ for f in \$(find /srv/minecraft/backup -mindepth 1 | sort -rV | awk "NR > \$BACK
 sync
 
 mccmd save-on # in case command was run manually
-mccmd 'say goodbye!'
+mccmd 'say Goodbye!'
 EOF
 
 systemctl daemon-reload
