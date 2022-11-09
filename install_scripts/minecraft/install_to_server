@@ -43,7 +43,7 @@ enable-query=false
 enable-rcon=true
 enable-status=true
 enforce-secure-profile=true
-enforce-whitelist=true
+enforce-whitelist=false
 entity-broadcast-range-percentage=100
 force-gamemode=true
 function-permission-level=2
@@ -59,7 +59,7 @@ max-chained-neighbor-updates=1000000
 max-players=20
 max-tick-time=-1
 max-world-size=29999984
-motd=Morgcraft
+motd=\u00A7lMorgcraft\n\u00A7rmon-fri 19:00-20:30 us/mt\nsat-sun 18:00-21:30 us/mt
 network-compression-threshold=256
 online-mode=true
 op-permission-level=4
@@ -86,36 +86,17 @@ sync-chunk-writes=true
 text-filtering-config=
 use-native-transport=true
 view-distance=10
-white-list=true
+white-list=false
 EOF
 
-awk '!/^\s*#/' << EOF | install_stdin minecraft minecraft 0600 /srv/minecraft/whitelist.json
-[
-  { "uuid": "ecb96fe7-3c30-43cc-9c7d-e05f66814143", "name": "WadloTheWizard"   },
-  { "uuid": "7d0bbea7-7c5e-4fb3-91bb-9b9564b261b7", "name": "GreatCadet"       },
-  { "uuid": "22536222-f7fd-455c-b3bf-6056eba7be5e", "name": "alanxoc3"         },
-  { "uuid": "de0f3b94-e2f5-4d79-8df8-fe7567ce7ecc", "name": "WolfFang181"      }
-
-  # { "uuid": "fe92f4db-f55b-45b2-bad4-579671b62b34", "name": "FAZE_BOSSBABY"    },
-  # { "uuid": "c5b60238-96c3-460c-887b-e7917d2fadb7", "name": "21cakey12"        },
-  # { "uuid": "1b7cd20c-b5f4-4b59-9cd4-cd3a32e1da3b", "name": "OVERCAPITALIZED"  },
-  # { "uuid": "52b3d544-d4bf-4146-83b8-393aac1cd12e", "name": "Taller_Than_U"    },
-  # { "uuid": "3bdbb536-340b-4332-af89-d6d4da58d944", "name": "DaveisHere_"      },
-  # { "uuid": "4f897161-e90e-4e90-9049-1c94544d0486", "name": "super_lucas_"     },
-  # { "uuid": "9dce6790-6601-4f76-9fc6-2898d5669249", "name": "Sharkprisoner1"   },
-  # { "uuid": "8c1442a1-77ef-4d82-a2ce-4ef85db54193", "name": "CookinWithGary"   },
-  # { "uuid": "0933d752-9008-41a3-a2b9-438944d2598f", "name": "ThePurpleWurmple" },
-  # { "uuid": "6105e0c8-f18c-4160-b79e-33b1f873612b", "name": "jgilbert18"       },
-  # { "uuid": "6d223e7e-d1fa-439a-bbb0-55b14114f400", "name": "DefinitlyATurtel" }
-]
-EOF
+echo '[]' | install_stdin minecraft minecraft 0600 /srv/minecraft/whitelist.json
 
 awk '!/^\s*#/' << EOF | install_stdin minecraft minecraft 0600 /srv/minecraft/ops.json
 [
-  { "uuid": "de0f3b94-e2f5-4d79-8df8-fe7567ce7ecc", "name": "WolfFang181",    "level": 1, "bypassesPlayerLimit": false },
-  { "uuid": "22536222-f7fd-455c-b3bf-6056eba7be5e", "name": "alanxoc3",       "level": 1, "bypassesPlayerLimit": false },
-  { "uuid": "ecb96fe7-3c30-43cc-9c7d-e05f66814143", "name": "WadloTheWizard", "level": 1, "bypassesPlayerLimit": false },
-  { "uuid": "7d0bbea7-7c5e-4fb3-91bb-9b9564b261b7", "name": "GreatCadet",     "level": 1, "bypassesPlayerLimit": false }
+  { "uuid": "de0f3b94-e2f5-4d79-8df8-fe7567ce7ecc", "name": "WolfFang181",    "level": 1, "bypassesPlayerLimit": true },
+  { "uuid": "22536222-f7fd-455c-b3bf-6056eba7be5e", "name": "alanxoc3",       "level": 1, "bypassesPlayerLimit": true },
+  { "uuid": "ecb96fe7-3c30-43cc-9c7d-e05f66814143", "name": "WadloTheWizard", "level": 1, "bypassesPlayerLimit": true },
+  { "uuid": "7d0bbea7-7c5e-4fb3-91bb-9b9564b261b7", "name": "GreatCadet",     "level": 1, "bypassesPlayerLimit": true }
 ]
 EOF
 
@@ -165,8 +146,8 @@ BACKUP_COUNT=5
 mccmd 'say ----------------------------'
 mccmd 'say JOIN MORGCRAFT AGAIN TOMORROW!'
 mccmd 'say ----------------------------'
-mccmd 'say SUN-FRI 18:00-20:00 US/MT'
-mccmd 'say SAT 12:00-14:00 US/MT'
+mccmd 'say MON-FRI 19:00-20:30 US/MT'
+mccmd 'say SAT-SUN 18:00-21:30 US/MT'
 mccmd 'say ----------------------------'
 mccmd 'say Server will shutdown in 60 seconds...'
 
