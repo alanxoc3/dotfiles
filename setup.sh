@@ -35,6 +35,7 @@ cf bspwmrc            .config/bspwm/bspwmrc
 cf sxhkdrc            .config/sxhkd/sxhkdrc
 cf mpv.conf           .config/mpv/mpv.conf
 cf gitconfig          .config/git/config
+cf riverconfig        .config/river/init
 cf kitty-config       .config/kitty/kitty.conf
 cf concards-config    .config/concards
 cf ssh-config         .ssh/config

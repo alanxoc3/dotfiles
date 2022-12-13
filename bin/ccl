@@ -1,6 +1,6 @@
 #!/bin/bash
 # ccl - copy clipboard.
-# single interface for copying to the clipboard for both OSX and linux.
+# single interface for copying to the clipboard for OSX, Xorg, and Wayland.
 
 copyfunc() {
     TMP_FILE="${TMPDIR:-/tmp}/.clip-${USER:-$(whoami)}"
@@ -8,11 +8,9 @@ copyfunc() {
     chmod 600 "$TMP_FILE"
 
     cat - > "$TMP_FILE"
-    if [[ "$(uname)" =~ Darwin ]] && command -v pbcopy &>/dev/null ; then
-        cat "$TMP_FILE" | pbcopy &>/dev/null
-    elif command -v xclip &>/dev/null; then
-        cat "$TMP_FILE" | xclip -selection clipboard &>/dev/null
-    fi
+    command -v pbcopy  &>/dev/null && cat "$TMP_FILE" | pbcopy &>/dev/null
+    command -v xclip   &>/dev/null && cat "$TMP_FILE" | xclip -selection clipboard &>/dev/null
+    command -v wl-copy &>/dev/null && cat "$TMP_FILE" | wl-copy &>/dev/null
 }
 
 if [ -t 0 ]; then

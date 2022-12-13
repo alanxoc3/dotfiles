@@ -104,10 +104,13 @@ key_bindings:
   - { key: Minus,  mods: Control, action: DecreaseFontSize }
   - { key: Minus,  mods: Control, action: DecreaseFontSize }
   - { key: Minus,  mods: Control, action: DecreaseFontSize }
-  - { key: Minus,           mods: Control,                    action: DecreaseFontSize      }
-  - { key: Minus,           mods: Control,                    action: DecreaseFontSize      }
+  - { key: Minus,  mods: Control, action: DecreaseFontSize }
+  - { key: Minus,  mods: Control, action: DecreaseFontSize }
 
 alt_send_esc: false
+
+font:
+  size: 28
 
 colors:
   primary:

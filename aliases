@@ -215,7 +215,7 @@ a ghi='gh issue'
 a ghil='gh issue list'
 
 a chiptune='mpv_category   webradio/chiptune   75 http://79.120.11.40:8000/chiptune.ogg'
-a radico8='mpv_category   webradio/radico8     75 http://radico8.xoc3.io'
+a radico8='while sleep 1; do mpv_category   webradio/radico8     75 http://radico8.xoc3.io; done'
 a smolfm='mpv_category     webradio/smolfm     75 http://jdj.golf:8000/radio.mp3'
 a anonradio='mpv_category  webradio/anonradio  75 http://anonradio.net:8000/anonradio'
 a tilderadio='mpv_category webradio/tilderadio 75 https://azuracast.tilderadio.org/radio/8000/radio.ogg'
@@ -428,7 +428,7 @@ a netman='systemctl start NetworkManager.service'
 a noprinter='systemctl stop org.cups.cupsd'
 
 # pico8
-a picoman='k /opt/pico-8/pico-8_manual.txt'
+a picoman='k /opt/pico8/pico-8_manual.txt'
 a p8tool='~/repos/picotool/p8tool'
 a pico="pico8"
 
@@ -553,7 +553,7 @@ a termdown='termdown -a --font 3x5'
 a tt='ttrack'
 a bat='bat -p --paging never'
 a b='bat'
-a u='echo -e "$(whoami)@$(hostname)"'
+a u='echo -e "$(whoami)@$(cat /etc/hostname)"'
 a bn='basename'
 a p='pwd'
 a wai=whoami
@@ -565,21 +565,14 @@ a bc='bc -q'
 # https://superuser.com/questions/234199/good-block-size-for-disk-cloning-with-diskdump-dd
 a dd='dd bs=1M status=progress'
 
-a emacs='emacs -nw'
-a fb="~/repos/fuzzybird/fuzzybird.py --hashtag"
-a int='sudo wifi-menu'
-a lid="echo locked > '/tmp/.lid-lock-file'"
-a lock="physlock"
-a pavucontrol="ncpamixer"
-a pinger='ping www.google.com'
-a renginx="sudo nginx -s reload"
-a r='ranger'
+# uses pico-8 pallette :)
+a lock='waylock --init-color 0x000000 --input-color 0x5f574f --fail-color 0xff004d'
+
 a ta='tmux attach'
-a updatexterm='xrdb merge ~/.Xresources'
 a watch='watch -c -d'
 a daet='date'
 a slblk='lsblk'
-a repinyin='repelify pinyin'
+a repin='repelify pinyin'
 
 # himalaya archive inbox
 emailarchive() {
@@ -612,7 +605,7 @@ fzf_echo_git_refs()    { printnotnil '%%' $(git for-each-ref --format='%(refname
 fzf_echo_git_tag()     { printnotnil '%%' $(git for-each-ref --format='%(refname:short)' refs/tags | fzf -m) }
 fzf_echo_history()     { printnotnil '%%' $(fc -rl 1 | fzf --tiebreak=index --nth 2.. | sed -E 's/^ *[0-9]+ *//g') }
 fzf_echo_man()         { printnotnil '%%' $(apropos "." 2> /dev/null | awk '{print $1;}' | uniq | fzf) }
-fzf_echo_pass()        { printnotnil '%%' $(fd -It f '^.*\.gpg$' --base-directory ~/.password-store | sed 's/\.gpg$//g' | fzf) }
+fzf_echo_pass()        { printnotnil '%%' $(pa list | fzf) }
 fzf_echo_ssh()         { printnotnil '%%' $(sed -rn 's/^\s*Host\s+(.*)$/\1/ip' ~/.ssh/config ~/.ssh/local_ssh 2> /dev/null | xargs -n1 | fzf -m) }
 fzf_echo_tmux_tokens() { printnotnil '%%' $(tsl | FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} --reverse --bind=ctrl-z:ignore $FZF_DEFAULT_OPTS" fzf -m "$@" | tr '\n' ' ' | awk '{gsub(/ +$/,"")}{print}') }
 fzf_echo_ttrack()      { printnotnil '%%' $(ttrack ls -r | fzf -m) }
@@ -663,7 +656,7 @@ fzf_eval_rg_kak() {
 }
 
 fzf_gui_copy_file()  { cd $HOME; output=$(fzf_echo_files); [[ -n "$output" ]] && cat "$output" | ccl }
-fzf_gui_pass()       { output=$(fzf_echo_pass); [[ -n "$output" ]] && echo "$output" | xargs pass show 2> /dev/null | perl -pe "chomp if eof" | ccl }
+fzf_gui_pass()       { output=$(fzf_echo_pass); [[ -n "$output" ]] && echo "$output" | xargs pa show 2> /dev/null | perl -pe "chomp if eof" | ccl }
 fzf_gui_qute()       { echo 'search for what?'; echo -n '' | fzf --no-info --print-query --height 1 | read search; [[ -n "$search" ]] && qutebrowser "$search" & }
 fzf_gui_exec()       { VAL=$(echo "$PATH" | tr : '\0' | xargs -0 fd . --exact-depth 1 2>/dev/null | sed -E 's,.+/,,g' | sort -u | fzf); [[ -n "$VAL" ]] && setsid "$VAL" & }
 

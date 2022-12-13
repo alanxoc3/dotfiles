@@ -2,10 +2,14 @@
 # pcl - paste clipboard.
 # single interface for pasting from the clipboard for both OSX and linux.
 
-if [[ "$(uname)" =~ Darwin ]] && command -v pbpaste &>/dev/null; then
-    pbpaste 2>/dev/null
-elif command -v xclip &>/dev/null; then
-    xclip -selection clipboard -o 2>/dev/null
-else
-    cat "${TMPDIR:-/tmp}/.clip-${USER:-$(whoami)}" 2>/dev/null
-fi
+trypasting() {
+    if command -v "$1" &>/dev/null && "$@" &>/dev/null; then
+        "$@" 2>/dev/null
+        exit
+    fi
+}
+
+trypasting wl-paste -n                                     # wayland
+trypasting xclip -selection clipboard -o                   # xorg
+trypasting pbpaste                                         # macos
+cat "${TMPDIR:-/tmp}/.clip-${USER:-$(whoami)}" 2>/dev/null # fallback

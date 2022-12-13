@@ -15,5 +15,11 @@ xss-lock -- i3lock -nc 000000 &
 redshift -x
 redshift -O 3500K
 
+#-- Background Color
+hsetroot -solid '#000000'
+
+#-- Compositor
+picom -b
+
 #-- Window Manager
 exec bspwm

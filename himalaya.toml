@@ -2,10 +2,12 @@
 
 name = "Alan Morgan"
 downloads-dir = "/home/alanxoc3/Downloads/"
-signature-delimiter = "-- "
+# signature-delimiter = "-- "
 signature = "Alan Morgan"
 
 [xoc3]
+backend = "imap"
+sender = "smtp"
 default = true
 email = "alan@xoc3.io"
 
@@ -13,24 +15,26 @@ email = "alan@xoc3.io"
 imap-host = "xoc3.io"
 imap-port = 993
 imap-login = "alan"
-imap-passwd-cmd = "pass show _servers/linode"
+imap-passwd-cmd = "pa show _servers/linode"
 
 # Used for sending email.
 smtp-host = "xoc3.io"
 smtp-port = 587
 smtp-starttls = true
 smtp-login = "alan"
-smtp-passwd-cmd = "pass show _servers/linode"
+smtp-passwd-cmd = "pa show _servers/linode"
 
 [gmail]
+backend = "imap"
+sender = "smtp"
 email = "alanxoc3@gmail.com"
 
 imap-host = "imap.gmail.com"
 imap-port = 993
 imap-login = "alanxoc3@gmail.com"
-imap-passwd-cmd = "pass show gmail"
+imap-passwd-cmd = "pa show gmail"
 
 smtp-host = "smtp.gmail.com"
 smtp-port = 465
 smtp-login = "alanxoc3@gmail.com"
-smtp-passwd-cmd = "pass show gmail"
+smtp-passwd-cmd = "pa show gmail"
