@@ -492,6 +492,9 @@ a pw="pico-watch"
 # verify file came from source:     sq verify --signer-cert release-key.pgp --detached <file.sig> <file>
 # check information in a file:      sq inspect <file>
 
+encrypt-with-pass() { openssl enc -aes-256-cbc -pbkdf2 -salt -in $1 -out $2 }
+decrypt-with-pass() { openssl enc -aes-256-cbc -pbkdf2 -d -in $1 -out $2 }
+
 # gpg
 # gpg, manage email:         gpg --edit-key X; adduid; list; uid X; trust; uid X; revuid; save
 # gpg, create subkey:        gpg --edit-key X; addkey (4, 4096); save;
