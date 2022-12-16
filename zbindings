@@ -22,11 +22,6 @@ unset __fzf_key_bindings_options
 
 [[ -o interactive ]] || return 0
 
-zshbind() {
-    zle     -N   "$2"
-    bindkey "$1" "$2"
-}
-
 # backspace stops at some extra characters
 backward-kill-dir() {
     local WORDCHARS=${WORDCHARS/\//|}
@@ -34,38 +29,27 @@ backward-kill-dir() {
     zle -f kill
 }
 
-# fzf_eval_modes is a bash function in ~/.dot/aliases
-kbf_fzf_eval_modes() {
-    zle reset-prompt
-    BUFFER="$(fzf_eval_modes $1)"
-    local ret=$?
-    [[ -n "$BUFFER" ]] && zle accept-line
-    return $ret
-}
-
-# fzf_echo_modes is a bash function in ~/.dot/aliases
-kbf_fzf_echo_modes() {
-    LBUFFER="${LBUFFER}$(fzf_echo_modes $1)"
-    local ret=$?
-    zle reset-prompt
-    return $ret
-}
-
-kb_fzf_eval_modes() { kbf_fzf_eval_modes }
-zshbind '\ez' kb_fzf_eval_modes
-
-kb_fzf_echo_modes() { kbf_fzf_echo_modes }
-zshbind '^z' kb_fzf_echo_modes
-
-kb_fzf_eval_cd() { kbf_fzf_eval_modes fzf_eval_cd }
-zshbind '\ec' kb_fzf_eval_cd
-
-kb_fzf_echo_files() { kbf_fzf_echo_modes fzf_echo_files }
-zshbind '^t' kb_fzf_echo_files
-
-kb_fzf_echo_history() { kbf_fzf_echo_modes fzf_echo_history }
-zshbind '^r' kb_fzf_echo_history
-
-# tab & backspace
-bindkey '\t' expand-or-complete-prefix
 zshbind '^[^?' backward-kill-dir
+
+# clean way to do zsh binding stuff
+zshbind() {
+    local func_name=$(echo "${@:2}" | tr ' ' '_')
+    eval "$func_name"'() { '"${*:2}"' }'
+    zle     -N   "$func_name"
+    bindkey "$1" "$func_name"
+}
+
+kbf_command() {
+    LBUFFER="$LBUFFER"$("$@")
+    local ret=$?
+    zle reset-prompt
+    # next comment can be used to accept the line
+    # [[ -n "$BUFFER" ]] && zle accept-line
+    return $ret
+}
+
+# echo modes
+zshbind '^ '  kbf_command fzf_modes
+zshbind '^t'  kbf_command fzf_modes files
+zshbind '^r'  kbf_command fzf_modes history
+zshbind '\ec' kbf_command fzf_modes cd

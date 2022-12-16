@@ -33,10 +33,11 @@ for mode in normal record; do
     riverctl map $mode Super         N send-to-output next
 
     # configuration related to alacritty setup
-    riverctl map $mode Super         Space  spawn 'alacritty --class progterm -e /bin/zsh -li -c '\''export FZF_DEFAULT_OPTS="--height 100% --reverse"; fzf_gui_modes'\' &
-    riverctl map $mode Super         Return spawn 'alacritty -e /bin/zsh -li -c tmux' &
-    riverctl map $mode Super+Shift   Return spawn 'alacritty -e /bin/zsh -li -c "tmux attach"' &
-    riverctl map $mode Super+Control Return spawn 'alacritty -e /bin/zsh -li' &
+    riverctl map $mode Super         Space  spawn 'footclient -a progterm -t xterm-256color /bin/zsh -li -c '\''fzf_modes exec'\' &
+    riverctl map $mode Super+Shift   Space  spawn 'footclient -a progterm -t xterm-256color /bin/zsh -li -c '\''fzf_modes passclip'\' &
+    riverctl map $mode Super         Return spawn 'footclient -t xterm-256color /bin/zsh -li -c "tmux"' &
+    riverctl map $mode Super+Shift   Return spawn 'footclient -t xterm-256color /bin/zsh -li -c "tmux attach"' &
+    riverctl map $mode Super+Control Return spawn 'footclient -t xterm-256color /bin/zsh -li' &
 
     # view navigation
     riverctl map $mode Super H focus-view previous &
@@ -84,12 +85,12 @@ done
 
 # available for normal, record, and locked modes
 for mode in normal record locked; do
-    riverctl map $mode None XF86AudioPlay         spawn 'systemctl --user is-active radico8-player && systemctl --user stop radico8-player || systemctl --user start radico8-player' &
-    riverctl map $mode None XF86AudioRaiseVolume  spawn 'pamixer -i 5'&
-    riverctl map $mode None XF86AudioLowerVolume  spawn 'pamixer -d 5' &
-    riverctl map $mode None XF86AudioMute         spawn 'pamixer --toggle-mute' &
-    riverctl map $mode None XF86MonBrightnessUp   spawn 'light -A 10' &
-    riverctl map $mode None XF86MonBrightnessDown spawn 'light -U 10' &
+    riverctl map $mode Super F5 spawn 'systemctl --user is-active radico8-player && systemctl --user stop radico8-player || systemctl --user start radico8-player' &
+    riverctl map $mode Super F3 spawn 'pamixer -i 5' &
+    riverctl map $mode Super F2 spawn 'pamixer -d 5' &
+    riverctl map $mode Super F1 spawn 'pamixer --toggle-mute' &
+    riverctl map $mode Super F8 spawn 'light -A 10' &
+    riverctl map $mode Super F7 spawn 'light -U 10' &
 done
 
 # passthrough mode doesn't allow any keybindings besides super+shift+f11

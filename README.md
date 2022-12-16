@@ -31,6 +31,7 @@ alanxoc3's dotfiles. feel free to plagiarize. following is my recommended softwa
 - [river](https://github.com/riverwm/river). Tiling window manager for wayland.
 - [syncthing](https://syncthing.net/). Self hosted/decentralized dropbox-like replacement.
 - [systemd](https://systemd.io/). Bulky, but it works great for the most part.
+- [tldr](https://github.com/tldr-pages/tldr). Repo full of markdown cheatsheets for cli tools.
 - [tmux](https://github.com/tmux/tmux). Terminal multiplexer.
 - [ttrack](https://github.com/alanxoc3/ttrack). Time tracker CLI app.
 - [waylock](https://github.com/ifreund/waylock). Simple wayland lock screen. New version uses the ext-session-lock wayland protocol.

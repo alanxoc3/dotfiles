@@ -13,6 +13,23 @@ alias urlencodeplus='python3 -c "import urllib.parse, sys; print(urllib.parse.qu
 alias urlencodeslash='python3 -c "import urllib.parse, sys; print(urllib.parse.quote(  \" \".join(sys.argv[1:]) if len(sys.argv) > 1 else sys.stdin.read()[0:-1], \"\"))"'
 alias urldecode='python3 -c "import urllib.parse, sys; print(urllib.parse.unquote(\" \".join(sys.argv[1:]) if len(sys.argv) > 1 else sys.stdin.read()[0:-1]))"'
 
+# much needed null support that the ax shell would have builtin
+shellescape() {
+    printf '%q' "$(cat)"
+}
+
+nulls_clean() {
+    sed -E 's/\x0+/\x0/g' | sed -E 's/\x0$|^\x0//g'
+}
+
+nulls_args() {
+    # the "||" is needed for if there is text after the last '\0'.
+    while read -rd $'\0' line || [ -n "$line" ]; do
+        echo -n $(shellescape <<< "$line")$'\0'
+    done | nulls_clean | tr '\0' ' '
+}
+
+
 # hex string to int:
 # python -c 'import sys; print(int(sys.stdin.read(), 16))'
 
@@ -69,6 +86,19 @@ mvcat() {
     cat "${@:1:${#@}-1}" >> "${@:${#@}}"
     command -v shred &>/dev/null && shred "${@:1:${#@}-1}"
     rm "${@:1:${#@}-1}"
+}
+
+# I don't want a python client, so here's my own tldr script.
+tldr() {
+    if [ ! -d "$HOME/repos/tldr" ]; then
+        echo "tldr not installed, installing"
+        mkdir -p "$HOME/repos"
+        git clone "git@github.com:tldr-pages/tldr.git" "$HOME/repos/tldr"
+    fi
+    
+    pushd "$HOME/repos/tldr/pages" >/dev/null 2>&1
+    fd -0t f '^'"$1"'\.md$' 2>/dev/null | xargs -0 bat --paging never --style header-filename,grid -- 
+    popd >/dev/null 2>&1
 }
 
 # cats files to stdout, then shreds & rms them.
@@ -220,12 +250,6 @@ a smolfm='mpv_category     webradio/smolfm     75 http://jdj.golf:8000/radio.mp3
 a anonradio='mpv_category  webradio/anonradio  75 http://anonradio.net:8000/anonradio'
 a tilderadio='mpv_category webradio/tilderadio 75 https://azuracast.tilderadio.org/radio/8000/radio.ogg'
 a book='mpv_category       book                75'
-a anonsched="curl https://anonradio.net/schedule/ 2> /dev/null | k -f 'spre>|^$<ret><a-x>d'"
-
-chipbook() {
-    tmux split-window mpv_category webradio/chiptune 35 http://79.120.11.40:8000/chiptune.ogg
-    mpv_category book 100 "$@"
-}
 
 a getvid="youtube-dl -f 18"
 a vid2mp3='youtube-dl --extract-audio --audio-format mp3'
@@ -310,7 +334,7 @@ a dict=sdcv
 # cd
 cd_print() {
     if cd $1 >/dev/null; then
-        local FILE_COUNT=$(fd -HI --exact-depth 1 -0 | xargs -0 argcount)
+        local FILE_COUNT=$(fd -u --exact-depth 1 -0 | xargs -0 argcount)
         if [[ -z $FILE_COUNT ]]; then FILE_COUNT=0; fi
         echo -e '\033[31;1;40m'$(pwd)' ('$FILE_COUNT' files)\033[0m'
         ls --color
@@ -464,10 +488,6 @@ a cards="cd ~/sync/alan/diary/cards"
 a ca="cards"
 a cnc="concards ~/sync/alan/diary"
 
-# list things for fzf
-_fzf_compgen_path() { fd -t f -t d . "$1" }
-export FZF_DEFAULT_OPTS='--height 40% --reverse'
-
 # xargs
 a xargs='xargs '
 a x='xargs '
@@ -595,74 +615,65 @@ repelify() {
 
 printnotnil() { [[ -n "${@:2}" ]] && cat <<< ${1/\%\%/${@:2}} }
 
-fzf_echo_all_dirs()    { printnotnil '%%' $(fd -IHt d | fzf -m) }
-fzf_echo_all_files()   { printnotnil '%%' $(fd -IHt f -t l | fzf -m) }
-fzf_echo_dirs()        { printnotnil '%%' $(fd -t d | fzf -m) }
-fzf_echo_emoji()       { printnotnil '%%' $(emoji-fzf preview | fzf -m --with-nth 2.. -d ' ' | awk '{print $1;}' | emoji-fzf get) }
-fzf_echo_files()       { printnotnil '%%' $(fd -t f -t l | fzf -m) }
-fzf_echo_git_branch()  { printnotnil '%%' $(git for-each-ref --format='%(refname:short)' refs/remotes refs/heads | fzf -m) }
-fzf_echo_git_refs()    { printnotnil '%%' $(git for-each-ref --format='%(refname:short)' | fzf -m) }
-fzf_echo_git_tag()     { printnotnil '%%' $(git for-each-ref --format='%(refname:short)' refs/tags | fzf -m) }
-fzf_echo_history()     { printnotnil '%%' $(fc -rl 1 | fzf --tiebreak=index --nth 2.. | sed -E 's/^ *[0-9]+ *//g') }
-fzf_echo_man()         { printnotnil '%%' $(apropos "." 2> /dev/null | awk '{print $1;}' | uniq | fzf) }
-fzf_echo_pass()        { printnotnil '%%' $(pa list | fzf) }
-fzf_echo_ssh()         { printnotnil '%%' $(sed -rn 's/^\s*Host\s+(.*)$/\1/ip' ~/.ssh/config ~/.ssh/local_ssh 2> /dev/null | xargs -n1 | fzf -m) }
-fzf_echo_tmux_tokens() { printnotnil '%%' $(tsl | FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} --reverse --bind=ctrl-z:ignore $FZF_DEFAULT_OPTS" fzf -m "$@" | tr '\n' ' ' | awk '{gsub(/ +$/,"")}{print}') }
-fzf_echo_ttrack()      { printnotnil '%%' $(ttrack ls -r | fzf -m) }
-fzf_echo_himalaya_account() { cat ~/.config/himalaya/config.toml | rg '^\[(.+)\]$' -r '$1' | fzf --bind space:accept }
+fzf_menu_m() { fzf --height 100% --reverse --no-mouse --cycle --print0 -m "$@" | nulls_clean | nulls_args }
+fzf_menu_s() { fzf --height 100% --reverse --no-mouse --cycle --print0    "$@" | nulls_clean }
 
-fzf_echo_himalaya_mbox() {
-    local ACCOUNT=${1:-$(fzf_echo_himalaya_account)}
-    [[ -n $ACCOUNT ]] || exit
-    himalaya -a $ACCOUNT -o json mboxes | jq '.response | map(.name)[]' -r | fzf
+fzf_modes() {
+    local fzfcommand="${1:-$(fzflist_echomodes | fzf_menu_s --bind space:accept)}"
+    [ -z "$fzfcommand" ] && return 1
+
+    local fzfoptions=fzf_menu_m
+    if typeset -f fzfcomm_"$fzfcommand" > /dev/null; then
+        fzfoptions=$(fzfcomm_"$fzfcommand")
+    fi
+
+    local fzfoutput=$(fzflist_"$fzfcommand" | eval "$fzfoptions")
+    [ -z "$fzfoutput" ] && return 1
+    
+    if typeset -f fzffilt_"$fzfcommand" > /dev/null; then
+        fzffilt_"$fzfcommand" <<< "$fzfoutput"
+    else
+        cat <<< "$fzfoutput"
+    fi
 }
 
-fzf_echo_himalaya_id() {
-    local ACCOUNT=${1:-$(fzf_echo_himalaya_account)}
-    [[ -n $ACCOUNT ]] || exit
-    local MBOX=${2:-$(fzf_echo_himalaya_mbox $ACCOUNT)}
-    [[ -n $MBOX ]] || exit
-    himalaya -a "$ACCOUNT" -m "$MBOX" -o json list | jq '.response | map((if (.flags | length) > 0 then "  " else "* " end) + (.id|tostring) + " - " + .sender + " - " + .subject)[]' -r | fzf | rg '^..(\d+).+$' -r '$1'
-}
+# these functions list things
+fzflist_dirs()       { fd -ut d }
+fzflist_directory()  { fd -u --exact-depth 1 }
+fzflist_files()      { fd -ut f -t l }
+fzflist_gitbranch()  { git for-each-ref --format='%(refname:short)' refs/remotes refs/heads }
+fzflist_gitrefs()    { git for-each-ref --format='%(refname:short)' }
+fzflist_gittag()     { git for-each-ref --format='%(refname:short)' refs/tags }
+fzflist_ssh()        { sed -rn 's/^\s*Host\s+(.*)$/\1/ip' ~/.ssh/config ~/.ssh/local_ssh 2> /dev/null | xargs -n1 }
+fzflist_ttrack()     { ttrack ls -r }
+fzflist_man()        { apropos "." 2> /dev/null | awk '{print $1;}' | uniq }
+fzflist_himaccount() { cat ~/.config/himalaya/config.toml | rg '^\[(.+)\]$' -r '$1' }
+fzflist_tldr()       { fd '.*\.md' "$HOME/repos/tldr/pages" -t f | awk -F / '{sub(/\.md$/, ""); print $NF}' }
+fzflist_echomodes()  { print -l ${(ok)functions} | rg '^fzflist_' | sed -E 's/fzflist_//g' }
+fzflist_evalmodes()  { print -l ${(ok)functions} | rg '^fzfeval_' | sed -E 's/fzfeval_//g' }
 
-fzf_eval_himalaya_read() {
-    local ACCOUNT=$(fzf_echo_himalaya_account)
-    [[ -n $ACCOUNT ]] || exit
-    local MBOX=$(fzf_echo_himalaya_mbox $ACCOUNT)
-    [[ -n $MBOX ]] || exit
-    local ID=$(fzf_echo_himalaya_id $ACCOUNT $MBOX)
-    [[ -n $ID ]] || exit
-    cat <<< "himalaya -a '$ACCOUNT' -m '$MBOX' read '$ID'"
-}
+# hacky way to just get a command from the history.
+# it's suprising this isn't supported by default...
+fcedit() { cat "$@"; return 1 } # return 1 tells fc not to execute the command.
 
-# transfer.sh
-transfer(){ if [ $# -eq 0 ];then echo "No arguments specified.\nUsage:\n transfer <file|directory>\n ... | transfer <file_name>">&2;return 1;fi;if tty -s;then file="$1";file_name=$(basename "$file");if [ ! -e "$file" ];then echo "$file: No such file or directory">&2;return 1;fi;if [ -d "$file" ];then file_name="$file_name.zip" ,;(cd "$file"&&zip -r -q - .)|curl -s --upload-file "-" "https://transfer.sh/$file_name"|tee /dev/null,;else cat "$file"|curl -s --upload-file "-" "https://transfer.sh/$file_name"|tee /dev/null;fi;else file_name=$1;curl -s --upload-file "-" "https://transfer.sh/$file_name"|tee /dev/null;fi;}
+fzflist_history() { fc -rl 1 }
+fzfcomm_history() { echo fzf_menu_s --with-nth 2.. }
+fzffilt_history() { FCEDIT=fcedit fc $(awk '{print $1}') }
 
-fzf_eval_bat()     { printnotnil 'bat %%'                            $(fzf_echo_files) }
-fzf_eval_cat()     { printnotnil 'cat %%'                            $(fzf_echo_files) }
-fzf_eval_cd()      { printnotnil 'cd %% && pwd'                      $(fd -t d | fzf) }
-fzf_eval_history() { printnotnil '%%'                                $(fzf_echo_history) }
-fzf_eval_man()     { printnotnil 'man %%'                            $(fzf_echo_man) }
-fzf_eval_pass()    { printnotnil 'pass show "%%" 2> /dev/null | perl -pe "chomp if eof" | ccl' $(fzf_echo_pass) }
+fzflist_pass() { pa list }
+fzfcomm_pass() { echo fzf_menu_s }
 
-fzf_eval_rg_kak() {
-    RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case "
-    RG_LINE=$(eval "$RG_PREFIX ''" | fzf --nth 3.. -d ':' --bind "change:reload:$RG_PREFIX {q} || true")
-    FILE=$(cut -d ':' -f 1   <<< $RG_LINE)
-    LINE=$(cut -d ':' -f 2   <<< $RG_LINE)
-    COLUMN=$(cut -d ':' -f 3 <<< $RG_LINE)
+fzflist_passclip() { fzflist_pass }
+fzfcomm_passclip() { fzfcomm_pass }
+fzffilt_passclip() { pa show $(cat) | perl -pe "chomp if eof" | ccl; waitexecq 10s ccl }
 
-    printnotnil "kak \"%%\" +$LINE:$COLUMN" "$FILE"
-}
+fzflist_cd() { fzflist_dirs }
+fzfcomm_cd() { echo fzf_menu_s }
+fzffilt_cd() { echo 'cd '"$(cat)"' && pwd' }
 
-fzf_gui_copy_file()  { cd $HOME; output=$(fzf_echo_files); [[ -n "$output" ]] && cat "$output" | ccl }
-fzf_gui_pass()       { output=$(fzf_echo_pass); [[ -n "$output" ]] && echo "$output" | xargs pa show 2> /dev/null | perl -pe "chomp if eof" | ccl }
-fzf_gui_qute()       { echo 'search for what?'; echo -n '' | fzf --no-info --print-query --height 1 | read search; [[ -n "$search" ]] && qutebrowser "$search" & }
-fzf_gui_exec()       { VAL=$(echo "$PATH" | tr : '\0' | xargs -0 fd . --exact-depth 1 2>/dev/null | sed -E 's,.+/,,g' | sort -u | fzf); [[ -n "$VAL" ]] && setsid "$VAL" & }
-
-fzf_echo_modes() { eval $(printnotnil '%%' ${1:-$(print -l ${(ok)functions} | rg '^fzf_echo_' | sed -E 's/_/ /g' | fzf --bind space:accept --with-nth 3.. -d ' ' | sed -E 's/ /_/g')}) }
-fzf_eval_modes() { eval $(printnotnil '%%' ${1:-$(print -l ${(ok)functions} | rg '^fzf_eval_' | sed -E 's/_/ /g' | fzf --bind space:accept --with-nth 3.. -d ' ' | sed -E 's/ /_/g')}) }
-fzf_gui_modes()  { eval $(print -l ${(ok)functions} | rg '^fzf_gui_'  | sed -E 's/_/ /g' | fzf --height 100% --bind space:accept --with-nth 3.. -d ' ' | sed -E 's/ /_/g'); exit }
+fzflist_exec() { echo "$PATH" | tr : '\0' | xargs -0 fd . --exact-depth 1 2>/dev/null | sed -E 's,.+/,,g' | sort -u }
+fzfcomm_exec() { echo fzf_menu_s }
+fzffilt_exec() { setsid bash -c "$(cat) >/dev/null 2>&1 &" }
 
 # Creates a hash of all your arguments. This is guaranteed to be unique
 argshash() { for arg in "$@"; do sha256sum <<< "$arg"; done | sha256sum | awk '{print $1;}' }
