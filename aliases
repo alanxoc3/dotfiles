@@ -637,10 +637,14 @@ fzf_modes() {
     fi
 }
 
+# awk is used instead of 2 fd commands to cut the time in about half
+fd_sane_order() {
+    (for i in $(seq 1 4); do fd --exact-depth $i -u "$@"; done; fd --min-depth 5 -u "$@") | awk '!/^\.|\/\./ {print $0;} /^\.|\/\./ {arr[arrlen++] = $0;} END {for (i=0; i<arrlen; i++) print arr[i];}'
+}
+
 # these functions list things
-fzflist_dirs()       { fd -ut d }
-fzflist_directory()  { fd -u --exact-depth 1 }
-fzflist_files()      { fd -ut f -t l }
+fzflist_dirs()       { fd_sane_order -t d }
+fzflist_files()      { fd_sane_order -t f -t l }
 fzflist_gitbranch()  { git for-each-ref --format='%(refname:short)' refs/remotes refs/heads }
 fzflist_gitrefs()    { git for-each-ref --format='%(refname:short)' }
 fzflist_gittag()     { git for-each-ref --format='%(refname:short)' refs/tags }
