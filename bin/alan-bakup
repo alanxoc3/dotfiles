@@ -1,0 +1,43 @@
+#!/bin/bash
+# alan-bakup - alan@xoc3.io
+#
+# A wrapper around `bakup` that offers cpio and age integration.
+
+set -e # exit on error
+
+usage() {
+    echo 'USAGE: alan-bakup <ssh-profile> backup <path>...'
+    echo '       alan-bakup <ssh-profile> restore <name> <dir>'
+    echo '       alan-bakup <ssh-profile> list <name> <dir>'
+    echo
+    echo 'Also see the usage for `bakup`.'
+    exit 1
+}
+
+: ${ALAN_BAKUP_PUBKEYS:=${XDG_CONFIG_HOME:=$HOME/.config}/pa/pubkeys}
+: ${ALAN_BAKUP_PRIVKEYS:=${XDG_CONFIG_HOME:=$HOME/.config}/pa/privkeys}
+: ${ALAN_BAKUP_COUNT:=20}
+
+SSH_PROFILE="$1"
+BACKUP_COMMAND="$2"
+
+if [ "$BACKUP_COMMAND" = 'backup' ]; then
+    [ "$#" -lt "3" ] && usage
+
+    fd -I -t f '' "${@:3}" |
+        cpio -o 2>/dev/null |
+        age -R "$ALAN_BAKUP_PUBKEYS" |
+        bakup "$SSH_PROFILE" send "$ALAN_BAKUP_COUNT" '' .cpio.age
+elif [ "$BACKUP_COMMAND" = 'restore' ]; then
+    [ "$#" -lt "4" ] && usage
+
+    mkdir -p "$4"
+    cd "$4"
+    bakup "$SSH_PROFILE" recv "$3" | age -d -i "$ALAN_BAKUP_PRIVKEYS" | cpio -id --no-absolute-filenames
+elif [ "$BACKUP_COMMAND" = 'list' ]; then
+    [ "$#" -lt "2" ] && usage
+
+    bakup "$SSH_PROFILE" list | grep -E '\.cpio\.age$'
+else
+    usage
+fi

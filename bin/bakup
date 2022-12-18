@@ -1,0 +1,72 @@
+#!/bin/bash
+# bakup - alan@xoc3.io
+#
+# Save and retrieve backups from server through ssh.
+# Automatically removes old backups too.
+#
+# Server just needs basic utilities installed:
+#   ssh, sh, xargs, env, find, rm, cat, mkdir
+
+set -e # exit on error
+
+usage() {
+    echo 'USAGE: bakup <ssh-profile> init'
+    echo '       bakup <ssh-profile> list'
+    echo ' ... | bakup <ssh-profile> send <count> <prefix> <postfix>'
+    echo '       bakup <ssh-profile> recv <name> | ...'
+    exit 1
+}
+
+# Wish there was a better way, but here is how I escape the grep:
+# https://stackoverflow.com/questions/11856054/is-there-an-easy-way-to-pass-a-raw-string-to-grep
+grep_quote() {
+    sed 's/[][\.|$(){}?+*^]/\\&/g' <<< "$*"
+}
+
+SSH_PROFILE="$1"
+BAKUP_COMMAND="$2"
+: ${BAKUP_SERVER_PATH:=~/bakup}
+
+# ssh doesn't have a good way to pass raw commands. this works as long as you don't need stdin.
+sshraw() {
+    printf '%s\0' "$@" | ssh -T "$SSH_PROFILE" 'xargs -0 env --'
+}
+
+if [ "$BAKUP_COMMAND" = 'list' ]; then
+    [ "$#" -lt "2" ] && usage
+    sshraw find "$BAKUP_SERVER_PATH" -mindepth 1 -maxdepth 1 -type f | sed 's|.*/||g'
+
+elif [ "$BAKUP_COMMAND" = 'send' ]; then
+    [ "$#" -lt "5" ] && usage
+    bcount="$3"
+    bprefix="$4"
+    bpostfix="$5"
+
+    remote_escaped_filename=$(printf '%q' "$BAKUP_SERVER_PATH/$bprefix$(date +%Y-%m-%d_%H:%M:%S)$bpostfix")
+    
+    # this command accepts stdin
+    ssh -T "$SSH_PROFILE" "cat > $remote_escaped_filename"
+
+    bprefix_quote=$(grep_quote "$bprefix")
+    bpostfix_quote=$(grep_quote "$bpostfix")
+    for f in $(
+        sshraw find "$BAKUP_SERVER_PATH" -mindepth 1 -maxdepth 1 -type f |
+        sed 's|.*/||g' |
+        grep -E "^$bprefix_quote[0-9]+-[0-9]+-[0-9]+_[0-9]+:[0-9]+:[0-9]+$bpostfix_quote$" |
+        sort -rV |
+        awk "NR > $bcount"
+    ); do
+        sshraw rm "$BAKUP_SERVER_PATH"/"$f"
+    done
+
+elif [ "$BAKUP_COMMAND" = 'recv' ]; then
+    [ "$#" -lt "3" ] && usage
+    sshraw cat "$BAKUP_SERVER_PATH"/"$3"
+    
+elif [ "$BAKUP_COMMAND" = 'init' ]; then
+    [ "$#" -lt "2" ] && usage
+    sshraw mkdir -p "$BAKUP_SERVER_PATH"
+
+else
+    usage
+fi
