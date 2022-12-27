@@ -1,0 +1,4 @@
+#!/bin/bash
+for arg in "$@"; do
+    sha256sum <<< "$arg"
+done | sha256sum | awk '{print $1}'

@@ -23,6 +23,3 @@
 [init]
     templatedir = ~/.git-templates
     defaultBranch = main
-
-# [commit]
-  #   gpgsign = true

@@ -37,5 +37,11 @@ source_file() {
 
 source_file "$HOME/.local_aliases"
 source_file "$HOME/.aliases"
+<<<<<<< HEAD
 source_file "$HOME/.dot/local_zshrc"
 source_file "$HOME/.dot/zbindings"
+=======
+source_file "$HOME/.dotfiles/local_zshrc"
+source_file "$HOME/.dotfiles/zbindings"
+[ -f "$HOME/.sredot/bashrc" ] && source "$HOME/.sredot/bashrc" 2> /dev/null
+>>>>>>> defa8fd (yes more changes.)
