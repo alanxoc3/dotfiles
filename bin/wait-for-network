@@ -1,0 +1,2 @@
+#!/bin/bash
+bash -c 'echo Waiting for network connection...; while [ -z "$(ip neighbor show)" ]; do sleep 1; done'

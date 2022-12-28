@@ -8,7 +8,7 @@ set -e # exit on error
 usage() {
     echo 'USAGE: alan-bakup <ssh-profile> backup <path>...'
     echo '       alan-bakup <ssh-profile> restore <name> <dir>'
-    echo '       alan-bakup <ssh-profile> list <name> <dir>'
+    echo '       alan-bakup <ssh-profile> list'
     echo
     echo 'Also see the usage for `bakup`.'
     exit 1

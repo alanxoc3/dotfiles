@@ -33,23 +33,23 @@ zshbind '^[^?' backward-kill-dir
 
 # clean way to do zsh binding stuff
 zshbind() {
-    local func_name=$(echo "${@:2}" | tr ' ' '_')
+    local func_name=$(echo zshbind_"${@:2}" | tr ' ' '_')
     eval "$func_name"'() { '"${*:2}"' }'
     zle     -N   "$func_name"
     bindkey "$1" "$func_name"
 }
 
-kbf_command() {
-    LBUFFER="$LBUFFER"$("$@")
+fzf_zsh() {
+    LBUFFER="$LBUFFER"$(fzf_modes "$@")
     local ret=$?
     zle reset-prompt
-    # next comment can be used to accept the line
-    # [[ -n "$BUFFER" ]] && zle accept-line
+    # only accept the buffer if the return code was 2
+    [[ "$ret" -eq "2" ]] && [[ -n "$BUFFER" ]] && zle accept-line
     return $ret
 }
 
 # echo modes
-zshbind '^ '  kbf_command fzf_modes
-zshbind '^t'  kbf_command fzf_modes files
-zshbind '^r'  kbf_command fzf_modes history
-zshbind '\ec' kbf_command fzf_modes cd
+zshbind '^ '  fzf_zsh
+zshbind '^t'  fzf_zsh files
+zshbind '^r'  fzf_zsh history
+zshbind '\ec' fzf_zsh cd

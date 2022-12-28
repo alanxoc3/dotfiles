@@ -4,7 +4,9 @@
 # A bunch more environment variables
 export ANACONDA_HOME="$HOME/anaconda3"
 export ANDROID_HOME=/opt/android-sdk
-export BROWSER=qutebrowser
+export BROWSER=firefox
+export CONCARDS_OUTCOME="$HOME/track/concards-data/outcome"
+export CONCARDS_PREDICT="$HOME/track/concards-data/predict"
 export GOPATH=~/.go
 export GPG_TTY=`tty`
 export GTK_IM_MODULE=fcitx

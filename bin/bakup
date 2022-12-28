@@ -34,7 +34,7 @@ sshraw() {
 
 if [ "$BAKUP_COMMAND" = 'list' ]; then
     [ "$#" -lt "2" ] && usage
-    sshraw find "$BAKUP_SERVER_PATH" -mindepth 1 -maxdepth 1 -type f | sed 's|.*/||g'
+    sshraw find "$BAKUP_SERVER_PATH" -mindepth 1 -maxdepth 1 -type f | sed 's|.*/||g' | sort -V
 
 elif [ "$BAKUP_COMMAND" = 'send' ]; then
     [ "$#" -lt "5" ] && usage

@@ -14,8 +14,11 @@ eval "$NORMAL_MODE_COLOR"
 # before starting other wayland services i use through systemd, i need to have important env variables imported into systemd
 # and finally start up the other services
 riverctl default-layout rivertile
-systemctl import-environment --user DISPLAY WAYLAND_DISPLAY
-systemctl restart --user gammastep rivertile foot-server &
+
+# xdg var is for screen sharing: https://wiki.archlinux.org/title/PipeWire
+systemctl --user set-environment XDG_CURRENT_DESKTOP=river
+systemctl --user import-environment DISPLAY WAYLAND_DISPLAY
+systemctl --user restart gammastep rivertile foot-server &
 
 # start with styling and general configuration
 riverctl set-repeat 50 300 &
@@ -32,12 +35,12 @@ riverctl float-filter-add app-id progterm &
 for mode in normal record; do
     riverctl map $mode Super         N send-to-output next
 
-    # configuration related to alacritty setup
-    riverctl map $mode Super         Space  spawn 'footclient -a progterm -t xterm-256color /bin/zsh -li -c '\''fzf_modes exec'\' &
+    # yes, this first line is confusing. basically, using my shell fzf thing to execute a program in the background.
+    riverctl map $mode Super         Space  spawn 'footclient -a progterm -t xterm-256color /bin/zsh -li -c '\''echo $(fzf_modes exec) \& | bash'\' &
     riverctl map $mode Super+Shift   Space  spawn 'footclient -a progterm -t xterm-256color /bin/zsh -li -c '\''fzf_modes passclip'\' &
-    riverctl map $mode Super         Return spawn 'footclient -t xterm-256color /bin/zsh -li -c "tmux"' &
-    riverctl map $mode Super+Shift   Return spawn 'footclient -t xterm-256color /bin/zsh -li -c "tmux attach"' &
-    riverctl map $mode Super+Control Return spawn 'footclient -t xterm-256color /bin/zsh -li' &
+    riverctl map $mode Super         Return spawn 'footclient             -t xterm-256color /bin/zsh -li -c "tmux"' &
+    riverctl map $mode Super+Shift   Return spawn 'footclient             -t xterm-256color /bin/zsh -li -c "tmux attach"' &
+    riverctl map $mode Super+Control Return spawn 'footclient             -t xterm-256color /bin/zsh -li' &
 
     # view navigation
     riverctl map $mode Super H focus-view previous &

@@ -258,7 +258,6 @@ a vid2mp3='youtube-dl --extract-audio --audio-format mp3'
 a gocover='go test -coverprofile=/tmp/cover.out; go tool cover -html=/tmp/cover.out'
 
 # vim & kak
-a vor='kak ~/sync/library/dicts/esperanto_dictionary.txt'
 a k="kak"
 a editsnips="kak ~/.dot/snips/*"
 a es='editsnips'
@@ -266,17 +265,6 @@ a ek='kak ~/.config/kak/kakrc'
 a ea='kak ~/.aliases ~/.local_aliases'
 a eb='kak ~/repos/capsule/cap/blog/$(date -u +%F).gmi'
 a ez='kak ~/.zshrc ~/.zshenv ~/.dot/local_zshrc ~/.dot/zbindings'
-
-# diary
-a diary='cd ~/sync/alan/diary'
-a di='diary'
-a jrn='kak ~/sync/alan/diary/{2022_diary.md,tasks,schedule}'
-a rnj='jrn'
-a nrj='jrn'
-a njr='jrn'
-a tl='jrn'
-a rjn='jrn'
-a jnr='jrn'
 
 # acpi
 a acip=acpi
@@ -344,7 +332,6 @@ cd_print() {
 a cdot='cd_print ~/.dot'
 a cdow='cd_print ~/Downloads'
 a cwor='cd_print ~/work'
-a csyn='cd_print ~/sync'
 a cpic='cd_print ~/.lexaloffle/pico-8/carts'
 a c='cd_print'
 a c-='cd_print -'
@@ -483,11 +470,6 @@ viewmarkdown() { md2html $1 | qutepipe }
 a vm='viewmarkdown'
 a qb='qutebrowser'
 
-# concards
-a cards="cd ~/sync/alan/diary/cards"
-a ca="cards"
-a cnc="concards ~/sync/alan/diary"
-
 # xargs
 a xargs='xargs '
 a x='xargs '
@@ -618,6 +600,8 @@ printnotnil() { [[ -n "${@:2}" ]] && cat <<< ${1/\%\%/${@:2}} }
 fzf_menu_m() { fzf --height 100% --reverse --no-mouse --cycle --print0 -m "$@" | nulls_clean | nulls_args }
 fzf_menu_s() { fzf --height 100% --reverse --no-mouse --cycle --print0    "$@" | nulls_clean }
 
+# return 1 means fzf was exited
+# return 2 means the command should be executed
 fzf_modes() {
     local fzfcommand="${1:-$(fzflist_echomodes | fzf_menu_s --bind space:accept)}"
     [ -z "$fzfcommand" ] && return 1
@@ -634,6 +618,10 @@ fzf_modes() {
         fzffilt_"$fzfcommand" <<< "$fzfoutput"
     else
         cat <<< "$fzfoutput"
+    fi
+
+    if typeset -f fzfexec_"$fzfcommand" > /dev/null; then
+        return 2
     fi
 }
 
@@ -661,7 +649,7 @@ fzflist_evalmodes()  { print -l ${(ok)functions} | rg '^fzfeval_' | sed -E 's/fz
 fcedit() { cat "$@"; return 1 } # return 1 tells fc not to execute the command.
 
 fzflist_history() { fc -rl 1 }
-fzfcomm_history() { echo fzf_menu_s --with-nth 2.. }
+fzfcomm_history() { echo fzf_menu_s --tiebreak index --with-nth 2.. }
 fzffilt_history() { FCEDIT=fcedit fc $(awk '{print $1}') }
 
 fzflist_pass() { pa list }
@@ -673,11 +661,13 @@ fzffilt_passclip() { pa show $(cat) | perl -pe "chomp if eof" | ccl; waitexecq 1
 
 fzflist_cd() { fzflist_dirs }
 fzfcomm_cd() { echo fzf_menu_s }
-fzffilt_cd() { echo 'cd '"$(cat)"' && pwd && echo && ls' }
+fzffilt_cd() { echo 'cd '"$(cat)"' && pwd' }
+fzfexec_cd() {}
 
 fzflist_exec() { echo "$PATH" | tr : '\0' | xargs -0 fd . --exact-depth 1 2>/dev/null | sed -E 's,.+/,,g' | sort -u }
 fzfcomm_exec() { echo fzf_menu_s }
-fzffilt_exec() { setsid bash -c "$(cat) >/dev/null 2>&1 &" }
+fzffilt_exec() { echo "$(cat)" }
+fzfexec_exec() {}
 
 # Creates a hash of all your arguments. This is guaranteed to be unique
 argshash() { for arg in "$@"; do sha256sum <<< "$arg"; done | sha256sum | awk '{print $1;}' }
