@@ -642,7 +642,6 @@ fd_sane_order() {
     (for i in $(seq 1 4); do fd --exact-depth $i -u "$@"; done; fd --min-depth 5 -u "$@") | awk '!/^\.|\/\./ {print $0;} /^\.|\/\./ {arr[arrlen++] = $0;} END {for (i=0; i<arrlen; i++) print arr[i];}'
 }
 
-<<<<<<< HEAD
 # these functions list things
 fzflist_dirs()       { fd_sane_order -t d }
 fzflist_files()      { fd_sane_order -t f -t l }
@@ -718,8 +717,3 @@ cachecmd() {
 #             [range '2:' *{@}] | tee {FILE}
 #         ];
 # EOF
-=======
-fzf_echo_modes() { eval $(printnotnil '%%' ${1:-$(print -l ${(ok)functions} | rg '^fzf_echo_' | sed -E 's/_/ /g' | fzf --bind space:accept --with-nth 3.. -d ' ' | sed -E 's/ /_/g')}) }
-fzf_eval_modes() { eval $(printnotnil '%%' ${1:-$(print -l ${(ok)functions} | rg '^fzf_eval_' | sed -E 's/_/ /g' | fzf --bind space:accept --with-nth 3.. -d ' ' | sed -E 's/ /_/g')}) }
-fzf_gui_modes()  { eval $(print -l ${(ok)functions} | rg '^fzf_gui_'  | sed -E 's/_/ /g' | fzf --height 100% --bind space:accept --with-nth 3.. -d ' ' | sed -E 's/ /_/g'); exit }
->>>>>>> defa8fd (yes more changes.)
