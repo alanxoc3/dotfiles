@@ -18,7 +18,7 @@ riverctl default-layout rivertile
 # xdg var is for screen sharing: https://wiki.archlinux.org/title/PipeWire
 systemctl --user set-environment XDG_CURRENT_DESKTOP=river
 systemctl --user import-environment DISPLAY WAYLAND_DISPLAY
-systemctl --user restart gammastep rivertile foot-server &
+systemctl --user restart gammastep rivertile foot-server swayidle &
 
 # start with styling and general configuration
 riverctl set-repeat 50 300 &
@@ -29,18 +29,24 @@ riverctl input 2362:628:PIXA3854:00_093A:0274_Touchpad tap enabled &
 riverctl input 2362:628:PIXA3854:00_093A:0274_Touchpad click-method clickfinger &
 riverctl input 2362:628:PIXA3854:00_093A:0274_Touchpad disable-while-typing disabled &
 
+# switching the output will warp the cursor to the center
+riverctl set-cursor-warp on-output-change &
+
 # float exception for alacritty when opened in special way (homespun dmenu with fzf)
 riverctl float-filter-add app-id progterm &
 
 for mode in normal record; do
-    riverctl map $mode Super         N send-to-output next
-
     # yes, this first line is confusing. basically, using my shell fzf thing to execute a program in the background.
     riverctl map $mode Super         Space  spawn 'footclient -a progterm -t xterm-256color /bin/zsh -li -c '\''echo $(fzf_modes exec) \& | bash'\' &
     riverctl map $mode Super+Shift   Space  spawn 'footclient -a progterm -t xterm-256color /bin/zsh -li -c '\''fzf_modes passclip'\' &
     riverctl map $mode Super         Return spawn 'footclient             -t xterm-256color /bin/zsh -li -c "tmux"' &
     riverctl map $mode Super+Shift   Return spawn 'footclient             -t xterm-256color /bin/zsh -li -c "tmux attach"' &
     riverctl map $mode Super+Control Return spawn 'footclient             -t xterm-256color /bin/zsh -li' &
+
+    # some output shortcuts
+    riverctl map $mode Super N focus-output next
+    riverctl map $mode Super+Shift N send-to-output next
+    riverctl map $mode Super M spawn "wl-mirror -r '0,0 2256x1504'"
 
     # view navigation
     riverctl map $mode Super H focus-view previous &
@@ -77,7 +83,7 @@ for mode in normal record; do
     riverctl map-pointer $mode Super BTN_RIGHT resize-view &
 
     # switching workspaces/tags
-    for i in $(seq 1 3); do
+    for i in $(seq 1 4); do
         tags=$((1 << ($i - 1)))
         riverctl map $mode Super $i set-focused-tags $tags &
         riverctl map $mode Super+Shift $i set-view-tags $tags &
