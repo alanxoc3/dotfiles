@@ -1,4 +1,4 @@
-#!/usr/bin/zsh
+#!/bin/zsh
 # zshrc - Alan Morgan
 
 # Emacs Mode & History Options

@@ -1,4 +1,4 @@
-#!/usr/bin/zsh
+#!/bin/zsh
 if zmodload zsh/parameter 2>/dev/null && (( ${+options} )); then
   __fzf_key_bindings_options="options=(${(j: :)${(kv)options[@]}})"
 else
@@ -52,4 +52,4 @@ fzf_zsh() {
 zshbind '^ '  fzf_zsh
 zshbind '^t'  fzf_zsh files
 zshbind '^r'  fzf_zsh history
-zshbind '\ec' fzf_zsh cd
+zshbind '^o'  fzf_zsh cd
