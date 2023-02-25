@@ -26,7 +26,7 @@ export XKB_DEFAULT_LAYOUT=us
 export PA_DIR="$HOME/pass"
 # export XKB_DEFAULT_VARIANT=dvorak
 export XMODIFIERS=@im=fcitx
-export PAGER=kak
+export PAGER=kak_page
 export MANPAGER=kak_man
 export RIPGREP_CONFIG_PATH="$HOME/.rgconfig"
 
