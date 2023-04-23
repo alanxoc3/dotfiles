@@ -3,7 +3,7 @@ hook global BufCreate .*[.]gd %{
 }
 
 hook global BufCreate .*[.]gd|.*/godot.txt %{
-    map buffer goto d '<esc>:goto-doc-def %sh{printf $HOME/doc/godot.txt} %{^# %%$|(?<lt>=^\* \* \*$\n)^\w+ %%\b}<ret>' -docstring 'goto documentation'
+    map buffer goto d '<esc>:goto-doc-def %sh{printf $HOME/doc/godot.txt} %{^# %%$} %{(?<lt>=^\* \* \*$\n)^\w+ %%\b} %{\b%%\b} %{%%}<ret>' -docstring 'goto documentation'
 }
 
 # ALL TYPES

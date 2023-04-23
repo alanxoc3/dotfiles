@@ -5,17 +5,21 @@ set-option global indentwidth 4 # 0 means tab character
 set-option global aligntab false
 
 # user mode
-map global user y '<a-|> ccl<ret>'                   -docstring 'clipboard copy'
-map global user x '<|> ccl<ret>'                     -docstring 'clipboard cut'
-map global user P '<!> pcl<ret>'                     -docstring 'clipboard insert'
-map global user p '<a-!> pcl<ret>'                   -docstring 'clipboard append'
-map global user r '<|> pcl<ret>'                     -docstring 'clipboard replace'
-map global user f ': enter-user-mode fzf-mode<ret>'  -docstring 'enter fzf-mode'
-map global user t ': enter-user-mode text-mode<ret>' -docstring 'enter text-mode'
-map global user N ': bn<ret>'                        -docstring 'next buffer'
-map global user n ': bp<ret>'                        -docstring 'prev buffer'
-map global user d ': db<ret>'                        -docstring 'delete buffer'
-map global user s ': e -scratch<ret>'                -docstring 'new scratch buffer'
+map global user y     '<a-|> ccl<ret>'                   -docstring 'clipboard copy'
+map global user x     '<|> ccl<ret>'                     -docstring 'clipboard cut'
+map global user P     '<!> pcl<ret>'                     -docstring 'clipboard insert'
+map global user p     '<a-!> pcl<ret>'                   -docstring 'clipboard append'
+map global user r     '<|> pcl<ret>'                     -docstring 'clipboard replace'
+map global user f     ': enter-user-mode fzf-mode<ret>'  -docstring 'enter fzf-mode'
+map global user t     ': enter-user-mode text-mode<ret>' -docstring 'enter text-mode'
+map global user N     ': bn<ret>'                        -docstring 'next buffer'
+map global user n     ': bp<ret>'                        -docstring 'prev buffer'
+map global user d     ': db<ret>'                        -docstring 'delete buffer'
+map global user s     ': e -scratch<ret>'                -docstring 'new scratch buffer'
+map global user /     '/(?i)'                            -docstring 'case insensitive search'
+map global user <a-/> '<a-/>(?i)'                        -docstring 'case insensitive backward search'
+map global user ?     '?(?i)'                            -docstring 'case insensitive extend search'
+map global user <a-?> '<a-?>(?i)'                        -docstring 'case insensitive backward extend-search'
 
 declare-user-mode text-mode # allows mappings to be bound to this
 map global text-mode p ': text-mode-format<ret>'                              -docstring 'Format a paragraph to respect the 80 character limit.'
@@ -25,3 +29,4 @@ map global text-mode n ': toggle-highlighter global/ number-lines<ret>'       -d
 declare-user-mode fzf-mode
 map global fzf-mode r ': fzf-grep<ret>' -docstring 'grep file contents recursively' 
 map global fzf-mode f ': fzf-file<ret>' -docstring 'open file'
+

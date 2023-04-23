@@ -6,7 +6,7 @@
 
 hook global BufCreate (.*/)?(kakrc|.*\.kak) %{
     set-option buffer filetype kak
-    map buffer goto d '<esc>:goto-doc-def %sh{printf $HOME/doc/kak.txt} %{^\*%%\*|\*alias\* %%\b}<ret>' -docstring 'goto documentation'
+    map buffer goto d '<esc>:goto-doc-def %sh{printf $HOME/doc/kak.txt} %{^\*%%\*|\*alias\* %%\b} %{\b%%\b} %{%%}<ret>' -docstring 'goto documentation'
 }
 
 # Initialization
