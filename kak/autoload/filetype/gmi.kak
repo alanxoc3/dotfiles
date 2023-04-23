@@ -1,24 +1,12 @@
-##
-## gemini.kak by lenormf
-##
-
-# https://gemini.circumlunar.space/docs/spec-spec.txt
-# ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
-
-# Detection
-# ‾‾‾‾‾‾‾‾‾
-
 hook global BufCreate .+\.(gmi|gemini) %{
     set-option buffer filetype gemini
 }
-
-# Initialization
-# ‾‾‾‾‾‾‾‾‾‾‾‾‾‾
 
 hook global WinSetOption filetype=gemini %{
     require-module gemini
     add-highlighter window/gemini ref gemini
 }
+
 hook global WinSetOption filetype=(?!gemini).* %{
     remove-highlighter window/gemini
 }

@@ -23,11 +23,6 @@ riverctl default-layout rivertile
 riverctl set-repeat 50 300 &
 riverctl border-width 8 &
 
-# general mouse configuration
-riverctl input 2362:628:PIXA3854:00_093A:0274_Touchpad tap enabled &
-riverctl input 2362:628:PIXA3854:00_093A:0274_Touchpad click-method clickfinger &
-riverctl input 2362:628:PIXA3854:00_093A:0274_Touchpad disable-while-typing disabled &
-
 # switching the output will warp the cursor to the center
 riverctl set-cursor-warp on-output-change &
 
@@ -71,7 +66,7 @@ for mode in normal record; do
     riverctl map $mode Super Escape spawn 'waylock -init-color 0x000000 -input-color 0x1d2b53 -fail-color 0xff004d' &
 
     # screenshot
-    riverctl map $mode None Print spawn 'sh -c '\''grim -g "$(slurp)" - | wl-copy'\' &
+    riverctl map $mode Super R spawn 'sh -c '\''grim -g "$(slurp)" - | wl-copy'\' &
 
     # change main size
     riverctl map $mode Super Bracketleft  send-layout-cmd rivertile "main-ratio -0.05" &
@@ -102,5 +97,12 @@ for mode in normal record locked; do
 done
 
 # passthrough mode doesn't allow any keybindings besides super+shift+f11
-riverctl map normal      Super       F11 spawn "riverctl enter-mode passthrough; $PASSTHROUGH_MODE_COLOR" &
-riverctl map passthrough Super+Shift F11 spawn "riverctl enter-mode normal;      $NORMAL_MODE_COLOR" &
+riverctl map normal      Super               F11   spawn "riverctl enter-mode passthrough; $PASSTHROUGH_MODE_COLOR" &
+riverctl map passthrough Super+Shift         F11   spawn "riverctl enter-mode normal;      $NORMAL_MODE_COLOR" &
+riverctl map normal      Super+Control       R     spawn 'sh -c '\''riverctl enter-mode record; '"$RECORD_MODE_COLOR"'; rm -rf /tmp/record.gif; wf-recorder -g "$(slurp)" -F fps=30 -c gif -f /tmp/record.gif; cat /tmp/record.gif | wl-copy'\' &
+riverctl map record      Super+Shift+Control R     spawn 'sh -c '\''killall -s INT wf-recorder; riverctl enter-mode normal; '"$NORMAL_MODE_COLOR"\' &
+
+# general mouse configuration
+riverctl input pointer-2362:628:PIXA3854:00_093A:0274_Touchpad tap enabled
+riverctl input pointer-2362:628:PIXA3854:00_093A:0274_Touchpad click-method clickfinger
+riverctl input pointer-2362:628:PIXA3854:00_093A:0274_Touchpad disable-while-typing disabled

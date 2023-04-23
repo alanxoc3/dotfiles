@@ -1,14 +1,3 @@
-# fzf-mode
-
-define-command -docstring "Enter fzf-mode.
-fzf-mode contains mnemonic key bindings for every fzf.kak command
-" \
-fzf-mode %{ require-module fzf; evaluate-commands 'enter-user-mode fzf' }
-
-provide-module fzf %§
-
-try %{ declare-user-mode fzf }
-
 define-command -docstring \
 "fzf <switches>: generic fzf command. This command can be used to create new fzf wrappers for various Kakoune or external features.
 
@@ -84,18 +73,6 @@ fzf -params .. %{ evaluate-commands %sh{
     ) > /dev/null 2>&1 < /dev/null &
 }}
 
-§
-
-# Command Mappings
-hook global ModuleLoaded fzf %{
-    map global fzf r ': fzf-grep<ret>' -docstring 'grep file contents recursively' 
-    map global fzf f ': fzf-file<ret>' -docstring 'open file'
-}
-
-# --------------
-#    fzf-grep
-# --------------
-
 define-command -hidden fzf-grep %{ evaluate-commands %sh{
     grep_cmd="rg --line-number --no-column --no-heading --color=ansi '' 2>/dev/null"
 
@@ -116,10 +93,6 @@ define-command -hidden fzf-grep %{ evaluate-commands %sh{
         "-items-cmd %{$grep_cmd}" \
         "-filter %{sed -E 's/([^:]+):([^:]+):.*/edit -existing \1; execute-keys \2gvcx/'}"
 }}
-
-# --------------
-#    fzf-file
-# --------------
 
 define-command -hidden fzf-file %{ evaluate-commands %sh{
     cmd="fd --color always --type f --follow 2>/dev/null"

@@ -4,6 +4,12 @@ verbosity = 2
 [server]
 timeout = 1800
 
+[language.gdscript]
+filetypes = ["gd", "gdscript"]
+roots = [".import", "project.godot"]
+command = "nc"
+args = ["localhost", "6008"]
+
 [language.bash]
 filetypes = ["sh"]
 roots = [".git", ".hg"]
