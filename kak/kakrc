@@ -1,8 +1,5 @@
 set-option global startup_info_version 99999999 # Hacky way to disable the startup message on the scratch screen.
 set-option global ui_options terminal_assistant=none terminal_enable_mouse=false
-set-option global tabstop 4
-set-option global indentwidth 4 # 0 means tab character
-set-option global aligntab false
 
 # user mode
 map global user y     '<a-|> ccl<ret>'                   -docstring 'clipboard copy'
@@ -27,6 +24,19 @@ map global text-mode w ': toggle-highlighter global/ wrap -word -indent<ret>' -d
 map global text-mode n ': toggle-highlighter global/ number-lines<ret>'       -docstring 'Toggle line numbers for all buffers.'
 
 declare-user-mode fzf-mode
-map global fzf-mode r ': fzf-grep<ret>' -docstring 'grep file contents recursively' 
+map global fzf-mode r ': fzf-grep<ret>' -docstring 'grep file contents recursively'
 map global fzf-mode f ': fzf-file<ret>' -docstring 'open file'
 
+# tab & whitespace configuration
+set-option global tabstop 4
+set-option global indentwidth 4 # 0 means tab character
+set-option global aligntab true
+
+hook global BufCreate .* %{
+    hook buffer -group tabspace InsertChar \t %{ execute-keys -draft '<esc>h@' }
+    hook buffer BufSetOption indentwidth=0 %{ remove-hooks buffer tabspace }
+}
+
+addhl global/ show-whitespaces -tab '⎸' -tabpad ' ' -lf ' ' -nbsp ' ' -spc ' '
+addhl global/ dynregex "^( {%opt{indentwidth}})+|^(\t)+" 1:,rgb:112222 2:,rgb:112222
+addhl global/ regex "[\t ]+$" 0:,bright-red

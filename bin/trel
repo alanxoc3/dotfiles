@@ -1,0 +1,23 @@
+#!/bin/bash
+# Format this generates in:
+# #xxx Board Name
+# =hash|xxx List Name
+# .hash|xxx Card Name
+
+board=$(pa s trello_board)
+data=$(trello_api GET "boards/$board" "cards=visible&lists=open&")
+linedata=$(jq -r '.cards[] | .idList + " " + .id + " " + .name' <<< "$data" | sort -s -k1,1)
+name=$(jq -r .name <<< "$data")
+
+echo "# $name"
+
+(jq -r '.lists[] | "= " + .id + " " + .id + " " + .name' <<< "$data"; awk '{print ". " $0}' <<< "$linedata") \
+    | sort -s -k2,2 \
+    | awk '{if ($1=="=") {print ""; a=0}; printf("%s %s %s %s", $1, a, $2, $3); for(i=4;i<=NF; i++) printf(" %s", $i); print ""; a++}' \
+    | while read -r TYPE LINENUM LISTID ID TEXT; do
+    if [[ -n "$TEXT" ]] && [[ -n "$TYPE" ]]; then
+        echo "$TYPE$(sum <<< "$LINENUM|$LISTID|$ID $TEXT" | awk '{print $1}')|$ID" "$TEXT"
+    else
+        echo
+    fi
+done

@@ -1,0 +1,4 @@
+#!/bin/bash
+API_TOKEN=$(pa s trello_token)
+API_KEY=$(pa s trello_key)
+curl --silent --request "$1" --url 'https://api.trello.com/1/'"$2?${3}key=$API_KEY&token=$API_TOKEN" --header 'Accept: application/json'

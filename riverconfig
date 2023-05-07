@@ -103,6 +103,8 @@ riverctl map normal      Super+Control       R     spawn 'sh -c '\''riverctl ent
 riverctl map record      Super+Shift+Control R     spawn 'sh -c '\''killall -s INT wf-recorder; riverctl enter-mode normal; '"$NORMAL_MODE_COLOR"\' &
 
 # general mouse configuration
-riverctl input pointer-2362:628:PIXA3854:00_093A:0274_Touchpad tap enabled
-riverctl input pointer-2362:628:PIXA3854:00_093A:0274_Touchpad click-method clickfinger
-riverctl input pointer-2362:628:PIXA3854:00_093A:0274_Touchpad disable-while-typing disabled
+for p in $(riverctl list-inputs | rg '^pointer'); do
+    riverctl input "$p" tap enabled &
+    riverctl input "$p" click-method clickfinger &
+    riverctl input "$p" disable-while-typing disabled &
+done

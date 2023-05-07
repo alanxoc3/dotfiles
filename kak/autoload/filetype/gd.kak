@@ -1,8 +1,9 @@
 hook global BufCreate .*[.]gd %{
     set-option buffer filetype gd
+    set-option buffer indentwidth 0 # 0 means tab character
 }
 
-hook global BufCreate .*[.]gd|.*/godot.txt %{
+hook global BufCreate .*[.]gd|.*/godot.txt|.*[.]tscn %{
     map buffer goto d '<esc>:goto-doc-def %sh{printf $HOME/doc/godot.txt} %{^# %%$} %{(?<lt>=^\* \* \*$\n)^\w+ %%\b} %{\b%%\b} %{%%}<ret>' -docstring 'goto documentation'
 }
 
