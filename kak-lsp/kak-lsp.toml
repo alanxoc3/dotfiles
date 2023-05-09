@@ -4,6 +4,12 @@ verbosity = 2
 [server]
 timeout = 1800
 
+[language.java]
+filetypes = ["java"]
+roots = ["pom.xml"]
+command = "/Users/alanmorgan/repos/jdtls/bin/jdtls"
+args = ["-data", "/Users/alanmorgan/cw"]
+
 [language.bash]
 filetypes = ["sh"]
 roots = [".git", ".hg"]

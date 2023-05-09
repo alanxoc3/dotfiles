@@ -69,7 +69,8 @@ set-hook -g alert-activity "run-shell 'ttrack rec tmux 5s'"
 set -ga terminal-overrides ",col:Tc"
 
 # screen-256color does not allow italics
-set -g default-terminal "tmux-256color"
+# xterm shouldn't be used i think?
+set -g default-terminal "term-256color"
 
 # This block comes from: https://github.com/tmux-plugins/tmux-sensible
 set -g history-limit 50000

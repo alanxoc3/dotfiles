@@ -1,0 +1,7 @@
+#!/bin/bash
+# tmargs - a terribly hacky tmux xargs
+# opens a bunch of splits, so you can synchronize keystrokes easily-ish
+
+while read line; do
+    tmux select-layout tiled; tmux split-window "$@" "$line"
+done
