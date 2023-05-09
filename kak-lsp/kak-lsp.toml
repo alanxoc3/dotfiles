@@ -10,6 +10,12 @@ roots = ["pom.xml"]
 command = "/Users/alanmorgan/repos/jdtls/bin/jdtls"
 args = ["-data", "/Users/alanmorgan/cw"]
 
+[language.gdscript]
+filetypes = ["gd", "gdscript"]
+roots = [".import", "project.godot"]
+command = "nc"
+args = ["localhost", "6008"]
+
 [language.bash]
 filetypes = ["sh"]
 roots = [".git", ".hg"]

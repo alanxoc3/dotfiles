@@ -13,4 +13,5 @@ GPUCache/
 
 !.dot
 !.go
+!.lexaloffle
 .go/pkg

@@ -12,22 +12,16 @@ eval "$NORMAL_MODE_COLOR"
 
 # order of this command block is important
 # before starting other wayland services i use through systemd, i need to have important env variables imported into systemd
+systemctl --user set-environment XDG_CURRENT_DESKTOP=river DISPLAY="$DISPLAY" WAYLAND_DISPLAY="$WAYLAND_DISPLAY"
+systemctl --user reset-failed gammastep rivertile foot-server swayidle xdg-desktop-portal-wlr xdg-desktop-portal
+systemctl --user restart      gammastep rivertile foot-server swayidle xdg-desktop-portal-wlr xdg-desktop-portal
+
 # and finally start up the other services
 riverctl default-layout rivertile
-
-# xdg var is for screen sharing: https://wiki.archlinux.org/title/PipeWire
-systemctl --user set-environment XDG_CURRENT_DESKTOP=river
-systemctl --user import-environment DISPLAY WAYLAND_DISPLAY
-systemctl --user restart gammastep rivertile foot-server swayidle &
 
 # start with styling and general configuration
 riverctl set-repeat 50 300 &
 riverctl border-width 8 &
-
-# general mouse configuration
-riverctl input 2362:628:PIXA3854:00_093A:0274_Touchpad tap enabled &
-riverctl input 2362:628:PIXA3854:00_093A:0274_Touchpad click-method clickfinger &
-riverctl input 2362:628:PIXA3854:00_093A:0274_Touchpad disable-while-typing disabled &
 
 # switching the output will warp the cursor to the center
 riverctl set-cursor-warp on-output-change &
@@ -69,10 +63,10 @@ for mode in normal record; do
     riverctl map $mode Super T toggle-float &
     riverctl map $mode Super F toggle-fullscreen &
     riverctl map $mode Super+Shift Escape exit &
-    riverctl map $mode Super Escape spawn 'waylock --init-color 0x000000 --input-color 0x1d2b53 --fail-color 0xff004d' &
+    riverctl map $mode Super Escape spawn 'waylock -init-color 0x000000 -input-color 0x1d2b53 -fail-color 0xff004d' &
 
     # screenshot
-    riverctl map $mode None Print spawn 'sh -c '\''grim -g "$(slurp)" - | wl-copy'\' &
+    riverctl map $mode Super R spawn 'sh -c '\''grim -g "$(slurp)" - | wl-copy'\' &
 
     # change main size
     riverctl map $mode Super Bracketleft  send-layout-cmd rivertile "main-ratio -0.05" &
@@ -83,7 +77,7 @@ for mode in normal record; do
     riverctl map-pointer $mode Super BTN_RIGHT resize-view &
 
     # switching workspaces/tags
-    for i in $(seq 1 4); do
+    for i in $(seq 1 9); do
         tags=$((1 << ($i - 1)))
         riverctl map $mode Super $i set-focused-tags $tags &
         riverctl map $mode Super+Shift $i set-view-tags $tags &
@@ -103,5 +97,14 @@ for mode in normal record locked; do
 done
 
 # passthrough mode doesn't allow any keybindings besides super+shift+f11
-riverctl map normal      Super       F11 spawn "riverctl enter-mode passthrough; $PASSTHROUGH_MODE_COLOR" &
-riverctl map passthrough Super+Shift F11 spawn "riverctl enter-mode normal;      $NORMAL_MODE_COLOR" &
+riverctl map normal      Super               F11   spawn "riverctl enter-mode passthrough; $PASSTHROUGH_MODE_COLOR" &
+riverctl map passthrough Super+Shift         F11   spawn "riverctl enter-mode normal;      $NORMAL_MODE_COLOR" &
+riverctl map normal      Super+Control       R     spawn 'sh -c '\''riverctl enter-mode record; '"$RECORD_MODE_COLOR"'; rm -rf /tmp/record.gif; wf-recorder -g "$(slurp)" -F fps=30 -c gif -f /tmp/record.gif; cat /tmp/record.gif | wl-copy'\' &
+riverctl map record      Super+Shift+Control R     spawn 'sh -c '\''killall -s INT wf-recorder; riverctl enter-mode normal; '"$NORMAL_MODE_COLOR"\' &
+
+# general mouse configuration
+for p in $(riverctl list-inputs | rg '^pointer'); do
+    riverctl input "$p" tap enabled &
+    riverctl input "$p" click-method clickfinger &
+    riverctl input "$p" disable-while-typing disabled &
+done

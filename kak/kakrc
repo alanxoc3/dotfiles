@@ -1,66 +1,58 @@
-# Hacky way to disable the startup message on the scratch screen.
-set-option global startup_info_version 99999999
+set-option global startup_info_version 99999999 # Hacky way to disable the startup message on the scratch screen.
+set-option global ui_options terminal_assistant=none terminal_enable_mouse=false
 
-# Comment out for demos. Shows all key presses.
-# set-option global autoinfo command|onkey|normal
+# user mode
+map global user y     '<a-|> ccl<ret>'                   -docstring 'clipboard copy'
+map global user x     '<|> ccl<ret>'                     -docstring 'clipboard cut'
+map global user P     '<!> pcl<ret>'                     -docstring 'clipboard insert'
+map global user p     '<a-!> pcl<ret>'                   -docstring 'clipboard append'
+map global user r     '<|> pcl<ret>'                     -docstring 'clipboard replace'
+map global user f     ': enter-user-mode fzf-mode<ret>'  -docstring 'enter fzf-mode'
+map global user t     ': enter-user-mode text-mode<ret>' -docstring 'enter text-mode'
+map global user N     ': bn<ret>'                        -docstring 'next buffer'
+map global user n     ': bp<ret>'                        -docstring 'prev buffer'
+map global user d     ': db<ret>'                        -docstring 'delete buffer'
+map global user s     ': e -scratch<ret>'                -docstring 'new scratch buffer'
+map global user /     '/(?i)'                            -docstring 'case insensitive search'
+map global user <a-/> '<a-/>(?i)'                        -docstring 'case insensitive backward search'
+map global user ?     '?(?i)'                            -docstring 'case insensitive extend search'
+map global user <a-?> '<a-?>(?i)'                        -docstring 'case insensitive backward extend-search'
 
-# No picture of clippy.
-set-option global ui_options ncurses_assistant=none
+declare-user-mode text-mode # allows mappings to be bound to this
+map global text-mode p ': text-mode-format<ret>'                              -docstring 'Format a paragraph to respect the 80 character limit.'
+map global text-mode w ': toggle-highlighter global/ wrap -word -indent<ret>' -docstring 'Toggle wrap all buffers.'
+map global text-mode n ': toggle-highlighter global/ number-lines<ret>'       -docstring 'Toggle line numbers for all buffers.'
 
-# Disable mouse support.
-set-option -add global ui_options terminal_enable_mouse=false
+declare-user-mode fzf-mode
+map global fzf-mode r ': fzf-grep<ret>' -docstring 'grep file contents recursively'
+map global fzf-mode f ': fzf-file<ret>' -docstring 'open file'
 
-# Remove the scratch buffer message.
-hook global BufCreate \*scratch\* %{
-    execute-keys Ged <esc>
+# tab & whitespace configuration
+set-option global tabstop 4
+set-option global indentwidth 4 # 0 means tab character
+set-option global aligntab true
+
+hook global BufCreate .* %{
+    hook buffer -group tabspace InsertChar \t %{ execute-keys -draft '<esc>h@' }
+    hook buffer BufSetOption indentwidth=0 %{ remove-hooks buffer tabspace }
 }
 
-eval %sh{kak-lsp --kakoune -s $kak_session}
-hook global WinSetOption filetype=(rust|python|go|javascript|typescript|c|cpp) %{
-    lsp-enable-window
-}
+addhl global/ show-whitespaces -tab '⎸' -tabpad ' ' -lf ' ' -nbsp ' ' -spc ' '
+addhl global/ dynregex "^( {%opt{indentwidth}})+|^(\t)+" 1:,rgb:112222 2:,rgb:112222
+addhl global/ regex "[\t ]+$" 0:,bright-red
 
-# idk... recommended mappings: https://github.com/kak-lsp/kak-lsp
-map global user l %{:enter-user-mode lsp<ret>} -docstring "LSP mode"
-map global insert <tab> '<a-;>:try lsp-snippets-select-next-placeholders catch %{ execute-keys -with-hooks <lt>tab> }<ret>' -docstring 'Select next snippet placeholder'
-map global object a '<a-semicolon>lsp-object<ret>' -docstring 'LSP any symbol'
-map global object <a-a> '<a-semicolon>lsp-object<ret>' -docstring 'LSP any symbol'
-map global object e '<a-semicolon>lsp-object Function Method<ret>' -docstring 'LSP function or method'
-map global object k '<a-semicolon>lsp-object Class Interface Struct<ret>' -docstring 'LSP class interface or struct'
-map global object d '<a-semicolon>lsp-diagnostic-object --include-warnings<ret>' -docstring 'LSP errors and warnings'
-map global object D '<a-semicolon>lsp-diagnostic-object<ret>' -docstring 'LSP errors'
-
-# --- USER BINDINGS ---
-# Clipboard management.
-map global user y '<a-|> ccl<ret>'
-map global user p '<|> pcl<ret>'
-
-map -docstring 'enter fzf-mode' global user f ': fzf-mode<ret>'
-map -docstring 'next buffer' global user n ': bn<ret>'
-map -docstring 'prev buffer' global user N ': bp<ret>'
-map -docstring 'delete buffer' global user d ': db<ret>'
-map -docstring 'enter text-mode' global user t ': text-mode<ret>'
-
-# Record time for the current file.
-hook global -group ttrack RawKey . %{
-  evaluate-commands %sh{
-    {
-      [[ $(basename $kak_bufname) =~ '.' ]] && ttrack_name="ext:${kak_bufname##*.}" || ttrack_name="misc"
-      [ ! -z "$(command -v ttrack)" ] && ttrack rec "kak/$ttrack_name" 3s
-    } > /dev/null 2>&1 < /dev/null &
-  }
-}
-
-hook global BufCreate .+\.tt %{
-    remove-hooks global ttrack
-}
-
-set global tabstop 4
-set global indentwidth 4
-
-remove-hooks global expandtab
-hook -group expandtab global InsertChar '\t' %{ execute-keys -draft h@ }
-hook -group expandtab global InsertKey <backspace> %{ try %{
-    execute-keys -draft <a-h><a-k> "^\h+.\z" <ret>I<space><esc><lt>
-}}
-set-option global aligntab false
+# lsp stuff to consider enabling...
+# eval %sh{kak-lsp --kakoune -s $kak_session}
+# hook global WinSetOption filetype=(rust|python|go|javascript|typescript|c|cpp) %{
+#     lsp-enable-window
+# }
+#
+# # idk... recommended mappings: https://github.com/kak-lsp/kak-lsp
+# map global user l %{:enter-user-mode lsp<ret>} -docstring "LSP mode"
+# map global insert <tab> '<a-;>:try lsp-snippets-select-next-placeholders catch %{ execute-keys -with-hooks <lt>tab> }<ret>' -docstring 'Select next snippet placeholder'
+# map global object a '<a-semicolon>lsp-object<ret>' -docstring 'LSP any symbol'
+# map global object <a-a> '<a-semicolon>lsp-object<ret>' -docstring 'LSP any symbol'
+# map global object e '<a-semicolon>lsp-object Function Method<ret>' -docstring 'LSP function or method'
+# map global object k '<a-semicolon>lsp-object Class Interface Struct<ret>' -docstring 'LSP class interface or struct'
+# map global object d '<a-semicolon>lsp-diagnostic-object --include-warnings<ret>' -docstring 'LSP errors and warnings'
+# map global object D '<a-semicolon>lsp-diagnostic-object<ret>' -docstring 'LSP errors'

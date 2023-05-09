@@ -1,7 +1,5 @@
 # text-mode
 
-try %{ declare-user-mode text-mode }
-
 define-command toggle-highlighter -params 2.. -docstring 'toggle-highlighter <path>/[name] <type> [type-params…]' %{
   try %{
     add-highlighter %arg{@}
@@ -30,14 +28,4 @@ define-command toggle-highlighter -params 2.. -docstring 'toggle-highlighter <pa
   }
 }
 
-define-command text-mode %{ require-module text-mode; evaluate-commands 'enter-user-mode text-mode' }
-
-hook global ModuleLoaded text-mode %{
-    map -docstring 'Format a paragraph to respect the 80 character limit.' global text-mode p ': text-mode-format<ret>'
-    map -docstring 'Toggle wrap all buffers.' global text-mode w ': toggle-highlighter global/ wrap -word -indent<ret>'
-    map -docstring 'Toggle line numbers for all buffers.' global text-mode n ': toggle-highlighter global/ number-lines<ret>'
-}
-
-provide-module text-mode %~
-    define-command -hidden text-mode-format %{ execute-keys '<|>tr "\n" " " | fold -s | awk "{\$1=\$1};1"<ret>' }
-~
+define-command -hidden text-mode-format %{ execute-keys '<|>tr "\n" " " | fold -s | awk "{\$1=\$1};1"<ret>' }

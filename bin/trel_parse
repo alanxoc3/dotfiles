@@ -1,0 +1,53 @@
+#!/bin/bash
+# Format this generates in:
+# #xxx Board Name
+# =hash|xxx List Name
+# .hash|xxx Card Name
+
+urlencode() {
+    python3 -c "import urllib.parse, sys; print(urllib.parse.quote(\" \".join(sys.argv[1:]) if len(sys.argv) > 1 else sys.stdin.read()[0:-1]))"
+}
+
+(cat | rg '^=|^\.' | awk '{
+    type=substr($1,1,1);
+    rest=substr($1,2);
+    split(rest,arr,"|");
+    checksum=arr[1];
+    id=arr[2];
+
+    if(type=="="){
+        l=0
+        listid=id
+    }
+
+    if($1==type) {
+        printf("%s 0 %s %s %s 0", type, l, NF, listid);
+    } else {
+        printf("%s %s %s %s %s %s", type, checksum, l, NF, listid, id);
+    }
+
+    for(i=2;i<=NF;i++) printf(" %s", $i);
+
+    print "";
+    l++
+}' | while read -r TYPE CHECKSUM LINENUM LENGTH LISTID ID TEXT; do
+    REALSUM=$(sum <<< "$LINENUM|$LISTID|$ID $TEXT" | awk '{print $1}')
+    # echo "$TYPE || $CHECKSUM || $LINENUM || $LENGTH || $LISTID || $ID || $TEXT" # useful for debugging
+    # echo "$REALSUM CHECKSUM" # useful for debugging
+    if [[ "$REALSUM" != "$CHECKSUM" ]]; then
+        NEWTEXT=$(urlencode <<< "$TEXT")
+        if [[ "$TYPE" = "=" ]]; then
+            echo "$NEWTEXT"
+        elif [[ "$TYPE" = "." ]]; then
+            if [[ "$ID" -ne 0 ]] && [[ -z "$NEWTEXT" ]]; then
+                trello_api DELETE "cards/$ID" >/dev/null &
+            elif [[ "$LISTID" != 0 ]] && [[ "$ID" = 0 ]] && [[ "$CHECKSUM" = 0 ]] && [[ -n "$NEWTEXT" ]]; then
+                trello_api POST "cards" "name=${NEWTEXT}&idList=${LISTID}&pos=${LINENUM}&" >/dev/null &
+            elif [[ "$LISTID" != 0 ]] && [[ "$ID" != 0 ]] && [[ "$CHECKSUM" != 0 ]] && [[ -n "$NEWTEXT" ]]; then
+                trello_api PUT "cards/$ID" "name=${NEWTEXT}&idList=${LISTID}&pos=${LINENUM}&" >/dev/null &
+            fi
+        fi
+    fi
+done) 2>/dev/null
+
+wait

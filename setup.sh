@@ -45,6 +45,7 @@ cf irssi-config       .irssi/config
 cf irssi-theme        .irssi/default.theme
 cf gpg-agent.conf     .gnupg/gpg-agent.conf
 cf himalaya.toml      .config/himalaya/config.toml
+cf doc                doc
 
 cf ~/sync/alan/diary/concards-data .local/share/concards
 cf ~/sync/alan/diary/ttrack        .local/share/ttrack
