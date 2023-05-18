@@ -21,3 +21,7 @@ echo "# $name"
         echo
     fi
 done
+
+# echo
+# trello_api GET "boards/$board/memberships" "member=true&" | jq '.[] | .member | "@" + .id + " " + .username' -r
+

@@ -295,11 +295,11 @@ a acp=acpi
 a ac=acpi
 
 # docker
-did() { docker ps | grep "$1" | cut -d ' ' -f1 }
-dl() { docker logs $(did $1) }
-dsh() { docker exec -it "$1" /bin/sh }
-dbash() { docker exec -it "$1" /bin/bash }
-dzsh() { docker exec -it "$1" /bin/zsh }
+docid()   { docker ps | grep "$1" | cut -d ' ' -f1 }
+docl()    { docker logs $(did $1) }
+docsh()   { docker exec -it "$1" /bin/sh }
+docbash() { docker exec -it "$1" /bin/bash }
+doczsh()  { docker exec -it "$1" /bin/zsh }
 a dka='docker kill $(docker container ls -q)' # Kill all running containers.
 a dkl='docker kill $(docker ps | awk "{print \$1;}" | tail -n 1)' # Kill first container.
 a dps='docker ps'
@@ -331,12 +331,14 @@ cd_print() {
 
 a cdot='cd_print ~/.dot'
 a cdow='cd_print ~/Downloads'
+a cdai='cd_print ~/diary'
 a cwor='cd_print ~/work'
 a cpic='cd_print ~/.lexaloffle/pico-8/carts'
 a c='cd_print'
 a c-='cd_print -'
 a c~='cd;cd_print' # Example: `c~ .dot` will open '~/.dot'.
 a c.='cd_print ..'
+a dl='k ~/diary/devlog.md'
 
 # clear
 a cl=clear

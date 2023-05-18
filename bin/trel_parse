@@ -39,7 +39,7 @@ urlencode() {
         if [[ "$TYPE" = "=" ]]; then
             echo "$NEWTEXT"
         elif [[ "$TYPE" = "." ]]; then
-            if [[ "$ID" -ne 0 ]] && [[ -z "$NEWTEXT" ]]; then
+            if [[ "$ID" != 0 ]] && [[ -z "$NEWTEXT" ]]; then
                 trello_api DELETE "cards/$ID" >/dev/null &
             elif [[ "$LISTID" != 0 ]] && [[ "$ID" = 0 ]] && [[ "$CHECKSUM" = 0 ]] && [[ -n "$NEWTEXT" ]]; then
                 trello_api POST "cards" "name=${NEWTEXT}&idList=${LISTID}&pos=${LINENUM}&" >/dev/null &
