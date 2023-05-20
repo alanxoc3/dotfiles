@@ -9,6 +9,10 @@
 # i merged a PR into the the keyboard library to get darwin working. so make
 # sure you are using a version AFTER v0.13.5.
 
+# for mac, you need these commits in the keyboard library:
+# f6fddc4 4840539 : 2021-11-07 12:07:01 -0700 : alanmorgan : Removed administrator check for macs.
+# eb91330 4840539 : 2021-11-07 11:17:56 -0700 : alanmorgan : Darwin now populates the "modifiers" field, just like Linux does.
+
 import keyboard   # recording key presses
 import os         # for exiting
 import signal     # waiting and exiting sub processes
