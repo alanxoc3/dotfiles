@@ -1,0 +1,4 @@
+#!/bin/bash
+# a simple wrapper around llm: https://github.com/simonw/llm
+# arguments are the system prompt, stdin is the text
+OPENAI_API_KEY=$(pa s chatgpt) llm chatgpt -s --system "$*"
