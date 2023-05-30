@@ -28,7 +28,7 @@ alanxoc3's dotfiles. feel free to plagiarize. the following is software i use or
 ## desktop
 - [firefox](https://www.mozilla.org/en-US/firefox/new). Firefox is my Chromium based web browser with Vim bindings.
 - [foot](https://codeberg.org/dnkl/foot). The terminal emulator I use.
-- [keynav](https://github.com/jordansissel/keynav). Use keyboard to navigate mouse with vim keybindings. Wishing for a wayland replacement.
+- [warpd](https://github.com/rvaiya/warpd). A keynav replacement that works with wayland.
 - [pico8](https://www.lexaloffle.com/pico-8.php). The original fantasy console.
 - [river](https://github.com/riverwm/river). Tiling window manager for wayland.
 - [waylock](https://github.com/ifreund/waylock). Simple wayland lock screen. New version uses the ext-session-lock wayland protocol.

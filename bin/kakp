@@ -1,0 +1,13 @@
+#!/bin/bash
+# create a new buffer with standard in & pass it to pass stdin to her to th
+if [[ -z "$KAK_SESSION" ]]; then echo 'No session was set in the "$KAK_SESSION" variable!' 1>&2; exit 1; fi
+
+input=$(cat)
+output=$(mktemp -t kak-fifo-XXXXXXXX)
+mkfifo ${output}
+{ "$@" <<< "$input" > "$output" } > /dev/null 2>&1 < /dev/null &
+
+echo "edit! -fifo ${output} *buffer-name*
+hook buffer BufClose .* %{ nop %sh{ rm -r $(dirname ${output})} }"
+
+|

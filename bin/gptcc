@@ -1,0 +1,4 @@
+#!/bin/bash
+# a simple wrapper around llm: https://github.com/simonw/llm
+# arguments are the system prompt, stdin is the text
+gpt "You are a code completion bot for $1. You must finish the code that is provided to you. Do not create code blocks or markdown formatting. Do not provide any comments or explanations. Only output code."

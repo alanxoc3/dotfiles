@@ -1,0 +1,101 @@
+copy_and_exit:            unbind
+print:                    unbind
+hint2:                    unbind
+top:                      unbind
+middle:                   unbind
+bottom:                   unbind
+start:                    unbind
+end:                      unbind
+scroll_down:              unbind
+scroll_up:                unbind
+hist_back:                unbind
+hist_forward:             unbind
+accelerator:              unbind
+decelerator:              unbind
+history:                  unbind
+hint:                     unbind
+
+exit:                     unbind
+exit:                     esc
+exit:                     e
+
+grid_exit:                unbind
+grid_exit:                w
+
+drag:                     unbind
+drag:                     d
+
+oneshot_buttons:          Cancel Cancel Cancel
+buttons:                  space m r
+
+scroll_down:              unbind
+scroll_up:                unbind
+scroll_down:              n
+scroll_up:                p
+
+grid:                     unbind
+screen:                   unbind
+left:                     unbind
+down:                     unbind
+up:                       unbind
+right:                    unbind
+grid:                     c
+screen:                   s
+left:                     h
+down:                     j
+up:                       k
+right:                    l
+
+grid_up:                  unbind
+grid_left:                unbind
+grid_down:                unbind
+grid_right:               unbind
+grid_cut_up:              unbind
+grid_cut_left:            unbind
+grid_cut_down:            unbind
+grid_cut_right:           unbind
+grid_up:                  K
+grid_left:                H
+grid_down:                J
+grid_right:               L
+grid_cut_up:              k
+grid_cut_left:            h
+grid_cut_down:            j
+grid_cut_right:           l
+grid_keys:                Cancel Cancel Cancel Cancel
+
+oneshot_timeout:          1
+drag_button:              1
+grid_nr:                  2
+grid_nc:                  2
+grid_size:                4
+grid_border_size:         0
+
+hint_font:                Arial
+hint_size:                20
+hint_border_radius:       3
+hint_exit:                esc
+hint_undo:                backspace
+hint_undo_all:            C-u
+hint2_size:               20
+hint2_gap_size:           1
+hint2_grid_size:          3
+scroll_speed:             300
+scroll_max_speed:         9000
+scroll_acceleration:      1600
+scroll_deceleration:      -3400
+indicator:                none
+indicator_size:           12
+
+cursor_size:       20
+cursor_color:      #FF4500
+grid_color:        #be1250
+grid_border_color: #be1250
+hint_bgcolor:      #1c1c1e
+hint_fgcolor:      #a1aba7
+indicator_color:   #00ff00
+
+grid_size: 2
+hint_chars:               aoeuidhtnsjkbmxqwvz
+hint2_chars:              aoeuhtns
+screen_chars:             aoeuhtns

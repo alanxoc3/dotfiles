@@ -1,3 +1,0 @@
-[submodule "kak/autoload/kak-ansi"]
-	path = kak/autoload/kak-ansi
-	url = git@github.com:eraserhd/kak-ansi.git
