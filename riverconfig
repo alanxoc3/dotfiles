@@ -64,7 +64,7 @@ for mode in normal record; do
     riverctl map $mode Super T toggle-float &
     riverctl map $mode Super F toggle-fullscreen &
     riverctl map $mode Super+Shift Escape exit &
-    riverctl map $mode Super Escape spawn 'waylock -init-color 0x000000 -input-color 0x1d2b53 -fail-color 0xff004d' &
+    riverctl map $mode Super Escape spawn 'killall warpd; waylock -init-color 0x000000 -input-color 0x1d2b53 -fail-color 0xff004d' &
 
     # screenshot
     riverctl map $mode Super R spawn 'sh -c '\''grim -g "$(slurp)" - | wl-copy'\' &
