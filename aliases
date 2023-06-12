@@ -340,6 +340,7 @@ a c-='cd_print -'
 a c~='cd;cd_print' # Example: `c~ .dot` will open '~/.dot'.
 a c.='cd_print ..'
 a dl='k ~/diary/devlog.md'
+a jr='k ~/diary/$(date "+%Y")_diary.md'
 
 # clear
 a cl=clear
