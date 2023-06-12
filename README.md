@@ -25,11 +25,21 @@ alanxoc3's dotfiles. feel free to plagiarize. the following is software i use or
 - [unbuffer](http://expect.sourceforge.net/example/unbuffer.man.html). Trick command to think stdout is a terminal device.
 - [zsh](https://www.zsh.org/). The shell I currently use.
 
+## language server
+- [pylsp](https://github.com/python-lsp/python-lsp-server). A language server.
+
+## artificial intelligence
+- [llm](https://github.com/simonw/llm). Simple frontend to chatgpt.
+
+## gamedev
+- [pico8](https://www.lexaloffle.com/pico-8.php). The original fantasy console.
+- [godot](https://godotengine.org/). FOSS game engine.
+- [shrinko8](https://github.com/thisismypassport/shrinko8). Smart minifier for pico-8 lua.
+
 ## desktop
 - [firefox](https://www.mozilla.org/en-US/firefox/new). Firefox is my Chromium based web browser with Vim bindings.
 - [foot](https://codeberg.org/dnkl/foot). The terminal emulator I use.
 - [warpd](https://github.com/rvaiya/warpd). A keynav replacement that works with wayland.
-- [pico8](https://www.lexaloffle.com/pico-8.php). The original fantasy console.
 - [river](https://github.com/riverwm/river). Tiling window manager for wayland.
 - [waylock](https://github.com/ifreund/waylock). Simple wayland lock screen. New version uses the ext-session-lock wayland protocol.
 

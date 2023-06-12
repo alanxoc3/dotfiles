@@ -36,7 +36,7 @@ for mode in normal record; do
     riverctl map $mode Super         Return spawn 'footclient             -t xterm-256color /bin/zsh -li -c "tmux"' &
     riverctl map $mode Super+Shift   Return spawn 'footclient             -t xterm-256color /bin/zsh -li -c "tmux attach"' &
     riverctl map $mode Super+Control Return spawn 'footclient             -t xterm-256color /bin/zsh -li' &
-    riverctl map $mode Super         c      spawn 'sh -c "pgrep warpd || warpd -c /home/alan/.dot/warpd-config -f --grid"' &
+    riverctl map $mode Super         c      spawn 'sh -c "killall warpd; warpd -c /home/alan/.dot/warpd-config -f --grid"' &
 
     # some output shortcuts
     riverctl map $mode Super N focus-output next

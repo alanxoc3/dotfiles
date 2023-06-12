@@ -22,6 +22,8 @@ declare-user-mode text-mode # allows mappings to be bound to this
 map global text-mode p ': text-mode-format<ret>'                              -docstring 'Format a paragraph to respect the 80 character limit.'
 map global text-mode w ': toggle-highlighter global/ wrap -word -indent<ret>' -docstring 'Toggle wrap all buffers.'
 map global text-mode n ': toggle-highlighter global/ number-lines<ret>'       -docstring 'Toggle line numbers for all buffers.'
+map global text-mode a ': ansi-render<ret>'                                   -docstring 'Highlight and remove ANSI color codes.'
+map global text-mode A ': ansi-render-selection<ret>'                         -docstring 'Highlight and remove ANSI color codes from selection.'
 
 declare-user-mode fzf-mode
 map global fzf-mode r ': fzf-grep<ret>' -docstring 'grep file contents recursively'
