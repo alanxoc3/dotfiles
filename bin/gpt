@@ -1,4 +1,16 @@
 #!/bin/bash
-# a simple wrapper around llm: https://github.com/simonw/llm
-# arguments are the system prompt, stdin is the text
-OPENAI_API_KEY=$(pa s chatgpt) llm chatgpt -s --system "$*"
+# Asks AI a question. The response is cached. Includes a "related word" in mandarin too.
+
+HEADER='Do not directly answer the question. You must instead give a concise single line response in this format: {中文} {pīnyīn}: {definition}". {中文} is a Simplified Chinese word loosely related to the question, {pīnyīn} is the pinyin pronunciation for that word, {definition} is a very concise English definition of that word.
+
+Example:
+Q: Greetings
+A: 你好 nǐhǎo: hello'
+
+PROMPT='Be concise & pragmatic. Prefer to just give answers with no explanation. Likely context: linux, code'
+
+carg . gptraw 4 "$HEADER" "$@" &> /dev/null &
+carg . gptraw 4 "$PROMPT" "$@"
+
+echo; e '-- '; wait # wait for first command to finish, then print the cached results
+carg 100 gptraw 4 "$HEADER" "$@"

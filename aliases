@@ -212,8 +212,8 @@ a gp='git push'
 a gpf='git push --force'
 a gpn='git push -u origin $(git branch --show-current)'
 a gpd='git push origin --delete $(git branch --show-current)'
-a gl="git log --format='%C(auto)%h%C(reset)%C(blue)% p%C(reset) : %ci : %C(green)%cl%C(reset) : %s'"
-a glf="gl --name-status | sed '/^ *$/d'"
+gl() { git log --format='%C(auto)%h%C(reset)%C(blue)% p%C(reset) : %ci : %C(green)%cl%C(reset) : %s' --color "$@" | ([[ -o interactive ]] && kak || cat) }
+glf() { gl --name-status | sed '/^ *$/d' | ([[ -o interactive ]] && kak || cat) }
 a gd='git diff'
 a gdc='git diff --cached'
 a gdf='git diff --name-only'
@@ -334,13 +334,16 @@ a cdot='cd_print ~/.dot'
 a cdow='cd_print ~/Downloads'
 a cdai='cd_print ~/diary'
 a cwor='cd_print ~/work'
+a ccap='cd_print ~/repos/capsule/wip'
 a cpic='cd_print ~/.lexaloffle/pico-8/carts'
 a c='cd_print'
 a c-='cd_print -'
 a c~='cd;cd_print' # Example: `c~ .dot` will open '~/.dot'.
 a c.='cd_print ..'
-a dl='k ~/diary/devlog.md'
-a jr='k ~/diary/$(date "+%Y")_diary.md'
+
+a edl='k ~/diary/devlog.md'
+a ejr='k ~/diary/$(date "+%Y")_diary.md'
+a esc='k ~/diary/schedule'
 
 # clear
 a cl=clear
@@ -383,12 +386,6 @@ a bri="sbri 80"
 a morbri="sbri 90"
 a mordim="sbri 10"
 a supdim="sbri 1"
-
-# localectl & setxkbmap
-a cdv='localectl set-keymap --no-convert dvorak'
-a cqw='localectl set-keymap --no-convert us'
-a gdv='killall sxhkd keynav; setxkbmap -layout "us" -variant "dvorak"; (keynav &; sxhkd &)'
-a gqw='killall sxhkd keynav; setxkbmap -layout "us"; (keynav &; sxhkd &)'
 
 # ls
 a ls='exa'
@@ -677,19 +674,19 @@ fzfexec_exec() {}
 # Duration defaults to days, but can have other time endings too: smhdw
 # cachemd DURATION CMD ARGS...
 
-# # Proof of concept for cachecmd with ax shell.
-# a cachecmd ^EOF
-#     $CACHE_DIR [!if (test -n {CACHECMD_DIR}) {CACHCMD_DIR} [!if (test -n {XDG_CACHE_HOME}) {XDG_CACHE_HOME} -/tmp]]/cachecmd
-#     $CACHE_DIR [or {CACHECMD_DIR} {XDG_CACHE_HOME} /tmp]/cachecmd
+# # Proof of concept for carg with ax shell.
+# a carg ^EOF
+#     $CACHE_DIR [!if (test -n {CACHECMD_DIR}) {CACHCMD_DIR} [!if (test -n {XDG_CACHE_HOME}) {XDG_CACHE_HOME} -/tmp]]/carg
+#     $CACHE_DIR [or {CACHECMD_DIR} {XDG_CACHE_HOME} /tmp]/carg
 #     $DURATION {1}
 #     $FILE {CACHE_DIR}/(argshash *[range '2:' *{@}])
 # 
 #     !if (!and (find {FILE} -mtime -{DURATION} 2>/dev/null) (test -z {CACHECMD_CLEAR}))
 #         [
-#             (!if (test -n {CACHECMD_DEBUG}) [echo '[cachecmd] cache mode'])
+#             (!if (test -n {CACHECMD_DEBUG}) [echo '[carg] cache mode'])
 #             cat -- {FILE}
 #         ][
-#             (!if (test -n {CACHECMD_DEBUG}) [echo '[cachecmd] command mode'])
+#             (!if (test -n {CACHECMD_DEBUG}) [echo '[carg] command mode'])
 #             mkdir -p {CACHE_DIR}
 #             [range '2:' *{@}] | tee {FILE}
 #         ];

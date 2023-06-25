@@ -1,4 +1,0 @@
-#!/bin/bash
-# a simple wrapper around llm: https://github.com/simonw/llm
-# arguments are the system prompt, stdin is the text
-gpt "You are a code completion bot. The first word is the programming language code should be written in. The rest is what you should write. Do not put the code in a code block or markdown formatting. Do not provide any comments or explanations. Only output code."

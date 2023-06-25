@@ -4,7 +4,7 @@
 # A bunch more environment variables
 export ANACONDA_HOME="$HOME/anaconda3"
 export ANDROID_HOME=/opt/android-sdk
-export BROWSER=firefox
+export BROWSER=chromium
 export CONCARDS_OUTCOME="$HOME/track/concards-data/outcome"
 export CONCARDS_PREDICT="$HOME/track/concards-data/predict"
 export GOPATH=~/.go
@@ -24,7 +24,6 @@ export PICO_WORK_DIR=$HOME/.lexaloffle/pico-8/carts
 export XENVIRONMENT="${HOME}/.Xresources"
 export XKB_DEFAULT_LAYOUT=us
 export PA_DIR="$HOME/pass"
-# export XKB_DEFAULT_VARIANT=dvorak
 export XMODIFIERS=@im=fcitx
 export PAGER=kak_page
 export MANPAGER=kak_man

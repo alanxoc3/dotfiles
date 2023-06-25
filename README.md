@@ -15,6 +15,7 @@ alanxoc3's dotfiles. feel free to plagiarize. the following is software i use or
 - [minisign](https://github.com/jedisct1/minisign). A simple cli tool to sign files.
 - [mpv](https://mpv.io/). Nice CLI based media player. Good for webradios, gifs, and streaming videos.
 - [pa](https://github.com/biox/pa). A simple age encrypted password manager. Similar to pass, but simpler.
+- [pwgen](https://linux.die.net/man/1/pwgen). A minimal password generation tool.
 - [rg](https://github.com/BurntSushi/ripgrep). Search file content super fast. Faster and cooler than grep.
 - [sponge](https://joeyh.name/code/moreutils/). Collect stdin before executing command.
 - [sq](https://sequoia-pgp.org/). A simpler, more modern, less feature complete than gnupg, cli interface for pgp. I recommend staying away from pgp if possible though.
@@ -39,9 +40,13 @@ alanxoc3's dotfiles. feel free to plagiarize. the following is software i use or
 ## desktop
 - [firefox](https://www.mozilla.org/en-US/firefox/new). Firefox is my Chromium based web browser with Vim bindings.
 - [foot](https://codeberg.org/dnkl/foot). The terminal emulator I use.
+- [keyd](https://github.com/rvaiya/keyd). Keyboard mapping customization actually done the right way.
 - [warpd](https://github.com/rvaiya/warpd). A keynav replacement that works with wayland.
 - [river](https://github.com/riverwm/river). Tiling window manager for wayland.
 - [waylock](https://github.com/ifreund/waylock). Simple wayland lock screen. New version uses the ext-session-lock wayland protocol.
+
+## library
+- todo: chromadb
 
 ## editor
 - [kak-ansi](https://github.com/eraserhd/kak-ansi). Ansi color codes to kakoune highlighters.

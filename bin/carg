@@ -1,0 +1,53 @@
+#!/bin/bash
+
+# todo: support infinite time.
+
+# A bit complex & was created by alan.
+# Basically, this will cache the output of a command for a given amount of time.
+# So the command will sometimes run and sometimes not run.
+# To force the command to run, set the environment variable "CARG_CLEAR" to any value.
+
+# Duration defaults to days, but can have other time endings too: smhdw
+# If duration is ".", then that means infinity.
+# cachemd DURATION CMD ARGS...
+
+[ "$#" -lt 2 ] && echo 'USAGE: carg <duration> <cmd> [<arg>...]'
+
+CACHE_DIR=${CARG_DIR:-${XDG_CACHE_HOME:-/tmp}}/carg
+DURATION=$1
+FILE=${CACHE_DIR}/$(argshash "${@:2}")
+
+if [[ "$DURATION" = '.' ]]; then
+  find $FILE &>/dev/null
+else
+  find $FILE -mtime -${DURATION} &>/dev/null
+fi
+
+HAS_CACHE="$?"
+
+if [[ "$HAS_CACHE" = 0 ]] && [[ -z "$CARG_CLEAR" ]]; then
+    [[ -n "$CARG_DEBUG" ]] && echo '[carg] cache mode' >&2
+    cat < "$FILE"
+else
+    [[ -n "$CARG_DEBUG" ]] && echo '[carg] command mode' >&2
+    mkdir -p "$CACHE_DIR"
+    "${@:2}" | tee "$FILE"
+fi
+
+# # Proof of concept for carg with ax shell.
+# a carg ^EOF
+#     $CACHE_DIR [!if (test -n {CARG_DIR}) {CACHCMD_DIR} [!if (test -n {XDG_CACHE_HOME}) {XDG_CACHE_HOME} -/tmp]]/carg
+#     $CACHE_DIR [or {CARG_DIR} {XDG_CACHE_HOME} /tmp]/carg
+#     $DURATION {1}
+#     $FILE {CACHE_DIR}/(argshash *[range '2:' *{@}])
+# 
+#     !if (!and (find {FILE} -mtime -{DURATION} 2>/dev/null) (test -z {CARG_CLEAR}))
+#         [
+#             (!if (test -n {CARG_DEBUG}) [echo '[carg] cache mode'])
+#             cat -- {FILE}
+#         ][
+#             (!if (test -n {CARG_DEBUG}) [echo '[carg] command mode'])
+#             mkdir -p {CACHE_DIR}
+#             [range '2:' *{@}] | tee {FILE}
+#         ];
+# EOF
