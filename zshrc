@@ -39,4 +39,3 @@ source_file "$HOME/.local_aliases"
 source_file "$HOME/.aliases"
 source_file "$HOME/.dot/local_zshrc"
 source_file "$HOME/.dot/zbindings"
-[ -f "$HOME/.sredot/bashrc" ] && source "$HOME/.sredot/bashrc" 2> /dev/null

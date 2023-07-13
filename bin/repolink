@@ -40,6 +40,6 @@ for file in "$@"; do
     elif echo "$HOST" | grep 'bitbucket.org' &> /dev/null; then
        echo "https://$HOST/$GROUP/$REPO/src/$PRIMARYBRANCH/$FILE_PATH_RELATIVE_TO_GIT"
     elif echo "$HOST" | grep 'github.com' &> /dev/null; then
-       echo "https://$HOST/$GROUP/$REPO/blob/$CURRENT_BRANCH$FILE_PATH_RELATIVE_TO_GIT"
+       echo "https://$HOST/$GROUP/$REPO/blob/$CURRENT_BRANCH/$FILE_PATH_RELATIVE_TO_GIT"
    fi
 done

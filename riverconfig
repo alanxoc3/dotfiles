@@ -1,20 +1,22 @@
 #!/bin/sh
+
+# easy way to switch between color theme
+# no parallel, because it's cleaner that way
+# colors are all from the pico-8 palette!
+NORMAL_MODE_COLOR='     riverctl background-color 0x111D35; riverctl border-color-focused 0x065AB5; riverctl border-color-unfocused 0x1d2b53; riverctl border-color-urgent 0x1d2b53'
+RECORD_MODE_COLOR='     riverctl background-color 0x291814; riverctl border-color-focused 0xBE1250; riverctl border-color-unfocused 0x422136; riverctl border-color-urgent 0x422136'
+PASSTHROUGH_MODE_COLOR='riverctl background-color 0x000000; riverctl border-color-focused 0xC2C3C7; riverctl border-color-unfocused 0x5F574F; riverctl border-color-urgent 0x5F574F'
+eval "$NORMAL_MODE_COLOR" # very first thing done should be changing the color so i don't see the default color.
+
 # create modes, can't be parallelized
 riverctl declare-mode passthrough
 riverctl declare-mode record
 
-# easy way to switch between color theme
-# no parallel, because it's cleaner that way
-NORMAL_MODE_COLOR='     riverctl background-color 0x111D35; riverctl border-color-focused 0x065AB5; riverctl border-color-unfocused 0x1d2b53; riverctl border-color-urgent 0x1d2b53'
-RECORD_MODE_COLOR='     riverctl background-color 0x291814; riverctl border-color-focused 0xBE1250; riverctl border-color-unfocused 0x422136; riverctl border-color-urgent 0x422136'
-PASSTHROUGH_MODE_COLOR='riverctl background-color 0x000000; riverctl border-color-focused 0xC2C3C7; riverctl border-color-unfocused 0x5F574F; riverctl border-color-urgent 0x5F574F'
-eval "$NORMAL_MODE_COLOR"
-
 # order of this command block is important
 # before starting other wayland services i use through systemd, i need to have important env variables imported into systemd
 systemctl --user set-environment XDG_CURRENT_DESKTOP=river DISPLAY="$DISPLAY" WAYLAND_DISPLAY="$WAYLAND_DISPLAY"
-systemctl --user reset-failed gammastep rivertile foot-server swayidle xdg-desktop-portal-wlr xdg-desktop-portal
-systemctl --user restart      gammastep rivertile foot-server swayidle xdg-desktop-portal-wlr xdg-desktop-portal
+systemctl --user reset-failed gammastep rivertile foot-server xdg-desktop-portal-wlr xdg-desktop-portal
+systemctl --user restart      gammastep rivertile foot-server xdg-desktop-portal-wlr xdg-desktop-portal
 
 # and finally start up the other services
 riverctl default-layout rivertile
@@ -37,6 +39,12 @@ for mode in normal record; do
     riverctl map $mode Super+Shift   Return spawn 'footclient             -t xterm-256color /bin/zsh -li -c "tmux attach"' &
     riverctl map $mode Super+Control Return spawn 'footclient             -t xterm-256color /bin/zsh -li' &
     riverctl map $mode Super         c      spawn 'sh -c "killall warpd; warpd -c /home/alan/.dot/warpd-config -f --grid"' &
+
+    # Some f-keys, changing backlight isn't allowed in locked mode
+    riverctl map $mode Super F6 spawn 'light -S .1' &
+    riverctl map $mode Super F7 spawn 'light -S 4' &
+    riverctl map $mode Super F8 spawn 'light -S 25' &
+    riverctl map $mode Super F9 spawn 'light -S 100' &
 
     # some output shortcuts
     riverctl map $mode Super N focus-output next
@@ -63,8 +71,6 @@ for mode in normal record; do
     riverctl map $mode Super Q close &
     riverctl map $mode Super T toggle-float &
     riverctl map $mode Super F toggle-fullscreen &
-    riverctl map $mode Super+Shift Escape exit &
-    riverctl map $mode Super Escape spawn 'killall warpd; waylock -init-color 0x000000 -input-color 0x1d2b53 -fail-color 0xff004d' &
 
     # screenshot
     riverctl map $mode Super R spawn 'sh -c '\''grim -g "$(slurp)" - | wl-copy'\' &
@@ -76,6 +82,9 @@ for mode in normal record; do
     # moving floating windows
     riverctl map-pointer $mode Super BTN_LEFT  move-view &
     riverctl map-pointer $mode Super BTN_RIGHT resize-view &
+
+    # power button and escope will lock, shutdown, and log out
+    riverctl map $mode None XF86PowerOff spawn 'waylock -init-color 0x000000 -input-color 0x1d2b53 -fail-color 0xff004d' &
 
     # switching workspaces/tags
     for i in $(seq 1 9); do
@@ -89,19 +98,25 @@ done
 
 # available for normal, record, and locked modes
 for mode in normal record locked; do
+    riverctl map-switch $mode lid close spawn 'if [ $(bc -l <<< "$(light) == 0") = 0 ]; then light -O; light -S 0; fi' &
+    riverctl map-switch $mode lid open spawn  'if [ $(bc -l <<< "$(light) == 0") = 1 ]; then light -I; fi' &
+
+
+    riverctl map $mode Super F1 spawn 'pamixer --set-volume 0' &
+    riverctl map $mode Super F2 spawn 'pamixer --set-volume 30' &
+    riverctl map $mode Super F3 spawn 'pamixer --set-volume 40' &
+    riverctl map $mode Super F4 spawn 'pamixer --set-volume 100' &
     riverctl map $mode Super F5 spawn 'systemctl --user is-active radico8-player && systemctl --user stop radico8-player || systemctl --user start radico8-player' &
-    riverctl map $mode Super F3 spawn 'pamixer -i 5' &
-    riverctl map $mode Super F2 spawn 'pamixer -d 5' &
-    riverctl map $mode Super F1 spawn 'pamixer --toggle-mute' &
-    riverctl map $mode Super F8 spawn 'light -A 10' &
-    riverctl map $mode Super F7 spawn 'light -U 10' &
 done
 
 # passthrough mode doesn't allow any keybindings besides super+shift+f11
-riverctl map normal      Super               F11   spawn "riverctl enter-mode passthrough; $PASSTHROUGH_MODE_COLOR" &
-riverctl map passthrough Super+Shift         F11   spawn "riverctl enter-mode normal;      $NORMAL_MODE_COLOR" &
-riverctl map normal      Super+Control       R     spawn 'sh -c '\''riverctl enter-mode record; '"$RECORD_MODE_COLOR"'; rm -rf /tmp/record.gif; wf-recorder -g "$(slurp)" -F fps=30 -c gif -f /tmp/record.gif; cat /tmp/record.gif | wl-copy'\' &
-riverctl map record      Super+Shift+Control R     spawn 'sh -c '\''killall -s INT wf-recorder; riverctl enter-mode normal; '"$NORMAL_MODE_COLOR"\' &
+riverctl map normal      Super               Escape       spawn "riverctl enter-mode passthrough; $PASSTHROUGH_MODE_COLOR" &
+riverctl map passthrough Super               Escape       spawn "riverctl enter-mode normal;      $NORMAL_MODE_COLOR" &
+riverctl map passthrough Super+Shift         Escape       exit &
+riverctl map passthrough None                XF86PowerOff spawn 'systemctl poweroff' &
+
+riverctl map normal      Super+Control       R      spawn 'sh -c '\''riverctl enter-mode record; '"$RECORD_MODE_COLOR"'; rm -rf /tmp/record.gif; wf-recorder -g "$(slurp)" -F fps=30 -c gif -f /tmp/record.gif; cat /tmp/record.gif | wl-copy'\' &
+riverctl map record      Super+Shift+Control R      spawn 'sh -c '\''killall -s INT wf-recorder; riverctl enter-mode normal; '"$NORMAL_MODE_COLOR"\' &
 
 # general mouse configuration
 for p in $(riverctl list-inputs | rg '^pointer'); do

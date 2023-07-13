@@ -453,8 +453,8 @@ a rd="rmdir"
 a pe='pass edit'
 
 # synclient
-a mouse='synclient TouchpadOff=0'
-a nomouse='synclient TouchpadOff=1'
+a   mouse='riverctl list-inputs | rg pointer | rg -v keyd | xargs -I _ riverctl input _ events enabled'
+a nomouse='riverctl list-inputs | rg pointer | rg -v keyd | xargs -I _ riverctl input _ events disabled'
 
 # sudo
 a psudo='sudo env "PATH=$PATH" '
