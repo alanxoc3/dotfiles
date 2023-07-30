@@ -198,6 +198,48 @@ while sleep 5m; do
 done
 EOF
 
+pip install openai --break-system-packages
+
+install_stdin root root 0500 /usr/local/bin/mcgptpython << EOF
+#!/usr/bin/python3
+
+import openai  # for generating ai content
+
+system_prompt = '''
+You must provide a random minecraft challenge for a survival world that can reasonably be accomplished within about 30 minutes for a group of 1-3 players.
+
+The challenge you provide should be:
+- specific
+- unconventional
+- weird
+- unrelated to roller coasters
+
+Some bad challenges and why:
+- Complete a parkour course. (Because there might not be one built already.)
+- Defeat a zombie horde. (Because the number of zombies is not specified.)
+
+The challenge you provide must exactly match one of the following categories:
+- Building a specific building with a specific number of blocks.
+- Building a specific building with a specific length.
+- Building a specific building with a rare block.
+- Defeating a specific mob in a difficult way.
+- Find something that is difficult to find.
+- Break a block in difficult way.
+
+Please provide the challenge in as few words as possible. Be concise. Use only one sentence and no quotes, newlines, or any other unneeded punctuation.
+'''
+
+completion = openai.ChatCompletion.create(temperature=1.5, model='gpt-3.5-turbo', messages=[{"role": "system", "content": system_prompt.strip()}])
+
+print(completion["choices"][0]["message"]["content"])
+EOF
+
+install_stdin root root 0500 /usr/local/bin/mcgpt << EOF
+#!/bin/bash
+CHALLENGE_TEXT="THE KING DECREES: \$(OPENAI_API_KEY=\$(cat /usr/local/mcsecret) mcgptpython)"
+echo CHALLENGE_TEXT
+EOF
+
 install_stdin root root 0644 /etc/systemd/system/minecraft-qotd.service << EOF
 [Unit]
 After=minecraft.service
