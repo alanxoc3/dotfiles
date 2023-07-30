@@ -194,7 +194,7 @@ EOF
 install_stdin root root 0500 /usr/local/bin/mcqotd << EOF
 #!/bin/bash
 while sleep 5m; do
-  mccmd "say THE KING DECREES: $(fortune -n 80 -s | remove_extra_spaces)"
+  mccmd "say THE KING DECREES: \$(fortune -n 80 -s | remove_extra_spaces)"
 done
 EOF
 
