@@ -1,0 +1,5 @@
+#!/bin/bash
+# a simple wrapper around llm: https://github.com/simonw/llm
+# arguments are the system prompt, stdin is the text
+VAR=$(sed -E 's/\bx\b/io.read("*n")/g' <<< "$*")
+lua -e "print($VAR)"

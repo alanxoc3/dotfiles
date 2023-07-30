@@ -184,5 +184,31 @@ mccmd save-on # in case command was run manually
 mccmd 'say Goodbye!'
 EOF
 
+install_stdin root root 0500 /usr/local/bin/remove_extra_spaces << EOF
+#!/usr/bin/python3
+import re
+import sys
+print(re.sub("\s+", " ", sys.stdin.read()).strip())
+EOF
+
+install_stdin root root 0500 /usr/local/bin/mcqotd << EOF
+#!/bin/bash
+while sleep 5m; do
+  mccmd "say THE KING DECREES: $(fortune -n 80 -s | remove_extra_spaces)"
+done
+EOF
+
+install_stdin root root 0644 /etc/systemd/system/minecraft-qotd.service << EOF
+[Unit]
+After=minecraft.service
+
+[Service]
+WorkingDirectory=/srv/minecraft
+ExecStart=/usr/local/bin/mcqotd
+
+[Install]
+WantedBy=network.target
+EOF
+
 systemctl daemon-reload
-systemctl enable minecraft-setup.service minecraft.service
+systemctl enable minecraft-setup.service minecraft.service minecraft-qotd.service
