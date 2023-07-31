@@ -117,7 +117,6 @@ Type=oneshot
 RemainAfterExit=yes
 ExecStartPre=/usr/local/bin/update_install_to_server
 ExecStart=/usr/local/bin/install_to_server
-ExecStartPost=/usr/local/bin/prep-on-start
 
 [Install]
 WantedBy=network.target
@@ -133,6 +132,7 @@ User=minecraft
 Group=minecraft
 WorkingDirectory=/srv/minecraft
 ExecStart=/usr/bin/java -Xms512M -Xmx${JAVA_MAX_MEMORY}M -jar minecraft_server.jar nogui
+ExecStartPost=/usr/local/bin/prep-on-start
 
 [Install]
 WantedBy=network.target
