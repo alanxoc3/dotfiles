@@ -267,3 +267,4 @@ EOF
 
 systemctl daemon-reload
 systemctl enable minecraft-setup.service minecraft.service minecraft-qotd.service
+systemctl start                          minecraft.service minecraft-qotd.service
