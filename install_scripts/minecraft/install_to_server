@@ -143,7 +143,7 @@ install_stdin root root 0555 /usr/local/bin/mccmd << EOF
 until mcrcon -p pass "\$@"; do echo connection failed... trying again in 1 second.; sleep 1s; done
 EOF
 
-install_stdin root root 0500 /usr/local/bin/prep-on-start << EOF
+install_stdin root root 0555 /usr/local/bin/prep-on-start << EOF
 #!/bin/bash
 mccmd 'say ----------------------------'
 mccmd 'say WELCOME TO MORGCRAFT!'
