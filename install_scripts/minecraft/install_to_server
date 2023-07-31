@@ -193,8 +193,12 @@ EOF
 
 install_stdin root root 0500 /usr/local/bin/mcqotd << EOF
 #!/bin/bash
-while sleep 5m; do
-  mccmd "say THE KING DECREES: \$(fortune -n 80 -s | remove_extra_spaces)"
+while true; do
+  if [ -f /srv/minecraft/current_quest ]; then
+    mccmd "say CURRENT DECREE: \$(cat /srv/minecraft/current_quest | remove_extra_spaces)"
+  fi
+
+  sleep 5m
 done
 EOF
 
@@ -236,9 +240,10 @@ EOF
 
 install_stdin root root 0500 /usr/local/bin/mcgpt << EOF
 #!/bin/bash
-CHALLENGE_TEXT="THE KING DECREES: \$(OPENAI_API_KEY=\$(cat /usr/local/mcsecret) mcgptpython)"
+CHALLENGE_TEXT="\$(OPENAI_API_KEY=\$(cat /usr/local/mcsecret) mcgptpython)"
 echo "\$CHALLENGE_TEXT"
-mccmd 'say '"\$CHALLENGE_TEXT" 2>&1 >/dev/null
+mccmd 'say THE KING DECREES: '"\$CHALLENGE_TEXT" 2>&1 >/dev/null
+tee /srv/minecraft/current_quest <<< "\$CHALLENGE_TEXT"
 EOF
 
 install_stdin root root 0644 /etc/systemd/system/minecraft-qotd.service << EOF
