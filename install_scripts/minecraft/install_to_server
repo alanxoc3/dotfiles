@@ -195,7 +195,7 @@ install_stdin root root 0500 /usr/local/bin/mcqotd << EOF
 #!/bin/bash
 while true; do
   if [ -f /srv/minecraft/current_quest ]; then
-    mccmd "say CURRENT DECREE: \$(cat /srv/minecraft/current_quest | remove_extra_spaces)"
+    mccmd "say CURRENT KING DECREE: \$(cat /srv/minecraft/current_quest | remove_extra_spaces)"
   fi
 
   sleep 5m
@@ -210,30 +210,28 @@ install_stdin root root 0500 /usr/local/bin/mcgptpython << EOF
 import openai  # for generating ai content
 
 system_prompt = '''
-You must provide a random minecraft challenge for a survival world that can reasonably be accomplished within about 30 minutes for a group of 1-3 players.
+You are the king of a minecraft survival server called "Morgiu" and are responsible for directing your citizens to complete a small challenge.
 
-The challenge you provide should be:
-- specific
-- unconventional
-- weird
-- unrelated to roller coasters
+The small challenge must match only one of the following categories:
+- changing the landscape of a specific area
+- obtaining/crafting/baking a specific amount of an resource/item/food
+- build something small in a specific place with one or more specific blocks
+- defeating/capturing a specific mob in an unconventional way
+- enchanting something specific
+- rennovating a specific structure within the kingdom
 
-Some bad challenges and why:
-- Complete a parkour course. (Because there might not be one built already.)
-- Defeat a zombie horde. (Because the number of zombies is not specified.)
+The challenge must be small enough to complete by 1 person within 30 minutes, though you must not specify any time constraints in the actual challenge.
 
-The challenge you provide must exactly match one of the following categories:
-- Building a specific building with a specific number of blocks.
-- Building a specific building with a specific length.
-- Building a specific building with a rare block.
-- Defeating a specific mob in a difficult way.
-- Find something that is difficult to find.
-- Break a block in difficult way.
+Any resources/mobs/biomes mentioned in the challenge must actually exist in a vanilla/modless minecraft server.
 
-Please provide the challenge in as few words as possible. Be concise. Use only one sentence and no quotes, newlines, or any other unneeded punctuation.
+Any lore that does not exist in a vanilla minecraft server must contain the quadgram "morg" in its title.
+
+Be concise and talk like the king. Use only one sentence with no quotes, colons, newlines, or any other unneeded punctuation.
+
+Start your sentence by addressing the citizens of the kingdom then saying "you must". EG: "My dear citizens, you must..."
 '''
 
-completion = openai.ChatCompletion.create(temperature=1.5, model='gpt-3.5-turbo', messages=[{"role": "system", "content": system_prompt.strip()}])
+completion = openai.ChatCompletion.create(temperature=1, model='gpt-3.5-turbo', messages=[{"role": "system", "content": system_prompt.strip()}])
 
 print(completion["choices"][0]["message"]["content"])
 EOF
