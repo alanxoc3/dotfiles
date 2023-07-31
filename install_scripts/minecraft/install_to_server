@@ -125,7 +125,7 @@ EOF
 JAVA_MAX_MEMORY=$(free -m | grep -E '^Mem:' | awk '{print int($2*.8)}')
 install_stdin root root 0644 /etc/systemd/system/minecraft.service << EOF
 [Unit]
-After=local-fs.target network.target multi-user.target srv-minecraft.mount minecraft-setup.service
+After=local-fs.target network.target multi-user.target srv-minecraft.mount
 
 [Service]
 User=minecraft
@@ -266,5 +266,6 @@ WantedBy=network.target
 EOF
 
 systemctl daemon-reload
-systemctl enable minecraft-setup.service minecraft.service minecraft-qotd.service
-systemctl start                          minecraft.service minecraft-qotd.service
+systemctl disable minecraft.service minecraft-qotd.service
+systemctl enable  minecraft-setup.service
+systemctl start   minecraft.service minecraft-qotd.service
