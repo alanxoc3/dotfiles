@@ -248,7 +248,7 @@ EOF
 
 install_stdin root root 0500 /usr/local/bin/mcgpt << EOF
 #!/bin/bash
-CHALLENGE_TEXT="\$(OPENAI_API_KEY=\$(cat /usr/local/mcsecret) mcgptpython)"
+CHALLENGE_TEXT="\$(OPENAI_API_KEY=\$(cat /srv/minecraft/mcsecret) mcgptpython)"
 mccmd 'say THE KING DECREES: '"\$CHALLENGE_TEXT" 2>&1 >/dev/null
 tee /srv/minecraft/current_quest <<< "\$CHALLENGE_TEXT"
 EOF
