@@ -122,7 +122,6 @@ ExecStart=/usr/local/bin/install_to_server
 WantedBy=network.target
 EOF
 
-JAVA_MAX_MEMORY=$(free -m | grep -E '^Mem:' | awk '{print int($2*.8)}')
 install_stdin root root 0644 /etc/systemd/system/minecraft.service << EOF
 [Unit]
 After=local-fs.target network.target multi-user.target srv-minecraft.mount
@@ -131,16 +130,17 @@ After=local-fs.target network.target multi-user.target srv-minecraft.mount
 User=minecraft
 Group=minecraft
 WorkingDirectory=/srv/minecraft
-ExecStart=/usr/bin/java -Xms512M -Xmx${JAVA_MAX_MEMORY}M -jar minecraft_server.jar nogui
+ExecStart=/srv/minecraft/run
 ExecStartPost=/usr/local/bin/prep-on-start
 
 [Install]
 WantedBy=network.target
 EOF
 
-install_stdin root root 0555 /usr/local/bin/mccmd << EOF
-#!/bin/bash
-until mcrcon -p pass "\$@" 2>/dev/null; do echo connection failed... trying again in 1 second.; sleep 1s; done
+JAVA_MAX_MEMORY=$(free -m | grep -E '^Mem:' | awk '{print int($2*.8)}')
+install_stdin minecraft minecraft 0600 /srv/minecraft/user_jvm_args.txt << EOF
+-Xms512M
+-Xmx${JAVA_MAX_MEMORY}M
 EOF
 
 install_stdin root root 0555 /usr/local/bin/prep-on-start << EOF
@@ -217,7 +217,7 @@ EOF
 install_stdin root root 0500 /usr/local/bin/mcgptpython << EOF
 #!/usr/bin/python3
 
-import openai  # for generating ai content
+import openai # for generating ai content
 
 system_prompt = '''
 You are the king of a minecraft survival server called "Morgiu" and are responsible for directing your citizens to complete a small challenge.
