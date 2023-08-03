@@ -1,2 +1,2 @@
 #!/bin/bash
-col -bx | kak -e "set buffer filetype 'man'"
+kak -e "set buffer filetype 'man'"
