@@ -66,7 +66,7 @@ motd=\u00A7fMorgcraft\! \u00A74\u00A7omon-fri \u00A78\u00A7o19\:00-20\:30 us/mt\
 network-compression-threshold=256
 online-mode=true
 op-permission-level=4
-player-idle-timeout=0
+player-idle-timeout=10
 prevent-proxy-connections=false
 previews-chat=false
 pvp=true
@@ -94,14 +94,7 @@ EOF
 
 echo '[]' | install_stdin minecraft minecraft 0600 /srv/minecraft/whitelist.json
 
-awk '!/^\s*#/' << EOF | install_stdin minecraft minecraft 0600 /srv/minecraft/ops.json
-[
-  { "uuid": "de0f3b94-e2f5-4d79-8df8-fe7567ce7ecc", "name": "WolfFang181",    "level": 1, "bypassesPlayerLimit": false },
-  { "uuid": "22536222-f7fd-455c-b3bf-6056eba7be5e", "name": "alanxoc3",       "level": 1, "bypassesPlayerLimit": false },
-  { "uuid": "ecb96fe7-3c30-43cc-9c7d-e05f66814143", "name": "WadloTheWizard", "level": 1, "bypassesPlayerLimit": false },
-  { "uuid": "7d0bbea7-7c5e-4fb3-91bb-9b9564b261b7", "name": "GreatCadet",     "level": 1, "bypassesPlayerLimit": false }
-]
-EOF
+rm -f /srv/minecraft/ops.json
 
 install_stdin root root 0500 /usr/local/bin/update_install_to_server << EOF
 #!/bin/bash
@@ -149,6 +142,11 @@ mccmd 'say ----------------------------'
 mccmd 'say WELCOME TO MORGCRAFT!'
 mccmd 'say ----------------------------'
 mccmd 'gamerule playersSleepingPercentage 10'
+
+mccmd 'op alanxoc3'
+mccmd 'op WolfFang181'
+mccmd 'op WadloTheWizard'
+mccmd 'op GreatCadet'
 EOF
 
 install_stdin root root 0500 /usr/local/bin/prep-for-shutdown << EOF
