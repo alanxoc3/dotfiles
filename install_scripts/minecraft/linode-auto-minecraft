@@ -65,7 +65,7 @@ elif [[ "$COMMAND" = 'build' ]]; then
         lapi v4/linode/instances -X POST -d '{
           "image": "'"$IMAGE_ID"'",
           "root_pass": "'"$ROOT_PASS"'",
-          "authorized_keys": [ "'"$SSHPUBKEY"'" ],
+          "authorized_keys": [ "'"$SSHPUBKEY"'", "'"$SSHPUBKEY_BACKUP"'" ],
           "label": "server-minecraft",
           "type": "g6-standard-4",
           "region": "us-west"
