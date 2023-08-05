@@ -125,6 +125,7 @@ Group=minecraft
 WorkingDirectory=/srv/minecraft
 ExecStart=/srv/minecraft/run
 ExecStartPost=/usr/local/bin/prep-on-start
+TimeoutStartSec=infinity
 
 [Install]
 WantedBy=network.target

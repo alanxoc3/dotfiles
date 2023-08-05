@@ -14,6 +14,25 @@ install_stdin() {
     rm "$file"
 }
 
+install_stdin root root 0555 /usr/local/bin/mcsh << EOF
+#!/bin/bash
+ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i /etc/minecraft/id_rsa mc.xoc3.io "$*"
+exit $?
+EOF
+
+install_stdin root root 0555 /usr/local/bin/mcdestroywhenempty << EOF
+#!/bin/bash
+if [ timeout 30s mcsh mccmd list | sed -E 's/^There are ([0-9]+) .*/\1/g' -eq 0 ]; then
+  mcdestroy
+fi
+EOF
+
+install_stdin root root 0555 /usr/local/bin/mcdestroy << EOF
+#!/bin/bash
+mcsh prep-for-shutdown
+linode-auto-minecraft destroy
+EOF
+
 install_stdin root root 0644 /etc/systemd/system/minecraft-build.service << EOF
 [Service]
 Type=oneshot
@@ -24,29 +43,19 @@ EOF
 install_stdin root root 0644 /etc/systemd/system/minecraft-destroy.service << EOF
 [Service]
 Type=oneshot
-ExecStartPre=-/usr/bin/ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i /etc/minecraft/id_rsa mc.xoc3.io /usr/local/bin/prep-for-shutdown
-ExecStart=/usr/local/bin/linode-auto-minecraft destroy
+ExecStart=/usr/local/bin/mcdestroywhenempty
 EnvironmentFile=/etc/minecraft/setup.env
-EOF
-
-install_stdin root root 0644 /etc/systemd/system/minecraft-build.timer << EOF
-[Timer]
-OnCalendar=Mon,Tue,Wed,Thu,Fri *-*-* 18:45 US/Mountain
-OnCalendar=Sat,Sun *-*-* 17:45 US/Mountain
-
-[Install]
-WantedBy=network.target
 EOF
 
 install_stdin root root 0644 /etc/systemd/system/minecraft-destroy.timer << EOF
 [Timer]
-OnCalendar=Mon,Tue,Wed,Thu,Fri *-*-* 20:30 US/Mountain
-OnCalendar=Sat,Sun *-*-* 21:30 US/Mountain
+OnBootSec=10min
+OnUnitActiveSec=10min
 
 [Install]
 WantedBy=network.target
 EOF
 
 systemctl daemon-reload
-systemctl enable minecraft-build.timer minecraft-destroy.timer
-systemctl start minecraft-build.timer minecraft-destroy.timer
+systemctl enable minecraft-destroy.timer
+systemctl start minecraft-destroy.timer
