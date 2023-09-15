@@ -1,0 +1,4 @@
+[Service]
+ExecStart=rivertile -view-padding 8 -outer-padding 8 -main-ratio .5
+RestartSec=1s
+Restart=always

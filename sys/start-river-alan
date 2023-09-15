@@ -1,0 +1,5 @@
+#!/bin/sh
+# kinda dumb i have to do this. it's like the modprobe file doesn't startup until milliseconds after the module is loaded...
+# sleep for a few seconds if the uptime is less than 2 minutes.
+[ "$(cut -d. -f1 /proc/uptime)" -lt "120" ] && sleep 3s
+env XDG_SESSION_DESKTOP=river XDG_CURRENT_DESKTOP=river dbus-run-session /usr/bin/river -log-level error 2>&1 | systemd-cat -t river -p err

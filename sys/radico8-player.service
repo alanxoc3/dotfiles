@@ -1,0 +1,4 @@
+[Service]
+ExecStart=mpv http://radico8.xoc3.io &>/dev/null
+Restart=always
+RestartSec=1

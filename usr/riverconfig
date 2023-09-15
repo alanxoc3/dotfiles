@@ -1,5 +1,11 @@
 #!/bin/sh
 
+# https://github.com/MaxVerevkin/wl-gammarelay-rs
+# > busctl --user set-property rs.wl-gammarelay / rs.wl.gammarelay Temperature q 3500
+# > busctl --user set-property rs.wl-gammarelay / rs.wl.gammarelay Inverted b false
+# > busctl --user set-property rs.wl-gammarelay / rs.wl.gammarelay Inverted b true
+# for mpv maybe use one of the --input- options to fastforward
+
 # easy way to switch between color theme
 # no parallel, because it's cleaner that way
 # colors are all from the pico-8 palette!
