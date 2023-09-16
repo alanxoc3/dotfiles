@@ -59,6 +59,7 @@ cf usr/kak-lsp            .config/kak-lsp
 cf usr/mpv.conf           .config/mpv/mpv.conf
 cf usr/gitconfig          .config/git/config
 cf usr/riverconfig        .config/river/init
+cf usr/foot.ini           .config/foot/foot.ini
 cf usr/ssh-config         .ssh/config
 cf usr/mimeapps.list      .config/mimeapps.list
 cf usr/alacritty.yml      .config/alacritty/alacritty.yml
