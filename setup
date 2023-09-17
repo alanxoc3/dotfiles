@@ -37,6 +37,7 @@ cfp sys/start-river-alan            /usr/local/bin/start-river-alan
 cfp sys/greetd.toml                 /etc/greetd/config.toml
 cfp sys/radico8-player.service      /etc/systemd/user/radico8-player.service
 cfp sys/foot-server.service         /etc/systemd/user/foot-server.service
+cfp sys/wl-gammarelay-rs.service    /etc/systemd/user/wl-gammarelay-rs.service
 cfp sys/rivertile.service           /etc/systemd/user/rivertile.service
 cfp sys/foot-server.service         /etc/systemd/user/foot-server.service
 cfp sys/keyd.conf                   /etc/keyd/default.conf
@@ -44,7 +45,6 @@ cfp sys/pipewire-input-denoise.conf /etc/pipewire/pipewire.conf.d/99-input-denoi
 cfp sys/shells                      /etc/shells
 
 systemctl daemon-reload
-systemctl daemon-reload --user
 
 else # run as user
 
@@ -78,7 +78,9 @@ cat << EOF > $HOME/.rgconfig
 --no-heading
 --no-follow
 --hidden
---ignore-file=${HOME}/.dot/search-ignore
+--ignore-file=${HOME}/.dot/usr/search-ignore
 EOF
+
+systemctl daemon-reload --user
 
 fi

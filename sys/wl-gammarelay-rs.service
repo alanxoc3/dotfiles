@@ -1,0 +1,4 @@
+[Service]
+ExecStart=wl-gammarelay-rs run
+RestartSec=1s
+Restart=always

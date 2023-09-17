@@ -24,6 +24,7 @@ alanxoc3's dotfiles. feel free to plagiarize. the following is software i use or
 - [transmission-cli](https://transmissionbt.com/). A popular bittorrent client.
 - [ttrack](https://github.com/alanxoc3/ttrack). Time tracker CLI app.
 - [unbuffer](http://expect.sourceforge.net/example/unbuffer.man.html). Trick command to think stdout is a terminal device.
+- [wl-gammarelay-rs](https://github.com/MaxVerevkin/wl-gammarelay-rs). A simple daemon for changing linux/wayland brightness/temp/invert.
 - [zsh](https://www.zsh.org/). The shell I currently use.
 
 ## language server
