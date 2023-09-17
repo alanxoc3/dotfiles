@@ -36,6 +36,7 @@ if [ "${EUID:-$(id -u)}" -eq 0 ]; then # run as root
 cfp sys/start-river-alan            /usr/local/bin/start-river-alan
 cfp sys/greetd.toml                 /etc/greetd/config.toml
 cfp sys/radico8-player.service      /etc/systemd/user/radico8-player.service
+cfp sys/foot-server.service         /etc/systemd/user/foot-server.service
 cfp sys/rivertile.service           /etc/systemd/user/rivertile.service
 cfp sys/foot-server.service         /etc/systemd/user/foot-server.service
 cfp sys/keyd.conf                   /etc/keyd/default.conf

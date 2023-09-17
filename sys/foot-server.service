@@ -1,0 +1,4 @@
+[Service]
+ExecStart=foot -s -f 'Source Code Pro':size=20
+RestartSec=1s
+Restart=always
