@@ -32,7 +32,7 @@ map global fzf-mode f ': fzf-file<ret>' -docstring 'open file'
 # tab & whitespace configuration
 set-option global tabstop 2
 set-option global indentwidth 2 # 0 means tab character
-set-option global aligntab true
+set-option global aligntab false
 
 hook global BufCreate .* %{
     hook buffer -group tabspace InsertChar \t %{ execute-keys -draft '<esc>h@' }
