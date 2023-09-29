@@ -78,7 +78,6 @@ cat << EOF > $HOME/.rgconfig
 --no-heading
 --no-follow
 --hidden
---ignore-file=${HOME}/.dot/usr/search-ignore
 EOF
 
 systemctl daemon-reload --user

@@ -9,6 +9,7 @@ image/webp=org.qutebrowser.qutebrowser.desktop
 x-scheme-handler/ftp=org.qutebrowser.qutebrowser.desktop
 x-scheme-handler/https=org.qutebrowser.qutebrowser.desktop
 x-scheme-handler/ftp=org.qutebrowser.qutebrowser.desktop
+x-scheme-handler/mailto=chromium.desktop
 
 [Added Associations]
 text/html=org.qutebrowser.qutebrowser.desktop

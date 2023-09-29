@@ -49,8 +49,9 @@ for mode in normal record; do
     riverctl map $mode Super+Shift N send-to-output next
     riverctl map $mode Super M spawn "wl-mirror -r '0,0 2256x1504'"
 
-    riverctl map $mode Super+Shift P spawn 'for p in $(riverctl list-inputs | rg "^pointer"); do riverctl input "$p" events disabled; fi'
-    riverctl map $mode Super       P spawn 'for p in $(riverctl list-inputs | rg "^pointer"); do riverctl input "$p" events enabled; fi'
+    [[ $(riverctl list-input-configs | rg -A1 "^pointer" | rg events: | head -n 1 | awk "{print \$2}") = "enabled" ]]
+
+    riverctl map $mode Super P spawn 'NEWSTATE=$([[ $(riverctl list-input-configs | rg -A1 "^pointer" | rg events: | head -n 1 | awk "{print \$2}") = "enabled" ]] && echo disabled || echo enabled); for p in $(riverctl list-inputs | rg "^pointer"); do riverctl input "$p" events "$NEWSTATE"; done'
 
     # view navigation
     riverctl map $mode Super H focus-view previous &
@@ -127,6 +128,7 @@ riverctl map record Super       F12 spawn 'sh -c '\''killall -s INT wf-recorder;
 
 # general mouse configuration
 for p in $(riverctl list-inputs | rg '^pointer'); do
+    riverctl input "$p" events enabled &
     riverctl input "$p" tap enabled &
     riverctl input "$p" click-method clickfinger &
     riverctl input "$p" disable-while-typing disabled &

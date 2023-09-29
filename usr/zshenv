@@ -45,6 +45,7 @@ export PATH="$PATH:$HOME/.go/bin"
 export PATH="$PATH:$HOME/.cargo/bin"
 export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:$PICO_WORK_DIR/bin"
+export PATH="$PATH:$HOME/.pulumi/bin"
 
 # For macs, this will add standard gui apps to the path.
 if [ -d /Applications ]; then

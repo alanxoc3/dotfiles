@@ -1,0 +1,10 @@
+#!/bin/bash
+# Use stdin to ask ai a question
+
+PROMPT='Be concise & pragmatic without unneeded formatting or punctuation.'
+
+if [[ $# -gt 0 ]]; then
+  PROMPT="$PROMPT $@"
+fi
+
+carg . gptraw 4 "$PROMPT" "$(cat)"
