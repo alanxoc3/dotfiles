@@ -43,7 +43,7 @@ elif [ "$BAKUP_COMMAND" = 'send' ]; then
     bpostfix="$5"
 
     remote_escaped_filename=$(printf '%q' "$BAKUP_SERVER_PATH/$bprefix$(date +%Y-%m-%d_%H:%M:%S)$bpostfix")
-    
+
     # this command accepts stdin
     ssh -T "$SSH_PROFILE" "cat > $remote_escaped_filename"
 
@@ -62,7 +62,7 @@ elif [ "$BAKUP_COMMAND" = 'send' ]; then
 elif [ "$BAKUP_COMMAND" = 'recv' ]; then
     [ "$#" -lt "3" ] && usage
     sshraw cat "$BAKUP_SERVER_PATH"/"$3"
-    
+
 elif [ "$BAKUP_COMMAND" = 'init' ]; then
     [ "$#" -lt "2" ] && usage
     sshraw mkdir -p "$BAKUP_SERVER_PATH"
