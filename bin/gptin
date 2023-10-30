@@ -7,4 +7,4 @@ if [[ $# -gt 0 ]]; then
   PROMPT="$PROMPT $@"
 fi
 
-carg . gptraw 4 "$PROMPT" "$(cat)"
+gptraw 4 "$PROMPT"

@@ -561,7 +561,7 @@ a bn='basename'
 a p='pwd'
 a wai=whoami
 a lam='lookatme --live -e terminal'
-a pipi='pip install --user'
+a pipu='pip install --user --break-system-packages'
 a bc='bc -q'
 
 # this claims 64k to be a good block size for modern hardware. Arch docs say 1m is fine though:

@@ -10,7 +10,8 @@ else
 fi
 
 if [[ "$#" -gt 2 ]]; then
-  e "${@:2}" | OPENAI_API_KEY=$(pa s chatgpt) llm prompt $ARGS -s --system "$2"
+  e "${@:2}" | OPENAI_API_KEY=$(pa s chatgpt) llm prompt $ARGS -s "$2"
 else
-  OPENAI_API_KEY=$(pa s chatgpt) llm chatgpt $ARGS -s --system "$2"
+  txt="$(cat)"
+  OPENAI_API_KEY=$(pa s chatgpt) llm chatgpt $ARGS -s "$2" <<< "$txt"
 fi
