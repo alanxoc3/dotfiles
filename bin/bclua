@@ -1,5 +1,3 @@
 #!/bin/bash
-# a simple wrapper around llm: https://github.com/simonw/llm
-# arguments are the system prompt, stdin is the text
-VAR=$(cat) # sed -E 's/\bx\b/io.read("*n")/g' <<< "$*")
-lua -e "print($VAR)"
+# executes lua statement(s).
+cat | lua -i | tail -n +2 | grep -Ev '^>'
