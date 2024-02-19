@@ -1,0 +1,3 @@
+#!/bin/bash
+# executes lua statement(s).
+cat | lua -i | tail -n +2 | grep -Ev '^>'

@@ -75,3 +75,7 @@ alanxoc3's dotfiles. feel free to plagiarize. the following is software i use or
 - [gh](https://cli.github.com/). Github made an official CLI. Can be useful for managing PRs & issues.
 - [mastodon](https://joinmastodon.org/). Decentralized alternative to twitter.
 - [radico8](https://github.com/alanxoc3/radico8). The webradio I listen to for hours each week.
+
+## wishlist
+Some things I want but don't have.
+- A "shuf" command that can work with large files. Maybe randomly selecting bytes. Or shuffling in batches of x number of lines, that way it works with long streams of stdin.
