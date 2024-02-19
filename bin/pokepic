@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+feh --force-aliasing -Z ~/repos/pokecrystal/gfx/pokemon/$(fd front.png --base-directory ~/repos/pokecrystal/gfx/pokemon | awk -F / '{print $1}' | fzf)/front.png

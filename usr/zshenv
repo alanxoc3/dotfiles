@@ -7,6 +7,7 @@ export ANDROID_HOME=/opt/android-sdk
 export BROWSER=chromium
 export CONCARDS_OUTCOME="$HOME/track/concards-data/outcome"
 export CONCARDS_PREDICT="$HOME/track/concards-data/predict"
+export PLAYDATE_SDK_PATH="$HOME/.playdate"
 export GOPATH=~/.go
 export GPG_TTY=`tty`
 export GTK_IM_MODULE=fcitx
@@ -30,8 +31,8 @@ export MANPAGER=kak_man
 export RIPGREP_CONFIG_PATH="$HOME/.rgconfig"
 
 # FZF environment variables
-BFT="fd -t f --hidden --color=always --ignore-file ~/.dot/search-ignore ."
-BFC="fd -t d --hidden --color=always --ignore-file ~/.dot/search-ignore ."
+BFT="fd -t f --hidden ."
+BFC="fd -t d --hidden ."
 export FZF_DEFAULT_COMMAND="$BFT"
 export FZF_DEFAULT_OPTS="--ansi"
 export FZF_CTRL_T_COMMAND="($BFT --exact-depth 1; $BFT --exact-depth 2; $BFT --exact-depth 3; $BFT --min-depth 4;) | cat"
@@ -46,6 +47,7 @@ export PATH="$PATH:$HOME/.cargo/bin"
 export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:$PICO_WORK_DIR/bin"
 export PATH="$PATH:$HOME/.pulumi/bin"
+export PATH="$PATH:$HOME/.playdate/bin"
 
 # For macs, this will add standard gui apps to the path.
 if [ -d /Applications ]; then

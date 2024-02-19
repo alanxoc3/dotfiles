@@ -87,7 +87,7 @@ for mode in normal record; do
     riverctl map-pointer $mode Super BTN_RIGHT resize-view &
 
     # power button and escope will lock, shutdown, and log out
-    riverctl map $mode None XF86PowerOff spawn 'waylock -init-color 0x000000 -input-color 0x1d2b53 -fail-color 0xff004d' &
+    riverctl map $mode None XF86PowerOff spawn 'systemctl suspend; waylock -init-color 0x000000 -input-color 0x1d2b53 -fail-color 0xff004d' &
 
     # switching workspaces/tags
     for i in $(seq 1 9); do
@@ -98,6 +98,8 @@ for mode in normal record; do
         riverctl map $mode Super+Shift+Control $i toggle-view-tags $tags &
     done
 done
+
+riverctl map locked None XF86PowerOff spawn 'systemctl suspend' &
 
 # available for normal, record, and locked modes
 for mode in normal record locked; do

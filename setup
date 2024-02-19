@@ -65,7 +65,7 @@ cf usr/foot.ini           .config/foot/foot.ini
 cf usr/ssh-config         .ssh/config
 cf usr/mimeapps.list      .config/mimeapps.list
 cf usr/alacritty.yml      .config/alacritty/alacritty.yml
-cf usr/search-ignore      .config/fd/ignore
+# cf usr/search-ignore      .config/fd/ignore
 cf usr/himalaya.toml      .config/himalaya/config.toml
 cf usr/doc                doc
 
