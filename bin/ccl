@@ -11,6 +11,7 @@ copyfunc() {
     command -v pbcopy  &>/dev/null && cat "$TMP_FILE" | pbcopy &>/dev/null
     command -v xclip   &>/dev/null && cat "$TMP_FILE" | xclip -selection clipboard &>/dev/null
     command -v wl-copy &>/dev/null && cat "$TMP_FILE" | wl-copy &>/dev/null
+    cat "$TMP_FILE"
 }
 
 if [ -t 0 ]; then
