@@ -3,6 +3,7 @@ from langchain_openai import ChatOpenAI
 from langchain.prompts import ChatPromptTemplate
 import argparse
 import re
+import os
 import shelve
 import subprocess
 
@@ -92,7 +93,7 @@ If you cannot think of an appropriate output, respond with \"unknown\". You must
 
 if __name__ == "__main__":
   parser = argparse.ArgumentParser()
-  parser.add_argument("--db",   default="crafterdb", type=str)
+  parser.add_argument("--db",   default=os.path.expanduser("~") + "/.crafterdb", type=str)
   parser.add_argument("start",  nargs="*", type=str)
   args = parser.parse_args()
 
