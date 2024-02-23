@@ -1,0 +1,131 @@
+#!/usr/bin/env python3
+from langchain_openai import ChatOpenAI
+from langchain.prompts import ChatPromptTemplate
+import argparse
+import re
+import shelve
+import subprocess
+
+from signal import signal, SIGPIPE, SIG_DFL
+signal(SIGPIPE,SIG_DFL)
+
+def call_fzf(header, input_string):
+  process = subprocess.Popen(['fzf', '--height', '~50%', '--layout', 'reverse', '--prompt', header], stdout=subprocess.PIPE, stdin=subprocess.PIPE)
+  output = process.communicate(input=input_string.encode())[0].decode()
+  output = clean_token(output)
+  if len(output) == 0:
+    output = "unknown"
+  return output
+
+g_output_count = 1
+
+def store_start(dbname, *keys):
+  with shelve.open(dbname, writeback=True) as db:
+    if "keys" not in db: db["keys"] = {}
+    if "vals" not in db: db["vals"] = {}
+
+    for key in keys:
+      key = clean_token(key)
+      if key not in db["keys"]:
+        db["keys"][key] = []
+
+def store(dbname, key, *items):
+  key = clean_token(key)
+  value = " ".join(clean_token_list(items))
+  with shelve.open(dbname, writeback=True) as db:
+    if value not in db["vals"]:
+      if key not in db: db["keys"][key] = []
+      db["keys"][key].append(value)
+      db["vals"][value] = key
+
+def check(dbname, *items):
+  value = " ".join(clean_token_list(items))
+  with shelve.open(dbname) as db:
+    if value in db["vals"]:
+      return clean_token(db["vals"][value])
+  return None
+
+def get_allkeys(dbname):
+  with shelve.open(dbname) as db:
+    return db["keys"]
+  return []
+
+def clean_token(token):
+  token = re.sub(r'[^a-z0-9]', '', str(token).lower())
+  return token if len(token) > 0 and len(token) <= 16 else "unknown"
+
+def clean_token_list(items):
+  return sorted([clean_token(item) for item in items])
+
+def ask_ai(*items):
+  prompt_template = [
+    ("system", """
+You must generate a result for an alchemy crafting word game. You will be given two nouns separated by the pipe symbol. You must respond with single noun that can be created/represented from combining the two inputs in some way.
+
+If both inputs are proper nouns, you must output a proper noun. Otherwise, output a proper or common noun.
+
+Proper nouns are character/monster/item/place names or anime/comic/movie/story/game/brand titles from pop-culture.
+
+Common nouns are basic elements, objects, concepts, etc.
+
+Keep an alchemy-like mindset when generating the output.
+
+If you cannot think of an appropriate output, respond with \"unknown\". You must ensure your output is 16 characters or less.
+    """),
+    ("human", "zelda | dwarf"),   ("assistant", "goron"),
+    ("human", "{one} | {two}"),
+  ]
+
+  items = clean_token_list(items)
+  output = "unknown"
+
+  try:
+    if len(items) == 2:
+      runnable = ChatPromptTemplate.from_messages(prompt_template) | ChatOpenAI(model_name="gpt-4-0125-preview", max_retries=3, request_timeout=20, temperature=0.0)
+      tmpout = runnable.invoke({"one": items[0], "two": items[1], "count": g_output_count}).content
+      tmpout = clean_token(tmpout)
+      if len(tmpout) > 0 and len(tmpout) <= 16:
+        output = tmpout
+  except Exception as e: print(e)
+
+  return output
+
+if __name__ == "__main__":
+  parser = argparse.ArgumentParser()
+  parser.add_argument("--db",   default="crafterdb", type=str)
+  parser.add_argument("start",  nargs="*", type=str)
+  args = parser.parse_args()
+
+  args.start.append("unknown")
+  store_start(args.db, *args.start)
+
+  print("Welcome to crafter - the cli-based endless crafting game by alanxoc3.")
+  print("Enter two \"unknown\" entries to exit.")
+  print()
+
+  while True:
+    allkeys = "\n".join(get_allkeys(args.db))
+
+    one = call_fzf("Enter item 1/2: ", allkeys)
+    print("one:", one)
+    two = call_fzf("Enter item 2/2: ", allkeys)
+    print("two:", two)
+
+    if one == "unknown" and two == "unknown":
+      print("Exiting crafter")
+      break
+
+    if one == "unknown" or two == "unknown":
+      output = "unknown"
+      status = "unknown"
+    else:
+      output = check(args.db, one, two)
+      if output is not None:
+        status = "cached"
+      else:
+        output = ask_ai(one, two)
+        store(args.db, output, one, two)
+        status = "generated"
+
+    print(f"res: {output} = {one} + {two} ({status})")
+    print()
