@@ -213,6 +213,7 @@ a gpf='git push --force'
 a gpn='git push -u origin $(git branch --show-current)'
 a gpd='git push origin --delete $(git branch --show-current)'
 gl() { git log --format='%C(auto)%h%C(reset)%C(blue)% p%C(reset) : %ci : %C(green)%cl%C(reset) : %s' --color "$@" | ([[ -o interactive ]] && kak || cat) }
+gll() { git log | ([[ -o interactive ]] && kak || cat) }
 glf() { gl --name-status "$@" | sed '/^ *$/d' | ([[ -o interactive ]] && kak || cat) }
 a gd='git diff'
 a gdc='git diff --cached'

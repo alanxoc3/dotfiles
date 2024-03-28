@@ -1,6 +1,9 @@
 #!/bin/bash
 # Asks AI a question. The response is cached. Includes a "related word" in mandarin too.
 
+# Trap SIGINT
+trap exit SIGINT 2>&1 >/dev/null
+
 HEADER='Do not directly answer the question. You must instead give a concise single line response in this format: {中文} {pīnyīn}: {definition}". {中文} is a Simplified Chinese word loosely related to the question, {pīnyīn} is the pinyin pronunciation for that word, {definition} is a very concise English definition of that word.
 
 Example:
