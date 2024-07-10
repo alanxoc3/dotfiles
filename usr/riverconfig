@@ -87,6 +87,7 @@ for mode in normal record; do
     riverctl map-pointer $mode Super BTN_RIGHT resize-view &
 
     # power button and escope will lock, shutdown, and log out
+    riverctl map $mode Super Backspace spawn 'waylock -init-color 0x000000 -input-color 0x1d2b53 -fail-color 0xff004d' &
     riverctl map $mode None XF86PowerOff spawn 'systemctl suspend; waylock -init-color 0x000000 -input-color 0x1d2b53 -fail-color 0xff004d' &
 
     # switching workspaces/tags

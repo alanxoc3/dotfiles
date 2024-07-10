@@ -1,18 +1,19 @@
 #!/usr/bin/env python
+import sys
+
+# From: https://stackoverflow.com/questions/5574702/how-do-i-print-to-stderr-in-python
+def eprint(*args, **kwargs):
+  print(*args, file=sys.stderr, **kwargs)
+  sys.exit(1)
+
 try:
   from signal import signal, SIGPIPE, SIG_DFL
   signal(SIGPIPE,SIG_DFL) # this code block lets us ignore broken pipes, so it might fix some ctrl-c error messages, it might be completely unnecessary though
 
   import openai
-  import sys
 
   OPENAI_MODEL = "gpt-4-turbo-preview"
   # OPENAI_MODEL = "gpt-3.5-turbo"
-
-  # From: https://stackoverflow.com/questions/5574702/how-do-i-print-to-stderr-in-python
-  def eprint(*args, **kwargs):
-    print(*args, file=sys.stderr, **kwargs)
-    sys.exit(1)
 
   role_lines = [
     "user usr human alan me",
@@ -43,4 +44,5 @@ try:
   for chunk in stream:
     sys.stdout.write(chunk.choices[0].delta.content or "")
     sys.stdout.flush()
-except: pass
+except Exception as e:
+  eprint(e)

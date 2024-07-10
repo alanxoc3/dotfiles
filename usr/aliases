@@ -246,11 +246,13 @@ glc() {
 a ghi='gh issue'
 a ghil='gh issue list'
 
-a chiptune='mpv_category   webradio/chiptune   75 http://79.120.11.40:8000/chiptune.ogg'
-a radico8='while sleep 1; do mpv_category   webradio/radico8     75 http://radico8.xoc3.io; done'
-a smolfm='mpv_category     webradio/smolfm     75 http://jdj.golf:8000/radio.mp3'
-a anonradio='mpv_category  webradio/anonradio  75 http://anonradio.net:8000/anonradio'
-a tilderadio='mpv_category webradio/tilderadio 75 https://azuracast.tilderadio.org/radio/8000/radio.ogg'
+a chiptune='   mpv_category webradio/chiptune   75 http://79.120.11.40:8000/chiptune.ogg'
+a radico8='    mpv_category webradio/radico8    75 http://radico8.xoc3.io'
+a anonradio='  mpv_category webradio/anonradio  75 http://anonradio.net:8000/anonradio'
+a tilderadio=' mpv_category webradio/tilderadio 75 https://azuracast.tilderadio.org/radio/8000/radio.ogg'
+a kohinaradio='mpv_category webradio/tilderadio 75 http://kohina.duckdns.org:8000/stream.ogg'
+a slayradio='  mpv_category webradio/tilderadio 75 https://www.slayradio.org/tune_in.php/128kbps/slayradio.128.m3u'
+
 a book='mpv_category       book                75'
 
 a getvid="youtube-dl -f 18"
@@ -673,6 +675,30 @@ fzffilt_exec() { echo "$(cat)" }
 fzfexec_exec() {}
 
 transfer(){ if [ $# -eq 0 ];then echo "No arguments specified.\nUsage:\n transfer <file|directory>\n ... | transfer <file_name>">&2;return 1;fi;if tty -s;then file="$1";file_name=$(basename "$file");if [ ! -e "$file" ];then echo "$file: No such file or directory">&2;return 1;fi;if [ -d "$file" ];then file_name="$file_name.zip" ,;(cd "$file"&&zip -r -q - .)|curl --progress-bar --upload-file "-" "https://transfer.sh/$file_name"|tee /dev/null,;else cat "$file"|curl --progress-bar --upload-file "-" "https://transfer.sh/$file_name"|tee /dev/null;fi;else file_name=$1;curl --progress-bar --upload-file "-" "https://transfer.sh/$file_name"|tee /dev/null;fi;}
+
+gcroles() { # lets me see roles in gcloud
+  gcloud projects get-iam-policy "$1"  \
+  --flatten="bindings[].members" \
+  --format='table(bindings.role)' \
+  --filter="bindings.members:$2"
+}
+
+gcrolesadd() {
+  gcloud projects add-iam-policy-binding $1 \
+  --member="serviceAccount:$2" \
+  --role="$3"
+}
+
+pg_perms() { # Given a role/user, figure out all permissions and print it. SQL INJECTION is possible here :) I luv it.
+  echo -------------- TABLE --------------
+  psql "$(pa s postgres-cdi-alan)" << "SELECT * FROM information_schema.role_table_grants WHERE grantee = '$1';"
+
+  echo -------------- OWNER --------------
+  psql "$(pa s postgres-cdi-alan)" << "SELECT * FROM pg_tables WHERE tableowner = '$1';"
+
+  echo -------------- OWNER --------------
+  psql "$(pa s postgres-cdi-alan)" << "SELECT r.usename AS grantor, e.usename AS grantee, nspname, privilege_type, is_grantable FROM pg_namespace JOIN LATERAL (SELECT * FROM aclexplode(nspacl) AS x) a ON true JOIN pg_user e ON a.grantee = e.usesysid JOIN pg_user r ON a.grantor = r.usesysid  WHERE e.usename = '$1';"
+}
 
 # If a command was run recently, just cat the cache file. If not recent, run the command.
 # Duration defaults to days, but can have other time endings too: smhdw

@@ -29,5 +29,5 @@
 	process = git-lfs filter-process
 	required = true
 [user]
-	email = alan.morgan@symplsoft.io
+	email = alanxoc3@gmail.com
 	name = Alan Morgan

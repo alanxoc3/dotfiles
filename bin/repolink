@@ -13,33 +13,36 @@ if ! git rev-parse --git-dir &> /dev/null; then
    exit 2;
 fi
 
-REPO_ARR=$(git remote get-url origin \
-| sed 's/^ssh:\/\///' \
-| sed 's/^git@//' \
-| sed 's/^https:\/\///' \
-| sed 's/:[0-9]*\//\//' \
-| sed 's/:/\//' \
-| sed 's/\.git$//' \
-| sed 's/\// /g')
+for ORIGIN in $(git remote); do
+  REPO_ARR=$(git remote get-url $ORIGIN \
+  | sed 's/^ssh:\/\///' \
+  | sed 's/^git@//' \
+  | sed 's/^https:\/\///' \
+  | sed 's/:[0-9]*\//\//' \
+  | sed 's/:/\//' \
+  | sed 's/\.git$//' \
+  | sed 's/\// /g')
 
-HOST=$(echo $REPO_ARR  | awk '{print $1;}')
-GROUP=$(echo $REPO_ARR | awk '{print $2;}')
-REPO=$(echo $REPO_ARR  | awk '{print $3;}')
+  HOST=$(echo $REPO_ARR  | awk '{print $1;}')
+  GROUP=$(echo $REPO_ARR | awk '{print $2;}')
+  REPO=$(echo $REPO_ARR  | awk '{print $3;}')
 
-LOCAL_REPO_PATH=$(realpath $(git rev-parse --show-toplevel))
+  LOCAL_REPO_PATH=$(realpath $(git rev-parse --show-toplevel))
+  # PRIMARYBRANCH=$(git symbolic-ref "refs/remotes/$ORIGIN/HEAD" | sed "s|refs/remotes/$ORIGIN/||g") # idk, this doesn't work anymore i guess?
+  PRIMARYBRANCH=$(git remote show origin | grep 'HEAD branch' | awk '{print $NF}')
 
-PRIMARYBRANCH=$(git symbolic-ref refs/remotes/origin/HEAD | sed 's|refs/remotes/origin/||g')
+  for file in "$@"; do
+      LOCAL_FILE_PATH=$(realpath $file)
+      FILE_PATH_RELATIVE_TO_GIT=$(sed -E 'sz^/|/$zzg' <<< ${LOCAL_FILE_PATH#$LOCAL_REPO_PATH})
+      CURRENT_BRANCH=$(git branch --show-current)
 
-for file in "$@"; do
-    LOCAL_FILE_PATH=$(realpath $file)
-    FILE_PATH_RELATIVE_TO_GIT=$(sed -E 'sz^/|/$zzg' <<< ${LOCAL_FILE_PATH#$LOCAL_REPO_PATH})
-    CURRENT_BRANCH=$(git branch --show-current)
-
-    if echo "$HOST" | grep 'stash.' &> /dev/null; then
-       echo "https://$HOST/projects/$GROUP/repos/$REPO/browse$FILE_PATH_RELATIVE_TO_GIT"
-    elif echo "$HOST" | grep 'bitbucket.org' &> /dev/null; then
-       echo "https://$HOST/$GROUP/$REPO/src/$PRIMARYBRANCH/$FILE_PATH_RELATIVE_TO_GIT"
-    elif echo "$HOST" | grep 'github.com' &> /dev/null; then
-       echo "https://$HOST/$GROUP/$REPO/blob/$CURRENT_BRANCH/$FILE_PATH_RELATIVE_TO_GIT"
-   fi
+      if echo "$HOST" | grep 'stash.' &> /dev/null; then
+         echo "https://$HOST/projects/$GROUP/repos/$REPO/browse$FILE_PATH_RELATIVE_TO_GIT"
+      elif echo "$HOST" | grep 'bitbucket.org' &> /dev/null; then
+         echo "https://$HOST/$GROUP/$REPO/src/$PRIMARYBRANCH/$FILE_PATH_RELATIVE_TO_GIT"
+      elif echo "$HOST" | grep 'github.com' &> /dev/null; then
+         echo -e "https://$HOST/$GROUP/$REPO/blob/\033[31m$PRIMARYBRANCH\033[0m/$FILE_PATH_RELATIVE_TO_GIT"
+         echo -e "https://$HOST/$GROUP/$REPO/blob/\033[31m$CURRENT_BRANCH\033[0m/$FILE_PATH_RELATIVE_TO_GIT"
+     fi
+  done
 done
