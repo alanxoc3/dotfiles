@@ -256,9 +256,22 @@ args = ["serve"]
 [language.typescript]
 filetypes = ["typescript"]
 roots = ["package.json", "tsconfig.json", ".git", ".hg"]
-command = "typescript-language-server"
-args = ["--stdio"]
+command = "pnpx"
+args = ["typescript-language-server", "--stdio"]
 
+[language.typescript.settings]
+plugins = [{name = "@vue/typescript-plugin", location = "/home/alan/job/fidalgo/node_modules/@vue/language-server", languages = ["vue"]}]
+
+[language.vue]
+filetypes = ["vue"]
+roots = ["package.json"]
+command = "bunx"
+args = ["vue-language-server", "--stdio"]
+settings_section = "_"
+
+[language.vue.settings._]
+vue = { hybridMode = false }
+typescript = { tsdk = "/home/alan/job/fidalgo/node_modules/typescript/lib" }
 
 [language.yaml]
 filetypes = ["yaml"]

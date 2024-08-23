@@ -39,3 +39,7 @@ source_file "$HOME/.local_aliases"
 source_file "$HOME/.aliases"
 source_file "$HOME/.dot/local_zshrc"
 source_file "$HOME/.dot/zbindings"
+
+# bun completions
+[ -s "/home/alan/.bun/_bun" ] && source "/home/alan/.bun/_bun"
+source /home/alan/.sympldot/init

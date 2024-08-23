@@ -15,12 +15,10 @@ hook global WinSetOption filetype=vue %{
 	hook window ModeChange insert:.* -group vue-hooks  vue-filter-around-selections
 	hook window InsertChar '>' -group vue-indent vue-indent-on-greater-than
 	hook window InsertChar \n -group vue-indent vue-indent-on-new-line
-	set  window comment_line        '//'
-	set  window comment_block_begin '<!--'
-	set  window comment_block_end   '-->'
+	# set  window comment_line        '//'
+	# set  window comment_block_begin '<!--'
+	# set  window comment_block_end   '-->'
 }
-
-hook -group vue-highlight global WinSetOption filetype=(?!vue).* %{ remove-highlighter window/vue }
 
 hook global WinSetOption filetype=(?!vue).* %{
 	remove-hooks window vue-indent

@@ -7,10 +7,6 @@ hook global WinSetOption filetype=gemini %{
     add-highlighter window/gemini ref gemini
 }
 
-hook global WinSetOption filetype=(?!gemini).* %{
-    remove-highlighter window/gemini
-}
-
 provide-module gemini %[
 
 # Highlighters
