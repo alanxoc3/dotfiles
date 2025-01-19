@@ -24,7 +24,7 @@ bind-key -T prefix x kill-pane
 bind-key -T prefix X run-shell 'tmux switch-client -n; tmux kill-session -t "#S"'
 bind-key -T prefix S new-session
 
-set -g status-style fg=white,bg=#112222,dim
+set -g status-style fg=white,bg=#000000,dim
 set -g status-interval 1
 
 set -g pane-border-lines heavy

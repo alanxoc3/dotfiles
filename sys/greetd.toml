@@ -9,7 +9,7 @@ switch = false
 
 # `agreety` is the bundled agetty/login-lookalike. You can replace `$SHELL`
 # with whatever you want started, such as `sway`.
-command = "agreety --cmd /usr/local/bin/start-river-alan"
+command = "agreety --cmd sway"
 
 # The user to run the command as. The privileges this user must have depends
 # on the greeter. A graphical greeter may for example require the user to be

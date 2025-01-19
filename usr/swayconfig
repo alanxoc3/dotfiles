@@ -1,0 +1,255 @@
+# Alan's sway configuration.
+# Useful man pages:
+#   man 5 sway
+#   man 5 sway-input
+#   man 5 sway-bar
+#   man 5 sway-output
+
+# Logo key is super.
+set $mod Mod4
+set $left h
+set $down j
+set $up k
+set $right l
+set $term foot
+set $menu wmenu-run -f 'SourceCodePro Bold 20' -N '#000000'
+
+input * tap enabled
+input * click_method clickfinger
+input * dwt disabled
+input * repeat_delay 250
+input * repeat_rate 60
+
+# This gets rid of the title bar
+default_border pixel 8
+
+output eDP-1 scale 1
+output eDP-1 bg #000000 solid_color
+
+### Idle configuration
+#
+# Example configuration:
+#
+# exec swayidle -w \
+#          timeout 300 'swaylock -f -c 000000' \
+#          timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+#          before-sleep 'swaylock -f -c 000000'
+#
+# This will lock your screen after 300 seconds of inactivity, then turn off
+# your displays after another 300 seconds, and turn your screens back on when
+# resumed. It will also lock your screen before your computer goes to sleep.
+
+### Input configuration
+#
+# Example configuration:
+#
+#   input "2:14:SynPS/2_Synaptics_TouchPad" {
+#       dwt enabled
+#       tap enabled
+#       natural_scroll enabled
+#       middle_emulation enabled
+#   }
+#
+# You can get the names of your inputs by running: swaymsg -t get_inputs
+
+### Key bindings
+#
+# Basics:
+#
+    # bindsym $mod+Return         exec $term
+    bindsym $mod+Return         exec footclient             -t xterm-256color /bin/zsh -li -c "tmux"
+    bindsym $mod+Shift+Return   exec footclient             -t xterm-256color /bin/zsh -li -c "tmux attach"
+    bindsym $mod+Control+Return exec footclient             -t xterm-256color /bin/zsh -li
+    bindsym $mod+c              exec sh -c "killall warpd; warpd -c /home/alan/.dot/warpd-config -f --grid"
+    bindsym $mod+m              exec wl-mirror -r '0,0 2256x1504'
+
+    bindsym $mod+q kill
+    bindsym $mod+space exec $menu
+    floating_modifier $mod normal
+    bindsym $mod+Shift+c reload
+
+    # Exit sway (logs you out of your Wayland session)
+    bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+#
+# Moving around:
+#
+    # Move your focus around
+    bindsym $mod+$left focus left
+    bindsym $mod+$down focus down
+    bindsym $mod+$up focus up
+    bindsym $mod+$right focus right
+    # Or use $mod+[up|down|left|right]
+    bindsym $mod+Left focus left
+    bindsym $mod+Down focus down
+    bindsym $mod+Up focus up
+    bindsym $mod+Right focus right
+
+    # Move the focused window with the same, but add Shift
+    bindsym $mod+Shift+$left move left
+    bindsym $mod+Shift+$down move down
+    bindsym $mod+Shift+$up move up
+    bindsym $mod+Shift+$right move right
+    # Ditto, with arrow keys
+    bindsym $mod+Shift+Left move left
+    bindsym $mod+Shift+Down move down
+    bindsym $mod+Shift+Up move up
+    bindsym $mod+Shift+Right move right
+#
+# Workspaces:
+#
+    # Switch to workspace
+    bindsym $mod+1 workspace number 1
+    bindsym $mod+2 workspace number 2
+    bindsym $mod+3 workspace number 3
+    bindsym $mod+4 workspace number 4
+    bindsym $mod+5 workspace number 5
+    bindsym $mod+6 workspace number 6
+    bindsym $mod+7 workspace number 7
+    bindsym $mod+8 workspace number 8
+    bindsym $mod+9 workspace number 9
+    bindsym $mod+0 workspace number 10
+    # Move focused container to workspace
+    bindsym $mod+Shift+1 move container to workspace number 1
+    bindsym $mod+Shift+2 move container to workspace number 2
+    bindsym $mod+Shift+3 move container to workspace number 3
+    bindsym $mod+Shift+4 move container to workspace number 4
+    bindsym $mod+Shift+5 move container to workspace number 5
+    bindsym $mod+Shift+6 move container to workspace number 6
+    bindsym $mod+Shift+7 move container to workspace number 7
+    bindsym $mod+Shift+8 move container to workspace number 8
+    bindsym $mod+Shift+9 move container to workspace number 9
+    bindsym $mod+Shift+0 move container to workspace number 10
+
+    bindsym $mod+b splith
+    bindsym $mod+v splitv
+
+    # Switch the current container between different layout styles
+    bindsym $mod+s layout stacking
+    bindsym $mod+w layout tabbed
+    bindsym $mod+e layout toggle split
+
+    # Make the current focus fullscreen
+    bindsym $mod+f fullscreen
+
+    bindsym $mod+g floating enable
+    bindsym $mod+t floating disable
+
+    # Swap focus between the tiling area and the floating area
+    # bindsym $mod+space focus mode_toggle
+
+    # Move focus to the parent container
+    bindsym $mod+a focus parent
+#
+# Scratchpad:
+#
+    # Sway has a "scratchpad", which is a bag of holding for windows.
+    # You can send windows there and get them back later.
+
+    # Move the currently focused window to the scratchpad
+    bindsym $mod+Shift+minus move scratchpad
+
+    # Show the next scratchpad window or hide the focused scratchpad window.
+    # If there are multiple scratchpad windows, this command cycles through them.
+    bindsym $mod+minus scratchpad show
+#
+# Resizing containers:
+#
+mode "resize" {
+    # left will shrink the containers width
+    # right will grow the containers width
+    # up will shrink the containers height
+    # down will grow the containers height
+    bindsym $left resize shrink width 10px
+    bindsym $down resize grow height 10px
+    bindsym $up resize shrink height 10px
+    bindsym $right resize grow width 10px
+
+    # Ditto, with arrow keys
+    bindsym Left resize shrink width 10px
+    bindsym Down resize grow height 10px
+    bindsym Up resize shrink height 10px
+    bindsym Right resize grow width 10px
+
+    # Return to default mode
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+r mode "resize"
+#
+# Utilities:
+#
+    bindsym --locked $mod+F1  exec pamixer --set-volume 0
+    bindsym --locked $mod+F2  exec pamixer --set-volume 30
+    bindsym --locked $mod+F3  exec pamixer --set-volume 60
+    bindsym --locked $mod+F4  exec pamixer --set-volume 100
+    bindsym --locked $mod+F5  exec systemctl --user is-active radico8-player && systemctl --user stop radico8-player || systemctl --user start radico8-player
+    bindsym --locked $mod+F6  exec light -S 4
+    bindsym --locked $mod+F7  exec light -S 25
+    bindsym --locked $mod+F8  exec light -S 100
+    bindsym --locked $mod+F9  exec ~/.dot/bin/alan-redshift
+    bindsym --locked $mod+F10 exec sh -c 'export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus; busctl --user call rs.wl-gammarelay / rs.wl.gammarelay ToggleInverted'
+
+    bindsym $mod+Control+Down  exec wlr-randr --output eDP-1 --transform normal
+    bindsym $mod+Control+Right exec wlr-randr --output eDP-1 --transform 90
+    bindsym $mod+Control+Up    exec wlr-randr --output eDP-1 --transform 180
+    bindsym $mod+Control+Left  exec wlr-randr --output eDP-1 --transform 270
+
+    bindsym $mod+Shift+Backspace exec systemctl suspend && waylock -init-color 0x000000 -input-color 0x1d2b53 -fail-color 0xff004d
+    bindsym $mod+Backspace       exec                      waylock -init-color 0x000000 -input-color 0x1d2b53 -fail-color 0xff004d
+
+    # # Special keys to adjust volume via PulseAudio
+    # bindsym --locked XF86AudioMute exec pactl set-sink-mute \@DEFAULT_SINK@ toggle
+    # bindsym --locked XF86AudioLowerVolume exec pactl set-sink-volume \@DEFAULT_SINK@ -5%
+    # bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume \@DEFAULT_SINK@ +5%
+    # bindsym --locked XF86AudioMicMute exec pactl set-source-mute \@DEFAULT_SOURCE@ toggle
+    # # Special keys to adjust brightness via brightnessctl
+    # bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
+    # bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
+    # # Special key to take a screenshot with grim
+    # bindsym Print exec grim
+
+#
+# Status Bar:
+#
+font SourceCodePro Bold 10
+titlebar_padding 2
+
+bar {
+    position top
+    font SourceCodePro Bold 6
+    status_padding 0
+    mode invisible
+    position bottom
+
+    # When the status_command prints a new line to stdout, swaybar updates.
+    # The default just shows the current date and time.
+    status_command while i3b_time; do sleep 1; done
+
+    colors {
+        statusline #ffffff
+        background #323232
+        inactive_workspace #32323200 #32323200 #5c5c5c
+    }
+}
+
+# sway does not set DISPLAY/WAYLAND_DISPLAY in the systemd user environment
+# See FS#63021
+# Adapted from xorg's 50-systemd-user.sh, which achieves a similar goal.
+
+# Upstream refuses to set XDG_CURRENT_DESKTOP so we have to.
+exec systemctl --user set-environment XDG_CURRENT_DESKTOP=sway
+exec systemctl --user import-environment DISPLAY \
+                                         SWAYSOCK \
+                                         WAYLAND_DISPLAY \
+                                         XDG_CURRENT_DESKTOP
+
+exec hash dbus-update-activation-environment 2>/dev/null && \
+     dbus-update-activation-environment --systemd DISPLAY \
+                                                  SWAYSOCK \
+                                                  XDG_CURRENT_DESKTOP=sway \
+                                                  WAYLAND_DISPLAY
+
+exec systemctl --user restart foot-server
+
+# idk why a sleep is needed here... but it is.
+exec_always sleep 1s && systemctl --user restart wl-gammarelay-rs
