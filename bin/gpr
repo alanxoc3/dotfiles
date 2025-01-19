@@ -1,0 +1,115 @@
+#!/usr/bin/env bash
+# an openai api client in bash. written by alanxoc3, with openai assistance.
+
+set -euo pipefail
+
+# --- CONFIG ---
+
+# You must have your OpenAI API key in the environment:
+#   export OPENAI_API_KEY="sk-..."
+if [[ -z "${OPENAI_API_KEY:-}" ]]; then
+  export OPENAI_API_KEY=$(pa s chatgpt) # yeah, this is specific to alanxoc3's setup.
+
+  if [[ -z "${OPENAI_API_KEY:-}" ]]; then
+    echo "Error: Missing OPENAI_API_KEY in environment." >&2
+    exit 1
+  fi
+fi
+
+# We'll need 'jq' to build JSON and parse data chunks
+if ! command -v jq >/dev/null; then
+  echo "Error: 'jq' not found in PATH." >&2
+  exit 1
+fi
+
+# --- ROLE MAPPING ---
+# Map short role tokens (sys, usr, bot) to OpenAI's chat roles (system, user, assistant)
+function map_role() {
+  local short="$1"
+  case "$short" in
+    sys) echo "system" ;;
+    usr) echo "user" ;;
+    bot) echo "assistant" ;;
+    *)   echo "unknown" ;;
+  esac
+}
+
+# --- READ ARGUMENTS & BUILD JSON MESSAGES ---
+
+MESSAGES=()  # holds JSON fragments like {"role":"system","content":"Example"}
+
+args=("$@")
+i=0
+num_args=$#
+while (( i < num_args )); do
+  role_short="${args[$i]}"
+  (( i++ )) || true
+
+  role_mapped="$(map_role "$role_short")"
+  if [[ "$role_mapped" == "unknown" ]]; then
+    echo "Unrecognized role: '$role_short'" >&2
+    exit 1
+  fi
+
+  # If there's no next argument or the next argument is a recognized role,
+  # read from stdin for content. Otherwise use next argument as content.
+  if (( i >= num_args )); then
+    # No next argument => read from stdin
+    content="$(cat)"
+  else
+    local_next="${args[$i]}"
+    maybe_next_role="$(map_role "$local_next")"
+    if [[ "$maybe_next_role" == "unknown" ]]; then
+      # It's content
+      content="$local_next"
+      (( i++ )) || true
+    else
+      # It's another role => read from stdin
+      content="$(cat)"
+    fi
+  fi
+
+  # JSON-escape the content
+  content_json="$(jq -Rs . <<< "$content")"
+  # Build the partial JSON message string:
+  #   {"role":"system","content":"..."}
+  MESSAGES+=("{\"role\":\"${role_mapped}\",\"content\":${content_json}}")
+done
+
+# Join MESSAGES into a JSON array
+# shellcheck disable=SC2001
+messages_json="$(printf ",%s" "${MESSAGES[@]}" | sed 's/^,//')"
+# Final request body
+REQUEST_BODY="$(
+  jq -n \
+    --argjson msgs "[${messages_json}]" '
+      {
+        model: "gpt-4",
+        stream: true,
+        messages: $msgs
+      }
+    '
+)"
+
+# --- MAKE STREAMING REQUEST & PRINT PARTIAL CHUNKS ---
+
+# We use --no-buffer so data is flushed immediately
+curl --no-buffer -s \
+  -H "Authorization: Bearer $OPENAI_API_KEY" \
+  -H "Content-Type: application/json" \
+  -X POST \
+  -d "$REQUEST_BODY" \
+  https://api.openai.com/v1/chat/completions |
+
+while IFS= read -r line; do
+  # Each streamed line typically looks like: "data: {...}" or "data: [DONE]"
+  if [[ "$line" =~ ^data:\ (.*) ]]; then
+    data="${BASH_REMATCH[1]}"
+    if [[ "$data" == "[DONE]" ]]; then
+      break
+    fi
+    jq '.choices[0].delta.content // empty' --raw-output0 <<< "$data" 2>/dev/null | tr -d '\0' 2>/dev/null
+  fi
+done
+
+echo

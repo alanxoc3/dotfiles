@@ -12,8 +12,8 @@ A: 你好 nǐhǎo: hello'
 
 PROMPT='Be concise & pragmatic. Prefer to just give answers with no explanation. Likely context: linux, code'
 
-carg . gptraw sys "$HEADER" usr "$*" &> /dev/null &
-carg . gptraw sys "$PROMPT" usr "$*"
+carg . gpr sys "$HEADER" usr "$*" &> /dev/null &
+carg . gpr sys "$PROMPT" usr "$*"
 
 echo; e '-- '; wait # wait for first command to finish, then print the cached results
-carg 100 gptraw sys "$HEADER" usr "$*"
+carg 100 gpr sys "$HEADER" usr "$*"
