@@ -38,6 +38,7 @@ cfp sys/greetd.toml                 /etc/greetd/config.toml
 cfp sys/radico8-player.service      /etc/systemd/user/radico8-player.service
 cfp sys/foot-server.service         /etc/systemd/user/foot-server.service
 cfp sys/wl-gammarelay-rs.service    /etc/systemd/user/wl-gammarelay-rs.service
+cfp sys/swayidle.service            /etc/systemd/user/swayidle.service
 cfp sys/rivertile.service           /etc/systemd/user/rivertile.service
 cfp sys/foot-server.service         /etc/systemd/user/foot-server.service
 cfp sys/keyd.conf                   /etc/keyd/default.conf

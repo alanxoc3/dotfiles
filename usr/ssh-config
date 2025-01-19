@@ -1,5 +1,6 @@
 # ~/.ssh/config
 Include ~/.ssh/lconfig
+Include ~/.ssh/symplconfig
 
 Host aur aur.archlinux.org
    IdentityFile ~/.ssh/id_aur

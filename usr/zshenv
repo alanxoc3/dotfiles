@@ -4,7 +4,7 @@
 # A bunch more environment variables
 export ANACONDA_HOME="$HOME/anaconda3"
 export ANDROID_HOME=/opt/android-sdk
-export BROWSER=qutebrowser
+export BROWSER=chromium
 export CONCARDS_OUTCOME="$HOME/track/concards-data/outcome"
 export CONCARDS_PREDICT="$HOME/track/concards-data/predict"
 export PLAYDATE_SDK_PATH="$HOME/.playdate"
@@ -40,14 +40,16 @@ export FZF_ALT_C_COMMAND="($BFC --exact-depth 1; $BFC --exact-depth 2; $BFC --ex
 export TERM='xterm-256color'
 
 # Set the path last, because it depends on an environment variable.
+export PATH="$HOME/.local/bin:$PATH"
 export PATH="$PATH:$HOME/.fzf/bin"
 export PATH="$PATH:$HOME/.dot/bin"
 export PATH="$PATH:$HOME/.go/bin"
 export PATH="$PATH:$HOME/.cargo/bin"
-export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:$PICO_WORK_DIR/bin"
 export PATH="$PATH:$HOME/.pulumi/bin"
 export PATH="$PATH:$HOME/.playdate/bin"
+export PATH="$PATH:$HOME/.cache/.bun/bin"
+
 
 # For macs, this will add standard gui apps to the path.
 if [ -d /Applications ]; then

@@ -42,4 +42,4 @@ source_file "$HOME/.dot/zbindings"
 
 # bun completions
 [ -s "/home/alan/.bun/_bun" ] && source "/home/alan/.bun/_bun"
-source /home/alan/.sympldot/init
+[ -s "/home/alan/.sympldot/init" ] && source "/home/alan/.sympldot/init"

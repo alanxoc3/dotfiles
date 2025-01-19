@@ -1,0 +1,4 @@
+[Service]
+ExecStart=swayidle timeout 180 'waylock'
+RestartSec=1s
+Restart=always

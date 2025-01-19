@@ -6,6 +6,11 @@
 # easy way to switch between color theme
 # no parallel, because it's cleaner that way
 # colors are all from the pico-8 palette!
+
+dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=river
+# old: XDG_SESSION_DESKTOP=river DISPLAY="$DISPLAY"
+systemctl --user set-environment XDG_SESSION_DESKTOP=river XDG_CURRENT_DESKTOP=river DISPLAY="$DISPLAY" WAYLAND_DISPLAY="$WAYLAND_DISPLAY"
+
 NORMAL_MODE_COLOR='     riverctl background-color 0x111D35; riverctl border-color-focused 0x065AB5; riverctl border-color-unfocused 0x1d2b53; riverctl border-color-urgent 0x1d2b53'
 RECORD_MODE_COLOR='     riverctl background-color 0x291814; riverctl border-color-focused 0xBE1250; riverctl border-color-unfocused 0x422136; riverctl border-color-urgent 0x422136'
 PASSTHROUGH_MODE_COLOR='riverctl background-color 0x000000; riverctl border-color-focused 0xC2C3C7; riverctl border-color-unfocused 0x5F574F; riverctl border-color-urgent 0x5F574F'
@@ -17,9 +22,8 @@ riverctl declare-mode record
 
 # order of this command block is important
 # before starting other wayland services i use through systemd, i need to have important env variables imported into systemd
-systemctl --user set-environment XDG_CURRENT_DESKTOP=river DISPLAY="$DISPLAY" WAYLAND_DISPLAY="$WAYLAND_DISPLAY"
-systemctl --user reset-failed wl-gammarelay-rs rivertile foot-server xdg-desktop-portal-wlr xdg-desktop-portal
-systemctl --user restart      wl-gammarelay-rs rivertile foot-server xdg-desktop-portal-wlr xdg-desktop-portal
+systemctl --user reset-failed swayidle wl-gammarelay-rs rivertile foot-server
+systemctl --user restart      swayidle wl-gammarelay-rs rivertile foot-server
 DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus busctl --user set-property rs.wl-gammarelay / rs.wl.gammarelay Temperature q 3500
 
 # and finally start up the other services
@@ -28,6 +32,7 @@ riverctl default-layout rivertile
 # start with styling and general configuration
 riverctl set-repeat 50 300 &
 riverctl border-width 6 &
+riverctl rule-add ssd & # make it so windows cant use their own border. river changed this default in version 0.3.0
 
 # switching the output will warp the cursor to the center
 riverctl set-cursor-warp on-output-change &
@@ -54,10 +59,10 @@ for mode in normal record; do
     riverctl map $mode Super P spawn 'NEWSTATE=$([[ $(riverctl list-input-configs | rg -A1 "^pointer" | rg events: | head -n 1 | awk "{print \$2}") = "enabled" ]] && echo disabled || echo enabled); for p in $(riverctl list-inputs | rg "^pointer"); do riverctl input "$p" events "$NEWSTATE"; done'
 
     # view navigation
-    riverctl map $mode Super H focus-view previous &
-    riverctl map $mode Super J focus-view next &
-    riverctl map $mode Super L focus-view next &
-    riverctl map $mode Super K focus-view previous &
+    riverctl map $mode Super H focus-view -skip-floating previous &
+    riverctl map $mode Super J focus-view -skip-floating next &
+    riverctl map $mode Super L focus-view -skip-floating next &
+    riverctl map $mode Super K focus-view -skip-floating previous &
 
     riverctl map $mode Super+Shift H swap       previous &
     riverctl map $mode Super+Shift J swap       next &
@@ -75,7 +80,7 @@ for mode in normal record; do
     riverctl map $mode Super F toggle-fullscreen &
 
     # screenshot
-    riverctl map $mode Super       F11 spawn 'grim -g "$(slurp)" - | wl-copy' &
+    riverctl map $mode Super       F11 spawn 'grim -g "$(slurp)" - | wl-copy; wl-paste > /tmp/ss.png' &
     riverctl map $mode Super+Shift F11 spawn 'grim - | wl-copy' &
 
     # change main size
@@ -136,3 +141,6 @@ for p in $(riverctl list-inputs | rg '^pointer'); do
     riverctl input "$p" click-method clickfinger &
     riverctl input "$p" disable-while-typing disabled &
 done
+
+systemctl --user stop pipewire wireplumber xdg-desktop-portal xdg-desktop-portal-wlr xdg-desktop-portal-gtk
+systemctl --user restart wireplumber xdg-desktop-portal xdg-desktop-portal-wlr xdg-desktop-portal-gtk

@@ -186,54 +186,72 @@ a umtwo="sudo umount /mnt2"
 # use filter-repo to remove a file from history
 # git filter-repo --path <absolute-path-of-file-from-base-dir> --invert-paths --force
 
-a repos='cd ~/repos'
-a rep=repos
-a cg='cd $(git rev-parse --show-toplevel)'
-a gs='git status'
-a gst='git stash'
-a g='git'
-a gsi='git submodule init'
-a gsu='git submodule update'
-a gu='git pull'
-a gf='git fetch'
-a ga='git add'
-a gaa='git add --all'
-a gr='git rebase'
-a gra='git rebase --abort'
-a grc='git rebase --continue'
-a gc='git add --all; git commit --allow-empty-message -m "";' # git savepoint
-a gcm='git add --all; git commit;'
-a gca='git add --all; git commit --amend;'
-a grh='git reset --hard'
-a gcl='git clone'
-a gm='git merge'
-a gmf='git merge --ff-only'
-a gp='git push'
-a gpf='git push --force'
-a gpn='git push -u origin $(git branch --show-current)'
-a gpd='git push origin --delete $(git branch --show-current)'
+repos() { cd ~/repos "$@" }
+rep() { repos "$@" }
+cg() { cd $(git rev-parse --show-toplevel) "$@" }
+gs() { git status "$@" }
+gst() { git stash "$@" }
+g() { git "$@" }
+gsi() { git submodule init "$@" }
+gsu() { git submodule update "$@" }
+gu() { git pull "$@" }
+gf() { git fetch "$@" }
+ga() { git add "$@" }
+gaa() { git add --all "$@" }
+gr() { git rebase "$@" }
+gri() { git rebase -i "$@" }
+gra() { git rebase --abort "$@" }
+grc() { git rebase --continue "$@" }
+gc() { git add --all; git commit --allow-empty-message -m ""; } # git savepoint
+gcm() { git add --all; git commit; }
+gca() { git add --all; git commit --amend; }
+grh() { git reset --hard "$@" }
+gcl() { git clone "$@" }
+gm() { git merge "$@" }
+gmf() { git merge --ff-only "$@" }
+gp() { git push "$@" }
+gpf() { git push --force "$@" }
+gpn() { git push -u origin $(git branch --show-current) "$@" }
+gpd() { git push origin --delete $(git branch --show-current) "$@" }
 gl() { git log --format='%C(auto)%h%C(reset)%C(blue)% p%C(reset) : %ci : %C(green)%cl%C(reset) : %s' --color "$@" | ([[ -o interactive ]] && kak || cat) }
 gll() { git log | ([[ -o interactive ]] && kak || cat) }
 glf() { gl --name-status "$@" | sed '/^ *$/d' | ([[ -o interactive ]] && kak || cat) }
-a gd='git diff'
-a gdc='git diff --cached'
-a gdf='git diff --name-only'
-a gt='git tag'
-a gb='git branch'
-a gbd='git branch -D'
-a gbdr='git push origin --delete'
-a gba='git branch --all'
-a gpa='git push --all origin'
-a gbc='git branch --show-current'
-a gk='git checkout'
-a gk-='git checkout -'
-a gkb='git checkout -b'
-a gkt='git checkout --track'
-a gbl='git blame'
-a gwl='git worktree list'
-gwa() { git worktree add "$HOME/work/$1" }
-gwr() { git worktree remove --force "$HOME/work/$1" }
+gd() { git diff "$@" }
+gdc() { git diff --cached "$@" }
+gdf() { git diff --name-only "$@" }
+gt() { git tag "$@" }
+gb() { git branch "$@" }
+gbd() { git branch -D "$@" }
+gbdr() { git push origin --delete "$@" }
+gba() { git branch --all "$@" }
+gpa() { git push --all origin "$@" }
+gbc() { git branch --show-current "$@" }
+gk() { git checkout "$@" }
+gk-() { git checkout - "$@" }
+gkb() { git checkout -b "$@" }
+gkt() { git checkout --track "$@" }
+gbl() { git blame "$@" }
+gwl() { git worktree list "$@" }
+gwa() { git worktree add "$HOME/work/$1" "$@" }
+gwr() { git worktree remove --force "$HOME/work/$1" "$@" }
 a gitsvnignore='git svn show-ignore >> .git/info/exclude'
+
+# one off github pr
+ofpr() {
+  local prefix='pr'
+  if [ -n "$1" ]; then
+    prefix="$1"
+  fi
+
+  local branch_name="$prefix-$(pwgen 5 -A -0 1)"
+  git checkout -b "$branch_name"
+  gcm
+  ghpr
+}
+
+ghpr() {
+  gpn; gh pr create -t "$(gbc)" -b ''; gh pr view --web
+}
 
 # git list cases
 # First parameter is where you are merging into.
@@ -347,6 +365,7 @@ a c.='cd_print ..'
 a edl='k ~/diary/devlog.md'
 a ejr='k ~/diary/$(date "+%Y")_diary.md'
 a esc='k ~/diary/schedule'
+a ra='ranger'
 
 # clear
 a cl=clear
@@ -568,6 +587,10 @@ a lam='lookatme --live -e terminal'
 a pipu='pip install --user --break-system-packages'
 a bc='bc -q'
 
+j2y() {
+  yq e '.[] | split_doc' -P
+}
+
 # this claims 64k to be a good block size for modern hardware. Arch docs say 1m is fine though:
 # https://superuser.com/questions/234199/good-block-size-for-disk-cloning-with-diskdump-dd
 a dd='dd bs=1M status=progress'
@@ -662,7 +685,7 @@ fzfcomm_pass() { echo fzf_menu_s }
 
 fzflist_passclip() { fzflist_pass }
 fzfcomm_passclip() { fzfcomm_pass }
-fzffilt_passclip() { pa show $(cat) | perl -pe "chomp if eof" | ccl; waitexecq 10s ccl }
+fzffilt_passclip() { pa show $(cat) | perl -pe "chomp if eof" | ccl >/dev/null; waitexecq 10s ccl }
 
 fzflist_cd() { fzflist_dirs }
 fzfcomm_cd() { echo fzf_menu_s }

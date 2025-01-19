@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Check if a URL was provided
+if [ $# -eq 0 ]; then
+    echo "Please provide a URL as an argument"
+    exit 1
+fi
+
+URL=$1
+
+# Extract the certificate
+echo | openssl s_client -servername $(echo $URL | cut -d'/' -f3) -connect $(echo $URL | cut -d'/' -f3):443 2>/dev/null | openssl x509 -outform PEM > certificate.pem
+
+# Add the certificate to the trust store
+sudo trust anchor --store certificate.pem
+
+# Update the trust store
+sudo update-ca-trust
+
+echo "Certificate extracted and added to the trust store"
