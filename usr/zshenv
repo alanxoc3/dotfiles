@@ -29,6 +29,7 @@ export XMODIFIERS=@im=fcitx
 export PAGER=kak_page
 export MANPAGER=kak_man
 export RIPGREP_CONFIG_PATH="$HOME/.rgconfig"
+export CARG_ENABLE="1"
 
 # FZF environment variables
 BFT="fd -t f --hidden ."
