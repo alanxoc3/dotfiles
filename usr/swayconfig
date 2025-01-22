@@ -12,7 +12,8 @@ set $down j
 set $up k
 set $right l
 set $term foot
-set $menu wmenu-run -f 'SourceCodePro Bold 20' -N '#000000'
+set $menu wmenu-run -f 'SourceCodePro Bold 12' -N '#000000'
+set $passmenu pa show "$(pa list | wmenu -f 'SourceCodePro Bold 12' -N '#000000')" | ccl >/dev/null
 
 input * tap enabled
 input * click_method clickfinger
@@ -66,6 +67,7 @@ output eDP-1 bg #000000 solid_color
 
     bindsym $mod+q kill
     bindsym $mod+space exec $menu
+    bindsym $mod+Shift+space exec $passmenu
     floating_modifier $mod normal
     bindsym $mod+Shift+c reload
 
@@ -200,6 +202,12 @@ bindsym $mod+r mode "resize"
 
     bindsym $mod+Super+F11       exec grim -g "$(slurp)" - | wl-copy; wl-paste > /tmp/ss.png
     bindsym $mod+Super+Shift+F11 exec grim - | wl-copy
+
+    bindsym $mod+Super+F12       exec sh -c 'swaynag -m "PARTIAL SCREEN CAPTURE IN PROGRESS" & FILENAME=/tmp/screencast_$(date +%Hh_%Mm_%Ss_%d_%B_%Y).gif; wf-recorder -g "$(slurp)" -F fps=30 -c gif -f $FILENAME; cp $FILENAME /tmp/screencast.gif'
+    bindsym $mod+Super+Shift+F12 exec sh -c 'swaynag -m "FULL SCREEN CAPTURE IN PROGRESS"    & FILENAME=/tmp/screencast_$(date +%Hh_%Mm_%Ss_%d_%B_%Y).gif; wf-recorder               -F fps=30 -c gif -f $FILENAME; cp $FILENAME /tmp/screencast.gif'
+    bindsym $mod+Super+Delete    exec sh -c 'killall -s INT wf-recorder; killall swaynag'
+
+    # bindsym $mod+Super+F12 exec rm -rf /tmp/record.gif; wf-recorder -F fps=30 -c gif -f /tmp/record.gif; cat /tmp/record.gif | wl-copy
 
     # # Special keys to adjust volume via PulseAudio
     # bindsym --locked XF86AudioMute exec pactl set-sink-mute \@DEFAULT_SINK@ toggle
