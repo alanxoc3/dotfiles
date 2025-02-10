@@ -84,7 +84,7 @@ REQUEST_BODY="$(
   jq -n \
     --argjson msgs "[${messages_json}]" '
       {
-        model: "gpt-4",
+        model: "gpt-4o-mini",
         stream: true,
         messages: $msgs
       }

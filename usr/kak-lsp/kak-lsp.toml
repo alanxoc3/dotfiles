@@ -198,7 +198,7 @@ intelephense.storagePath = "/tmp/intelephense"
 
 [language.python]
 filetypes = ["python"]
-roots = ["requirements.txt", "setup.py", ".git", ".hg"]
+roots = ["uv.lock", "reqs.txt", "requirements.txt", "setup.py", ".git", ".hg"]
 command = "pylsp"
 settings_section = "_"
 [language.python.settings._]
@@ -255,8 +255,8 @@ args = ["serve"]
 
 [language.typescript]
 filetypes = ["typescript"]
-roots = ["package.json", "tsconfig.json", ".git", ".hg"]
-command = "pnpx"
+roots = ["package.json", "tsconfig.json", ".git", ".hg", ".ts"]
+command = "bunx"
 args = ["typescript-language-server", "--stdio"]
 
 [language.typescript.settings]

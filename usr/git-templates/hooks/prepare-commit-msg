@@ -1,19 +1,36 @@
 #!/bin/bash
-# A script that prepends your commit message with your case number.
+# A script that prepends your commit message with your case number. Made by alanxoc3.
 
 COMMIT_MSG_FILE=$1
 COMMIT_SOURCE=$2
 SHA1=$3
 
+# The / is to find branches matching username/case-123-title
+# The 'ref ' prefix to the commit message is because the linear github integration requires a 'ref KEY-123' to be able to actually link commits.
 nl='
 '
 case_regex="^([a-zA-Z]+-[0-9]+)"
+slash_regex="/([a-zA-Z]+-[0-9]+)"
 gh_regex="^([0-9]+)"
 text=$(git branch --show-current)
+
+set_commit() {
+    # Read the first line of the commit message
+    first_line=$(head -n 1 "$COMMIT_MSG_FILE")
+
+    # Only prepend if the message doesn't already start with "ref"
+    if [[ ! $first_line =~ ^ref[[:space:]] ]]; then
+        sed -i.old '1s;^;ref '"$1"': ;' "$COMMIT_MSG_FILE"
+    fi
+}
+
 if [[ $text =~ $case_regex ]]; then
-   name=$(echo "${BASH_REMATCH[1]}" | tr [a-z] [A-Z])
-   sed -i.old '1s;^;['"$name"'] '"\\$nl"';' $COMMIT_MSG_FILE
+  set_commit $(echo "${BASH_REMATCH[1]}" | tr [a-z] [A-Z])
+
+elif [[ $text =~ $slash_regex ]]; then
+  set_commit $(echo "${BASH_REMATCH[1]}" | tr [a-z] [A-Z])
+
 elif [[ $text =~ $gh_regex ]]; then
-   name="GH-${BASH_REMATCH[1]}"
-   sed -i.old '1s;^;['"$name"'] '"\\$nl"';' $COMMIT_MSG_FILE
+  set_commit "GH-${BASH_REMATCH[1]}"
+
 fi
