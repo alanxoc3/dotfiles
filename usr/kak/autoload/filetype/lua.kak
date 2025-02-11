@@ -1,6 +1,6 @@
 # lua is assumed to be pico-8 variant :)
 
-hook global BufCreate .*[.](lua) %{
+hook global BufCreate .*[.](lua|p8) %{
     set-option buffer filetype lua
     map buffer goto d '<esc>:goto-doc-def %sh{printf $HOME/doc/pico8.txt} %{^    %%\(} %{\b%%\b} %{%%}<ret>' -docstring 'goto documentation'
 }

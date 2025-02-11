@@ -13,7 +13,7 @@ set $up k
 set $right l
 set $term foot
 set $menu wmenu-run -f 'SourceCodePro Bold 12' -N '#000000'
-set $passmenu pa show "$(pa list | wmenu -f 'SourceCodePro Bold 12' -N '#000000')" | ccl >/dev/null
+set $passmenu PA_DIR="$HOME/pass" pa show "$(PA_DIR="$HOME/pass" pa list | wmenu -f 'SourceCodePro Bold 12' -N '#000000')" | wl-copy >/dev/null
 
 input * tap enabled
 input * click_method clickfinger
@@ -200,12 +200,9 @@ bindsym $mod+r mode "resize"
     bindsym $mod+Shift+Backspace exec systemctl suspend && waylock -init-color 0x000000 -input-color 0x1d2b53 -fail-color 0xff004d
     bindsym $mod+Backspace       exec                      waylock -init-color 0x000000 -input-color 0x1d2b53 -fail-color 0xff004d
 
-    bindsym $mod+Super+F11       exec grim -g "$(slurp)" - | wl-copy; wl-paste > /tmp/ss.png
-    bindsym $mod+Super+Shift+F11 exec grim - | wl-copy
-
-    bindsym $mod+Super+F12       exec sh -c 'swaynag -m "PARTIAL SCREEN CAPTURE IN PROGRESS" & FILENAME=/tmp/screencast_$(date +%Hh_%Mm_%Ss_%d_%B_%Y).gif; wf-recorder -g "$(slurp)" -F fps=30 -c gif -f $FILENAME; cp $FILENAME /tmp/screencast.gif'
-    bindsym $mod+Super+Shift+F12 exec sh -c 'swaynag -m "FULL SCREEN CAPTURE IN PROGRESS"    & FILENAME=/tmp/screencast_$(date +%Hh_%Mm_%Ss_%d_%B_%Y).gif; wf-recorder               -F fps=30 -c gif -f $FILENAME; cp $FILENAME /tmp/screencast.gif'
-    bindsym $mod+Super+Delete    exec sh -c 'killall -s INT wf-recorder; killall swaynag'
+    bindsym $mod+Super+F11    exec grim -g "$(slurp 2>/dev/null || echo 0,0 2256x1504)" - | wl-copy; wl-paste > /tmp/ss.png
+    bindsym $mod+Super+F12    exec sh -c '~/.dot/bin/screen_record'
+    bindsym $mod+Super+Delete exec sh -c 'killall -s INT wf-recorder'
 
     # bindsym $mod+Super+F12 exec rm -rf /tmp/record.gif; wf-recorder -F fps=30 -c gif -f /tmp/record.gif; cat /tmp/record.gif | wl-copy
 

@@ -244,7 +244,9 @@ args = [
 ]
 settings_section = "rust-analyzer"
 [language.rust.settings.rust-analyzer]
+procMacro.enable = true
 hoverActions.enable = false
+cargo.loadOutDirsFromCheck = false
 
 [language.terraform]
 filetypes = ["terraform"]
