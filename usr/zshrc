@@ -44,3 +44,7 @@ source_file "$HOME/.dot/zbindings"
 [ -s "/home/alan/.bun/_bun" ]      && source "/home/alan/.bun/_bun"
 [ -s "/home/alan/.sympldot/init" ] && source "/home/alan/.sympldot/init"
 [ -s "/home/alan/.lumi/init" ]     && source "/home/alan/.lumi/init"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"

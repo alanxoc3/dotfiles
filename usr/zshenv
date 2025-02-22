@@ -50,7 +50,7 @@ export PATH="$PATH:$PICO_WORK_DIR/bin"
 export PATH="$PATH:$HOME/.pulumi/bin"
 export PATH="$PATH:$HOME/.playdate/bin"
 export PATH="$PATH:$HOME/.cache/.bun/bin"
-
+export PATH="$PATH:$HOME/.surrealdb"
 
 # For macs, this will add standard gui apps to the path.
 if [ -d /Applications ]; then
