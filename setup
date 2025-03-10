@@ -40,7 +40,6 @@ cfp sys/foot-server.service         /etc/systemd/user/foot-server.service
 cfp sys/wl-gammarelay-rs.service    /etc/systemd/user/wl-gammarelay-rs.service
 cfp sys/swayidle.service            /etc/systemd/user/swayidle.service
 cfp sys/rivertile.service           /etc/systemd/user/rivertile.service
-cfp sys/foot-server.service         /etc/systemd/user/foot-server.service
 cfp sys/keyd.conf                   /etc/keyd/default.conf
 cfp sys/pipewire-input-denoise.conf /etc/pipewire/pipewire.conf.d/99-input-denoising.conf
 cfp sys/shells                      /etc/shells
@@ -67,7 +66,6 @@ cf usr/foot.ini           .config/foot/foot.ini
 cf usr/ssh-config         .ssh/config
 cf usr/mimeapps.list      .config/mimeapps.list
 cf usr/alacritty.yml      .config/alacritty/alacritty.yml
-# cf usr/search-ignore      .config/fd/ignore
 cf usr/himalaya.toml      .config/himalaya/config.toml
 cf usr/doc                doc
 

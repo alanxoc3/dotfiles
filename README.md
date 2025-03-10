@@ -5,12 +5,12 @@ alanxoc3's dotfiles. feel free to plagiarize. the following is software i use or
 - [age](https://gnupg.org/). A simple cli tool/protocol to encrypt files. Way simpler than gpg.
 - [amfora](https://github.com/makeworld-the-better-one/amfora). CLI based gemini client.
 - [concards](https://github.com/alanxoc3/concards). Use this to review flashcards.
-- [exa](https://github.com/ogham/exa). A modern implementation of ls.
+- [eza](https://github.com/eza-community/eza). A modern implementation of ls.
 - [fd](https://github.com/sharkdp/fd). Search file names super fast. Faster and cooler than find.
 - [feh](https://feh.finalrewind.org/). Simple image viewer.
 - [fzf](https://github.com/junegunn/fzf). Fuzzy find for anything.
 - [git](https://git-scm.com/). The magical version control software.
-- [himalaya](https://github.com/soywod/himalaya). Finally, a good scriptable email client. I use this daily.
+- [himalaya](https://github.com/soywod/himalaya). Finally, a good scriptable email client.
 - [lookatme](https://github.com/d0c-s4vage/lookatme). A markdown + terminal based presentation tool. Had some outstanding bugs last time I tried it.
 - [minisign](https://github.com/jedisct1/minisign). A simple cli tool to sign files.
 - [mpv](https://mpv.io/). Nice CLI based media player. Good for webradios, gifs, and streaming videos.
@@ -25,7 +25,17 @@ alanxoc3's dotfiles. feel free to plagiarize. the following is software i use or
 - [ttrack](https://github.com/alanxoc3/ttrack). Time tracker CLI app.
 - [unbuffer](http://expect.sourceforge.net/example/unbuffer.man.html). Trick command to think stdout is a terminal device.
 - [wl-gammarelay-rs](https://github.com/MaxVerevkin/wl-gammarelay-rs). A simple daemon for changing linux/wayland brightness/temp/invert.
+- [k9s](https://k9scli.io/). Tui for kubernetes management. Sometimes slow. Wish it did a bit less. But better than other things.
 - [zsh](https://www.zsh.org/). The shell I currently use.
+
+## data
+- [jsonnet](https://jsonnet.org/). A JSON configuration language. I wish kubernetes used this instead of YAML by default.
+- [jq](https://github.com/jqlang/jq). A JSON language. I swear JSONL is the easiest data format to work with.
+- [xsv](https://github.com/BurntSushi/xsv). Master csv cli tool.
+- [csvlens](https://github.com/YS-L/csvlens). A decent csv cli viewer. Ran into some visual bugs over time, but is much better than most other things I've tried.
+- [ssconvert](http://www.gnumeric.org/). Just a tool for converting excel to csv.
+- [dbmate](https://github.com/amacneil/dbmate). Framework agnostic cli tool to manage (postgres) schema changes.
+- [psql](https://www.postgresql.org/docs/current/app-psql.html). Default postgres cli client. I can do most postgres things with psql+kak+llms.
 
 ## language server
 - [pylsp](https://github.com/python-lsp/python-lsp-server). A language server.

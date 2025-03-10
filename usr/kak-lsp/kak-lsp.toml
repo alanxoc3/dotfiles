@@ -198,10 +198,26 @@ intelephense.storagePath = "/tmp/intelephense"
 
 [language.python]
 filetypes = ["python"]
-roots = ["uv.lock", "reqs.txt", "requirements.txt", "setup.py", ".git", ".hg"]
+roots = ["uv.lock", "reqs.txt", "requirements.txt", "setup.py", ".git", ".hg", "pyproject.toml"]
 command = "pylsp"
 settings_section = "_"
+args = ["-v"] # verbose
+
 [language.python.settings._]
+# this helped: https://jdhao.github.io/2023/07/22/neovim-pylsp-setup/
+pylsp.plugins.pylint.enabled = true
+pylsp.plugins.pylint.executable = "pylint"
+pylsp.plugins.pylint.args = [ "-v" ]
+pylsp.plugins.mccabe.threshold = 30 # cyclomatic threshold. https://github.com/python-lsp/python-lsp-server/blob/cc6d398befddb0c9b0f0a52affade3ca4fbfded4/CONFIGURATION.md
+pylsp.plugins.black.enabled         = true
+pylsp.plugins.pylsp_mypy.enabled    = true
+pylsp.plugins.jedi_completion.fuzzy = true
+pylsp.plugins.pyls_isort.enabled    = true
+pylsp.plugins.autopep8.enabled      = false
+pylsp.plugins.yapf.enabled          = false
+pylsp.plugins.pyflakes.enabled      = false
+pylsp.plugins.pycodestyle.enabled   = false
+# pylsp.pylint.args = [ "-f", "json" ]
 
 [language.r]
 filetypes = ["r"]
