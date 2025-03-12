@@ -199,7 +199,7 @@ intelephense.storagePath = "/tmp/intelephense"
 [language.python]
 filetypes = ["python"]
 roots = ["uv.lock", "reqs.txt", "requirements.txt", "setup.py", ".git", ".hg", "pyproject.toml"]
-command = "pylsp"
+command = "venv_pylsp"
 settings_section = "_"
 args = ["-v"] # verbose
 
