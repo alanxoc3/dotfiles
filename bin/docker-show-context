@@ -1,0 +1,19 @@
+#!/bin/bash
+# This is how you can check what is in the build context.
+# Thank you to this: https://stackoverflow.com/a/40966234
+# There are other answers that do it, but using a RUN command has a build context limit which cuts off files.
+# And I don't know why this has to be so complicated.
+
+docker image build "$@" --no-cache -t tmp-build-context -f - . <<EOF 2>&1
+FROM busybox
+WORKDIR /tmp-build-context
+COPY --from=common / ./common/
+COPY . .
+CMD find .
+EOF
+
+echo
+docker container run --rm tmp-build-context
+echo
+docker image rm tmp-build-context
+

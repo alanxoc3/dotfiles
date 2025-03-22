@@ -1,4 +1,4 @@
 #!/bin/bash
-export PYTHONPATH=$(fd -1aut d site-packages .venv)
+export PYTHONPATH="$(pwd)/src:$(pwd)/common/src:$(fd -1aut d site-packages .venv)"
 printf 'PYTHONPATH: %s\n' "$PYTHONPATH"
 pylsp "$@"
