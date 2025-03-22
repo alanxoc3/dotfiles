@@ -85,6 +85,7 @@ cf ~/sync/alan/diary/ttrack        .local/share/ttrack
 
 # Ripgrep config can't recognize environment variables in its configuration.
 # Putting the config here is my best solution.
+# 2025-03-22, looks like there are no longer env vars here... So yeah...
 cat << EOF > $HOME/.rgconfig
 --no-heading
 --no-follow
