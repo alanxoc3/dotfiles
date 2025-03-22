@@ -27,6 +27,8 @@ alanxoc3's dotfiles. feel free to plagiarize. the following is software i use or
 - [wl-gammarelay-rs](https://github.com/MaxVerevkin/wl-gammarelay-rs). A simple daemon for changing linux/wayland brightness/temp/invert.
 - [k9s](https://k9scli.io/). Tui for kubernetes management. Sometimes slow. Wish it did a bit less. But better than other things.
 - [zsh](https://www.zsh.org/). The shell I currently use.
+- todo: just for justfiles
+- todo: dust for cleanup files
 
 ## data
 - [jsonnet](https://jsonnet.org/). A JSON configuration language. I wish kubernetes used this instead of YAML by default.
@@ -36,12 +38,11 @@ alanxoc3's dotfiles. feel free to plagiarize. the following is software i use or
 - [ssconvert](http://www.gnumeric.org/). Just a tool for converting excel to csv.
 - [dbmate](https://github.com/amacneil/dbmate). Framework agnostic cli tool to manage (postgres) schema changes.
 - [psql](https://www.postgresql.org/docs/current/app-psql.html). Default postgres cli client. I can do most postgres things with psql+kak+llms.
+- diff-so-fancy: for git diffs
 
-## language server
+## development tools
 - [pylsp](https://github.com/python-lsp/python-lsp-server). A language server.
-
-## artificial intelligence
-- [llm](https://github.com/simonw/llm). Simple frontend to chatgpt.
+- aider - cursor ide like tool
 
 ## gamedev
 - [pico8](https://www.lexaloffle.com/pico-8.php). The original fantasy console.
@@ -55,6 +56,13 @@ alanxoc3's dotfiles. feel free to plagiarize. the following is software i use or
 - [warpd](https://github.com/rvaiya/warpd). A keynav replacement that works with wayland.
 - [river](https://github.com/riverwm/river). Tiling window manager for wayland.
 - [waylock](https://github.com/ifreund/waylock). Simple wayland lock screen. New version uses the ext-session-lock wayland protocol.
+- todo: font: iosekva
+- todo: vpn: tailscale
+- physlock: can lock your computer completely
+- iwd: iwctl connect to wifi
+- grim: screenshot wayland
+- wlr-randr
+- gammastep/e
 
 ## library
 - todo: chromadb
