@@ -1,0 +1,4 @@
+[Service]
+ExecStart=fcitx
+RestartSec=1s
+Restart=always

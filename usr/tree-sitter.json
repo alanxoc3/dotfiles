@@ -1,0 +1,54 @@
+{
+  "parser-directories": [
+    "/home/alan/repos"
+  ],
+  "theme": {
+    "constant.builtin": {
+      "color": 94,
+      "bold": true
+    },
+    "property": 124,
+    "constant": 94,
+    "punctuation.delimiter": 239,
+    "string.special": 30,
+    "constructor": 136,
+    "string": 28,
+    "type.builtin": {
+      "bold": true,
+      "color": 23
+    },
+    "variable.builtin": {
+      "bold": true
+    },
+    "module": 136,
+    "type": 23,
+    "comment": {
+      "color": 245,
+      "italic": true
+    },
+    "function": 26,
+    "embedded": null,
+    "keyword": 56,
+    "tag": 18,
+    "attribute": {
+      "italic": true,
+      "color": 124
+    },
+    "operator": {
+      "bold": true,
+      "color": 239
+    },
+    "function.builtin": {
+      "bold": true,
+      "color": 26
+    },
+    "punctuation.bracket": 239,
+    "variable.parameter": {
+      "underline": true
+    },
+    "number": {
+      "color": 94,
+      "bold": true
+    }
+  }
+}

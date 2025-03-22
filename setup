@@ -35,14 +35,16 @@ if [ "${EUID:-$(id -u)}" -eq 0 ]; then # run as root
 
 cfp sys/start-river-alan            /usr/local/bin/start-river-alan
 cfp sys/greetd.toml                 /etc/greetd/config.toml
-cfp sys/radico8-player.service      /etc/systemd/user/radico8-player.service
-cfp sys/foot-server.service         /etc/systemd/user/foot-server.service
-cfp sys/wl-gammarelay-rs.service    /etc/systemd/user/wl-gammarelay-rs.service
-cfp sys/swayidle.service            /etc/systemd/user/swayidle.service
-cfp sys/rivertile.service           /etc/systemd/user/rivertile.service
 cfp sys/keyd.conf                   /etc/keyd/default.conf
 cfp sys/pipewire-input-denoise.conf /etc/pipewire/pipewire.conf.d/99-input-denoising.conf
 cfp sys/shells                      /etc/shells
+
+cfp sys/radico8-player.service      /etc/systemd/user/radico8-player.service
+cfp sys/foot-server.service         /etc/systemd/user/foot-server.service
+cfp sys/fcitx.service               /etc/systemd/user/fcitx.service
+cfp sys/wl-gammarelay-rs.service    /etc/systemd/user/wl-gammarelay-rs.service
+cfp sys/swayidle.service            /etc/systemd/user/swayidle.service
+cfp sys/rivertile.service           /etc/systemd/user/rivertile.service
 
 systemctl daemon-reload
 
@@ -57,7 +59,16 @@ cf usr/local_gitconfig    .local_gitconfig
 cf usr/gitignore          .gitignore
 cf usr/git-templates      .git-templates
 cf usr/kak                .config/kak
+cf usr/tree-sitter.json   .config/tree-sitter/config.json
+cf usr/amfora.toml        .config/amfora/config.toml
+cf usr/xdg.dirs           .config/user-dirs.dirs
+cf usr/xdg.locale         .config/user-dirs.locale
 cf usr/kak-lsp            .config/kak-lsp
+cf usr/fcitx5.config      .config/fcitx5/config
+cf usr/feh.keys           .config/feh/keys
+cf usr/github-cli.yml     .config/gh/config.yml
+cf usr/btop.conf          .config/btop.conf
+cf usr/neofetch.conf      .config/neofetch/config.conf
 cf usr/mpv.conf           .config/mpv/mpv.conf
 cf usr/gitconfig          .config/git/config
 cf usr/riverconfig        .config/river/init

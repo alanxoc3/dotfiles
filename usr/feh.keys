@@ -1,0 +1,4 @@
+# Pan Up (Normally scrolling up)
+WheelUp  scroll_up
+# Pan Down (Normally scrolling down)
+WheelDown scroll_down

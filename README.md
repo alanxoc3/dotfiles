@@ -58,6 +58,8 @@ alanxoc3's dotfiles. feel free to plagiarize. the following is software i use or
 
 ## library
 - todo: chromadb
+- todo: mockoon for mock webservices
+- kdenlive for video editing
 
 ## editor
 - [kak-ansi](https://github.com/eraserhd/kak-ansi). Ansi color codes to kakoune highlighters.
