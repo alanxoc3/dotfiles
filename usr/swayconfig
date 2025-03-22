@@ -227,7 +227,7 @@ bar {
     position top
     font SourceCodePro Bold 6
     status_padding 0
-    # mode invisible
+    mode invisible
     position bottom
 
     # When the status_command prints a new line to stdout, swaybar updates.
@@ -268,6 +268,8 @@ exec hash dbus-update-activation-environment 2>/dev/null && \
                                                   WAYLAND_DISPLAY
 
 exec systemctl --user restart foot-server swayidle fcitx
+
+seat * hide_cursor 250
 
 # idk why a sleep is needed here... but it is.
 exec_always sleep 1s && systemctl --user restart wl-gammarelay-rs
