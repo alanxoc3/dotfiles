@@ -34,6 +34,7 @@ cfp() {
 if [ "${EUID:-$(id -u)}" -eq 0 ]; then # run as root
 
 cfp sys/start-river-alan            /usr/local/bin/start-river-alan
+cfp sys/agreety_issue               /etc/issue
 cfp sys/greetd.toml                 /etc/greetd/config.toml
 cfp sys/keyd.conf                   /etc/keyd/default.conf
 cfp sys/pipewire-input-denoise.conf /etc/pipewire/pipewire.conf.d/99-input-denoising.conf

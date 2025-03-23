@@ -50,6 +50,8 @@ alanxoc3's dotfiles. feel free to plagiarize. the following is software i use or
 - [shrinko8](https://github.com/thisismypassport/shrinko8). Smart minifier for pico-8 lua.
 
 ## desktop
+- [greetd](https://sr.ht/~kennylevinsen/greetd/). Minimal login manager daemon.
+- [agreety](https://sr.ht/~kennylevinsen/greetd/). Comes with greetd, a simple login manager tty frontend.
 - [chromium](https://www.chromium.org/getting-involved/download-chromium/). I always come back to chromium as my browser. It just works and it's fast. Maybe I'll switch again later.
 - [fcitx5](https://fcitx-im.org/wiki/Fcitx_5). CJK input, works with wlroots. Much better than pre-v5.
 - [foot](https://codeberg.org/dnkl/foot). The terminal emulator I use.
