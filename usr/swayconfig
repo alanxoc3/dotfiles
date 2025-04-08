@@ -200,11 +200,11 @@ bindsym $mod+r mode "resize"
     bindsym $mod+Shift+Backspace exec systemctl suspend && waylock -init-color 0x000000 -input-color 0x1d2b53 -fail-color 0xff004d
     bindsym $mod+Backspace       exec                      waylock -init-color 0x000000 -input-color 0x1d2b53 -fail-color 0xff004d
 
-    bindsym $mod+Super+F11    exec grim -g "$(slurp 2>/dev/null || echo 0,0 2256x1504)" - | wl-copy; wl-paste > /tmp/ss.png
+    bindsym $mod+Super+F11    exec grim -g "$(slurp 2>/dev/null || echo 0,0 2256x1504)" - | wl-copy; wl-paste -n > /tmp/ss.png
     bindsym $mod+Super+F12    exec sh -c '~/.dot/bin/screen_record'
     bindsym $mod+Super+Delete exec sh -c 'killall -s INT wf-recorder'
 
-    # bindsym $mod+Super+F12 exec rm -rf /tmp/record.gif; wf-recorder -F fps=30 -c gif -f /tmp/record.gif; cat /tmp/record.gif | wl-copy
+    # bindsym $mod+Super+F12 exec rm -rf /tmp/record.gif; wf-recorder -F fps=30 -c gif -f /tmp/record.gif
 
     # # Special keys to adjust volume via PulseAudio
     # bindsym --locked XF86AudioMute exec pactl set-sink-mute \@DEFAULT_SINK@ toggle
@@ -269,7 +269,7 @@ exec hash dbus-update-activation-environment 2>/dev/null && \
 
 exec systemctl --user restart foot-server swayidle fcitx
 
-seat * hide_cursor 250
+seat * hide_cursor 25000
 
 # idk why a sleep is needed here... but it is.
 exec_always sleep 1s && systemctl --user restart wl-gammarelay-rs
