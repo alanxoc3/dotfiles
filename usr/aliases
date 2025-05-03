@@ -446,7 +446,7 @@ a tolap="xrandr --output HDMI-1 --off --output eDP-1 --auto --mode 1366x768 --pa
 a tomirror="xrandr --output HDMI-1 --mode 1366x768 --output eDP-1 --same-as HDMI-1"
 
 # feh
-a feh='feh --force-aliasing --scale-down'
+a feh='feh --force-aliasing --scale-down --draw-filename'
 a rndbkgd="feh --randomize --bg-fill ~/Pictures/photos/*"
 a difbkgd="rndbkgd"
 

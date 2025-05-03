@@ -33,13 +33,15 @@ cfp() {
 
 if [ "${EUID:-$(id -u)}" -eq 0 ]; then # run as root
 
-cfp sys/start-river-alan            /usr/local/bin/start-river-alan
+cfp sys/launch-de                   /usr/local/bin/launch-de
 cfp sys/agreety_issue               /etc/issue
 cfp sys/greetd.toml                 /etc/greetd/config.toml
+cfp sys/logind.conf                 /etc/systemd/logind.conf
 cfp sys/keyd.conf                   /etc/keyd/default.conf
 cfp sys/pipewire-input-denoise.conf /etc/pipewire/pipewire.conf.d/99-input-denoising.conf
 cfp sys/shells                      /etc/shells
 
+cfp sys/fcitx5.service              /etc/systemd/user/fcitx5.service
 cfp sys/radico8-player.service      /etc/systemd/user/radico8-player.service
 cfp sys/foot-server.service         /etc/systemd/user/foot-server.service
 cfp sys/fcitx.service               /etc/systemd/user/fcitx.service

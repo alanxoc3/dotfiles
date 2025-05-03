@@ -1,2 +1,0 @@
-#!/bin/sh
-env XDG_SESSION_DESKTOP=river XDG_CURRENT_DESKTOP=river dbus-run-session /usr/bin/river -log-level error 2>&1 | systemd-cat -t river -p err

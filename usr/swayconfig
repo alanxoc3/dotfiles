@@ -64,6 +64,7 @@ output eDP-1 bg #000000 solid_color
     bindsym $mod+Control+Return exec footclient             -t xterm-256color /bin/zsh -li
     bindsym $mod+c              exec sh -c "killall warpd; warpd -c /home/alan/.dot/warpd-config -f --grid"
     bindsym $mod+m              exec wl-mirror -r '0,0 2256x1504'
+    bindsym $mod+d              exec sh -c 'systemctl --user is-active fcitx5; if [ "$?" = "0" ]; then systemctl --user stop fcitx5; else systemctl --user restart fcitx5; fi'
 
     bindsym $mod+q kill
     bindsym $mod+space exec $menu
@@ -232,7 +233,7 @@ bar {
 
     # When the status_command prints a new line to stdout, swaybar updates.
     # The default just shows the current date and time.
-    status_command while i3b_time; do sleep 1; done
+    # status_command while i3b_time; do sleep 1; done
 
     colors {
         statusline #ffffff

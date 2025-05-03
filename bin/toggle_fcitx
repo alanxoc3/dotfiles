@@ -1,0 +1,7 @@
+#!/bin/bash
+systemctl --user is-active fcitx5
+if [ "$?" = "0" ]; then
+  systemctl --user stop fcitx5
+else
+  systemctl --user restart fcitx5
+fi

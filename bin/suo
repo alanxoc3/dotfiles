@@ -1,0 +1,5 @@
+#!/bin/bash
+# 搜索: suo - lookup chinese words with rg
+for w in "$@"; do
+  cat ~/.dot/dict/cedict_1_0_ts_utf-8_mdbg.txt | rg "$1"
+done
