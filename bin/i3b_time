@@ -1,2 +1,2 @@
 #!/bin/bash
-echo $(date -u '+%Y-%m-%d %H:%M:%S') $(date +%:z)
+echo $(acpi -b | grep -o '[0-9]*%') '|' $(date -u '+%Y-%m-%d %H:%M:%S') $(date +%:z)

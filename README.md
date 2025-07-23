@@ -14,7 +14,7 @@ alanxoc3's dotfiles. feel free to plagiarize. the following is software i use or
 - [himalaya](https://github.com/soywod/himalaya). Finally, a good scriptable email client.
 - [just](https://github.com/casey/just). Easy way to organize many tiny similar commands/aliases into 1 command.
 - [k9s](https://k9scli.io/). Tui for kubernetes management. Sometimes slow. Wish it did a bit less. But better than other things.
-- [lookatme](https://github.com/d0c-s4vage/lookatme). A markdown + terminal based presentation tool. Had some outstanding bugs last time I tried it.
+- [slides](https://github.com/maaslalani/slides). A markdown + terminal based presentation tool.
 - [minisign](https://github.com/jedisct1/minisign). A simple cli tool to sign files.
 - [mpv](https://mpv.io/). Nice CLI based media player. Good for webradios, gifs, and streaming videos.
 - [pa](https://github.com/biox/pa). A simple age encrypted password manager. Similar to pass, but simpler.

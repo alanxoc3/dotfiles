@@ -201,9 +201,9 @@ bindsym $mod+r mode "resize"
     bindsym $mod+Shift+Backspace exec systemctl suspend && waylock -init-color 0x000000 -input-color 0x1d2b53 -fail-color 0xff004d
     bindsym $mod+Backspace       exec                      waylock -init-color 0x000000 -input-color 0x1d2b53 -fail-color 0xff004d
 
-    bindsym $mod+Super+F11    exec grim -g "$(slurp 2>/dev/null || echo 0,0 2256x1504)" - | wl-copy; wl-paste -n > /tmp/ss.png
-    bindsym $mod+Super+F12    exec sh -c '~/.dot/bin/screen_record'
-    bindsym $mod+Super+Delete exec sh -c 'killall -s INT wf-recorder'
+    bindsym $mod+F11    exec grim -g "$(slurp 2>/dev/null || echo 0,0 2256x1504)" - | wl-copy; wl-paste -n > /tmp/ss.png
+    bindsym $mod+F12    exec sh -c '~/.dot/bin/screen_record'
+    bindsym $mod+Delete exec sh -c 'killall -s INT wf-recorder'
 
     # bindsym $mod+Super+F12 exec rm -rf /tmp/record.gif; wf-recorder -F fps=30 -c gif -f /tmp/record.gif
 
