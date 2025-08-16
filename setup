@@ -48,6 +48,7 @@ cfp sys/fcitx.service               /etc/systemd/user/fcitx.service
 cfp sys/wl-gammarelay-rs.service    /etc/systemd/user/wl-gammarelay-rs.service
 cfp sys/swayidle.service            /etc/systemd/user/swayidle.service
 cfp sys/rivertile.service           /etc/systemd/user/rivertile.service
+cfp sys/iwd.conf                    /etc/iwd/main.conf
 
 systemctl daemon-reload
 
