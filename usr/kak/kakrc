@@ -2,6 +2,7 @@ set-option global startup_info_version 99999999 # Hacky way to disable the start
 set-option global ui_options terminal_assistant=none terminal_enable_mouse=false
 
 # user mode
+map global user F     '"<percent>P|ccl<ret>d'            -docstring 'copy file name'
 map global user y     '<a-|> ccl<ret>'                   -docstring 'clipboard copy'
 map global user x     '<|> ccl<ret>'                     -docstring 'clipboard cut'
 map global user P     '<!> pcl<ret>'                     -docstring 'clipboard insert'

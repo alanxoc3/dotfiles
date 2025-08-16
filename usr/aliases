@@ -677,6 +677,8 @@ fzflist_tldr()       { fd '.*\.md' "$HOME/repos/tldr/pages" -t f | awk -F / '{su
 fzflist_echomodes()  { print -l ${(ok)functions} | rg '^fzflist_' | sed -E 's/fzflist_//g' }
 fzflist_evalmodes()  { print -l ${(ok)functions} | rg '^fzfeval_' | sed -E 's/fzfeval_//g' }
 
+fzflist_capsule()    { fd . ~/repos/capsule/cap/blog | sort -rn }
+
 # hacky way to just get a command from the history.
 # it's suprising this isn't supported by default...
 fcedit() { cat "$@"; return 1 } # return 1 tells fc not to execute the command.

@@ -40,7 +40,7 @@ cfp sys/logind.conf                 /etc/systemd/logind.conf
 cfp sys/keyd.conf                   /etc/keyd/default.conf
 cfp sys/pipewire-input-denoise.conf /etc/pipewire/pipewire.conf.d/99-input-denoising.conf
 cfp sys/shells                      /etc/shells
-
+cfp sys/macspoof.service            /etc/systemd/system/macspoof@.service
 cfp sys/fcitx5.service              /etc/systemd/user/fcitx5.service
 cfp sys/radico8-player.service      /etc/systemd/user/radico8-player.service
 cfp sys/foot-server.service         /etc/systemd/user/foot-server.service
