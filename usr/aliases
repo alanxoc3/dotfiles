@@ -249,6 +249,16 @@ ofpr() {
   ghpr
 }
 
+ofbr() {
+  local prefix='pr'
+  if [ -n "$1" ]; then
+    prefix="$1"
+  fi
+
+  local branch_name="$prefix-$(pwgen 5 -A -0 1)"
+  git checkout -b "$branch_name"
+}
+
 ghpr() {
   gpn; gh pr create -dt "$(gbc)" -b ''; gh pr view --web
 }
