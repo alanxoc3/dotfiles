@@ -17,6 +17,7 @@ set $passmenu PA_DIR="$HOME/pass" pa show "$(PA_DIR="$HOME/pass" pa list | wmenu
 
 input * tap enabled
 input * click_method clickfinger
+input * drag_lock disabled # 2025-08-18: guess this is a new option, defaults to enabled which makes it so i have to tap again for click drag, which i dont like right now. Don't really get the new behavior completely.
 input * dwt disabled
 input * repeat_delay 250
 input * repeat_rate 60
