@@ -27,6 +27,7 @@ export XKB_DEFAULT_LAYOUT=us
 export PA_DIR="$HOME/pass"
 export XMODIFIERS=@im=fcitx
 export PAGER=kak_page
+export SYSTEMD_PAGER=cat # systemd has sudo access and kak_page just doesn't work... so yeah... Just set it to cat.
 export MANPAGER=kak_man
 export RIPGREP_CONFIG_PATH="$HOME/.rgconfig"
 export CARG_ENABLE="1"

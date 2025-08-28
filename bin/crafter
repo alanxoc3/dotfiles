@@ -1,3 +1,0 @@
-#!/bin/bash
-source ~/.dot/crafter/venv/bin/activate
-OPENAI_API_KEY=$(pa s chatgpt) ~/.dot/crafter/crafter "$@"

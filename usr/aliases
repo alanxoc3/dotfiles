@@ -734,13 +734,13 @@ gcrolesadd() {
 
 pg_perms() { # Given a role/user, figure out all permissions and print it. SQL INJECTION is possible here :) I luv it.
   echo -------------- TABLE --------------
-  psql "$(pa s postgres-cdi-alan)" << "SELECT * FROM information_schema.role_table_grants WHERE grantee = '$1';"
+  psql $1 << "SELECT * FROM information_schema.role_table_grants WHERE grantee = '$2';"
 
   echo -------------- OWNER --------------
-  psql "$(pa s postgres-cdi-alan)" << "SELECT * FROM pg_tables WHERE tableowner = '$1';"
+  psql $1 << "SELECT * FROM pg_tables WHERE tableowner = '$2';"
 
   echo -------------- OWNER --------------
-  psql "$(pa s postgres-cdi-alan)" << "SELECT r.usename AS grantor, e.usename AS grantee, nspname, privilege_type, is_grantable FROM pg_namespace JOIN LATERAL (SELECT * FROM aclexplode(nspacl) AS x) a ON true JOIN pg_user e ON a.grantee = e.usesysid JOIN pg_user r ON a.grantor = r.usesysid  WHERE e.usename = '$1';"
+  psql $1 << "SELECT r.usename AS grantor, e.usename AS grantee, nspname, privilege_type, is_grantable FROM pg_namespace JOIN LATERAL (SELECT * FROM aclexplode(nspacl) AS x) a ON true JOIN pg_user e ON a.grantee = e.usesysid JOIN pg_user r ON a.grantor = r.usesysid  WHERE e.usename = '$2';"
 }
 
 # If a command was run recently, just cat the cache file. If not recent, run the command.

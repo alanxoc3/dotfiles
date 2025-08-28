@@ -8,7 +8,7 @@ set -euo pipefail
 # You must have your OpenAI API key in the environment:
 #   export OPENAI_API_KEY="sk-..."
 if [[ -z "${OPENAI_API_KEY:-}" ]]; then
-  export OPENAI_API_KEY=$(pa s chatgpt) # yeah, this is specific to alanxoc3's setup.
+  export OPENAI_API_KEY=$(pa s api/openai) # yeah, this is specific to alanxoc3's setup.
 
   if [[ -z "${OPENAI_API_KEY:-}" ]]; then
     echo "Error: Missing OPENAI_API_KEY in environment." >&2
