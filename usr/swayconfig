@@ -63,9 +63,9 @@ output eDP-1 bg #000000 solid_color
     bindsym $mod+Return         exec footclient             -t xterm-256color /bin/zsh -li -c "tmux"
     bindsym $mod+Shift+Return   exec footclient             -t xterm-256color /bin/zsh -li -c "tmux attach"
     bindsym $mod+Control+Return exec footclient             -t xterm-256color /bin/zsh -li
-    bindsym $mod+c              exec sh -c "killall warpd; warpd -c /home/alan/.dot/warpd-config -f --grid"
+    bindsym $mod+c              exec sh -c 'systemctl --user stop fcitx5; if [ "activating" = "$(systemctl --user is-active warpd)"  ]; then systemctl --user stop warpd;  else systemctl --user start warpd;  fi'
+    bindsym $mod+d              exec sh -c 'systemctl --user stop warpd;  if [ "activating" = "$(systemctl --user is-active fcitx5)" ]; then systemctl --user stop fcitx5; else systemctl --user start fcitx5; fi'
     bindsym $mod+m              exec wl-mirror -r '0,0 2256x1504'
-    bindsym $mod+d              exec sh -c 'systemctl --user is-active fcitx5; if [ "$?" = "0" ]; then systemctl --user stop fcitx5; else systemctl --user restart fcitx5; fi'
 
     bindsym $mod+q kill
     bindsym $mod+space exec $menu
@@ -199,8 +199,8 @@ bindsym $mod+r mode "resize"
     bindsym $mod+Control+Up    exec wlr-randr --output eDP-1 --transform 180
     bindsym $mod+Control+Left  exec wlr-randr --output eDP-1 --transform 270
 
-    bindsym $mod+Shift+Backspace exec systemctl suspend && waylock -init-color 0x000000 -input-color 0x1d2b53 -fail-color 0xff004d
-    bindsym $mod+Backspace       exec                      waylock -init-color 0x000000 -input-color 0x1d2b53 -fail-color 0xff004d
+    bindsym $mod+Shift+Backspace exec sh -c 'systemctl suspend || true'
+    bindsym $mod+Backspace       exec waylock -init-color 0x000000 -input-color 0x1d2b53 -fail-color 0xff004d
 
     bindsym $mod+F11    exec grim -g "$(slurp 2>/dev/null || echo 0,0 2256x1504)" - | wl-copy; wl-paste -n > /tmp/ss.png
     bindsym $mod+F12    exec sh -c '~/.dot/bin/screen_record'
@@ -257,7 +257,6 @@ input * {
     xkb_options "compose:menu"
 }
 
-exec fcitx5
 exec systemctl --user import-environment DISPLAY \
                                          SWAYSOCK \
                                          WAYLAND_DISPLAY \
@@ -271,7 +270,7 @@ exec hash dbus-update-activation-environment 2>/dev/null && \
 
 exec systemctl --user restart foot-server swayidle fcitx
 
-seat * hide_cursor 25000
+# seat * hide_cursor 25000
 
 # idk why a sleep is needed here... but it is.
-exec_always sleep 1s && systemctl --user restart wl-gammarelay-rs
+exec_always sleep .25s && systemctl --user restart wl-gammarelay-rs && sleep .25s && ~/.dot/bin/alan-redshift

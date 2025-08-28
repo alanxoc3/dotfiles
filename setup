@@ -41,9 +41,9 @@ cfp sys/keyd.conf                   /etc/keyd/default.conf
 cfp sys/pipewire-input-denoise.conf /etc/pipewire/pipewire.conf.d/99-input-denoising.conf
 cfp sys/shells                      /etc/shells
 cfp sys/fcitx5.service              /etc/systemd/user/fcitx5.service
+cfp sys/warpd.service               /etc/systemd/user/warpd.service
 cfp sys/radico8-player.service      /etc/systemd/user/radico8-player.service
 cfp sys/foot-server.service         /etc/systemd/user/foot-server.service
-cfp sys/fcitx.service               /etc/systemd/user/fcitx.service
 cfp sys/wl-gammarelay-rs.service    /etc/systemd/user/wl-gammarelay-rs.service
 cfp sys/swayidle.service            /etc/systemd/user/swayidle.service
 cfp sys/rivertile.service           /etc/systemd/user/rivertile.service

@@ -1,5 +1,5 @@
 [Service]
-ExecStart=fcitx5
+ExecStart=warpd -c /home/alan/.dot/warpd-config -f --grid
 Type=oneshot
 Restart=no
 
