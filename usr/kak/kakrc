@@ -4,6 +4,8 @@ set-option global ui_options terminal_assistant=none terminal_enable_mouse=false
 # user mode
 map global user F     '"<percent>P|ccl<ret>d'            -docstring 'copy file name'
 map global user y     '<a-|> ccl<ret>'                   -docstring 'clipboard copy'
+map global user w     ': w<ret>'                         -docstring 'write'
+map global user q     ': q<ret>'                         -docstring 'quit'
 map global user x     '<|> ccl<ret>'                     -docstring 'clipboard cut'
 map global user P     '<!> pcl<ret>'                     -docstring 'clipboard insert'
 map global user p     '<a-!> pcl<ret>'                   -docstring 'clipboard append'

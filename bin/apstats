@@ -33,7 +33,6 @@ DAYS_LEFT=$(echo "$DAYS_IN_YEAR-$DAY_OF_YEAR+1" | bc)
 
 BEG_DATE="$YEAR-01-01"
 
-echo $END_DATE
 OVERALL_DURATION=$(ttrack agg -b $BEG_DATE -e $END_DATE ${*:4})
 DAILY_DURATION=$(ttrack agg -b $END_DATE -e $END_DATE ${*:4})
 

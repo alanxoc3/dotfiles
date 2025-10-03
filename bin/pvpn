@@ -1,0 +1,8 @@
+#!/bin/bash
+sudo ip    route add local default dev lo table 100 2>/dev/null
+sudo ip -6 route add local default dev lo table 100 2>/dev/null
+sudo ip    rule add fwmark 0x01 lookup 100          2>/dev/null
+sudo ip -6 rule add fwmark 0x01 lookup 100          2>/dev/null
+
+while sleep 1s; do sudo sshuttle --method tproxy -e "ssh -F $HOME/.ssh/lconfig -o UserKnownHostsFile=$HOME/.ssh/known_hosts -i $HOME/.ssh/id_alan" --dns -r serv 0/0 ::/0 -x xoc3.io ; done
+# sshuttle --dns -r serv 0/0 ::/0 -x xoc3.io
