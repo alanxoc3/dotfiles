@@ -8,57 +8,17 @@
 : ${PA_PUBKEYS:=${XDG_CONFIG_HOME:=$HOME/.config}/pa/pubkeys}
 : ${PA_PRIVKEYS:=${XDG_CONFIG_HOME:=$HOME/.config}/pa/privkeys}
 
-pw_add() {
-    name=$1
 
-    if yn "Generate a password?"; then
-        # Generate a password by reading '/dev/urandom' with the
-        # 'tr' command to translate the random bytes into a
-        # configurable character set.
-        #
-        # The 'dd' command is then used to read only the desired
-        # password length.
-        #
-        # Regarding usage of '/dev/urandom' instead of '/dev/random'.
-        # See: https://www.2uo.de/myths-about-urandom
-        pass=$(LC_ALL=C tr -dc "$PA_PATTERN" </dev/urandom |
-            dd ibs=1 obs=1 count="$PA_LENGTH" 2>/dev/null)
-
-    else
-        # 'sread()' is a simple wrapper function around 'read'
-        # to prevent user input from being printed to the terminal.
-        sread pass "Enter password"
-        sread pass2 "Enter password (again)"
-
-        # Disable this check as we dynamically populate the two
-        # passwords using the 'sread()' function.
-        # shellcheck disable=2154
-        [ "$pass" = "$pass2" ] || die "Passwords do not match"
-    fi
-
-    [ "$pass" ] || die "Failed to generate a password"
-
-    # Mimic the use of an array for storing arguments by... using
-    # the function's argument list. This is very apt isn't it?
-    set -- -c
-
-    # Use 'age' to store the password in an encrypted file.
-    # A heredoc is used here instead of a 'printf' to avoid
-    # leaking the password through the '/proc' filesystem.
-    #
-    # Heredocs are sometimes implemented via temporary files,
-    # however this is typically done using 'mkstemp()' which
-    # is more secure than a leak in '/proc'.
-    age -R "$PA_PUBKEYS" -o "$name.age" <<-EOF &&
-		$pass
-	EOF
-        printf '%s\n' "Saved '$name' to the store."
-}
 
 pw_edit() {
     name=$1
 
-    [ -f "$name.age" ] || die "Failed to access $name"
+    # If file doesn't exist, create it with empty content
+    if [ ! -f "$name.age" ]; then
+        age -R "$PA_PUBKEYS" -o "$name.age" <<-EOF
+	
+	EOF
+    fi
 
     # we use /dev/shm because it's an in-memory
     # space that we can use to store private data,
@@ -186,15 +146,12 @@ usage() {
     printf %s "\
 pa 0.1.0 - age-based password manager
 
-=> [a]dd  [name] - Create a new password, randomly generated
 => [d]el  [name] - Delete a password entry.
 => [e]dit [name] - Edit a password entry with $EDITOR.
 => [i]nit        - Initialize keys if they don't exist.
 => [l]ist        - List all entries.
 => [s]how [name] - Show password for an entry.
 
-Password length:   export PA_LENGTH=$PA_LENGTH
-Password pattern:  export PA_PATTERN=$PA_PATTERN
 Store location:    export PA_DIR=$PA_DIR
 Pubkeys location:  export PA_PUBKEYS=$PA_PUBKEYS
 Privkeys location: export PA_PRIVKEYS=$PA_PRIVKEYS
@@ -203,30 +160,27 @@ Privkeys location: export PA_PRIVKEYS=$PA_PRIVKEYS
 }
 
 main() {
-    glob "$1" '[adels]*' && [ ! -d "$PA_DIR" ] &&
+    glob "$1" '[dels]*' && [ ! -d "$PA_DIR" ] &&
         die 'The password directory does not exist, try running "pa init"'
 
     # Try entering the password directory only after checking for it.
     cd "$PA_DIR" ||
         die "Can't access password directory"
 
-    glob "$1" '[ades]*' && (command -v age >/dev/null 2>&1 ||
+    glob "$1" '[des]*' && (command -v age >/dev/null 2>&1 ||
         die "age not found, install per https://github.com/FiloSottile/age")
 
     glob "$1" '[es]*' && [ ! -f "$PA_PRIVKEYS" ] &&
         die 'The privkeys file does not exist, try running "pa init"'
 
-    glob "$1" '[ae]*' && [ ! -f "$PA_PUBKEYS" ] &&
+    glob "$1" '[e]*' && [ ! -f "$PA_PUBKEYS" ] &&
         die 'The pubkeys file does not exist, try running "pa init"'
 
-    glob "$1" '[ades]*' && [ -z "$2" ] &&
+    glob "$1" '[des]*' && [ -z "$2" ] &&
         die "Missing [name] argument"
 
-    glob "$1" '[des]*' && [ ! -f "$2.age" ] &&
+    glob "$1" '[ds]*' && [ ! -f "$2.age" ] &&
         die "Pass file '$2' doesn't exist"
-
-    glob "$1" 'a*' && [ -f "$2.age" ] &&
-        die "Pass file '$2' already exists"
 
     glob "$2" '*/*' && glob "$2" '*../*' &&
         die "Category went out of bounds"
@@ -246,7 +200,6 @@ main() {
     [ -t 1 ] && trap 'stty echo icanon' INT EXIT
 
     case $1 in
-    a*) pw_add "$2" ;;
     d*) pw_del "$2" ;;
     e*) pw_edit "$2" ;;
     s*) pw_show "$2" ;;
