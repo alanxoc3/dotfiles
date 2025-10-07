@@ -199,8 +199,8 @@ bindsym $mod+r mode "resize"
     bindsym $mod+Control+Up    exec wlr-randr --output eDP-1 --transform 180
     bindsym $mod+Control+Left  exec wlr-randr --output eDP-1 --transform 270
 
-    bindsym $mod+Backspace       exec sh -c 'waylock -init-color 0x323232 -input-color 0x1d2b53 -fail-color 0xff004d & sleep 1s; systemctl suspend || true'
-    bindsym $mod+Shift+Backspace exec sh -c 'systemctl suspend || true'
+    bindsym $mod+Shift+Backspace exec systemctl suspend && waylock -init-color 0x000000 -input-color 0x1d2b53 -fail-color 0xff004d
+    bindsym $mod+Backspace       exec                      waylock -init-color 0x000000 -input-color 0x1d2b53 -fail-color 0xff004d
 
     bindsym $mod+F11    exec grim -g "$(slurp 2>/dev/null || echo 0,0 2256x1504)" - | wl-copy; wl-paste -n > /tmp/ss.png
     bindsym $mod+F12    exec sh -c '~/.dot/bin/screen_record'

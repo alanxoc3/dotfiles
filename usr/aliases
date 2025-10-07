@@ -376,6 +376,7 @@ a c.='cd_print ..'
 
 a edl='k ~/diary/devlog.md'
 a ejr='k ~/diary/$(date "+%Y")_diary.md'
+a efo='k ~/diary/focus.txt'
 a esc='k ~/diary/schedule'
 a ra='ranger'
 
