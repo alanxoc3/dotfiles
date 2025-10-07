@@ -709,10 +709,14 @@ fzffilt_cd() {
 }
 fzfexec_cd() {}
 
-fzflist_exec() { echo "$PATH" | tr : '\0' | xargs -0 fd . --exact-depth 1 2>/dev/null | sed -E 's,.+/,,g' | sort -u }
+# This can run commands and show what is on the path.
+fzflist_exec() { echo "$PATH" | tr : '\0' | xargs -0 fd . -t x --exact-depth 1 2>/dev/null | sed -E 's,.+/,,g' | sort -u }
 fzfcomm_exec() { echo fzf_menu_s }
 fzffilt_exec() { echo "$(cat)" }
 fzfexec_exec() {}
+
+# This is more useful for just seeing everything part of the path.
+fzflist_bin() { echo "$PATH" | tr : '\0' | xargs -0 fd . -t x --exact-depth 1 2>/dev/null | sort -u }
 
 transfer(){ if [ $# -eq 0 ];then echo "No arguments specified.\nUsage:\n transfer <file|directory>\n ... | transfer <file_name>">&2;return 1;fi;if tty -s;then file="$1";file_name=$(basename "$file");if [ ! -e "$file" ];then echo "$file: No such file or directory">&2;return 1;fi;if [ -d "$file" ];then file_name="$file_name.zip" ,;(cd "$file"&&zip -r -q - .)|curl --progress-bar --upload-file "-" "https://transfer.sh/$file_name"|tee /dev/null,;else cat "$file"|curl --progress-bar --upload-file "-" "https://transfer.sh/$file_name"|tee /dev/null;fi;else file_name=$1;curl --progress-bar --upload-file "-" "https://transfer.sh/$file_name"|tee /dev/null;fi;}
 

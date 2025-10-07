@@ -2,68 +2,23 @@
   "$schema": "https://opencode.ai/config.json",
   "share": "disabled",
   "theme": "system",
-  "mode": {
+  "agent": {
     "build": {
-      "tools": {
-        "bash":            false,
-        "task":            false,
-
-        "edit":            true,
-        "patch":           true,
-        "write":           true,
-        "multiedit":       true,
-
-        "glob":            true,
-        "grep":            true,
-        "list":            true,
-        "lsp_diagnostics": true,
-        "lsp_hover":       true,
-        "read":            true,
-        "todoread":        true,
-        "todowrite":       true,
-        "webfetch":        true
+      "permission": {
+        "edit": "allow",
+        "bash": {
+          "*": "ask",
+        },
+        "webfetch": "allow"
       }
     },
     "plan": {
-      "tools": {
-        "bash":            false,
-        "task":            false,
-
-        "edit":            false,
-        "patch":           false,
-        "write":           false,
-        "multiedit":       false,
-
-        "glob":            true,
-        "grep":            true,
-        "list":            true,
-        "lsp_diagnostics": true,
-        "lsp_hover":       true,
-        "read":            true,
-        "todoread":        true,
-        "todowrite":       true,
-        "webfetch":        true
-      }
-    },
-    "danger": {
-      "tools": {
-        "bash":            true,
-        "task":            true,
-
-        "edit":            true,
-        "patch":           true,
-        "write":           true,
-        "multiedit":       true,
-
-        "glob":            true,
-        "grep":            true,
-        "list":            true,
-        "lsp_diagnostics": true,
-        "lsp_hover":       true,
-        "read":            true,
-        "todoread":        true,
-        "todowrite":       true,
-        "webfetch":        true
+      "permission": {
+        "edit": "deny",
+        "bash": {
+          "*": "ask",
+        },
+        "webfetch": "allow"
       }
     }
   }
