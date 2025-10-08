@@ -13,7 +13,7 @@ set $up k
 set $right l
 set $term foot
 set $menu wmenu-run -f 'SourceCodePro Bold 12' -N '#000000'
-set $passmenu PA_DIR="$HOME/pass" pa show "$(PA_DIR="$HOME/pass" pa list | wmenu -f 'SourceCodePro Bold 12' -N '#000000')" | wl-copy >/dev/null
+set $passmenu $HOME/.dot/bin/wmenu-pass
 
 input * tap enabled
 input * click_method clickfinger
