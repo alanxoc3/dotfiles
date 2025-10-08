@@ -33,6 +33,7 @@ cfp() {
 
 if [ "${EUID:-$(id -u)}" -eq 0 ]; then # run as root
 
+cfp sys/polkit.rules                /etc/polkit-1/rules.d/50-suspend.rules
 cfp sys/launch-de                   /usr/local/bin/launch-de
 cfp sys/agreety_issue               /etc/issue
 cfp sys/greetd.toml                 /etc/greetd/config.toml
