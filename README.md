@@ -41,8 +41,8 @@ alanxoc3's dotfiles. feel free to plagiarize. the following is software i use or
 - [xsv](https://github.com/BurntSushi/xsv). Master csv cli tool.
 
 ## development
-- [aider](https://aider.chat/). The only Cursor IDE-like ai pair programmer. I wish it was a bit less bloated, but there isn't an alternative right now.
 - [mockoon](https://mockoon.com/). Good way to create WS mocks for integration testing.
+- [opencode](https://github.com/sst/opencode). A fantastic cursor/claude-code/aider alternative built for people like me!
 - [pylsp](https://github.com/python-lsp/python-lsp-server). A language server.
 
 ## gamedev
@@ -62,7 +62,7 @@ alanxoc3's dotfiles. feel free to plagiarize. the following is software i use or
 - [kdenlive](https://kdenlive.org/en/). A video editor. I used this once, I would love a more lightweight & fast solution though.
 - [keyd](https://github.com/rvaiya/keyd). Keyboard mapping customization actually done the right way.
 - [physlock](https://github.com/xyb3rt/physlock). A simple solution to lock a linux computer including all TTYs.
-- [river](https://github.com/riverwm/river). Tiling window manager for wayland.
+- [sway](https://github.com/swaywm/sway). Tiling window manager for wayland. I wanna switch to hyperland though.
 - [tailscale](https://tailscale.com/). Very easy way to setup a vpc between laptops/servers.
 - [warpd](https://github.com/rvaiya/warpd). A keynav replacement that works with wayland. Currently has a bug when used with fcitx5.
 - [waylock](https://github.com/ifreund/waylock). Simple wayland lock screen. New version uses the ext-session-lock wayland protocol.
@@ -89,9 +89,9 @@ alanxoc3's dotfiles. feel free to plagiarize. the following is software i use or
 
 ## services
 - [asciinema](https://asciinema.org/). Super easy to record your terminal screen.
-- [chatgpt](https://openai.com/blog/chatgpt). Artificial Intelligence.
 - [croc](https://github.com/schollz/croc). A great/fast/secure file sharing utility + service.
 - [gh](https://cli.github.com/). Github made an official CLI. Can be useful for managing PRs & issues.
+- [kagi](https://kagi.com/). A better search engine.
 - [mastodon](https://joinmastodon.org/). Decentralized alternative to twitter.
 - [radico8](https://github.com/alanxoc3/radico8). The webradio I listen to for hours each week.
 
