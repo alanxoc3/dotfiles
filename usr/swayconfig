@@ -183,16 +183,17 @@ bindsym $mod+r mode "resize"
 #
 # Utilities:
 #
-    bindsym --locked $mod+F1  exec pamixer --set-volume 0
-    bindsym --locked $mod+F2  exec pamixer --set-volume 30
-    bindsym --locked $mod+F3  exec pamixer --set-volume 60
-    bindsym --locked $mod+F4  exec pamixer --set-volume 100
-    bindsym --locked $mod+F5  exec systemctl --user is-active radico8-player && systemctl --user stop radico8-player || systemctl --user start radico8-player
-    bindsym --locked $mod+F6  exec light -S 4
-    bindsym --locked $mod+F7  exec light -S 25
-    bindsym --locked $mod+F8  exec light -S 100
-    bindsym --locked $mod+F9  exec ~/.dot/bin/alan-redshift
-    bindsym --locked $mod+F10 exec sh -c 'export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus; busctl --user call rs.wl-gammarelay / rs.wl.gammarelay ToggleInverted'
+    bindsym --locked $mod+F1        exec pamixer --set-volume 0
+    bindsym --locked $mod+F2        exec pamixer --set-volume 30
+    bindsym --locked $mod+F3        exec pamixer --set-volume 60
+    bindsym --locked $mod+F4        exec pamixer --set-volume 100
+    bindsym --locked $mod+F5        exec light -S 0
+    bindsym --locked $mod+F6        exec light -S .1
+    bindsym --locked $mod+F7        exec light -S 4
+    bindsym --locked $mod+F8        exec light -S 25
+    bindsym --locked $mod+F9        exec light -S 100
+    bindsym --locked $mod+F10       exec ~/.dot/bin/alan-redshift
+    bindsym --locked $mod+Shift+F10 exec sh -c 'export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus; busctl --user call rs.wl-gammarelay / rs.wl.gammarelay ToggleInverted'
 
     bindsym $mod+Control+Down  exec wlr-randr --output eDP-1 --transform normal
     bindsym $mod+Control+Right exec wlr-randr --output eDP-1 --transform 90

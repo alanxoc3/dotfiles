@@ -674,9 +674,9 @@ fd_sane_order() {
 # these functions list things
 fzflist_dirs()       { fd_sane_order -t d }
 fzflist_files()      { fd_sane_order -t f -t l }
-fzflist_gitbranch()  { git for-each-ref --format='%(refname:short)' refs/remotes refs/heads }
-fzflist_gitrefs()    { git for-each-ref --format='%(refname:short)' }
-fzflist_gittag()     { git for-each-ref --format='%(refname:short)' refs/tags }
+fzflist_gitbranch()  { git for-each-ref --sort=-committerdate --format='%(refname:short)' refs/remotes refs/heads }
+fzflist_gitrefs()    { git for-each-ref --sort=-committerdate --format='%(refname:short)' }
+fzflist_gittag()     { git for-each-ref --sort=-committerdate --format='%(refname:short)' refs/tags }
 fzflist_ssh()        { sed -rn 's/^\s*Host\s+(.*)$/\1/ip' ~/.ssh/config ~/.ssh/local_ssh 2> /dev/null | xargs -n1 }
 fzflist_ttrack()     { ttrack ls -r }
 fzflist_man()        { apropos "." 2> /dev/null | awk '{print $1;}' | uniq }

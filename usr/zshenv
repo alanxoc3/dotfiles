@@ -4,7 +4,7 @@
 # A bunch more environment variables
 export ANACONDA_HOME="$HOME/anaconda3"
 export ANDROID_HOME=/opt/android-sdk
-export BROWSER=chromium
+export BROWSER=zen-browser
 export CONCARDS_OUTCOME="$HOME/track/concards-data/outcome"
 export CONCARDS_PREDICT="$HOME/track/concards-data/predict"
 export PLAYDATE_SDK_PATH="$HOME/.playdate"
