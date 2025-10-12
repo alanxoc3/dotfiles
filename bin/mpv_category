@@ -11,4 +11,6 @@ waitexecq() {
 }
 
 waitexecq 5s 'for x in $(pactl list short sink-inputs | awk "{print \$1}"); do pactl set-sink-input-volume $x 100%; done'
-mpv --volume="$2" --script=$filename "${@:3}"
+
+# 2025-10-12: Found out about "--loop-playlist=force". This loops files even if they don't exist and would retry webradios too based on their documentation!
+mpv --loop-playlist=force --volume="$2" --script=$filename "${@:3}"
