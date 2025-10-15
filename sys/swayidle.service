@@ -1,4 +1,4 @@
 [Service]
-ExecStart=swayidle timeout 180 'waylock'
+ExecStart=swayidle timeout 180 'waylock -fork-on-lock -init-color 0x1d2b53 -input-color 0x008751 -fail-color 0xff004d'
 RestartSec=1s
 Restart=always

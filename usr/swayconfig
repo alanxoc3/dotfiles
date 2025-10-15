@@ -200,25 +200,12 @@ bindsym $mod+r mode "resize"
     bindsym $mod+Control+Up    exec wlr-randr --output eDP-1 --transform 180
     bindsym $mod+Control+Left  exec wlr-randr --output eDP-1 --transform 270
 
-    bindsym $mod+Shift+Backspace exec sh -c 'waylock -fork-on-lock -init-color 0x000000 -input-color 0x1d2b53 -fail-color 0xff004d && systemctl suspend'
-    bindsym $mod+Backspace       exec sh -c 'waylock -fork-on-lock -init-color 0x000000 -input-color 0x1d2b53 -fail-color 0xff004d'
+    bindsym --locked $mod+Delete exec sh -c 'systemctl suspend'
+    bindsym $mod+Backspace exec sh -c 'waylock -fork-on-lock -init-color 0x1d2b53 -input-color 0x008751 -fail-color 0xff004d'
 
-    bindsym $mod+F11    exec grim -g "$(slurp 2>/dev/null || echo 0,0 2256x1504)" - | wl-copy; wl-paste -n > /tmp/ss.png
-    bindsym $mod+F12    exec sh -c '~/.dot/bin/screen_record'
-    bindsym $mod+Delete exec sh -c 'killall -s INT wf-recorder'
-
-    # bindsym $mod+Super+F12 exec rm -rf /tmp/record.gif; wf-recorder -F fps=30 -c gif -f /tmp/record.gif
-
-    # # Special keys to adjust volume via PulseAudio
-    # bindsym --locked XF86AudioMute exec pactl set-sink-mute \@DEFAULT_SINK@ toggle
-    # bindsym --locked XF86AudioLowerVolume exec pactl set-sink-volume \@DEFAULT_SINK@ -5%
-    # bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume \@DEFAULT_SINK@ +5%
-    # bindsym --locked XF86AudioMicMute exec pactl set-source-mute \@DEFAULT_SOURCE@ toggle
-    # # Special keys to adjust brightness via brightnessctl
-    # bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
-    # bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
-    # # Special key to take a screenshot with grim
-    # bindsym Print exec grim
+    bindsym $mod+F11       exec grim -g "$(slurp 2>/dev/null || echo 0,0 2256x1504)" - | wl-copy; wl-paste -n > /tmp/ss.png
+    bindsym $mod+F12       exec sh -c '~/.dot/bin/screen_record'
+    bindsym $mod+Shift+F12 exec sh -c 'killall -s INT wf-recorder'
 
 #
 # Status Bar:
