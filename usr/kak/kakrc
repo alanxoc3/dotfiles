@@ -48,7 +48,7 @@ addhl global/ regex "[\t ]+$" 0:,bright-red
 
 # lsp stuff to consider enabling...
 eval %sh{kak-lsp --kakoune -s $kak_session}
-hook global WinSetOption filetype=(zig|rust|python|go|javascript|typescript|vue|c|cpp) %{
+hook global WinSetOption filetype=(zig|rust|yaml|python|go|javascript|typescript|vue|c|cpp) %{
     lsp-enable-window
 }
 

@@ -204,8 +204,10 @@ bindsym $mod+r mode "resize"
     bindsym $mod+Backspace exec sh -c 'waylock -fork-on-lock -init-color 0x1d2b53 -input-color 0x008751 -fail-color 0xff004d'
 
     bindsym $mod+F11       exec grim -g "$(slurp 2>/dev/null || echo 0,0 2256x1504)" - | wl-copy; wl-paste -n > /tmp/ss.png
-    bindsym $mod+F12       exec sh -c '~/.dot/bin/screen_record'
-    bindsym $mod+Shift+F12 exec sh -c 'killall -s INT wf-recorder'
+    bindsym $mod+Shift+F11 exec grim - | wl-copy; wl-paste -n > /tmp/ss.png
+
+    # bindsym $mod+F12       exec sh -c '~/.dot/bin/screen_record'
+    # bindsym $mod+Shift+F12 exec sh -c 'killall -s INT wf-recorder'
 
 #
 # Status Bar:

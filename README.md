@@ -14,14 +14,15 @@ alanxoc3's dotfiles. feel free to plagiarize. the following is software i use or
 - [himalaya](https://github.com/soywod/himalaya). Finally, a good scriptable email client.
 - [just](https://github.com/casey/just). Easy way to organize many tiny similar commands/aliases into 1 command.
 - [k9s](https://k9scli.io/). Tui for kubernetes management. Sometimes slow. Wish it did a bit less. But better than other things.
-- [slides](https://github.com/maaslalani/slides). A markdown + terminal based presentation tool.
 - [minisign](https://github.com/jedisct1/minisign). A simple cli tool to sign files.
 - [mpv](https://mpv.io/). Nice CLI based media player. Good for webradios, gifs, and streaming videos.
 - [pa](https://github.com/biox/pa). A simple age encrypted password manager. Similar to pass, but simpler.
 - [pwgen](https://linux.die.net/man/1/pwgen). A minimal password generation tool.
 - [rg](https://github.com/BurntSushi/ripgrep). Search file content super fast. Faster and cooler than grep.
+- [slides](https://github.com/maaslalani/slides). A markdown + terminal based presentation tool.
 - [sponge](https://joeyh.name/code/moreutils/). Collect stdin before executing command.
 - [sq](https://sequoia-pgp.org/). A simpler, more modern, less feature complete than gnupg, cli interface for pgp. I recommend staying away from pgp if possible though.
+- [tinyxxd](https://github.com/xyproto/tinyxxd). For all your hex viewing needs.
 - [tldr](https://github.com/tldr-pages/tldr). Repo full of markdown cheatsheets for cli tools.
 - [tmux](https://github.com/tmux/tmux). Terminal multiplexer.
 - [transmission-cli](https://transmissionbt.com/). A popular bittorrent client.
@@ -94,6 +95,7 @@ alanxoc3's dotfiles. feel free to plagiarize. the following is software i use or
 - [kagi](https://kagi.com/). A better search engine.
 - [mastodon](https://joinmastodon.org/). Decentralized alternative to twitter.
 - [radico8](https://github.com/alanxoc3/radico8). The webradio I listen to for hours each week.
+- [crds-catalog](https://github.com/datreeio/CRDs-catalog/blob/main/Utilities/annotate-yaml.py). Useful for getting yaml language server support for kubernetes resources.
 
 ## wishlist
 Some things I want but don't have.

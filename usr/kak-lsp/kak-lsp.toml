@@ -296,7 +296,9 @@ filetypes = ["yaml"]
 roots = [".git", ".hg"]
 command = "yaml-language-server"
 args = ["--stdio"]
-[language.yaml.settings]
+
+[language.yaml.settings.yaml]
+schemaStore.enable = true
 
 [language.zig]
 filetypes = ["zig"]
