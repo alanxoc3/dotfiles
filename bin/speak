@@ -1,6 +1,0 @@
-#!/bin/bash
-if [[ "$(uname)" =~ Darwin ]]; then
-    say $1 > /dev/null 2>&1
-else
-    espeak "$*" > /dev/null 2>&1
-fi

@@ -7,4 +7,5 @@ elif [ "activating" = "$(systemctl --user is-active warpd)" ]; then
   INPUT_STATE='Ｗ'
 fi
 
-echo $(acpi -b | grep -o '[0-9]*%') '|' "$INPUT_STATE" '|' $(date -u '+%Y-%m-%d %H:%M:%S') $(date +%:z)
+# The `grep -v` part is for when switch controllers are connected.
+echo $(acpi -b | grep -v '\b0%' | grep -o '[0-9]*%') '|' "$INPUT_STATE" '|' $(date -u '+%Y-%m-%d %H:%M:%S') $(date +%:z)

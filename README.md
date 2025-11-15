@@ -30,6 +30,7 @@ alanxoc3's dotfiles. feel free to plagiarize. the following is software i use or
 - [unbuffer](http://expect.sourceforge.net/example/unbuffer.man.html). Trick command to think stdout is a terminal device.
 - [wl-gammarelay-rs](https://github.com/MaxVerevkin/wl-gammarelay-rs). A simple daemon for changing linux/wayland brightness/temp/invert.
 - [zsh](https://www.zsh.org/). The shell I currently use.
+- [flite](https://github.com/festvox/flite). Convenient + tiny speech synthesis.
 
 ## data
 - [csvlens](https://github.com/YS-L/csvlens). A decent csv cli viewer. Ran into some visual bugs over time, but is much better than most other things I've tried.

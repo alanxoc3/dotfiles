@@ -1,0 +1,6 @@
+#!/bin/bash
+if [ -t 0 ]; then
+  echo "$@" | flite -voice slt
+else
+  flite -voice slt
+fi

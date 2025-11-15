@@ -7,7 +7,7 @@ ttt() { [[ -n $1 ]] && while sleep 1s; do (ttrack rec "$1" 2s &); done || echo '
 
 speakechosleep() {
     echo "$2 - $3"
-    (speak "$2" &>/dev/null &)
+    say "$2"
     ttt "$1" &
     local TTT_PID="$!"
     sleep "$3"
