@@ -257,7 +257,10 @@ ofbr() {
 }
 
 ghpr() {
-  gpn; gh pr create -dt "$(gbc)" -b ''; gh pr view --web
+    gpn
+    gh pr create -t "$(gbc)" -b ''
+    gh pr view --json url | jq .url -r | ccl
+    gh pr view --web
 }
 
 # git list cases

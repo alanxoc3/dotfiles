@@ -1,0 +1,5 @@
+#!/bin/bash
+F=$HOME/work/"$(date +%Y-%m-%d)"-"$1"
+
+kak "$F"
+echo "$F"
