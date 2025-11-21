@@ -235,15 +235,10 @@ a gitsvnignore='git svn show-ignore >> .git/info/exclude'
 
 # one off github pr
 ofpr() {
-  local prefix='pr'
-  if [ -n "$1" ]; then
-    prefix="$1"
-  fi
-
-  local branch_name="$prefix-$(pwgen 5 -A -0 1)"
+  local branch_name="pr-$(pwgen 5 -A -0 1)"
   git checkout -b "$branch_name"
   gcm
-  ghpr
+  ghpr "$1"
 }
 
 ofbr() {
@@ -257,8 +252,13 @@ ofbr() {
 }
 
 ghpr() {
+    local body='@coderabbitai ignore'
+    if [ -n "$1" ]; then
+        body=''
+    fi
+    
     gpn
-    gh pr create -t "$(gbc)" -b ''
+    gh pr create -t "$(gbc)" -b "$body"
     gh pr view --json url | jq .url -r | ccl
     gh pr view --web
 }
