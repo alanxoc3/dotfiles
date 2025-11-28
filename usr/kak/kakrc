@@ -39,7 +39,8 @@ set-option global aligntab false
 
 hook global BufCreate .* %{
     hook buffer -group tabspace InsertChar \t %{ execute-keys -draft '<esc>h@' }
-    hook buffer BufSetOption indentwidth=0 %{ remove-hooks buffer tabspace }
+    # TODO: what was this, it messes up auto indents!
+    # hook buffer BufSetOption indentwidth=0 %{ remove-hooks buffer tabspace }
 }
 
 addhl global/ show-whitespaces -tab '⎸' -tabpad ' ' -lf ' ' -nbsp ' ' -spc ' '
