@@ -9,6 +9,7 @@ alanxoc3's dotfiles. feel free to plagiarize. the following is software i use or
 - [eza](https://github.com/eza-community/eza). A modern implementation of ls.
 - [fd](https://github.com/sharkdp/fd). Search file names super fast. Faster and cooler than find.
 - [feh](https://feh.finalrewind.org/). Simple image viewer.
+- [flite](https://github.com/festvox/flite). Convenient + tiny speech synthesis.
 - [fzf](https://github.com/junegunn/fzf). Fuzzy find for anything.
 - [git](https://git-scm.com/). The magical version control software.
 - [himalaya](https://github.com/soywod/himalaya). Finally, a good scriptable email client.
@@ -29,17 +30,18 @@ alanxoc3's dotfiles. feel free to plagiarize. the following is software i use or
 - [ttrack](https://github.com/alanxoc3/ttrack). Time tracker CLI app.
 - [unbuffer](http://expect.sourceforge.net/example/unbuffer.man.html). Trick command to think stdout is a terminal device.
 - [wl-gammarelay-rs](https://github.com/MaxVerevkin/wl-gammarelay-rs). A simple daemon for changing linux/wayland brightness/temp/invert.
+- [yazi](https://github.com/sxyazi/yazi). A faster ranger. File manager in the terminal.
 - [zsh](https://www.zsh.org/). The shell I currently use.
-- [flite](https://github.com/festvox/flite). Convenient + tiny speech synthesis.
 
 ## data
-- [csvlens](https://github.com/YS-L/csvlens). A decent csv cli viewer. Ran into some visual bugs over time, but is much better than most other things I've tried.
+- [csvlens](https://github.com/YS-L/csvlens). A decent csv cli viewer. Ran into some visual bugs over time, but has terminal perks.
 - [dbmate](https://github.com/amacneil/dbmate). Framework agnostic cli tool to manage (postgres) schema changes.
 - [diff-so-fancy](https://github.com/so-fancy/diff-so-fancy). Makes `git diff` and `diff -u` look a bit better. Looking for a good side-by-side diff viewer though.
 - [jq](https://github.com/jqlang/jq). A JSON language. I swear JSONL is the easiest data format to work with.
 - [jsonnet](https://jsonnet.org/). A JSON configuration language. I wish kubernetes used this instead of YAML by default.
 - [psql](https://www.postgresql.org/docs/current/app-psql.html). Default postgres cli client. I can do most postgres things with psql+kak+llms.
 - [ssconvert](http://www.gnumeric.org/). Just a tool for converting excel to csv.
+- [ulid](https://github.com/ulid/spec). A command and spec. Unique identifier format, precisely 100% better than all UUID specifications.
 - [xsv](https://github.com/BurntSushi/xsv). Master csv cli tool.
 
 ## development
