@@ -594,13 +594,11 @@ a wh=which
 a termdown='termdown -a --font 3x5'
 a tt='ttrack'
 a bat='bat -p --paging never'
-a b='bat'
 a u='echo -e "$(whoami)@$(cat /etc/hostname)"'
-a bn='basename'
+a bana='basename'
 a p='pwd'
 a wai=whoami
 a lam='lookatme --live -e terminal'
-a pipu='pip install --user --break-system-packages'
 a bc='bc -q'
 
 j2y() {

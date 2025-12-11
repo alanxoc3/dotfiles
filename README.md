@@ -46,6 +46,7 @@ alanxoc3's dotfiles. feel free to plagiarize. the following is software i use or
 - [mockoon](https://mockoon.com/). Good way to create WS mocks for integration testing.
 - [opencode](https://github.com/sst/opencode). A fantastic cursor/claude-code/aider alternative built for people like me!
 - [pylsp](https://github.com/python-lsp/python-lsp-server). A language server.
+- [uv](https://github.com/astral-sh/uv). A modern/easier/faster/better python pip+venv replacement.
 
 ## gamedev
 - [pico8](https://www.lexaloffle.com/pico-8.php). The original fantasy console.
