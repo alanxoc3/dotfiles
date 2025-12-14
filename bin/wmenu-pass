@@ -1,2 +1,0 @@
-#!/bin/zsh
-PA_DIR="$HOME/pass" pa show "$(PA_DIR="$HOME/pass" pa list | wmenu -f 'SourceCodePro Bold 12' -N '#000000')" | wl-copy >/dev/null

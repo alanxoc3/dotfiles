@@ -12,8 +12,6 @@ set $down j
 set $up k
 set $right l
 set $term foot
-set $menu wmenu-run -f 'SourceCodePro Bold 12' -N '#000000'
-set $passmenu $HOME/.dot/bin/wmenu-pass
 
 input * tap enabled
 input * click_method clickfinger
@@ -23,7 +21,7 @@ input * repeat_delay 250
 input * repeat_rate 60
 
 # This gets rid of the title bar
-default_border pixel 8
+default_border pixel 1
 
 output eDP-1 scale 1
 output eDP-1 bg #000000 solid_color
@@ -68,8 +66,9 @@ output eDP-1 bg #000000 solid_color
     bindsym $mod+m              exec wl-mirror -r '0,0 2256x1504'
 
     bindsym $mod+q kill
-    bindsym $mod+space exec $menu
-    bindsym $mod+Shift+space exec $passmenu
+
+    bindsym $mod+space exec $HOME/.dot/bin/xmen-exec
+    bindsym $mod+Shift+space exec $HOME/.dot/bin/xmen-pass
     floating_modifier $mod normal
     bindsym $mod+Shift+c reload
 
@@ -125,13 +124,8 @@ output eDP-1 bg #000000 solid_color
     bindsym $mod+Shift+9 move container to workspace number 9
     bindsym $mod+Shift+0 move container to workspace number 10
 
-    bindsym $mod+b splith
+    bindsym $mod+e splith
     bindsym $mod+v splitv
-
-    # Switch the current container between different layout styles
-    bindsym $mod+s layout stacking
-    bindsym $mod+w layout tabbed
-    bindsym $mod+e layout toggle split
 
     # Make the current focus fullscreen
     bindsym $mod+f fullscreen
@@ -139,12 +133,6 @@ output eDP-1 bg #000000 solid_color
     bindsym $mod+g floating enable
     bindsym $mod+t floating disable
 
-    # Swap focus between the tiling area and the floating area
-    # bindsym $mod+space focus mode_toggle
-
-    # Move focus to the parent container
-    bindsym $mod+a focus parent
-#
 # Scratchpad:
 #
     # Sway has a "scratchpad", which is a bag of holding for windows.
@@ -215,21 +203,25 @@ bindsym $mod+r mode "resize"
 font SourceCodePro Bold 10
 titlebar_padding 2
 
+client.focused #fff1e8 #ffffff #00ffff #ff0000
+client.unfocused #888888 #888888 #888888 #888888
+
 bar {
-    position top
-    font SourceCodePro Bold 6
+    font Iosevka Term 11
     status_padding 0
-    mode invisible
-    position bottom
+    # mode invisible
+    position top
 
     # When the status_command prints a new line to stdout, swaybar updates.
     # The default just shows the current date and time.
-    # status_command while i3b_time; do sleep 1; done
+    status_command while xstat; do sleep 1; done
 
     colors {
-        statusline #ffffff
-        background #323232
-        inactive_workspace #32323200 #32323200 #5c5c5c
+        statusline #fff1e8
+        background #000000
+        inactive_workspace #000000 #000000 #fff1e8
+        focused_workspace #fff1e8 #000000 #fff1e8
+        active_workspace #888888 #000000 #888888
     }
 }
 

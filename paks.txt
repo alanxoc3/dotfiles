@@ -1,0 +1,100 @@
+acpi
+age minisign
+alsa-utils
+amfora
+asciinema
+aspell
+aspell-en
+base
+base-devel
+bat
+bc
+btop
+cheese
+cmatrix fastfetch
+croc
+dbmate
+diff-so-fancy
+efibootmgr
+expect
+feh
+flite
+foot
+fortune-mod
+fzf
+gammastep
+git
+git-filter-repo
+git-lfs
+go
+greetd
+inotify-tools
+intel-ucode
+iwd bluez bluez-utils dhcpcd
+just
+k9s
+keyd
+kubectl
+lazygit
+linux
+linux-firmware
+linux-headers
+lsof
+macchanger
+man-db
+moreutils
+mkcert
+
+mpv yt-dlp
+noise-suppression-for-voice
+
+noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-extra ttc-iosevka
+
+obs-studio
+obsidian
+openbsd-netcat
+openssh
+pacman-contrib
+pamixer
+pavucontrol
+pgformatter
+pipewire
+pipewire-pulse
+podman
+postgresql
+pv
+pwgen
+reflector
+ripgrep
+rsync
+slurp
+speedtest-cli
+sshuttle
+stress
+syncthing
+tailscale
+texinfo
+thermald
+tlp
+tmate
+tmux
+transmission-cli
+ufw
+unzip
+w3m
+waylock
+wget
+which
+wireplumber
+wireshark-cli
+yazi eza fd dive dust
+
+zathura
+zathura-pdf-mupdf
+zip
+zsh
+
+kakoune kakoune-lsp zls yaml-language-server
+yamllint jq go-yq xsv csvlens
+
+sway swayidle xdg-desktop-portal xdg-desktop-portal-gtk xdg-desktop-portal-wlr wl-clipboard wl-mirror wlr-randr grim wmenu wf-recorder

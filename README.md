@@ -69,7 +69,7 @@ alanxoc3's dotfiles. feel free to plagiarize. the following is software i use or
 - [physlock](https://github.com/xyb3rt/physlock). A simple solution to lock a linux computer including all TTYs.
 - [sway](https://github.com/swaywm/sway). Tiling window manager for wayland. I wanna switch to hyperland though.
 - [tailscale](https://tailscale.com/). Very easy way to setup a vpc between laptops/servers.
-- [warpd](https://github.com/rvaiya/warpd). A keynav replacement that works with wayland. Currently has a bug when used with fcitx5.
+- [warpd](https://github.com/janmejay/warpd/tree/master). A keynav replacement that works with wayland. Pointing to a fork that fixes it on sway. Currently has a bug when used with fcitx5.
 - [waylock](https://github.com/ifreund/waylock). Simple wayland lock screen. New version uses the ext-session-lock wayland protocol.
 - [wlr-randr](https://sr.ht/~emersion/wlr-randr/). Monitor management randr tool but for wayland.
 

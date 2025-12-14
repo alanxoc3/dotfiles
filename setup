@@ -50,6 +50,8 @@ cfp sys/swayidle.service            /etc/systemd/user/swayidle.service
 cfp sys/rivertile.service           /etc/systemd/user/rivertile.service
 cfp sys/iwd.conf                    /etc/iwd/main.conf
 
+systemctl enable --now dhcpcd iwd thermald tlp ufw keyd
+
 systemctl daemon-reload
 
 else # run as user

@@ -1,0 +1,7 @@
+aseprite-bin
+light
+opencode-bin
+wl-gammarelay-rs
+yay
+zen-browser-bin
+zigup-bin

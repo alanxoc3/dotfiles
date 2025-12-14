@@ -1,0 +1,2 @@
+#!/bin/bash
+wmenu -p "$1" -f 'Iosevka Term 14' -N 000000 -n fff1e8 -M 000000 -m fff1e8 -S fff1e8 -s 000000

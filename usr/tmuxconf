@@ -24,9 +24,6 @@ bind-key -T prefix x kill-pane
 bind-key -T prefix X run-shell 'tmux switch-client -n; tmux kill-session -t "#S"'
 bind-key -T prefix S new-session
 
-set -g status-style fg=white,bg=#000000,dim
-set -g status-interval 1
-
 set -g pane-border-lines heavy
 set -g window-active-style 'fg=#ffffff'
 set -g window-style 'fg=#aaaaaa'
@@ -35,15 +32,11 @@ set -g pane-border-style 'fg=#112222,bg=default'
 set -g display-panes-colour blue
 set -g display-panes-active-colour red
 
-set -g window-status-format "#[fg=blue]#I#[default]"
-set -g window-status-current-format "#[fg=blue,bold][#[default]#[fg=yellow,bold]#I#[fg=red,bold]#{?window_zoomed_flag,:Z,}#[fg=blue,bold]]#[default]"
-
 if-shell 'test -z "$SSH_CLIENT"' {
-    set -g status-left "#[fg=green,bold]LOCAL#[default] "
-    set-option -g status-position bottom
-
-    # local time is the default right message
-    set -g status-right "#[fg=white]#(i3b_time)"
+    set -g status off
+    # set-option -g status-position bottom
+    # set -g status-left "#[fg=green,bold]LOCAL#[default] "
+    # set -g status-right "#[fg=white]#(i3b_time)"
 
     # add disable keybinding
     bind -T root F12 set prefix None \
@@ -56,6 +49,12 @@ if-shell 'test -z "$SSH_CLIENT"' {
         \; set status-left "#[fg=green,bold]LOCAL#[default] " \
         \;
 } {
+    set -g status-style fg=white,bg=#000000,dim
+    set -g status-interval 1
+    set -g window-status-format "#[fg=blue]#I#[default]"
+    set -g window-status-current-format "#[fg=blue,bold][#[default]#[fg=yellow,bold]#I#[fg=red,bold]#{?window_zoomed_flag,:Z,}#[fg=blue,bold]]#[default]"
+
+
     set-option -g status-position top
     set -g status-left "#[fg=cyan,bold]SSH#[default] "
     set -g status-right '#[fg=white]#(echo -e "$(whoami)@$(hostname)")'
