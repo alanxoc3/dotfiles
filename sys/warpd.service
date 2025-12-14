@@ -1,5 +1,5 @@
 [Service]
-ExecStart=warpd -c /home/alan/.dot/warpd-config -f --grid
+ExecStart=%h/.local/bin/warpd -c %h/.dot/warpd-config -f --grid
 Type=oneshot
 Restart=no
 
