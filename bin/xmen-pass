@@ -1,2 +1,2 @@
 #!/bin/zsh
-PA_DIR="$HOME/pass" pa show "$(PA_DIR="$HOME/pass" pa list | xmen PAS:)" | wl-copy >/dev/null
+PA_DIR="$HOME/pass" pa show "$(PA_DIR="$HOME/pass" pa list | xmen PASS:)" | wl-copy >/dev/null

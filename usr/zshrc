@@ -48,3 +48,6 @@ source_file "$HOME/.dot/zbindings"
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+
+# opencode
+export PATH=/home/alan/.opencode/bin:$PATH

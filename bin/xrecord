@@ -1,0 +1,5 @@
+#!/bin/zsh
+FILENAME=$HOME/Desktop/screencast_$(date --utc +%Y-%m-%d_%H:%M:%S)
+AUDIO_DEVICE=$(pactl list sources | rg Name | rg 'analog-stereo.monitor' | awk '{print $2}')
+FALLBACK_DIMENSION=$(wlr-randr --json | jq -r "\"0,0 \" + (.[0].modes[0].width | tostring) + \"x\" + (.[0].modes[0].height | tostring)")
+wf-recorder -g "$(slurp 2>/dev/null || echo $FALLBACK_DIMENSION)" -a="$AUDIO_DEVICE" -y -f $FILENAME.mp4

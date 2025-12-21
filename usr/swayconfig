@@ -63,7 +63,7 @@ output eDP-1 bg #000000 solid_color
     bindsym $mod+Control+Return exec footclient             -t xterm-256color /bin/zsh -li
     bindsym $mod+c              exec sh -c 'systemctl --user stop fcitx5; if [ "activating" = "$(systemctl --user is-active warpd)"  ]; then systemctl --user stop warpd;  else systemctl --user start warpd;  fi'
     bindsym $mod+d              exec sh -c 'systemctl --user stop warpd;  if [ "activating" = "$(systemctl --user is-active fcitx5)" ]; then systemctl --user stop fcitx5; else systemctl --user start fcitx5; fi'
-    bindsym $mod+m              exec wl-mirror -r '0,0 2256x1504'
+    bindsym $mod+m              exec xmirror
 
     bindsym $mod+q kill
 
@@ -88,6 +88,11 @@ output eDP-1 bg #000000 solid_color
     bindsym $mod+Up focus up
     bindsym $mod+Right focus right
 
+    bindsym $mod+Ctrl+$left  resize shrink width  64px
+    bindsym $mod+Ctrl+$down  resize grow   height 64px
+    bindsym $mod+Ctrl+$up    resize shrink height 64px
+    bindsym $mod+Ctrl+$right resize grow   width  64px
+
     # Move the focused window with the same, but add Shift
     bindsym $mod+Shift+$left move left
     bindsym $mod+Shift+$down move down
@@ -111,7 +116,7 @@ output eDP-1 bg #000000 solid_color
     bindsym $mod+7 workspace number 7
     bindsym $mod+8 workspace number 8
     bindsym $mod+9 workspace number 9
-    bindsym $mod+0 workspace number 10
+
     # Move focused container to workspace
     bindsym $mod+Shift+1 move container to workspace number 1
     bindsym $mod+Shift+2 move container to workspace number 2
@@ -122,16 +127,14 @@ output eDP-1 bg #000000 solid_color
     bindsym $mod+Shift+7 move container to workspace number 7
     bindsym $mod+Shift+8 move container to workspace number 8
     bindsym $mod+Shift+9 move container to workspace number 9
-    bindsym $mod+Shift+0 move container to workspace number 10
 
     bindsym $mod+e splith
     bindsym $mod+v splitv
 
     # Make the current focus fullscreen
-    bindsym $mod+f fullscreen
-
-    bindsym $mod+g floating enable
-    bindsym $mod+t floating disable
+    bindsym $mod+f sticky disable ; fullscreen toggle
+    bindsym $mod+g sticky disable ; fullscreen disable ; floating enable
+    bindsym $mod+t sticky disable ; fullscreen disable ; floating disable
 
 # Scratchpad:
 #
@@ -139,41 +142,15 @@ output eDP-1 bg #000000 solid_color
     # You can send windows there and get them back later.
 
     # Move the currently focused window to the scratchpad
-    bindsym $mod+Shift+minus move scratchpad
+    bindsym $mod+Shift+minus sticky enable ; move scratchpad
 
     # Show the next scratchpad window or hide the focused scratchpad window.
     # If there are multiple scratchpad windows, this command cycles through them.
     bindsym $mod+minus scratchpad show
-#
-# Resizing containers:
-#
-mode "resize" {
-    # left will shrink the containers width
-    # right will grow the containers width
-    # up will shrink the containers height
-    # down will grow the containers height
-    bindsym $left resize shrink width 10px
-    bindsym $down resize grow height 10px
-    bindsym $up resize shrink height 10px
-    bindsym $right resize grow width 10px
 
-    # Ditto, with arrow keys
-    bindsym Left resize shrink width 10px
-    bindsym Down resize grow height 10px
-    bindsym Up resize shrink height 10px
-    bindsym Right resize grow width 10px
-
-    # Return to default mode
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-}
-bindsym $mod+r mode "resize"
-#
-# Utilities:
-#
     bindsym --locked $mod+F1        exec pamixer --set-volume 0
-    bindsym --locked $mod+F2        exec pamixer --set-volume 30
-    bindsym --locked $mod+F3        exec pamixer --set-volume 60
+    bindsym --locked $mod+F2        exec pamixer --set-volume 45
+    bindsym --locked $mod+F3        exec pamixer --set-volume 65
     bindsym --locked $mod+F4        exec pamixer --set-volume 100
     bindsym --locked $mod+F5        exec light -S 0
     bindsym --locked $mod+F6        exec light -S .1
@@ -191,15 +168,16 @@ bindsym $mod+r mode "resize"
     bindsym --locked $mod+Delete exec sh -c 'systemctl suspend'
     bindsym $mod+Backspace exec sh -c 'waylock -fork-on-lock -init-color 0x1d2b53 -input-color 0x008751 -fail-color 0xff004d'
 
-    bindsym $mod+F11       exec grim -g "$(slurp 2>/dev/null || echo 0,0 2256x1504)" - | wl-copy; wl-paste -n > /tmp/ss.png
-    bindsym $mod+Shift+F11 exec grim - | wl-copy; wl-paste -n > /tmp/ss.png
+    bindsym $mod+F11 exec $HOME/.dot/bin/xshot
+    bindsym $mod+Shift+F11 exec feh --force-aliasing --scale-down --draw-filename /tmp/ss.png
 
-    # bindsym $mod+F12       exec sh -c '~/.dot/bin/screen_record'
-    # bindsym $mod+Shift+F12 exec sh -c 'killall -s INT wf-recorder'
+    bindsym $mod+F12       exec $HOME/.dot/bin/xrecord
+    bindsym $mod+Shift+F12 exec mpv --loop --force-window "$(fd '^screencast_.*\.mp4$' ~/Desktop | sort | tail -n 1)"
 
-#
-# Status Bar:
-#
+    # There are a few "modes" that are displayed in xstat.
+    # The modes are: WARP/FCITX and MIRROR/RECORD/SCREENSHOT. This exits out of all those modes! This is how you end screen recording sessions.
+    bindsym $mod+Backslash exec zsh -c 'killall -s INT wf-recorder ; killall -s INT wl-mirror ; killall -s INT slurp ; systemctl --user stop warpd ; systemctl --user stop fcitx5'
+
 font SourceCodePro Bold 10
 titlebar_padding 2
 
@@ -252,7 +230,13 @@ exec hash dbus-update-activation-environment 2>/dev/null && \
 
 exec systemctl --user restart foot-server swayidle fcitx
 
-# seat * hide_cursor 25000
+# Adjust for alignment, e.g., 0.95 0 0.05 0 1 0 0 0 1 for offsets
+
+# Usually won't use touch.
+input type:touch events disabled
+
+# But could use the pen!
+input type:tablet_tool events enabled
 
 # idk why a sleep is needed here... but it is.
 exec_always sleep .25s && systemctl --user restart wl-gammarelay-rs && sleep .25s && ~/.dot/bin/alan-redshift

@@ -1,0 +1,4 @@
+#!/bin/zsh
+FALLBACK_DIMENSION=$(wlr-randr --json | jq -r "(.[0].modes[0].width | tostring) + \"x\" + (.[0].modes[0].height | tostring) + \"+0+0\"")
+grim - | magick - -crop "$(slurp -f %wx%h+%x+%y 2>/dev/null || echo $FALLBACK_DIMENSION)" /tmp/ss.png
+cat /tmp/ss.png | ccl > /dev/null

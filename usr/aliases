@@ -187,6 +187,7 @@ repos() { cd ~/repos "$@" }
 rep() { repos "$@" }
 cg() { cd $(git rev-parse --show-toplevel) "$@" }
 gs() { git status "$@" }
+lg() { lazygit }
 gst() { git stash "$@" }
 g() { git "$@" }
 gsi() { git submodule init "$@" }

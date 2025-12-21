@@ -1,11 +1,28 @@
 #!/bin/bash
-INPUT_STATE='Ｅ'
 
-if [ "activating" = "$(systemctl --user is-active fcitx5)" ]; then
-  INPUT_STATE='中'
-elif [ "activating" = "$(systemctl --user is-active warpd)" ]; then
-  INPUT_STATE='Ｗ'
+# TODO: Signal sway to reload... Somehow
+
+if [ -z $INPUT_STATE ]; then
+  INPUT_STATE='E'
+
+  if [ "activating" = "$(systemctl --user is-active fcitx5)" ]; then
+    INPUT_STATE='Z'
+  elif [ "activating" = "$(systemctl --user is-active warpd)" ]; then
+    INPUT_STATE='W'
+  fi
 fi
 
-# The `grep -v` part is for when switch controllers are connected.
-echo $(acpi -b | grep -v '\b0%' | grep -o '[0-9]*%') '|' "$INPUT_STATE" '|' $(date -u '+%Y-%m-%d %H:%M:%S') $(date +%:z)
+BATTERY=$(acpi -b | rg -v 'Unknown|\b0%' | rg -o '\d+%' | head -n 1 | tr -d %)
+DATE=$(date -u '+%Y-%m-%d %H:%M:%S')' '$(date +%:z)
+VOLUME=$(pamixer --get-volume)
+
+RECORD="N"
+if [ -n "$(pidof wf-recorder)" ]; then
+  RECORD="R"
+elif [ -n "$(pidof slurp)" ]; then
+  RECORD="S"
+elif [ -n "$(pidof wl-mirror)" ]; then
+  RECORD="M"
+fi
+
+printf 'VOL:%03.f%% | BAT:%03.f%% | %s:%s | %s' "$VOLUME" "$BATTERY" "$INPUT_STATE" "$RECORD" "$DATE"
