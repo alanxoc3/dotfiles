@@ -26,3 +26,6 @@ elif [ -n "$(pidof wl-mirror)" ]; then
 fi
 
 printf 'VOL:%03.f%% | BAT:%03.f%% | %s:%s | %s' "$VOLUME" "$BATTERY" "$INPUT_STATE" "$RECORD" "$DATE"
+
+# always return true.
+true
