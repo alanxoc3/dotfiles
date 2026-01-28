@@ -64,6 +64,7 @@ cf usr/local_aliases      .local_aliases
 cf usr/local_gitconfig    .local_gitconfig
 cf usr/gitignore          .gitignore
 cf usr/git-templates      .git-templates
+cf usr/lazygit.yml        .config/lazygit/config.yml
 cf usr/kak                .config/kak
 cf usr/tree-sitter.json   .config/tree-sitter/config.json
 cf usr/opencode.json      .config/opencode/opencode.json
