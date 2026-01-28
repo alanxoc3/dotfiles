@@ -14,7 +14,7 @@ cheese
 cmatrix fastfetch
 croc
 dbmate
-diff-so-fancy
+difftastic
 efibootmgr
 expect
 feh
