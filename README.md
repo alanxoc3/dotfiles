@@ -18,6 +18,7 @@ alanxoc3's dotfiles. feel free to plagiarize. the following is software i use or
 - [minisign](https://github.com/jedisct1/minisign). A simple cli tool to sign files.
 - [mpv](https://mpv.io/). Nice CLI based media player. Good for webradios, gifs, and streaming videos.
 - [pa](https://github.com/biox/pa). A simple age encrypted password manager. Similar to pass, but simpler.
+- [paru](https://github.com/Morganamilo/paru). Rust-based AUR package manager for Arch Linux. Auto-opens PKGBUILD files with pager unlike yay... Umm, yes please.
 - [pwgen](https://linux.die.net/man/1/pwgen). A minimal password generation tool.
 - [rg](https://github.com/BurntSushi/ripgrep). Search file content super fast. Faster and cooler than grep.
 - [slides](https://github.com/maaslalani/slides). A markdown + terminal based presentation tool.
