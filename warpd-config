@@ -27,8 +27,9 @@ grid_exit:                m
 grid_exit:                r
 grid_exit:                space
 
+# Disable drag for now because there is a bug with wayland that basically ruins warpd without a wayland restart if drag gets into a bad state.
+# I've messed this up enough times to decide I can use warpd without drag for now.
 drag:                     unbind
-drag:                     d
 
 oneshot_buttons:          Cancel Cancel Cancel
 buttons:                  space m r

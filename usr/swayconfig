@@ -122,6 +122,9 @@ output eDP-1 bg #000000 solid_color
     bindsym $mod+8 workspace number 8
     bindsym $mod+9 workspace number 9
 
+    # This one is binded, because i don't want a zero to be entered into programs when pressed.
+    bindsym $mod+0 nop
+
     # Move focused container to workspace
     bindsym $mod+Shift+1 move container to workspace number 1
     bindsym $mod+Shift+2 move container to workspace number 2

@@ -253,16 +253,21 @@ ofbr() {
   git checkout -b "$branch_name"
 }
 
+# Workflows to solve eventually...
+# pr (no coderabbit)
+# pr (no coderabbit)
+# draft pr (no reviewers)
+
 ghpr() {
-    local body='@coderabbitai ignore'
+    local body=''
     if [ -n "$1" ]; then
-        body=''
+        body='@coderabbitai ignore'
     fi
 
     gpn
 
     # GHPRARGS is for default reviewers currently for work environment
-    gh pr create -t "$(gbc)" -b "$body" ${=GHPRARGS}
+    gh pr create -d -t "$(gbc)" -b "$body" ${=GHPRARGS}
 
     gh pr view --json url | jq .url -r | ccl
     gh pr view --web
