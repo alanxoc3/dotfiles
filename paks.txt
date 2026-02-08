@@ -17,6 +17,7 @@ dbmate
 difftastic
 efibootmgr
 expect
+framework-system
 feh
 flite
 foot
