@@ -183,6 +183,7 @@ a umtwo="sudo umount /mnt2"
 # use filter-repo to remove a file from history
 # git filter-repo --path <absolute-path-of-file-from-base-dir> --invert-paths --force
 
+libr() { libreoffice "$@" }
 repos() { cd ~/repos "$@" }
 rep() { repos "$@" }
 cg() { cd $(git rev-parse --show-toplevel) "$@" }
