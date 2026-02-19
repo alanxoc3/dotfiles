@@ -56,6 +56,7 @@ systemctl daemon-reload
 
 else # run as user
 
+cf usr/presenterm.yaml    .config/presenterm/config.yaml
 cf usr/zshrc              .zshrc
 cf usr/zshenv             .zshenv
 cf usr/aliases            .aliases

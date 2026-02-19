@@ -4,6 +4,7 @@ alanxoc3's dotfiles. feel free to plagiarize. the following is software i use or
 ## commandline
 - [age](https://gnupg.org/). A simple cli tool/protocol to encrypt files. Way simpler than gpg.
 - [amfora](https://github.com/makeworld-the-better-one/amfora). CLI based gemini client.
+- [chawan](https://chawan.net/). TUI web browser.
 - [concards](https://github.com/alanxoc3/concards). Use this to review flashcards.
 - [dust](https://github.com/bootandy/dust). Easy way to find which files take up the most space on a system.
 - [eza](https://github.com/eza-community/eza). A modern implementation of ls.
@@ -19,9 +20,9 @@ alanxoc3's dotfiles. feel free to plagiarize. the following is software i use or
 - [mpv](https://mpv.io/). Nice CLI based media player. Good for webradios, gifs, and streaming videos.
 - [pa](https://github.com/biox/pa). A simple age encrypted password manager. Similar to pass, but simpler.
 - [paru](https://github.com/Morganamilo/paru). Rust-based AUR package manager for Arch Linux. Auto-opens PKGBUILD files with pager unlike yay... Umm, yes please.
+- [presenterm](https://github.com/mfontanini/presenterm/). A markdown + terminal based presentation tool. More features & activity than slides/lookatme I think.
 - [pwgen](https://linux.die.net/man/1/pwgen). A minimal password generation tool.
 - [rg](https://github.com/BurntSushi/ripgrep). Search file content super fast. Faster and cooler than grep.
-- [slides](https://github.com/maaslalani/slides). A markdown + terminal based presentation tool.
 - [sponge](https://joeyh.name/code/moreutils/). Collect stdin before executing command.
 - [sq](https://sequoia-pgp.org/). A simpler, more modern, less feature complete than gnupg, cli interface for pgp. I recommend staying away from pgp if possible though.
 - [tinyxxd](https://github.com/xyproto/tinyxxd). For all your hex viewing needs.
