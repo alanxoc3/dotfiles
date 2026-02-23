@@ -57,7 +57,6 @@ output eDP-1 bg #000000 solid_color
 #
 # Basics:
 #
-    # bindsym $mod+Return         exec $term
     bindsym $mod+Return         exec footclient             -t xterm-256color /bin/zsh -li -c "tmux"
     bindsym $mod+Shift+Return   exec footclient             -t xterm-256color /bin/zsh -li -c "tmux attach"
     bindsym $mod+Control+Return exec footclient             -t xterm-256color /bin/zsh -li
@@ -79,6 +78,9 @@ output eDP-1 bg #000000 solid_color
 #
     # 2026-01-28: Using "u" because it is on the dvorak home row and I'm not using it for anything right now.
     bindsym $mod+u focus mode_toggle
+
+    bindsym $mod+bracketleft  input type:touchpad events disabled
+    bindsym $mod+bracketright input type:touchpad events enabled
 
     # Move your focus around
     bindsym $mod+$left focus left
