@@ -2,6 +2,29 @@
   "$schema": "https://opencode.ai/config.json",
   "share": "disabled",
   "theme": "system",
+  "mcp": {
+    "duckduckgo": {
+      "type": "local",
+      "command": ["npx", "-y", "duckduckgo-mcp-server"],
+      "enabled": true
+    },
+    "brave-search": {
+      "type": "local",
+      "command": ["npx", "-y", "@modelcontextprotocol/server-brave-search"],
+      "enabled": true,
+      "environment": {
+        "BRAVE_API_KEY": "{env:BRAVE_API_KEY}"
+      }
+    },
+    "exa": {
+      "type": "local",
+      "command": ["npx", "-y", "exa-mcp-server"],
+      "enabled": true,
+      "environment": {
+        "EXA_API_KEY": "{env:EXA_API_KEY}"
+      }
+    }
+  },
   "agent": {
     "build": {
       "permission": {
@@ -10,6 +33,10 @@
           "*": "ask",
         },
         "webfetch": "allow"
+      },
+      "tools": {
+        "webfetch": true,
+        "websearch": true
       }
     },
     "plan": {

@@ -1,0 +1,2 @@
+#!/bin/bash
+mkdir -p ~/.themes/mybg/gtk-3.0 && printf '* { padding: 0px; margin: 0px; min-height: 0px; min-width: 0px; border: 0px; }\nwindow { background-color: #FF0000; }\nbox { background-image: image(#FF0000); }' > ~/.themes/mybg/gtk-3.0/gtk.css && GTK_THEME="mybg" yad --width=100 --height=100 --no-buttons --undecorated --window-type=dialog --borders=0

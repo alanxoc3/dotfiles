@@ -1,2 +1,0 @@
-#!/bin/bash
-ANTHROPIC_API_KEY=$(pa s claude-api 2>/dev/null) opencode "$@"

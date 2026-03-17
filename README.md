@@ -37,7 +37,8 @@ alanxoc3's dotfiles. feel free to plagiarize. the following is software i use or
 ## data
 - [csvlens](https://github.com/YS-L/csvlens). A decent csv cli viewer. Ran into some visual bugs over time, but has terminal perks.
 - [dbmate](https://github.com/amacneil/dbmate). Framework agnostic cli tool to manage (postgres) schema changes.
-- [difftastic](https://difftastic.wilfred.me.uk/). Great diff tool. Way more readable than the default git diff and diff-so-fancy. Switches between inline and side-by-side diffs.
+- [difftastic](https://difftastic.wilfred.me.uk/). Code-aware diff tool that switches between inline and side-by-side diffs.
+- [jless](https://jless.io/). A json viewer for the commandline. Looks nice and has good keybindings (eg collapse/expand nested).
 - [jq](https://github.com/jqlang/jq). A JSON language. I swear JSONL is the easiest data format to work with.
 - [jsonnet](https://jsonnet.org/). A JSON configuration language. I wish kubernetes used this instead of YAML by default.
 - [psql](https://www.postgresql.org/docs/current/app-psql.html). Default postgres cli client. I can do most postgres things with psql+kak+llms.
