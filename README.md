@@ -3,7 +3,6 @@ alanxoc3's dotfiles. feel free to plagiarize. the following is software i use or
 
 ## commandline
 - [age](https://gnupg.org/). A simple cli tool/protocol to encrypt files. Way simpler than gpg.
-- [amfora](https://github.com/makeworld-the-better-one/amfora). CLI based gemini client.
 - [chawan](https://chawan.net/). TUI web browser.
 - [concards](https://github.com/alanxoc3/concards). Use this to review flashcards.
 - [dust](https://github.com/bootandy/dust). Easy way to find which files take up the most space on a system.
@@ -81,18 +80,21 @@ alanxoc3's dotfiles. feel free to plagiarize. the following is software i use or
 - [kakoune](http://kakoune.org/). A modal editor that closely follows the unix philosophy.
 
 ## server
-- [agate](https://github.com/mbrubeck/agate). Simple gemini server written in rust.
 - [archlinux](https://www.archlinux.org/). My main operating system. Nice for servers too.
 - [certbot](https://certbot.eff.org/). Https for free. Thank you.
 - [docker](https://www.docker.com/). Mainly used for extra layer of security on servers.
 - [gemini](https://gemini.circumlunar.space/). The future of the internet.
 - [ii](https://tools.suckless.org/ii/). Minimalist IRC client that uses unix pipes.
-- [kineto](https://github.com/alanxoc3/kineto). Gemini to https proxy.
 - [linode](https://www.linode.com/). Simple service to get a server up and running.
 - [minecraft](https://www.minecraft.net/en-us). A very blocky game.
 - [nginx](https://nginx.org/). Port redirection + other stuff for your server.
 - [syncthing](https://syncthing.net/). Self hosted/decentralized dropbox-like replacement.
 - [systemd](https://systemd.io/). Bulky, but it works great for the most part.
+
+## gemini
+- [agate](https://github.com/mbrubeck/agate). Simple gemini server written in rust.
+- [amfora](https://github.com/makeworld-the-better-one/amfora). CLI based gemini client.
+- [kineto](https://github.com/alanxoc3/kineto). Gemini to https proxy.
 
 ## services
 - [asciinema](https://asciinema.org/). Super easy to record your terminal screen.
