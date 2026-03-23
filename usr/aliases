@@ -358,15 +358,6 @@ a i3l='i3lock -c 000000'
 a 3il='i3l'
 a sx=startx
 
-# sdcv
-a define=sdcv
-a defin=sdcv
-a defi=sdcv
-a def=sdcv
-a dic=sdcv
-a dictionary=sdcv
-a dict=sdcv
-
 # cd
 cd_print() {
     if cd $1 >/dev/null; then

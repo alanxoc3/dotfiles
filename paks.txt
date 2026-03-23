@@ -51,8 +51,8 @@ noise-suppression-for-voice
 
 noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-extra ttc-iosevka
 
-obs-studio
 obsidian
+obs-studio
 openbsd-netcat
 openssh
 pacman-contrib
@@ -68,6 +68,7 @@ pwgen
 reflector
 ripgrep
 rsync
+sd
 slurp
 speedtest-cli
 sshuttle

@@ -1,0 +1,3 @@
+#!/bin/bash
+# All this does is wrap text in the way I want.
+fmt -c -w 128

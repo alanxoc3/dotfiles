@@ -22,8 +22,8 @@ alanxoc3's dotfiles. feel free to plagiarize. the following is software i use or
 - [presenterm](https://github.com/mfontanini/presenterm/). A markdown + terminal based presentation tool. More features & activity than slides/lookatme I think.
 - [pwgen](https://linux.die.net/man/1/pwgen). A minimal password generation tool.
 - [rg](https://github.com/BurntSushi/ripgrep). Search file content super fast. Faster and cooler than grep.
+- [sd](https://github.com/chmln/sd). Sed replacement using modern regex syntax. And only a few useful options (multiline mode & fixed strings).
 - [sponge](https://joeyh.name/code/moreutils/). Collect stdin before executing command.
-- [sq](https://sequoia-pgp.org/). A simpler, more modern, less feature complete than gnupg, cli interface for pgp. I recommend staying away from pgp if possible though.
 - [tinyxxd](https://github.com/xyproto/tinyxxd). For all your hex viewing needs.
 - [tldr](https://github.com/tldr-pages/tldr). Repo full of markdown cheatsheets for cli tools.
 - [tmux](https://github.com/tmux/tmux). Terminal multiplexer.
@@ -109,3 +109,9 @@ alanxoc3's dotfiles. feel free to plagiarize. the following is software i use or
 ## wishlist
 Some things I want but don't have.
 - A "shuf" command that can work with large files. Maybe randomly selecting bytes. Or shuffling in batches of x number of lines, that way it works with long streams of stdin.
+- A "sort" command that sorts based on fuzziness (can be slow, don't care too much about speed, or different levels).
+- Use more of https://github.com/ibraheemdev/modern-unix?tab=readme-ov-file
+
+## todo:
+- https://git.sr.ht/~hadronized/config/tree/463910805debd045deb727a7a60a43acbf2a7c19/item/kak/autoload/user/pickers.kak?__goaway_challenge=meta-refresh&__goaway_id=b0b5aca8edeb56c343825b052edb99b0
+
